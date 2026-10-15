@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_outbound_chain_demo",
+  "version": 1,
+  "title_ru": "Compose and send",
+  "title_en": "Compose and send",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^outbound chain$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc1",
+      "type": "prompt_gen",
+      "mode": "stateful",
+      "inputs": {
+        "prompt": "Write a short announcement for {{turn.user_line}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" }
+      },
+      "title_ru": "Compose",
+      "title_en": "Compose"
+    },
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc2",
+      "type": "confirm_gate",
+      "mode": "stateful",
+      "config": {
+        "confirm_message_ru": "Отправить сообщение?",
+        "confirm_message_en": "Send this message?"
+      },
+      "outputs": {
+        "message": { "type": "text" }
+      },
+      "title_ru": "Confirm",
+      "title_en": "Confirm"
+    },
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc3",
+      "type": "telegram_sender",
+      "mode": "stateful",
+      "inputs": {
+        "message_text": "{{cccccccc-cccc-4ccc-8ccc-ccccccccccc1.reply}}",
+        "chat_id": "123456789"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "delivery_status": { "type": "string" },
+        "chat_id": { "type": "string" }
+      },
+      "title_ru": "Telegram",
+      "title_en": "Telegram"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc1",
+      "target_node_id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc2"
+    },
+    {
+      "source_node_id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc2",
+      "target_node_id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc3"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "outbound", "telegram"]
+}

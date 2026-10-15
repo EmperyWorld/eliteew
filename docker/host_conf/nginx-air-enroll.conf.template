@@ -1,0 +1,67 @@
+# EliteEW Air enrollment — isolated TLS/WebSocket ingress.
+# Rendered by install-air-enroll-edge.sh; placeholders are certificate paths.
+# Public reachability is granted only by the timed nft active_ports set and the
+# dedicated Yandex Security Group. Direct TCP 39443 is denied by nftables.
+
+limit_req_zone $binary_remote_addr zone=eliteew_air_enroll_rate:10m rate=6r/m;
+limit_conn_zone $binary_remote_addr zone=eliteew_air_enroll_conn:10m;
+
+log_format eliteew_air_enroll
+    '$remote_addr [$time_local] "$request_method $uri $server_protocol" '
+    '$status $body_bytes_sent "$http_user_agent"';
+
+server {
+    listen 39443 ssl;
+    server_name app.eliteew.ru;
+    server_tokens off;
+
+    ssl_certificate __ELITEEW_AIR_TLS_CERT__;
+    ssl_certificate_key __ELITEEW_AIR_TLS_KEY__;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_session_tickets off;
+
+    access_log /var/log/nginx/eliteew-air-enroll.access.log eliteew_air_enroll;
+    error_log /var/log/nginx/eliteew-air-enroll.error.log warn;
+
+    client_max_body_size 16k;
+    client_body_timeout 10s;
+    keepalive_timeout 20s;
+    send_timeout 30s;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header Cache-Control "no-store" always;
+
+    location = /api/v1/desktop-client/air-enroll/ws {
+        if ($request_method != GET) {
+            return 405;
+        }
+        if ($args != "") {
+            return 404;
+        }
+
+        limit_req zone=eliteew_air_enroll_rate burst=2 nodelay;
+        limit_conn eliteew_air_enroll_conn 2;
+
+        proxy_pass http://eliteew_api_upstream;
+        proxy_http_version 1.1;
+        proxy_set_header Host app.eliteew.ru;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-EliteEW-Air-Ingress edge-v1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_buffering off;
+        proxy_request_buffering off;
+        proxy_connect_timeout 5s;
+        proxy_read_timeout 130s;
+        proxy_send_timeout 30s;
+        proxy_socket_keepalive on;
+    }
+
+    location / {
+        return 444;
+    }
+}

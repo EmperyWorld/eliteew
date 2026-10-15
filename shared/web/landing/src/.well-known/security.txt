@@ -1,0 +1,5 @@
+Contact: mailto:keysray70@gmail.com
+Preferred-Languages: ru, en
+Canonical: https://eliteew.ru/.well-known/security.txt
+Expires: 2027-05-27T00:00:00.000Z
+Policy: https://eliteew.ru/

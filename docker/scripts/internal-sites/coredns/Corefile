@@ -1,0 +1,59 @@
+# Внутренний DNS EliteEW: только зоны проекта из file/hosts — без рекурсии на публичные резолверы.
+# Запросы вне известных зон → NXDOMAIN (см. INTERNAL-DNS.md).
+#
+# View vpn-clients: подсети удалённых VPN/LAN-клиентов (при необходимости поправьте incidr под ваш контур).
+# Если SNAT меняет client_ip до INTERNAL_DNS_BIND_ADDRESS — добавьте || incidr(client_ip(), '<IP>/32') в expr.
+
+. {
+    view vpn-clients {
+        expr incidr(client_ip(), '10.66.66.0/24')
+    }
+    log
+    errors
+
+    hosts /zones/vpn-overrides.hosts {
+        fallthrough
+    }
+
+    file /zones/sites.eliteew.ru.vpn.db sites.eliteew.ru
+
+    # Interim Site Studio product hosts: {slug}-site.eliteew.ru → edge (cert *.eliteew.ru).
+    template IN A {
+        match "^([a-z0-9-]+)-site\\.eliteew\\.ru\\.$"
+        answer "{{ .Name }} 60 IN A 93.77.165.185"
+    }
+
+    template IN ANY . {
+        match "^.*$"
+        rcode NXDOMAIN
+    }
+    cache 300
+    reload 5s
+}
+
+. {
+    view default-clients {
+        expr true
+    }
+    log
+    errors
+
+    hosts /zones/internal-overrides.hosts {
+        fallthrough
+    }
+
+    file /zones/sites.eliteew.ru.db sites.eliteew.ru
+
+    # Interim Site Studio product hosts: {slug}-site.eliteew.ru → edge (cert *.eliteew.ru).
+    template IN A {
+        match "^([a-z0-9-]+)-site\\.eliteew\\.ru\\.$"
+        answer "{{ .Name }} 60 IN A 93.77.165.185"
+    }
+
+    template IN ANY . {
+        match "^.*$"
+        rcode NXDOMAIN
+    }
+    cache 300
+    reload 5s
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "version": "0.5.37",
+    "date": "2026-09-13",
+    "summary": "EBrowser stage: clear labwc fullscreen; clearnet/X11 prior fixes.",
+    "items": [
+      "EBrowser stage set_fullscreen(false) on create",
+      "Version tree 0.5.37"
+    ]
+  },
+  {
+    "version": "0.5.36",
+    "date": "2026-09-10",
+    "summary": "EBrowser: не fullscreen из labwc; clear set_fullscreen(false).",
+    "items": [
+      "Лаунчер/продукт — ToggleFullscreen по title; стадии EBrowser/Meet не трогаем.",
+      "После bounds: set_fullscreen(false) (EBrowser + Meet).",
+      "Trusted Substrate kiosk SoT: те же windowRules (нужен refresh kiosk/rootfs)."
+    ]
+  },
+  {
+    "version": "0.5.35",
+    "date": "2026-09-10",
+    "summary": "EBrowser: X11/XWayland for stage bounds on Wayland.",
+    "items": [
+      "Prefer GDK_BACKEND=x11 when DISPLAY set (parented WebviewWindow move).",
+      "TS kiosk default x11; ELITEEW_FORCE_GDK_WAYLAND=1 to keep pure Wayland."
+    ]
+  },
+  {
+    "version": "0.5.34",
+    "date": "2026-09-10",
+    "summary": "EBrowser: sync NoProxy after async with_webview (false unavailable).",
+    "items": [
+      "with_webview с async-команды только ставит в очередь — ждём mpsc/recv_timeout.",
+      "Fallback: webkit_web_context_set_network_proxy_settings(NoProxy) если manager None.",
+      "Устраняет ложный WebsiteDataManager unavailable на 0.5.32/0.5.33."
+    ]
+  },
+  {
+    "version": "0.5.33",
+    "date": "2026-09-10",
+    "summary": "EBrowser: NoProxy via WebContext WebsiteDataManager (fix unavailable).",
+    "items": [
+      "NoProxy ставится через context().website_data_manager() — как WRY для proxy_url.",
+      "Устраняет fail-closed «WebsiteDataManager unavailable» на WebKitGTK 2.5x после 0.5.32."
+    ]
+  },
+  {
+    "version": "0.5.32",
+    "date": "2026-09-10",
+    "summary": "EBrowser: isolated WebContext + Linux NoProxy (SOCKS ruleset residual).",
+    "items": [
+      "Отдельный data_directory ebrowser-webview — WebContext не наследует SOCKS продукта/Meet.",
+      "Linux: NetworkProxyMode::NoProxy fail-closed (нет WebsiteDataManager → stage destroy).",
+      "0.5.28 убрал только proxy_url со stage; этого недостаточно при shared WebContext — см. fixed-errors 2026-09-10-ebrowser-webkit-context-socks-inherit."
+    ]
+  },
+  {
+    "version": "0.5.31",
+    "date": "2026-09-10",
+    "summary": "Air enrollment Path B: one-code Capsule over WSS; Activation UI.",
+    "items": [
+      "Tauri air_enroll_exchange: Crockford code → WSS Capsule v3 → Rust-only import + activation_ack.",
+      "Activation: Air code primary, USB .ecap secondary; activation_gate mutex.",
+      "Requires live edge air-enroll controller + DESKTOP_CLIENT_AIR_ENROLL_ENABLED."
+    ]
+  },
+  {
+    "version": "0.5.30",
+    "date": "2026-09-10",
+    "summary": "EBrowser Wave P+U: event-driven chrome; find/zoom IPC; UX polish.",
+    "items": [
+      "Wave P: ebrowser-chrome events + adaptive snapshot poll; bounds coalesce.",
+      "Wave U: find-in-page / zoom (WebKit), i18n, keyboard, downloads→Загрузки CTA, close-others.",
+      "Integrity: find_unavailable when FindController missing (no fake find_ok)."
+    ]
+  },
+  {
+    "version": "0.5.29",
+    "date": "2026-09-10",
+    "summary": "EBrowser: P0 policy SoT, reload/title, Linux downloads, multi-tab v0.",
+    "items": [
+      "Rust загружает policy с API (не SPA snapshot) + force-refresh ~60s.",
+      "Native reload + live page title; Linux downloads в ~/Downloads/EliteEW-EBrowser/.",
+      "Multi-tab v0: до 3 вкладок, Rust-owned stages."
+    ]
+  },
+  {
+    "version": "0.5.28",
+    "date": "2026-09-09",
+    "summary": "EBrowser: общий HTTPS через системный clearnet (без SOCKS ACL edge-only).",
+    "items": [
+      "Убран proxy_url W-transport со stage EBrowser (частично; полный фикс inherit — 0.5.32).",
+      "Продукт/Meet по-прежнему через SOCKS → edge /32."
+    ]
+  }
+]

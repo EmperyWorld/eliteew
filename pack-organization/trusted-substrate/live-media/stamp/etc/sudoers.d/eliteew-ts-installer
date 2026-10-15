@@ -1,0 +1,3 @@
+# EliteEW Trusted Substrate — allow eliteew-ts to run install apply without password.
+# Live installer UI runs as eliteew-ts; wipe/network require root.
+eliteew-ts ALL=(root) NOPASSWD: /usr/local/bin/eliteew-ts-install-apply

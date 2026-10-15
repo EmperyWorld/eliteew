@@ -1,0 +1,395 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id               String           @id @default(cuid())
+  email            String?          @unique
+  phone            String?
+  passwordHash     String?
+  name             String
+  role             UserRole         @default(USER)
+  avatar           String?
+  isActive         Boolean          @default(true)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  bookings         Booking[]
+  favorites        Favorite[]
+  orders           Order[]
+  reviews          Review[]
+
+  @@map("users")
+}
+
+model Product {
+  id                    String           @id @default(cuid())
+  name                  String
+  slug                  String           @unique
+  description           String
+  shortDescription      String?
+  price                 Int
+  oldPrice              Int?
+  volume                String?
+  collection            String
+  collectionDescription String?
+  category              String           @default("perfumes")
+  image                 String?
+  images                String[]
+  inStock               Boolean          @default(true)
+  stockQuantity         Int              @default(0)
+  isNew                 Boolean          @default(false)
+  isFeatured            Boolean          @default(false)
+  rating                Float            @default(0)
+  reviewCount           Int              @default(0)
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+  cartItems             CartItem[]
+  favorites             Favorite[]
+  orderItems            OrderItem[]
+  variants              ProductVariant[]
+  reviews               Review[]
+
+  @@map("products")
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  productId String
+  volume    String
+  price     Int
+  oldPrice  Int?
+  sku       String?
+  stock     Int      @default(10)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@map("product_variants")
+}
+
+model Consultation {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  title            String
+  shortDescription String
+  fullDescription  String?
+  price            Int
+  duration         Int
+  image            String?
+  isPopular        Boolean   @default(false)
+  isActive         Boolean   @default(true)
+  order            Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  bookings         Booking[]
+
+  @@map("consultations")
+}
+
+model Masterclass {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  title            String
+  shortDescription String
+  fullDescription  String?
+  price            Int
+  priceNote        String?
+  duration         Int
+  maxParticipants  Int
+  minParticipants  Int?      @default(1)
+  level            String?   @default("all")
+  image            String?
+  category         String
+  isActive         Boolean   @default(true)
+  order            Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  bookings         Booking[]
+
+  @@map("masterclasses")
+}
+
+model Booking {
+  id             String        @id @default(cuid())
+  userId         String?
+  consultationId String?
+  masterclassId  String?
+  guestName      String?
+  guestEmail     String?
+  guestPhone     String?
+  date           DateTime
+  time           String
+  participants   Int           @default(1)
+  status         BookingStatus @default(PENDING)
+  notes          String?
+  totalPrice     Int
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  consultation   Consultation? @relation(fields: [consultationId], references: [id])
+  masterclass    Masterclass?  @relation(fields: [masterclassId], references: [id])
+  user           User?         @relation(fields: [userId], references: [id])
+
+  @@map("bookings")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  userId          String?
+  customerName    String
+  customerEmail   String?
+  customerPhone   String
+  deliveryMethod  String
+  deliveryAddress String?
+  deliveryCity    String?
+  paymentMethod   String
+  paymentStatus   String      @default("pending")
+  subtotal        Int
+  deliveryPrice   Int         @default(0)
+  totalPrice      Int
+  status          OrderStatus @default(PENDING)
+  notes           String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+  user            User?       @relation(fields: [userId], references: [id])
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  productId String
+  variantId String?
+  volume    String?
+  quantity  Int
+  price     Int
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id])
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  @@map("order_items")
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  sessionId String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([sessionId, productId])
+  @@map("cart_items")
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, productId])
+  @@map("favorites")
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  userId     String
+  productId  String
+  rating     Int
+  text       String?
+  isApproved Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  product    Product  @relation(fields: [productId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId])
+  @@map("reviews")
+}
+
+model ScheduleSlot {
+  id          String   @id @default(cuid())
+  date        DateTime @db.Date
+  time        String
+  type        String
+  title       String?
+  description String?
+  status      String   @default("pending") // pending, done, cancelled
+  priority    String   @default("medium") // low, medium, high
+  isAvailable Boolean  @default(true)
+  maxBookings Int      @default(1)
+  bookings    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([date, time, type])
+  @@map("schedule_slots")
+}
+
+model SiteSettings {
+  id              String   @id @default("main")
+  contactPhone    String
+  contactEmail    String
+  contactAddress  String
+  workingHours    String
+  siteTitle       String   @default("Template Site")
+  siteDescription String?
+  defaultTheme    String   @default("verdant-aurora")
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  title     String?
+  category  String
+  order     Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("gallery_images")
+}
+
+model ContentBlock {
+  id        String   @id @default(cuid())
+  page      String
+  section   String
+  key       String
+  value     String
+  type      String   @default("text")
+  maxLength Int?
+  hint      String?
+  updatedAt DateTime @updatedAt
+
+  @@unique([page, section, key])
+  @@map("content_blocks")
+}
+
+model ContentImage {
+  id        String   @id @default(cuid())
+  page      String
+  section   String
+  key       String
+  url       String
+  alt       String?
+  width     Int?
+  height    Int?
+  hint      String?
+  updatedAt DateTime @updatedAt
+
+  @@unique([page, section, key])
+  @@map("content_images")
+}
+
+// ======================
+// Config / Feature Flags
+// ======================
+
+model Config {
+  id          String   @id @default(cuid())
+  namespace   String   @default("default")
+  key         String
+  type        String   @default("string") // string, int, bool, json, url, email, phone
+  valueJson   Json
+  description String?
+  updatedBy   String?
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  @@unique([namespace, key])
+  @@map("config")
+}
+
+model VerificationToken {
+  id         String    @id @default(cuid())
+  userId     String?
+  code       String    @unique
+  type       String    // e.g. password_reset, email_verify
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  meta       Json?
+  createdAt  DateTime  @default(now())
+
+  @@index([userId])
+  @@index([type, expiresAt])
+  @@map("verification_tokens")
+}
+
+model FeatureFlag {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  isEnabled   Boolean  @default(false)
+  scope       String?  // global, user, admin, frontend
+  rollout     Int?     // 0-100 percentage rollout
+  description String?
+  updatedBy   String?
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  @@map("feature_flags")
+}
+
+model RateLimitOverride {
+  id          String   @id @default(cuid())
+  subjectType String   // user, ip, session
+  subjectId   String
+  windowSec   Int
+  limit       Int
+  expiresAt   DateTime?
+  reason      String?
+  createdAt   DateTime @default(now())
+
+  @@index([subjectType, subjectId])
+  @@map("rate_limit_overrides")
+}
+
+model Presentation {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  format      String   // "classic", "modern", "minimal"
+  slides      Json     // Array of slide objects
+  theme       Json?    // Theme settings (colors, fonts, etc.)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+  @@index([isPublished])
+  @@map("presentations")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}

@@ -1,0 +1,242 @@
+{
+  "$defs": {
+    "CompanionWorkflowStepV1": {
+      "description": "One step in a declarative action workflow.",
+      "properties": {
+        "step_key": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Step Key",
+          "type": "string"
+        },
+        "kind": {
+          "default": "tool",
+          "enum": [
+            "tool",
+            "confirm_gate",
+            "delay",
+            "llm_compose",
+            "noop"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "tool_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Name"
+        },
+        "step_kind": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional PG ``ewa_companion_task_steps.step_kind`` override for Celery executor.",
+          "title": "Step Kind"
+        },
+        "requires_confirm": {
+          "default": false,
+          "title": "Requires Confirm",
+          "type": "boolean"
+        },
+        "continue_on_error": {
+          "default": false,
+          "title": "Continue On Error",
+          "type": "boolean"
+        },
+        "delay_after_ms": {
+          "default": 0,
+          "maximum": 300000,
+          "minimum": 0,
+          "title": "Delay After Ms",
+          "type": "integer"
+        },
+        "args_template": {
+          "additionalProperties": true,
+          "title": "Args Template",
+          "type": "object"
+        },
+        "title_ru": {
+          "default": "",
+          "title": "Title Ru",
+          "type": "string"
+        },
+        "title_en": {
+          "default": "",
+          "title": "Title En",
+          "type": "string"
+        },
+        "depends_on_step_keys": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Depends On Step Keys",
+          "type": "array"
+        }
+      },
+      "required": [
+        "step_key"
+      ],
+      "title": "CompanionWorkflowStepV1",
+      "type": "object"
+    },
+    "CompanionWorkflowTriggerV1": {
+      "description": "How a workflow may be started.",
+      "properties": {
+        "type": {
+          "enum": [
+            "regex",
+            "tool_router_tool",
+            "quick_intent_id",
+            "manual_admin"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "tool_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Name"
+        },
+        "min_confidence": {
+          "default": 0.65,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Min Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "CompanionWorkflowTriggerV1",
+      "type": "object"
+    }
+  },
+  "description": "Full declarative action workflow definition (catalog + builtins).",
+  "properties": {
+    "workflow_id": {
+      "pattern": "^[a-z][a-z0-9_]{2,63}$",
+      "title": "Workflow Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "title_ru": {
+      "minLength": 1,
+      "title": "Title Ru",
+      "type": "string"
+    },
+    "title_en": {
+      "minLength": 1,
+      "title": "Title En",
+      "type": "string"
+    },
+    "description_ru": {
+      "default": "",
+      "title": "Description Ru",
+      "type": "string"
+    },
+    "description_en": {
+      "default": "",
+      "title": "Description En",
+      "type": "string"
+    },
+    "enabled": {
+      "default": false,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "triggers": {
+      "items": {
+        "$ref": "#/$defs/CompanionWorkflowTriggerV1"
+      },
+      "minItems": 1,
+      "title": "Triggers",
+      "type": "array"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/CompanionWorkflowStepV1"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    },
+    "execution_mode": {
+      "default": "async",
+      "enum": [
+        "sync",
+        "async"
+      ],
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "env_gate": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Env Gate"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    }
+  },
+  "required": [
+    "workflow_id",
+    "version",
+    "title_ru",
+    "title_en",
+    "triggers",
+    "steps"
+  ],
+  "title": "CompanionWorkflowDefinitionV1",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/companion_workflow_v1.json"
+}

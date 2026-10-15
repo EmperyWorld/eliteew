@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--
+  EliteEW · Empery World — EmpiierOS installer design preview
+  Reference only: product UI is egui (installer/src/ui.rs), not a browser shell.
+-->
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EmpiierOS · установка (preview)</title>
+  <style>
+    :root {
+      --ink: #060a10;
+      --panel: #0a111a;
+      --lime: #24fc24;
+      --lime-soft: #1ad91a;
+      --muted: #8a9aab;
+      --hair: #1c2a38;
+      --track: #121c28;
+      --text: #e6ecf2;
+      --sans: "DejaVu Sans", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--ink);
+      color: var(--text);
+      font-family: var(--sans);
+    }
+    .stage {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 24px;
+      position: relative;
+    }
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(6, 10, 16, 0.55), rgba(6, 10, 16, 0.92)),
+        url("boot-splash.png") center / cover no-repeat;
+      pointer-events: none;
+    }
+    .wrap { position: relative; width: min(740px, 100%); z-index: 1; }
+    .header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+    .mark {
+      width: 52px; height: 52px; border: 1.5px solid var(--lime);
+      display: grid; place-items: center;
+    }
+    .mark span { width: 22px; height: 22px; background: var(--lime); }
+    .brand { color: var(--lime); font-weight: 700; letter-spacing: 0.06em; }
+    .sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--hair);
+      padding: 28px 32px;
+    }
+    .eyebrow { color: var(--lime); font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    h1 { margin: 0 0 10px; font-size: 28px; font-weight: 600; }
+    .lead { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 0; }
+    .meta { margin-top: 14px; color: var(--lime-soft); font-size: 13px; }
+    .primary {
+      margin-top: 28px;
+      background: var(--lime);
+      color: var(--ink);
+      border: 1px solid var(--lime);
+      padding: 11px 20px;
+      font-weight: 600;
+      cursor: default;
+    }
+    .roadmap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 24px 0 8px;
+      position: relative;
+    }
+    .roadmap::before {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      top: 50%;
+      height: 2px;
+      background: var(--track);
+      z-index: 0;
+    }
+    .step {
+      z-index: 1;
+      text-align: center;
+      flex: 1;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .dot {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1.5px solid var(--hair);
+      background: var(--panel);
+      margin: 0 auto 6px;
+    }
+    .step.done .dot { background: var(--lime); border-color: var(--lime); }
+    .step.active .dot { border-color: var(--lime); box-shadow: 0 0 0 2px rgba(36,252,36,0.2); }
+    .step.active { color: #fff; }
+    .step.done { color: var(--lime-soft); }
+    .track {
+      height: 8px;
+      background: var(--track);
+      margin-top: 16px;
+      overflow: hidden;
+    }
+    .fill { height: 100%; width: 62%; background: var(--lime); }
+    .pct { margin-top: 12px; font-size: 14px; color: var(--lime); font-weight: 600; }
+    .note { margin-top: 18px; font-size: 11px; color: #5a6a7a; }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="wrap">
+      <div class="header">
+        <div class="mark" aria-hidden="true"><span></span></div>
+        <div>
+          <div class="brand">EMPERY WORLD</div>
+          <div class="sub">EmpiierOS · установка</div>
+        </div>
+      </div>
+
+      <section class="card" aria-label="Welcome">
+        <div class="eyebrow">EMPIIEROS</div>
+        <h1>Установка системы</h1>
+        <p class="lead">
+          Подготовьте внутренний диск и при необходимости настройте сеть. После установки вы получите
+          код входа и ключ восстановления — запишите их один раз.
+        </p>
+        <div class="meta">Сеть: кабель подключён · автонастройка</div>
+        <button class="primary" type="button">Начать</button>
+      </section>
+
+      <section class="card" style="margin-top: 18px" aria-label="Progress">
+        <h1 style="font-size: 24px">Установка</h1>
+        <p class="lead">Не выключайте питание. Обычно это занимает несколько минут.</p>
+        <div class="roadmap" aria-hidden="true">
+          <div class="step done"><div class="dot"></div>Проверка</div>
+          <div class="step done"><div class="dot"></div>Разметка</div>
+          <div class="step done"><div class="dot"></div>Том данных</div>
+          <div class="step active"><div class="dot"></div>Система</div>
+          <div class="step"><div class="dot"></div>Загрузчик</div>
+          <div class="step"><div class="dot"></div>Финал</div>
+        </div>
+        <div class="pct">62% · Сейчас: Система</div>
+        <div class="track"><div class="fill"></div></div>
+        <p class="note">Design reference only. Runtime: egui in installer/src/ui.rs.</p>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

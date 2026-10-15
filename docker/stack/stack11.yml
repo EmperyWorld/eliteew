@@ -1,0 +1,575 @@
+# =============================================================================
+# EliteEW · stack11 — Jitsi Meet (внутренние видеозвонки)
+# =============================================================================
+# Запуск: docker compose -f docker/stack/stack11.yml --env-file docker/env_file/.env.stack11 up -d
+#
+# Image pin: stable-11031 (pre-rootless; not stable-11146 layout/ports).
+# Engine: Jitsi Meet Apache-2.0 — UI de-branded for EliteEW; keep LICENSE attribution in docs.
+# Комнаты только с JWT из API EliteEW; гости отключены. Профили: **recording** (Jibri), **collab** (Etherpad).
+# Медиа: JITSI_JVB_* (UDP/TCP на хосте). Публичный UI: JITSI-MEET-YANDEX-REVERSE-TUNNEL.md.
+# Upgrade runbook: documentation/platform/docker-re_doc/STACK11-JITSI-11031-UPGRADE.md
+# =============================================================================
+name: stack11
+
+networks:
+  ew_net_5402:
+    external: true
+  ew_net_2847:
+    external: true
+
+services:
+  # ==================================================================================
+  # PROSODY XMPP SERVER (JWT Authentication - Admin Only Room Creation)
+  # ==================================================================================
+  prosody:
+    image: docker.io/jitsi/prosody:stable-11031
+    container_name: stack11-jitsi-prosody-elite
+    security_opt:
+      - label=disable
+    networks: [ew_net_5402]
+    environment:
+      PUBLIC_URL: https://meet.eliteew.ru
+      XMPP_DOMAIN: meet.eliteew.ru
+      XMPP_AUTH_DOMAIN: auth.meet.eliteew.ru
+      XMPP_MUC_DOMAIN: muc.meet.eliteew.ru
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.eliteew.ru
+      XMPP_GUEST_DOMAIN: guest.meet.eliteew.ru
+      XMPP_RECORDER_DOMAIN: recorder.meet.eliteew.ru
+
+      # JWT Authentication - ТОЛЬКО ТОКЕН МОЖЕТ СОЗДАВАТЬ КОМНАТЫ!
+      ENABLE_AUTH: 1
+      AUTH_TYPE: jwt
+      JWT_APP_ID: jitsi
+      JWT_APP_SECRET: ${JITSI_APP_SECRET}
+      JWT_ACCEPTED_ISSUERS: jitsi,https://auth.eliteew.ru,https://auth.eliteew.ru/realms/empery
+      JWT_ACCEPTED_AUDIENCES: jitsi,meet.eliteew.ru
+      JWT_ALLOW_EMPTY: 0  # ⚠️ КРИТИЧНО: Запрет создания комнат без токена
+      JWT_AUTH_TYPE: token
+      JWT_TOKEN_AUTH_MODULE: token_verification
+
+      # Internal calls only: guests disabled, all participants must have an API-issued JWT.
+      ENABLE_GUESTS: 0
+      ENABLE_GUEST_DOMAIN: 0
+
+      # Lobby
+      ENABLE_LOBBY: 0
+      LOBBY_MUC: lobby.meet.eliteew.ru
+
+       # Internal auth for components
+      JICOFO_AUTH_USER: focus
+      JICOFO_AUTH_PASSWORD: ${JICOFO_AUTH_PASSWORD}
+      JVB_AUTH_USER: jvb
+      JVB_AUTH_PASSWORD: ${JVB_AUTH_PASSWORD}
+      JIBRI_RECORDER_USER: recorder
+      JIBRI_RECORDER_PASSWORD: ${JIBRI_RECORDER_PASSWORD}
+      JIBRI_XMPP_USER: jibri
+      JIBRI_XMPP_PASSWORD: ${JIBRI_XMPP_PASSWORD}
+
+      # Moderator settings
+      ENABLE_AUTO_LOGIN: 0
+      ENABLE_MODERATOR_INDICATOR: 1
+
+      # Recording is an optional later phase (Jibri profile), disabled for MVP.
+      ENABLE_RECORDING: 0
+
+      # TURN/STUN on Yandex VM (coturn); credentials via Prosody mod_turncredentials (deploy-coturn-on-vm.sh).
+      TURN_HOST: ${JITSI_TURN_HOST:-meet.eliteew.ru}
+      TURN_PORT: ${JITSI_TURN_PORT:-3478}
+      TURN_TRANSPORT: ${JITSI_TURN_TRANSPORT:-udp,tcp}
+      TURN_CREDENTIALS: ${JITSI_TURN_CREDENTIALS}
+      STUN_HOST: ${JITSI_STUN_HOST:-meet.eliteew.ru}
+      STUN_PORT: ${JITSI_STUN_PORT:-3478}
+
+      TZ: Asia/Vladivostok
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/prosody.log", "/init"]
+    # Host-network JVB reaches Prosody via loopback publish (bridge IPs are not routable from host netns).
+    ports:
+      - "127.0.0.1:5222:5222"
+    volumes:
+      - ../data/stack11/prosody_podman/config:/config
+      - ../data/stack11/prosody_podman/prosody-plugins-custom:/prosody-plugins-custom
+      - ../logs/stack11/prosody_podman:/logs
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:5280/http-bind"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ==================================================================================
+  # JITSI WEB (Frontend with FULL CUSTOMIZATION - FULL PATHS)
+  # ==================================================================================
+  web:
+    image: docker.io/jitsi/web:stable-11031
+    container_name: stack11-jitsi-web-elite
+    security_opt:
+      - label=disable
+    networks:
+      ew_net_5402:
+        aliases:
+          - web
+    environment:
+      PUBLIC_URL: https://meet.eliteew.ru
+
+      # XMPP
+      XMPP_SERVER: stack11-jitsi-prosody-elite
+      XMPP_DOMAIN: meet.eliteew.ru
+      XMPP_AUTH_DOMAIN: auth.meet.eliteew.ru
+      XMPP_MUC_DOMAIN: muc.meet.eliteew.ru
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.eliteew.ru
+      XMPP_GUEST_DOMAIN: guest.meet.eliteew.ru
+      XMPP_RECORDER_DOMAIN: recorder.meet.eliteew.ru
+      XMPP_BOSH_URL_BASE: http://stack11-jitsi-prosody-elite:5280
+
+      # JWT Authentication - rooms are created/joined only from EliteEW API tokens.
+      ENABLE_AUTH: 1
+      AUTH_TYPE: jwt
+      JWT_APP_ID: jitsi
+      JWT_APP_SECRET: ${JITSI_APP_SECRET}
+
+      # Internal calls only.
+      ENABLE_GUESTS: 0
+      ENABLE_GUEST_DOMAIN: 0
+      ENABLE_XMPP_WEBSOCKET: 1
+      # Force JVB path for mobile/LAN/reverse-tunnel clients; P2P cannot be relied on across split networks.
+      ENABLE_P2P: 0
+
+      # colibri-ws nginx in web must match JVB_WS_SERVER_ID (Docker DNS name, not container IP).
+      # stable-11031: web defaults ENABLE_COLIBRI_WEBSOCKET=0 — must pin 1 or meet.conf omits /colibri-ws/.
+      ENABLE_COLIBRI_WEBSOCKET: "1"
+      COLIBRI_WEBSOCKET_REGEX: stack11-jitsi-jvb-elite
+      # Host-network JVB publishes colibri on :19090 (cockpit owns :9090); nginx-ws script rewrites proxy_pass.
+      COLIBRI_WEBSOCKET_PORT: "19090"
+
+      # Security features
+      ENABLE_LOBBY: 0
+      LOBBY_COMPONENT: lobby.meet.eliteew.ru
+      # EliteEW already authorizes users and opens a dedicated call window, so skip Jitsi prejoin.
+      ENABLE_PREJOIN_PAGE: 0
+      # 🔥 Welcome Page - отключена для авторизованных пользователей
+      # Гости без токена будут редиректиться на guest.eliteew.ru
+      ENABLE_WELCOME_PAGE: 0
+      ENABLE_CLOSE_PAGE: 1
+
+      # EliteEW opens rooms with ?jwt= generated by /api/v1/video-calls/*.
+      TOKEN_AUTH_URL: ''
+
+      # EliteEW UI de-brand (Apache-2.0: hide Jitsi/8x8 chrome; keep engine attribution in docs).
+      SHOW_JITSI_WATERMARK: 0
+      SHOW_WATERMARK_FOR_GUESTS: 0
+      SHOW_BRAND_WATERMARK: 0
+      BRAND_WATERMARK_LINK: https://app.eliteew.ru
+      JITSI_WATERMARK_LINK: https://app.eliteew.ru
+      APP_NAME: EliteEW Meet
+      NATIVE_APP_NAME: EliteEW Meet
+      PROVIDER_NAME: Empery World
+      MOBILE_APP_PROMO: 0
+      DISABLE_DEEP_LINKING: "true"
+      SHOW_POWERED_BY: 0
+      SHOW_PROMOTIONAL_CLOSE_PAGE: 0
+      # Block JaaS / 8x8.vc endpoints in generated config.js (default is already 0 — pin explicitly).
+      ENABLE_JAAS_COMPONENTS: "0"
+      RTCSTATS_ENABLED: "false"
+      DYNAMIC_BRANDING_URL: ""
+      INVITE_SERVICE_URL: ""
+      PEOPLE_SEARCH_URL: ""
+      DIALIN_NUMBERS_URL: ""
+      DIALOUT_AUTH_URL: ""
+      DIALOUT_CODES_URL: ""
+      ANALYTICS_SCRIPT_URLS: ""
+      AMPLITUDE_ID: ""
+      GOOGLE_ANALYTICS_ID: ""
+      MATOMO_ENDPOINT: ""
+      MATOMO_SITE_ID: ""
+      ENABLE_LIVESTREAMING_DATA_PRIVACY_LINK: ""
+      ENABLE_LIVESTREAMING_HELP_LINK: ""
+      ENABLE_LIVESTREAMING_TERMS_LINK: ""
+
+      # Language
+      DEFAULT_LANGUAGE: ru
+      LANG_DETECTION: "false"
+      LANG: ru
+
+      # HTTPS (proxy handles it)
+      DISABLE_HTTPS: 1
+      ENABLE_HTTP_REDIRECT: 0
+
+      # Settings
+      SETTINGS_SECTIONS: '["devices","language","sounds"]'
+      TOOLBAR_BUTTONS: "microphone,camera,tileview,fullscreen,settings"
+      DISABLE_REMOTE_VIDEO_MENU: "true"
+      DISABLE_KICKOUT: "true"
+      DISABLE_GRANT_MODERATOR: "true"
+      DISABLE_PRIVATE_CHAT: "true"
+      HIDE_PREMEETING_BUTTONS: ''
+
+      # Recording / livestream are optional later phases.
+      ENABLE_RECORDING: 0
+      DROPBOX_APPKEY: ''
+      DROPBOX_REDIRECT_URI: ''
+      ENABLE_FILE_RECORDING_SERVICE: 0
+      ENABLE_FILE_RECORDING_SHARING: 0
+
+      # Livestreaming
+      ENABLE_LIVE_STREAMING: 0
+
+      # Transcription (disabled - no Jigasi)
+      ENABLE_TRANSCRIPTIONS: 0
+
+      # Etherpad integration is optional (profile: collab).
+      ETHERPAD_URL_BASE: ''
+      ETHERPAD_PUBLIC_URL: ''
+
+      # Whiteboard
+      WHITEBOARD_ENABLED: 0
+      WHITEBOARD_COLLAB_SERVER_PUBLIC_URL: ''
+
+      # Resolution settings
+      RESOLUTION: 720
+      RESOLUTION_MIN: 360
+      RESOLUTION_WIDTH: 1280
+      RESOLUTION_WIDTH_MIN: 640
+      CONSTRAINTS_VIDEO_HEIGHT_IDEAL: 720
+      CONSTRAINTS_VIDEO_HEIGHT_MAX: 1080
+      CONSTRAINTS_VIDEO_HEIGHT_MIN: 180
+
+      # Performance (layer suspension off: avoids black remote tiles when bridge path is slow)
+      ENABLE_LAYER_SUSPENSION: "false"
+      CHANNEL_LAST_N: 20
+
+      TZ: Asia/Vladivostok
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/web.log", "/init"]
+    # HTTP с хоста только через meet-jwt-gate (:34002). Прямой web — expose в ew_net_5402.
+    expose:
+      - "80"
+    ports:
+      - "${JITSI_WEB_HTTPS_BIND:-127.0.0.1}:34003:443"
+    volumes:
+      # Host custom-config.js is appended to generated config.js (see apply-stack11-jitsi-web-custom-config.sh).
+      - ../data/stack11/web:/config
+      - ../data/stack11/transcripts:/usr/share/jitsi-meet/transcripts
+      - ../logs/stack11/web:/logs
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro
+      # Optional custom overrides are disabled until host paths are regular files, not directories
+      # - ../../jitsi-custom/web/interface/interface_config-elite.js:/usr/share/jitsi-meet/interface_config.js:ro
+      # - ../../jitsi-custom/web/css/elite-custom.css:/usr/share/jitsi-meet/css/elite-custom.css:ro
+      # - ../../jitsi-custom/web/head.html:/usr/share/jitsi-meet/head.html:ro
+      # - ../../jitsi-custom/web/nginx:/config/nginx:Z
+    depends_on:
+      - prosody
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # JWT gate на :34002 (туннель edge→13402). Без sudo на edge VM.
+  meet-jwt-gate:
+    image: docker.io/nginx:1.27-alpine
+    container_name: stack11-meet-jwt-gate
+    security_opt:
+      - label=disable
+      - no-new-privileges:true
+    networks:
+      ew_net_5402:
+        aliases:
+          - meet-jwt-gate
+    entrypoint: ["/bin/sh", "/usr/local/bin/meet-jwt-gate-entrypoint.sh"]
+    environment:
+      TZ: Asia/Vladivostok
+    ports:
+      - "127.0.0.1:34002:80"
+    volumes:
+      - ../host_conf/nginx-meet-server.inc:/etc/nginx/meet-locations.inc:ro
+      - ./stack11/nginx/meet-jwt-gate.conf:/etc/nginx/conf.d/default.conf
+      - ../scripts/stack11-meet-jwt-gate-entrypoint.sh:/usr/local/bin/meet-jwt-gate-entrypoint.sh:ro
+    depends_on:
+      web:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/config.js || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 45s
+
+  # ==================================================================================
+  # JICOFO (Conference Focus)
+  # ==================================================================================
+  jicofo:
+    image: docker.io/jitsi/jicofo:stable-11031
+    container_name: stack11-jitsi-jicofo-elite
+    security_opt:
+      - label=disable
+    networks: [ew_net_5402]
+    environment:
+      XMPP_SERVER: stack11-jitsi-prosody-elite
+      XMPP_DOMAIN: meet.eliteew.ru
+      XMPP_AUTH_DOMAIN: auth.meet.eliteew.ru
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.eliteew.ru
+      XMPP_MUC_DOMAIN: muc.meet.eliteew.ru
+
+      JICOFO_AUTH_USER: focus
+      JICOFO_AUTH_PASSWORD: ${JICOFO_AUTH_PASSWORD}
+      JVB_BREWERY_MUC: jvbbrewery
+
+      # JWT auth
+      ENABLE_AUTH: 1
+      AUTH_TYPE: jwt
+
+      # Room settings - ТОЛЬКО JWT пользователи могут быть модераторами
+      ENABLE_AUTO_OWNER: 0  # ⚠️ НЕ давать автоматически модератора
+      JICOFO_AUTH_TYPE: jwt
+      JICOFO_ENABLE_AUTH: 1
+      JICOFO_ENABLE_HEALTH_CHECKS: 1
+      JICOFO_ENABLE_REST: 1
+      MAX_BRIDGE_PARTICIPANTS: 75
+
+      # SCTP on (2026-08-15): official Docker fallback when clients do not open colibri-ws
+      # (handbook: ENABLE_SCTP=1). Keep ENABLE_COLIBRI_WEBSOCKET=1 for browsers that use WS.
+      ENABLE_SCTP: "1"
+
+      # Recording
+      ENABLE_RECORDING: 0
+      JIBRI_BREWERY_MUC: jibribrewery
+      JIBRI_PENDING_TIMEOUT: 90
+
+      TZ: Asia/Vladivostok
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/jicofo.log", "/init"]
+    volumes:
+      - ../data/stack11/jicofo:/config
+      - ../logs/stack11/jicofo:/logs
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro
+    depends_on:
+      - prosody
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8888/about/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 4
+      start_period: 50s
+
+  # ==================================================================================
+  # JVB (Video Bridge) — host network (Meet WG face 10.77.77.2:34000)
+  # ==================================================================================
+  # Bridge+publish breaks ICE: harvester binds container eth0 while static mapping face
+  # must be wg0 10.77.77.2 (MEET-MEDIA-UDP-NATIVE-PATH.md §invariants 11–13).
+  # After recreate: apply-stack11-jvb-ice-static-mappings.sh + apply-stack11-jitsi-web-nginx-ws.sh
+  jvb:
+    image: docker.io/jitsi/jvb:stable-11031
+    container_name: stack11-jitsi-jvb-elite
+    security_opt:
+      - label=disable
+    network_mode: host
+    environment:
+      PUBLIC_URL: https://meet.eliteew.ru
+      # Prosody on host loopback (see prosody ports). Use localhost (not 127.0.0.1):
+      # cont-init `dig +short 127.0.0.1` is empty → `ip route get` fails ("need at least a destination address").
+      XMPP_SERVER: localhost
+      XMPP_DOMAIN: meet.eliteew.ru
+      XMPP_AUTH_DOMAIN: auth.meet.eliteew.ru
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.eliteew.ru
+
+      JVB_AUTH_USER: jvb
+      JVB_AUTH_PASSWORD: ${JVB_AUTH_PASSWORD}
+      JVB_BREWERY_MUC: jvbbrewery
+
+      # Network configuration
+      # Must be reachable by browsers for media. Multiple client networks are
+      # supported via comma-separated JVB_ADVERTISE_IPS (LAN + Meta Quest subnet).
+      # LAN clients: one public IP without "#port" (ice4j NPE with multiple "#" mappings on older pins).
+      # UDP port 34000 comes from SinglePortUdpHarvester; see custom-sip-communicator.properties on JVB volume.
+      JVB_ADVERTISE_IPS: ${JITSI_JVB_ADVERTISE_IPS:-127.0.0.1}
+      # Do not signal Docker bridge IPs (172.24.x) to phones/browsers — breaks ICE over Yandex tunnel.
+      JVB_ADVERTISE_PRIVATE_CANDIDATES: "false"
+      JVB_PORT: 34000
+      JVB_TCP_PORT: 34001
+      JVB_TCP_HARVESTER_DISABLED: "false"
+
+      # Static mappings via JITSI_JVB_ADVERTISE_IPS only — dynamic STUN/AWS harvesters NPE on this host.
+      JVB_DISABLE_STUN: "1"
+      JVB_STUN_SERVERS:
+
+      # HTTP /health для Docker healthcheck (Colibri REST); public colibri port via custom-jvb.conf :19090
+      JVB_ENABLE_APIS: rest,colibri
+      COLIBRI_REST_ENABLED: "true"
+
+      # Performance
+      JVB_OCTO_BIND_PORT: 4096
+
+      # colibri-ws: stable server-id (must match COLIBRI_WEBSOCKET_REGEX on web). Do not use container IP.
+      ENABLE_COLIBRI_WEBSOCKET: "1"
+      # SCTP on (2026-08-15 trial): client preferSctp / openBridgeChannel=datachannel.
+      ENABLE_SCTP: "1"
+      JVB_WS_DOMAIN: meet.eliteew.ru
+      JVB_WS_SERVER_ID: stack11-jitsi-jvb-elite
+
+      # ice4j: avoid [::ffff:172.24.x] socket keys → "No socket found" on STUN checks.
+      # DISABLE_AWS_HARVESTER: non-AWS host — AwsCandidateHarvester NPE breaks MappingCandidateHarvesters init.
+      # Do not set org.ice4j.BIND_WILDCARD=true (host candidate 0.0.0.0 breaks WG static mapping).
+      JVB_OPTS: "-Dorg.ice4j.ipv6.DISABLED=true -Djava.net.preferIPv4Stack=true -Dorg.ice4j.ice.harvest.DISABLE_AWS_HARVESTER=true"
+
+      TZ: Asia/Vladivostok
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/jvb.log", "/init"]
+    volumes:
+      - ../data/stack11/jvb:/config
+      - ../logs/stack11/jvb:/logs
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro
+      # custom-jvb.conf is copied into the volume (writable) — ro bind breaks cont-init `chown -R /config`.
+    depends_on:
+      - prosody
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/about/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 4
+      start_period: 90s
+
+  # ==================================================================================
+  # JIBRI (Recording & Streaming)
+  # ==================================================================================
+  jibri:
+    image: docker.io/jitsi/jibri:stable-11031
+    container_name: stack11-jitsi-jibri-elite
+    security_opt:
+      - label=disable
+    profiles: ["recording"]
+    networks: [ew_net_5402]
+    environment:
+      PUBLIC_URL: https://meet.eliteew.ru
+      XMPP_SERVER: stack11-jitsi-prosody-elite
+      XMPP_DOMAIN: meet.eliteew.ru
+      XMPP_AUTH_DOMAIN: auth.meet.eliteew.ru
+      XMPP_INTERNAL_MUC_DOMAIN: internal-muc.meet.eliteew.ru
+      XMPP_RECORDER_DOMAIN: recorder.meet.eliteew.ru
+      XMPP_MUC_DOMAIN: muc.meet.eliteew.ru
+
+      # Jibri credentials (из env-файла при --env-file)
+      JIBRI_RECORDER_USER: recorder
+      JIBRI_RECORDER_PASSWORD: ${JIBRI_RECORDER_PASSWORD}
+      JIBRI_XMPP_USER: jibri
+      JIBRI_XMPP_PASSWORD: ${JIBRI_XMPP_PASSWORD}
+
+      # Jibri settings
+      JIBRI_BREWERY_MUC: jibribrewery
+      JIBRI_PENDING_TIMEOUT: 90
+      JIBRI_USAGE_TIMEOUT: 0
+      JIBRI_STRIP_DOMAIN_JID: muc
+      JIBRI_LOGS_DIR: /logs
+
+      # Recording settings
+      ENABLE_RECORDING: 1
+      ENABLE_LIVE_STREAMING: 1
+
+      # Chrome settings for recording
+      CHROMIUM_FLAGS: "--use-fake-ui-for-media-stream --start-maximized --kiosk --enabled --autoplay-policy=no-user-gesture-required"
+
+      # Display settings
+      DISPLAY: :0
+
+      TZ: Asia/Vladivostok
+    volumes:
+      - ../data/stack11/jibri:/config
+      - ../data/stack11/recordings:/recordings
+      - ../logs/stack11/jibri:/logs
+      - /dev/shm:/dev/shm
+    cap_add:
+      - SYS_ADMIN
+      - NET_BIND_SERVICE
+    devices:
+      - /dev/snd:/dev/snd
+    depends_on:
+      - prosody
+      - jicofo
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f org.jitsi.jibri.Jibri >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+  # ==================================================================================
+  # ETHERPAD (Collaborative Notes)
+  # ==================================================================================
+  etherpad:
+    image: docker.io/etherpad/etherpad:1.9.2
+    container_name: stack11-etherpad-elite
+    security_opt:
+      - label=disable
+    profiles: ["collab"]
+    user: "${STACK11_USER:?STACK11_USER not set}"
+    networks:
+      - ew_net_5402
+      - ew_net_2847
+    environment:
+      DB_TYPE: postgres
+      DB_HOST: stack1-postgres
+      DB_PORT: 5432
+      DB_NAME: etherpad
+      DB_USER: ai_user
+      DB_PASS: ${POSTGRES_PASSWORD}
+      ADMIN_PASSWORD: ${ETHERPAD_ADMIN_PASSWORD}
+      REQUIRE_SESSION: "false"
+      TRUST_PROXY: "true"
+      DEFAULT_PAD_TEXT: "🔥💎 EliteEW Collaborative Pad 💎🔥\n\nStart collaborating here!\n\n"
+
+      # Customization
+      TITLE: "EliteEW Collaborative Pad"
+      FAVICON: "favicon.ico"
+
+      TZ: Asia/Vladivostok
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/etherpad.log", "node", "src/node/server.js"]
+    ports:
+      - "127.0.0.1:34005:9001"
+    volumes:
+      - ../data/stack11/etherpad:/opt/etherpad-lite/var
+      - ../logs/stack11/etherpad:/logs
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:9001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s

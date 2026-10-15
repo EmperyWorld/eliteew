@@ -1,0 +1,149 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Tunnel step — conf editor + sticky actions; 3-col from 1600px.
+ * Invariants: One primary continue; install remains primary channel action.
+ * Related: documentation/product/desktop/DESKTOP-TAURI-CONNECTED-CLIENT.md
+ */
+
+.tunnel-panel {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.tunnel-main,
+.tunnel-aside {
+  min-width: 0;
+}
+
+.tunnel-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.tunnel-aside-actions,
+.tunnel-aside-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.tunnel-actions {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.tunnel-actions > button {
+  width: 100%;
+  justify-content: center;
+}
+
+.tunnel-continue {
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 720px) {
+  .tunnel-panel {
+    grid-template-columns: minmax(0, 1.45fr) minmax(15rem, 0.9fr);
+    align-items: start;
+    gap: 1.15rem 1.35rem;
+  }
+
+  .tunnel-aside {
+    position: sticky;
+    top: 1rem;
+    padding: 1rem 1.05rem;
+    border-radius: 14px;
+    border: 1px solid var(--dc-border-soft);
+    background:
+      linear-gradient(165deg, rgba(255, 255, 255, 0.03), transparent 50%),
+      rgba(10, 16, 24, 0.58);
+  }
+
+  .tunnel-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .tunnel-actions > button.primary,
+  .tunnel-actions > button:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tunnel-panel {
+    grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.85fr);
+    gap: 1.35rem 1.75rem;
+  }
+
+  .tunnel-main .field textarea {
+    min-height: 14rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .tunnel-panel {
+    grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 0.75fr);
+    gap: 1.5rem 2rem;
+  }
+
+  .tunnel-main .field textarea {
+    min-height: 16rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  /* Ultrawide: main + aside spanning two inner columns (landmarks preserved). */
+  .tunnel-panel {
+    grid-template-columns: minmax(22rem, 1.45fr) minmax(0, 1.8fr);
+    gap: 1.35rem 1.5rem;
+  }
+
+  .tunnel-aside {
+    display: grid;
+    grid-template-columns: minmax(14rem, 0.85fr) minmax(16rem, 0.95fr);
+    gap: 1.35rem 1.5rem;
+    align-items: start;
+    position: sticky;
+    top: 1rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .tunnel-aside-actions,
+  .tunnel-aside-status {
+    position: sticky;
+    top: 1rem;
+    padding: 1rem 1.05rem;
+    border-radius: 14px;
+    border: 1px solid var(--dc-border-soft);
+    background:
+      linear-gradient(165deg, rgba(255, 255, 255, 0.03), transparent 50%),
+      rgba(10, 16, 24, 0.58);
+  }
+
+  .tunnel-aside-actions .tunnel-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tunnel-aside-actions .tunnel-actions > button.primary,
+  .tunnel-aside-actions .tunnel-actions > button:first-child {
+    grid-column: auto;
+  }
+
+  .tunnel-main .field textarea {
+    min-height: 18rem;
+  }
+}

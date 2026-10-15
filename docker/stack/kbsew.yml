@@ -1,0 +1,83 @@
+# =============================================================================
+# EliteEW · KBSEW — Knowledge Base Service (Empery World)
+# =============================================================================
+# Build on command-center, run on prod-core:
+#   podman build -t kbsew:latest -f KBSEW/Dockerfile KBSEW
+#   podman compose -f docker/stack/kbsew.yml --env-file docker/env_file/.env.kbsew up -d
+#
+# Networks: ew_net_2847 (stack1 PG/Qdrant/Seaweed), ew_net_7198 (stack4 Tika/OCR),
+# ew_net_9O11 (stack6 Keycloak JWKS for admin JWT validation).
+# =============================================================================
+name: kbsew
+
+networks:
+  ew_net_2847:
+    external: true
+  ew_net_7198:
+    external: true
+  ew_net_9O11:
+    external: true
+
+services:
+  kbsew:
+    image: kbsew:latest
+    container_name: stack-kbsew
+    build:
+      context: ../../KBSEW
+      dockerfile: Dockerfile
+    networks:
+      - ew_net_2847
+      - ew_net_7198
+      - ew_net_9O11
+    environment:
+      TZ: Asia/Vladivostok
+      KBSEW_LOG_LEVEL: ${KBSEW_LOG_LEVEL:-INFO}
+      POSTGRES_HOST: ${POSTGRES_HOST:-stack1-postgres}
+      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_USER: ${POSTGRES_USER:-ai_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD not set}
+      POSTGRES_DB: ${POSTGRES_DB:-ai_services}
+      QDRANT_HOST: ${QDRANT_HOST:-stack1-qdrant}
+      QDRANT_PORT: ${QDRANT_PORT:-6333}
+      QDRANT_API_KEY: ${QDRANT_API_KEY:-}
+      MINIO_HOST: ${MINIO_HOST:-stack1-seaweedfs}
+      MINIO_PORT: ${MINIO_PORT:-8333}
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:?MINIO_ACCESS_KEY not set}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:?MINIO_SECRET_KEY not set}
+      MINIO_BUCKET: ${MINIO_BUCKET:-eliteew}
+      MINIO_SECURE: ${MINIO_SECURE:-false}
+      KBSEW_OBJECT_PREFIX: ${KBSEW_OBJECT_PREFIX:-kbsew/}
+      TIKA_URL: ${TIKA_URL:-http://stack4-tika:9998}
+      OCRMYPDF_URL: ${OCRMYPDF_URL:-http://stack4-ocrmypdf-api:5000}
+      LLAMA_EMBEDDING_URL: ${LLAMA_EMBEDDING_URL:-http://192.168.1.141:8081}
+      LLAMA_EMBEDDING_MODEL: ${LLAMA_EMBEDDING_MODEL:-nomic-embed-text:latest}
+      AI_EMBEDDINGS_DIMENSION: ${AI_EMBEDDINGS_DIMENSION:-768}
+      AI_EMBEDDINGS_BATCH_SIZE: ${AI_EMBEDDINGS_BATCH_SIZE:-50}
+      KBSEW_EMBED_TIMEOUT_SEC: ${KBSEW_EMBED_TIMEOUT_SEC:-180}
+      KBSEW_EMBED_BATCH_TIMEOUT_SEC: ${KBSEW_EMBED_BATCH_TIMEOUT_SEC:-600}
+      KBSEW_EMBED_HTTP_RETRIES: ${KBSEW_EMBED_HTTP_RETRIES:-3}
+      KBSEW_QDRANT_UPSERT_BATCH_SIZE: ${KBSEW_QDRANT_UPSERT_BATCH_SIZE:-50}
+      KBSEW_QDRANT_UPSERT_RETRIES: ${KBSEW_QDRANT_UPSERT_RETRIES:-3}
+      KEYCLOAK_URL: ${KEYCLOAK_URL:-http://stack6-keycloak:8080}
+      KEYCLOAK_REALM: ${KEYCLOAK_REALM:-empery}
+      KEYCLOAK_AUDIENCE: ${KEYCLOAK_AUDIENCE:-empery-api}
+      KBSEW_CHUNK_SIZE: ${KBSEW_CHUNK_SIZE:-800}
+      KBSEW_CHUNK_OVERLAP: ${KBSEW_CHUNK_OVERLAP:-100}
+      KBSEW_SEARCH_TOP_K: ${KBSEW_SEARCH_TOP_K:-5}
+      KBSEW_WORKER_ENABLED: ${KBSEW_WORKER_ENABLED:-true}
+      KBSEW_WORKER_CONCURRENCY: ${KBSEW_WORKER_CONCURRENCY:-1}
+      KBSEW_WORKER_POLL_INTERVAL_SEC: ${KBSEW_WORKER_POLL_INTERVAL_SEC:-1}
+      KBSEW_WORKER_LEASE_TIMEOUT_SEC: ${KBSEW_WORKER_LEASE_TIMEOUT_SEC:-900}
+      KBSEW_WORKER_MAX_ATTEMPTS: ${KBSEW_WORKER_MAX_ATTEMPTS:-3}
+      KBSEW_INTERNAL_SERVICE_TOKEN: ${KBSEW_INTERNAL_SERVICE_TOKEN:-}
+      KBSEW_SERVICE_CAN_MUTATE: ${KBSEW_SERVICE_CAN_MUTATE:-false}
+    ports:
+      - "127.0.0.1:${KBSEW_HOST_PORT:-28030}:8030"
+    restart: unless-stopped
+    healthcheck:
+      # Liveness (/health). Dependency readiness is GET /ready (PG + Qdrant + MinIO).
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:8030/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ebrowser-tab-activate"
+description = "Enables the ebrowser_tab_activate command without any pre-configured scope."
+commands.allow = ["ebrowser_tab_activate"]
+
+[[permission]]
+identifier = "deny-ebrowser-tab-activate"
+description = "Denies the ebrowser_tab_activate command without any pre-configured scope."
+commands.deny = ["ebrowser_tab_activate"]

@@ -1,0 +1,4 @@
+# Celery beat — same venv as API (Dockerfile copies deps-api only).
+# Beat autodiscover imports api.tasks graph; Pillow comes from api.in.
+# No separate celery-beat.lock; api.lock is the install truth.
+-r api.in

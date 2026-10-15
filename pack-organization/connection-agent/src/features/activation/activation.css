@@ -1,0 +1,46 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Activation phase chrome above HomeScreen drop zone.
+ * Related: DESKTOP-CLIENT-LAUNCHER-JOURNEY.md §3
+ */
+
+.activation {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+
+.activation-hero {
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 0.5rem var(--dc-shell-pad) 0;
+}
+
+.activation-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dc-muted);
+}
+
+.activation-title {
+  margin: 0 0 0.45rem;
+  font-family: var(--dc-display);
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.activation-lead {
+  margin: 0;
+  color: var(--dc-muted);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}

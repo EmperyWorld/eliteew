@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-fs-bridge-roots"
+description = "Enables the fs_bridge_roots command without any pre-configured scope."
+commands.allow = ["fs_bridge_roots"]
+
+[[permission]]
+identifier = "deny-fs-bridge-roots"
+description = "Denies the fs_bridge_roots command without any pre-configured scope."
+commands.deny = ["fs_bridge_roots"]

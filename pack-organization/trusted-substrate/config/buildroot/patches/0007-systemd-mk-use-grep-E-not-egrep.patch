@@ -1,0 +1,13 @@
+From: EmpiierOS Trusted Substrate
+Subject: [PATCH] systemd.mk: use grep -E instead of egrep
+
+Fedora's /usr/bin/egrep is a wrapper that prints an obsolescence
+warning on every invoke. Buildroot's getty console install rule used
+egrep -q; replace with grep -E -q so finalize stays silent.
+
+
+--- a/package/systemd/systemd.mk
++++ b/package/systemd/systemd.mk
+@@ -772 +772 @@ define SYSTEMD_INSTALL_SERVICE_TTY
+-	elif echo $(BR2_TARGET_GENERIC_GETTY_PORT) | egrep -q 'tty[0-9]*$$'; \
++	elif echo $(BR2_TARGET_GENERIC_GETTY_PORT) | grep -E -q 'tty[0-9]*$$'; \

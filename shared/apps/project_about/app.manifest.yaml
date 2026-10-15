@@ -1,0 +1,22 @@
+# EliteEW product app manifest (SoT for enablement / KNOWN generation)
+id: project_about
+title: About the Project
+edition_default:
+  cloud: true
+  onprem: true
+  client: true
+requires:
+  - auth
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: ProjectAboutApp
+    icon: app-about-project
+  api:
+    prefixes: []
+  jobs:
+    queues: []
+client:
+  offline_capable: full
+  remote_tools_allowlist: []

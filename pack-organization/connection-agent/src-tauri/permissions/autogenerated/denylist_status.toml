@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-denylist-status"
+description = "Enables the denylist_status command without any pre-configured scope."
+commands.allow = ["denylist_status"]
+
+[[permission]]
+identifier = "deny-denylist-status"
+description = "Denies the denylist_status command without any pre-configured scope."
+commands.deny = ["denylist_status"]

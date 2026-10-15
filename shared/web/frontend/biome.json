@@ -1,0 +1,254 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.5.5/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
+	"files": {
+		"includes": [
+			"**/*.ts",
+			"**/*.tsx",
+			"**/*.js",
+			"**/*.jsx",
+			"!public/o-proekte/vendor",
+			"!public/o-proekte/research-content.bundle.js",
+			"!public/elite-quotes-inline.js",
+			"!!.build-artifacts",
+			"!!dist",
+			"!!dist-build",
+			"!!dist-ssr"
+		]
+	},
+	"formatter": {
+		"enabled": true
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended",
+			"suspicious": {
+				"noExplicitAny": "error",
+				"noExtraNonNullAssertion": "error"
+			},
+			"complexity": {
+				"noBannedTypes": "error",
+				"noUselessFragments": "warn"
+			},
+			"style": {
+				"useConst": "warn",
+				"noNonNullAssertion": "error",
+				"useImportType": "off",
+				"noRestrictedTypes": {
+					"level": "error",
+					"options": {
+						"types": {
+							"Function": {
+								"message": "Use an explicit function type, not Function.",
+								"use": "(...args: never[]) => unknown"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "es5"
+		}
+	},
+	"assist": {
+		"enabled": false
+	},
+	"overrides": [
+		{
+			"includes": [
+				"src/pages/Desktop/components/**/*.tsx",
+				"src/pages/Desktop/components/**/*.ts",
+				"src/utils/axiosSetup.ts",
+				"src/utils/lazyLoadWithErrorHandling.tsx",
+				"src/components/ui/Portal.tsx",
+				"src/components/ui/primitives/**/*.tsx"
+			],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noExplicitAny": "warn"
+					},
+					"style": {
+						"noNonNullAssertion": "warn"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/generated/**"
+			],
+			"linter": {
+				"enabled": false
+			},
+			"formatter": {
+				"enabled": false
+			}
+		},
+		{
+			"includes": [
+				"**/GafChatVoiceMessagePlayer.tsx"
+			],
+			"linter": {
+				"rules": {
+					"suspicious": {
+						"noArrayIndexKey": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/pages/Desktop/components/WallpaperPicker.tsx"
+			],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"useSemanticElements": "off",
+						"useFocusableInteractive": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/pages/MusicPlayer/MusicPlayerTrackList.tsx"
+			],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"useSemanticElements": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/pages/Admin/AdminUserDetailPanel.tsx",
+				"src/pages/Admin/adminUserDetail/**/*.tsx",
+				"src/pages/Admin/AdminUsersHubSection.tsx",
+				"src/pages/Admin/DesktopEnsemblePlanAdminSection.tsx",
+				"src/pages/Admin/EwDeskNewsTemplateAndLinks.tsx",
+				"src/pages/Admin/SystemGafInstructionStepsEditor.tsx"
+			],
+			"linter": {
+				"rules": {
+					"a11y": {
+						"noLabelWithoutControl": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/pages/Desktop/components/**"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"paths": {
+									"react-dom": {
+										"importNames": [
+											"createPortal"
+										],
+										"message": "U3: createPortal → useShellPortal / ShellPortalMount (shellBodyPortal only)."
+									},
+									"react-dom/client": {
+										"importNames": [
+											"createPortal"
+										],
+										"message": "U3: createPortal → useShellPortal / ShellPortalMount (shellBodyPortal only)."
+									}
+								},
+								"patterns": [
+									{
+										"group": [
+											"**/DesktopShellFloatingPortal",
+											"**/DesktopShellFloatingPortal.*",
+											"@/pages/Desktop/components/DesktopShellFloatingPortal",
+											"@/pages/Desktop/components/DesktopShellFloatingPortal.*"
+										],
+										"message": "U3: FloatingPortal banned — useShellPortal / ShellPortalMount."
+									},
+									{
+										"group": [
+											"**/shell/shellBodyPortal",
+											"**/shell/shellBodyPortal.*",
+											"**/shell/portalStackController",
+											"**/shell/portalStackController.*",
+											"@/pages/Desktop/shell/shellBodyPortal",
+											"@/pages/Desktop/shell/shellBodyPortal.*",
+											"@/pages/Desktop/shell/portalStackController",
+											"@/pages/Desktop/shell/portalStackController.*"
+										],
+										"message": "U3: shell internals — public API only (@/pages/Desktop/shell or shell/shellPortal)."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/pages/Desktop/components/DesktopShellFloatingPortal.tsx"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"src/features/**"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noRestrictedImports": {
+							"level": "error",
+							"options": {
+								"paths": {
+									"@/pages/Desktop/utils/desktopUi": {
+										"importNames": [
+											"getDesktopPortalShellProps"
+										],
+										"message": "U3.1: getDesktopPortalShellProps → import from `@/pages/Desktop/shell`."
+									}
+								},
+								"patterns": [
+									{
+										"group": [
+											"**/DesktopShellFloatingPortal",
+											"**/DesktopShellFloatingPortal.*",
+											"@/pages/Desktop/components/DesktopShellFloatingPortal",
+											"@/pages/Desktop/components/DesktopShellFloatingPortal.*"
+										],
+										"message": "U3.1: FloatingPortal banned in features — useShellPortal / ShellPortalMount."
+									}
+								]
+							}
+						}
+					}
+				}
+			}
+		}
+	]
+}

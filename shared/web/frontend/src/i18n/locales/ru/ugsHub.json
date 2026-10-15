@@ -1,0 +1,552 @@
+{
+  "shell": {
+    "title": "UGS Hub",
+    "subtitle": "Очередь, история и быстрый запуск генераций.",
+    "connectionStatus": "Статус соединения",
+    "pollInterval": "опрос {{seconds}}",
+    "pollUnknown": "опрос —",
+    "apiOnline": "Сервис генераций доступен",
+    "apiOffline": "Сервис генераций недоступен",
+    "updated": "Обновлено {{time}}",
+    "updatedUnknown": "Обновлено —",
+    "refresh": "Обновить",
+    "analyticsLink": "Аналитика",
+    "channelsTitle": "Каналы AI",
+    "channelsOk": "{{healthy}}/{{total}} OK",
+    "channelsDegraded": "Деградация каналов: {{count}}",
+    "adminShortcut": "Админка",
+    "ms": "{{ms}} мс",
+    "providersCollapse": "Свернуть список",
+    "providersExpand": "Показать все ({{count}})"
+  },
+  "quickLaunch": {
+    "title": "Быстрый запуск",
+    "subtitle": "Популярные сценарии генерации"
+  },
+  "tabs": {
+    "overview": {
+      "label": "Обзор",
+      "subtitle": "Сводка, метрики и быстрый запуск"
+    },
+    "active": {
+      "label": "Активные",
+      "subtitle": "Очередь и задачи в работе"
+    },
+    "history": {
+      "label": "История",
+      "subtitle": "Архив задач и фильтры"
+    },
+    "results": {
+      "label": "Результаты",
+      "subtitle": "Готовые результаты генераций"
+    },
+    "workflows": {
+      "label": "Воркфлоу",
+      "subtitle": "Сохранённые воркфлоу и запуски"
+    },
+    "admin_history": {
+      "label": "История сервера",
+      "subtitle": "Все генерации на сервере (админ)"
+    }
+  },
+  "stats": {
+    "active": {
+      "label": "Активные генерации",
+      "statusIdle": "Статус: нет активных генераций",
+      "statusBusy": "Статус: есть задачи в работе или в очереди"
+    },
+    "completedToday": {
+      "label": "Завершено сегодня",
+      "status": "Статус: завершено сегодня по всем провайдерам"
+    },
+    "queue": {
+      "label": "Сейчас в очереди",
+      "statusIdle": "Статус: очередь пуста",
+      "statusBusy": "Статус: есть элементы в основной очереди"
+    },
+    "latency": {
+      "label": "Среднее время ответа",
+      "valueSeconds": "{{value}} с",
+      "status": "Статус: скользящее среднее по последним успехам",
+      "statusUnknown": "Статус: данных пока недостаточно"
+    }
+  },
+  "overview": {
+    "queueEyebrow": "Очередь",
+    "activeTitle": "Активные сейчас",
+    "activeEmptyTitle": "Активных задач нет",
+    "activeEmptyDescription": "Очередь пуста — запустите новую генерацию.",
+    "feedEyebrow": "Лента",
+    "recentTitle": "Последние генерации",
+    "recentEmptyTitle": "Данные отсутствуют",
+    "recentEmptyDescription": "Пока нет ни одной генерации. Запустите сценарий из списка типов.",
+    "refreshAction": "Обновить",
+    "tariffsEyebrow": "Тарификация",
+    "tariffsTitle": "Стоимость типов генераций",
+    "tariffsBody": "Списание энергии (⚡) за один запуск — по типу и зоне продукта. Открыть полную таблицу по зонам.",
+    "tariffsCta": "Открыть таблицу тарифов",
+    "problemsEyebrow": "Проблемы",
+    "errorsTitle": "Ошибки",
+    "errorsEmptyTitle": "Нет ошибок",
+    "errorsEmptyDescription": "Все генерации завершились успешно."
+  },
+  "generation": {
+    "eyebrow": "Запуск генерации",
+    "fallbackDescription": "Сценарий без дополнительных настроек",
+    "closeAria": "Закрыть модальное окно генерации",
+    "categoryBadge": "Категория: {{label}}",
+    "channelBadge": "Канал: {{label}}",
+    "etaBadge": "~{{seconds}} сек.",
+    "energyBadge": "{{credits}} ⚡ энергии",
+    "cancel": "Отмена",
+    "submit": "Запустить генерацию",
+    "promptLabel": "Текст / промпт",
+    "promptAria": "Текст запроса для генерации",
+    "webSearchLabel": "Веб-поиск для этого запуска",
+    "webSearchHint": "По умолчанию выключен. При включении расходуется лимит веб-поиска пользователя.",
+    "advancedSummary": "Дополнительно",
+    "jsonLabel": "Входные данные JSON",
+    "jsonAria": "Входные данные JSON для генерации",
+    "jsonHint": "Можно вставить JSON из предыдущего запуска. При ошибке парсинга данные сбросятся.",
+    "priorityLabel": "Приоритет (1–10)",
+    "priorityAria": "Приоритет задачи от 1 до 10",
+    "priorityHintTitle": "Подсказка по приоритету",
+    "priorityHintBody": "Приоритет выше 7 ускоряет обработку. Используйте для срочных запросов с учётом квот.",
+    "typeKeyLabel": "Идентификатор типа"
+  },
+  "generationDefaults": {
+    "textPrompt": "Расскажи новости компании в стиле дружелюбного корпоративного письма",
+    "imagePrompt": "Futuristic city skyline at sunset in neon colors",
+    "audioText": "Добро пожаловать в EliteEW. Это проверка синтеза речи.",
+    "documentGoal": "Сформировать структурированное резюме документа по ключевым разделам",
+    "translationPrompt": "Переведи на русский язык: Hello! This is a quick launch test from UGS.",
+    "summarizationPrompt": "Суммируй основные идеи этого текста: наша команда завершила интеграцию UGS, обновила каталог workflow и улучшила UX просмотра результатов.",
+    "codeReviewPrompt": "Проверь этот код и укажи основные риски:\n```ts\nasync function loadData(){ return fetch(\"/api/data\") }\n```",
+    "codeGenerationPrompt": "Напиши функцию на TypeScript, которая форматирует историю генераций по статусам."
+  },
+  "queueOps": {
+    "eyebrow": "Очередь генераций",
+    "title": "Снимок очереди",
+    "warningsCount": "{{count}} предупр.",
+    "prefetchActive": "Подгрузка задач",
+    "loading": "Загрузка снимка…",
+    "loadError": "Не удалось загрузить снимок очереди",
+    "updatedAt": "Обновлено {{time}}",
+    "refresh": "Обновить",
+    "admin": "UGS Admin",
+    "expand": "Подробнее",
+    "collapse": "Свернуть",
+    "metricQueued": "В очереди",
+    "metricQueueAge": "Возраст очереди",
+    "metricFailShare": "Доля ошибок",
+    "metricLease": "Блокировка воркера",
+    "metricLeaseFallback": "Резерв БД",
+    "metricStale": "Устаревшие кандидаты",
+    "metricDlq": "Финальные ошибки 24ч",
+    "staleHorizonsTitle": "Пороги устаревания (воркер)",
+    "logGrepTitle": "Подсказки по логам (runbook)",
+    "runbookCanon": "Канон: documentation/platform/docker-re_doc/UGS-QUEUE-OPERATIONS-RUNBOOK.md",
+    "noWarnings": "Предупреждений нет — очередь в норме.",
+    "stripTitle": "Открыть админку снимка очереди",
+    "stripLabel": "Очередь",
+    "stripQueued": "{{count}} в очереди"
+  },
+  "empty": {
+    "defaultAction": "Обновить"
+  },
+  "taskFilters": {
+    "searchAria": "Поиск по типу, ID или входным данным",
+    "searchPlaceholder": "Поиск по типу, ID или входным данным…",
+    "statusLabel": "Статус",
+    "statusAria": "Фильтр по статусу",
+    "categoryLabel": "Категория",
+    "categoryAria": "Фильтр по категории",
+    "categoryAll": "Все категории",
+    "channelLabel": "Канал",
+    "channelAria": "Фильтр по каналу генерации",
+    "channelAll": "Все каналы",
+    "activeFilters": "Активные фильтры:",
+    "chipSearch": "Поиск: {{query}}",
+    "chipStatus": "Статус: {{label}}",
+    "chipCategory": "Категория: {{label}}",
+    "chipChannel": "Канал: {{label}}",
+    "reset": "Сбросить"
+  },
+  "workflows": {
+    "loading": "Загрузка воркфлоу…",
+    "title": "Мои воркфлоу",
+    "titleCountFiltered": "({{filtered}} / {{total}})",
+    "titleCount": "({{count}})",
+    "srDescription": "Управление визуальными конвейерами генераций",
+    "autoOnTitle": "Автообновление включено",
+    "autoOffTitle": "Автообновление выключено",
+    "autoOn": "Авто",
+    "autoOff": "Ручное",
+    "refresh": "Обновить",
+    "import": "Импорт",
+    "create": "Создать",
+    "searchAria": "Поиск по названию или описанию воркфлоу",
+    "searchPlaceholder": "Поиск…",
+    "visibilityAria": "Фильтр по видимости воркфлоу",
+    "visibilityAll": "Все",
+    "visibilityPublic": "Публичные",
+    "visibilityPrivate": "Приватные",
+    "projectAria": "Фильтр по проекту",
+    "projectAll": "Все проекты",
+    "sortAria": "Сортировка воркфлоу",
+    "sortDate": "По дате",
+    "sortName": "По имени",
+    "sortExecutions": "По запускам",
+    "activeFilters": "Активные фильтры:",
+    "chipSearch": "Поиск: {{query}}",
+    "chipProject": "Проект: {{id}}…",
+    "reset": "Сбросить",
+    "loadErrorTitle": "Не удалось загрузить воркфлоу",
+    "loadErrorFallback": "Проверьте сеть и права доступа, затем повторите запрос.",
+    "retryLoad": "Повторить загрузку",
+    "staleRefreshError": "Не удалось обновить список. Показаны ранее загруженные воркфлоу.",
+    "retry": "Повторить",
+    "comfyUnavailableTitle": "Сервис изображений сейчас недоступен",
+    "comfyUnavailableBody": "Быстрый запуск временно отключён, пока сервер не может связаться с узлом генерации изображений.",
+    "emptySearchTitle": "Ничего не найдено",
+    "emptySearchBody": "Попробуйте изменить поисковый запрос",
+    "clearSearch": "Очистить поиск",
+    "emptyTitle": "Нет сохранённых воркфлоу",
+    "emptyBody": "Создайте визуальный конвейер генераций или импортируйте JSON, чтобы автоматизировать задачи.",
+    "createFirst": "Создать первый воркфлоу",
+    "importJson": "Импортировать JSON",
+    "toastLoadFailed": "Не удалось загрузить воркфлоу",
+    "toastDeleteConfirm": "Удалить этот воркфлоу?",
+    "toastDeleteLabel": "Удалить",
+    "toastDeleteDetail": "Это действие нельзя отменить.",
+    "toastDeleted": "Воркфлоу удален",
+    "toastDeleteError": "Ошибка при удалении воркфлоу",
+    "toastQueued": "Запрос поставлен в очередь",
+    "toastStarted": "Воркфлоу запущен",
+    "toastExecutionId": "ID выполнения: {{id}}",
+    "toastExecuteError": "Ошибка при запуске воркфлоу",
+    "toastComfyUnavailable": "Сервис генерации изображений сейчас недоступен. Быстрый запуск временно отключён.",
+    "toastPromptRequired": "Введите prompt для запуска workflow",
+    "toastCopyNameSuffix": "(копия)",
+    "toastDuplicated": "Воркфлоу скопирован",
+    "toastDuplicateError": "Ошибка при копировании воркфлоу",
+    "toastExported": "Воркфлоу экспортирован",
+    "toastExportError": "Ошибка при экспорте воркфлоу",
+    "toastImportInvalid": "Неверный формат файла воркфлоу",
+    "toastImported": "Воркфлоу импортирован",
+    "toastImportError": "Ошибка при импорте воркфлоу",
+    "estEmpty": "—",
+    "estSeconds": "~{{count}}с",
+    "estMinutes": "~{{count}}м",
+    "estHours": "~{{count}}ч",
+    "runtimeNoConnection": "Нет соединения с медиа-узлом UGS. Техническая причина: {{detail}}",
+    "runtimeTimeout": "Медиа-узел UGS не ответил вовремя. Техническая причина: {{detail}}",
+    "runtimeUnavailable": "Медиа-узел UGS временно недоступен.",
+    "execStatusCompleted": "Готово",
+    "execStatusFailed": "Ошибка",
+    "execStatusRunning": "В работе",
+    "execStatusPending": "Ожидает",
+    "cardImageServiceUnavailable": "Сервис изображений недоступен",
+    "cardQuickLaunch": "Быстрый запуск",
+    "cardRun": "Запустить",
+    "cardImageServiceDisabledHint": "Сервис генерации изображений недоступен — быстрый запуск временно отключён.",
+    "cardPublic": "Публичный",
+    "cardPrivate": "Приватный",
+    "cardSlug": "slug: {{slug}}",
+    "cardStatNodes": "Узлов",
+    "cardStatConnections": "Связей",
+    "cardStatRuns": "Запусков",
+    "cardStatSuccessRate": "Успешность",
+    "cardExecutionHistory": "История выполнений ({{count}})",
+    "cardExecutionHistoryEmpty": "История запусков пока пуста.",
+    "cardUnnamedExecution": "Без названия",
+    "cardDurationSeconds": "{{seconds}}с",
+    "cardCatalogNote": "Этот шаблон управляется через DB-first каталог UGS Admin. Визуальный builder для него не используется.",
+    "cardOpenBuilderAria": "Открыть в конструкторе: {{name}}",
+    "cardOpen": "Открыть",
+    "cardAdminOnly": "Только через UGS Admin",
+    "cardMoreActionsAria": "Дополнительные действия для воркфлоу",
+    "cardDuplicate": "Дублировать",
+    "cardExport": "Экспорт",
+    "cardHistory": "История",
+    "cardDelete": "Удалить",
+    "cardDbFirstActionsNote": "Для DB-first шаблонов действия выполняются через UGS Admin и профильные панели генерации.",
+    "cardDisabledNeedsFile": "Нужен файл",
+    "cardDisabledNeedsAudio": "Нужен аудиофайл",
+    "cardDisabledNeedsForm": "Нужна форма",
+    "cardDisabledCatalogOnly": "Только каталог",
+    "cardExecPending": "Ожидает",
+    "quickTitle": "Быстрый запуск: {{name}}",
+    "quickSubtitle": "Этот DB-first workflow будет запущен через UGS runtime как запрос на генерацию.",
+    "quickCloseAria": "Закрыть диалог быстрого запуска",
+    "quickClose": "Закрыть",
+    "quickFooterHint": "После запуска запись появится в истории этого workflow как generation request.",
+    "quickCancelAria": "Отменить быстрый запуск",
+    "quickCancel": "Отмена",
+    "quickSubmitAriaSubmitting": "Запуск workflow…",
+    "quickSubmitAria": "Запустить workflow: {{name}}",
+    "quickSubmitting": "Запуск…",
+    "quickSubmit": "Запустить",
+    "quickPromptLabel": "Prompt",
+    "quickPromptPlaceholder": "Опишите, что нужно сгенерировать…",
+    "quickNegativeLabel": "Negative prompt",
+    "quickNegativePlaceholder": "Что нужно исключить из результата…",
+    "quickWidthLabel": "Ширина",
+    "quickHeightLabel": "Высота",
+    "quickSeedLabel": "Seed",
+    "quickSeedPlaceholder": "Авто",
+    "builderLoadFailed": "Не удалось загрузить воркфлоу",
+    "builderLoadingTitle": "Загрузка конструктора",
+    "builderLoadingBody": "Подтягиваем workflow с сервера…",
+    "builderUnavailableTitle": "Конструктор workflow недоступен",
+    "builderRetry": "Повторить",
+    "builderBackToHub": "Вернуться в UGS Hub",
+    "builderCatalogPreviewDescription": "Превью DB-first шаблона из каталога"
+  },
+  "common": {
+    "closeAria": "Закрыть",
+    "download": "Скачать",
+    "copy": "Копировать",
+    "loadMore": "Загрузить ещё",
+    "loadMoreBatch": "+100"
+  },
+  "tabBar": {
+    "total": "Всего: {{count}}",
+    "completed": "Готово: {{count}}",
+    "failed": "Ошибок: {{count}}"
+  },
+  "resultModal": {
+    "eyebrow": "Результат генерации",
+    "loading": "Загрузка результата…"
+  },
+  "tariffModal": {
+    "eyebrow": "Тарификация",
+    "title": "Стоимость типов генераций",
+    "colType": "Тип",
+    "colEnergy": "⚡",
+    "colEta": "~с"
+  },
+  "productArea": {
+    "marketing": "Маркетинговый кабинет",
+    "presentations": "Презентации",
+    "ugs_hub": "UGS Hub",
+    "desktop": "Desktop и встроенные приложения",
+    "content": "Контент и редакторы",
+    "other": "Прочее UGS"
+  },
+  "result": {
+    "imageTitle": "Сгенерированное изображение",
+    "audioTitle": "Сгенерированное аудио",
+    "textTitle": "Сгенерированный текст",
+    "jsonTitle": "Результат генерации",
+    "download": "Скачать",
+    "copy": "Копировать",
+    "copyJson": "Копировать JSON",
+    "imageAlt": "Результат: {{filename}}",
+    "imageAltFallback": "Сгенерированный результат",
+    "imageLoadError": "Ошибка загрузки изображения",
+    "imageMissing": "Изображение не найдено",
+    "audioMissing": "Аудио файл не найден",
+    "audioCaption": "Сгенерированное аудио",
+    "textUnavailable": "Текстовый фрагмент недоступен для этого просмотра.",
+    "tokensUsed": "Токенов использовано: {{count}}",
+    "nonAdminReady": "Результат готов. Скачайте файл или используйте действия выше — просмотр структуры JSON доступен администраторам.",
+    "vttFallbackCue": "Сгенерированное аудио UGS (расшифровка недоступна).",
+    "captionsTrackLabel": "Субтитры"
+  },
+  "status": {
+    "queued": "В очереди",
+    "pending": "В очереди",
+    "processing": "В работе",
+    "retrying": "Повтор",
+    "completed": "Готово",
+    "failed": "Ошибка",
+    "cancelled": "Отменено"
+  },
+  "statusFilter": {
+    "all": "Все статусы",
+    "queued": "В очереди",
+    "pending": "Ожидание",
+    "processing": "В работе",
+    "retrying": "Повтор",
+    "completed": "Готово",
+    "failed": "Ошибка",
+    "cancelled": "Отменено"
+  },
+  "category": {
+    "text": "Текст",
+    "image": "Изображения",
+    "audio": "Аудио",
+    "video": "Видео",
+    "document": "Документы",
+    "analysis": "Аналитика",
+    "composite": "Композит",
+    "workflows": "Воркфлоу",
+    "default": "Другое"
+  },
+  "panels": {
+    "active": {
+      "eyebrow": "Очередь",
+      "title": "Активные задачи",
+      "emptyTitle": "Активных задач нет",
+      "emptyDescription": "Очередь генераций свободна. Запустите новый сценарий из списка типов генераций."
+    },
+    "history": {
+      "eyebrow": "Архив",
+      "title": "История генераций",
+      "emptyTitle": "История пуста",
+      "emptyDescription": "Здесь появятся завершённые и неуспешные генерации."
+    },
+    "results": {
+      "eyebrow": "Готовые",
+      "title": "Результаты",
+      "emptyTitle": "Нет завершённых генераций",
+      "emptyDescription": "Запустите сценарий, чтобы увидеть готовые результаты."
+    },
+    "adminHistory": {
+      "eyebrow": "Админ",
+      "title": "История генераций сервера",
+      "subtitle": "Все пользователи, компактный список (как в API).",
+      "loading": "Загрузка…",
+      "loadError": "Не удалось загрузить историю сервера.",
+      "emptyTitle": "Нет задач",
+      "emptyDescription": "На сервере пока нет записей генераций или фильтр не совпал."
+    }
+  },
+  "toolbar": {
+    "filtered": "Отфильтровано: {{filtered}} / {{total}}",
+    "selected": "Выбрано: {{count}}",
+    "bulkRetry": "Перезапустить ({{count}})",
+    "bulkDelete": "Удалить ({{count}})",
+    "clearSelection": "Снять выбор",
+    "bulkModeOn": "Отменить выбор",
+    "bulkModeOff": "Массовые операции"
+  },
+  "taskRow": {
+    "selectTask": "Выбрать задачу",
+    "deselectTask": "Снять выбор задачи",
+    "unknownError": "Неизвестная ошибка",
+    "channel": "Канал: {{provider}}",
+    "priority": "Приоритет:",
+    "project": "Проект: {{id}}…",
+    "created": "Создано {{time}}",
+    "inProgress": "В процессе…",
+    "progress": "Прогресс: {{pct}}%",
+    "view": "Просмотр",
+    "download": "Скачать",
+    "openEditor": "В редактор",
+    "cancel": "Отменить",
+    "inputData": "Входные данные",
+    "metadata": "Метаданные",
+    "generationError": "Ошибка генерации"
+  },
+  "pagination": {
+    "shown": "Показано {{from}}–{{to}} из {{total}}",
+    "page": "Страница {{page}} из {{totalPages}}",
+    "prev": "Назад",
+    "next": "Вперёд"
+  },
+  "formatting": {
+    "noData": "Нет данных"
+  },
+  "loading": {
+    "hubSrOnly": "Загрузка UGS Hub",
+    "preview": "Загрузка…",
+    "imageError": "Ошибка загрузки изображения"
+  },
+  "workspace": {
+    "loadingSrOnly": "Загрузка данных UGS",
+    "updatedAt": "Обновлено {{time}}",
+    "refreshing": "обновление…",
+    "refresh": "Обновить"
+  },
+  "toast": {
+    "dashboardLoadFailed": "Ошибка загрузки данных UGS",
+    "generationCompleted": "Генерация {{type}} завершена!",
+    "authRequired": "Требуется авторизация",
+    "generationStarted": "Генерация {{type}} запущена",
+    "generationStartFailed": "Ошибка запуска генерации",
+    "resultLoadFailed": "Не удалось загрузить результат",
+    "resultNotFound": "Результат не найден",
+    "textDownloaded": "Текст скачан",
+    "imageNotFound": "Изображение не найдено",
+    "imageDownloaded": "Изображение скачано",
+    "audioDownloaded": "Аудио скачано",
+    "audioNotFound": "Аудио файл не найден",
+    "resultDownloaded": "Результат скачан",
+    "downloadFailed": "Ошибка при скачивании",
+    "generationCancelled": "Генерация отменена",
+    "cancelFailed": "Не удалось отменить",
+    "copiedToClipboard": "Скопировано в буфер обмена",
+    "copyFailed": "Не удалось скопировать",
+    "bulkDeleteConfirm": "Удалить {{count}} задач?",
+    "bulkDeleteLabel": "Удалить",
+    "bulkDeleteDetail": "Выбранные задачи будут удалены из списка UGS хаба без возможности восстановления.",
+    "bulkDeleted": "Удалено {{count}} задач",
+    "bulkDeleteFailed": "Ошибка при удалении задач. Изменения отменены.",
+    "bulkRetryNoFailed": "Выберите задачи со статусом «Ошибка»",
+    "bulkRetried": "Перезапущено {{count}} задач",
+    "bulkRetryFailed": "Ошибка при перезапуске задач. Изменения отменены.",
+    "exportedJson": "Экспортировано {{count}} задач в JSON",
+    "exportedCsv": "Экспортировано {{count}} задач в CSV"
+  },
+  "csvExport": {
+    "id": "ID",
+    "type": "Тип",
+    "status": "Статус",
+    "created": "Создано",
+    "completed": "Завершено",
+    "channel": "Канал",
+    "priority": "Приоритет",
+    "error": "Ошибка"
+  },
+  "guide": {
+    "badge": "Экскурсия",
+    "kbdHint": "Листать: стрелки влево и вправо, Home и End, закрыть — Escape.",
+    "progressAria": "Шаг {{current}} из {{total}}",
+    "closeDimAria": "Закрыть подсказку",
+    "closeAria": "Закрыть",
+    "audioToggleAria": "Включить или выключить озвучку экскурсии",
+    "audioToggleTitle": "Озвучка шагов (файлы в public/audio/ugs-hub-guide)",
+    "back": "Назад",
+    "skip": "Пропустить",
+    "next": "Далее",
+    "finish": "Завершить тур",
+    "launchAria": "Экскурсия по UGS Hub",
+    "launchTitle": "Подробный тур по UGS Hub",
+    "steps": {
+      "intro": {
+        "title": "UGS Hub",
+        "body": "Единое окно очереди генераций UGS: статусы, история, результаты и быстрый запуск популярных сценариев. Экскурсия пройдёт по шапке, сводке, вкладкам и списку активных задач — без полного справочника по каждому типу генерации."
+      },
+      "header": {
+        "title": "Шапка и статус связи",
+        "body": "Индикатор доступности API показывает, отвечает ли сервис генераций; кнопка обновления вручную перезапрашивает данные, если автопулинг задержался. Переход в смежные экраны — через панель окна UGS (Аналитика / операторские инструменты)."
+      },
+      "stats": {
+        "title": "Сводка в четырёх карточках",
+        "body": "«Активные», «Завершённые сегодня», «В очереди» и «Среднее время» дают мгновенный срез нагрузки. Цифры обновляются при refresh и фоновом опросе — наведите на карточку для aria-подсказки с точными значениями."
+      },
+      "tab-rail": {
+        "title": "Вкладки сценариев",
+        "body": "«Обзор», «Активные», «История» и «Результаты» — основной путь пользователя. Вкладки «Админ-история» и «Workflow» появляются только у операторов UGS. Тур на шагах фильтров и списка откроет «Активные»."
+      },
+      "quick-launch": {
+        "title": "Быстрый запуск",
+        "body": "На «Обзоре» — плитки популярных сценариев: один клик открывает форму с полем запроса. Дополнительные параметры (JSON, приоритет) — в блоке «Дополнительно»."
+      },
+      "filters": {
+        "title": "Фильтры активных задач",
+        "body": "Поиск по названию, фильтры статуса, категории и провайдера сужают список на вкладке «Активные». Здесь же панель пакетных действий — отмена или повтор для выделенных карточек, если политика роли это разрешает."
+      },
+      "task-list": {
+        "title": "Список задач",
+        "body": "Каждая карточка — прогресс, ETA, действия (отмена, перейти к результату, открыть в редакторе). Клик по завершённой задаче ведёт к артефакту на вкладке «Результаты». Прокручивайте список — новые задачи появляются сверху."
+      },
+      "outro": {
+        "title": "Готово",
+        "body": "Закройте тур и работайте с очередью. Кнопка «Экскурсия» в шапке запускает его снова; озвучку включают переключателем динамика в карточке шага."
+      }
+    }
+  }
+}

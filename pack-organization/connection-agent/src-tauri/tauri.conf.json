@@ -1,0 +1,80 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "EliteEW Desktop Client",
+  "mainBinaryName": "eliteew-desktop-client",
+  "version": "0.5.37",
+  "identifier": "world.empery.desktop.client",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "pnpm build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Рабочий стол EliteEW",
+        "width": 920,
+        "height": 760,
+        "minWidth": 720,
+        "minHeight": 560,
+        "center": true,
+        "resizable": true,
+        "focus": true,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob:; connect-src 'self' ipc: http://ipc.localhost https://app.eliteew.ru https://auth.eliteew.ru; frame-src 'none'; frame-ancestors 'none'; form-action 'self'; worker-src 'self' blob:"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "rpm"
+    ],
+    "createUpdaterArtifacts": false,
+    "icon": [
+      "icons/32x32.png",
+      "icons/48x48.png",
+      "icons/64x64.png",
+      "icons/96x96.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/256x256.png",
+      "icons/512x512.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "linux": {
+      "rpm": {
+        "desktopTemplate": "../packaging/linux/desktop-template.desktop",
+        "postInstallScript": "../packaging/linux/rpm-postinstall.sh",
+        "postRemoveScript": "../packaging/linux/rpm-postremove.sh"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDkzQjYwNUI3MzZDNUNEODMKUldTRHpjVTJ0d1cya3h5TmNmV29NYjhTMTJEZVEwTmJaZVh4eWRvb3BtaTUwVko2MnpibGxwOTkK",
+      "endpoints": [
+        "https://app.eliteew.ru/desktop-client-updates/latest.json"
+      ]
+    },
+    "eliteew-desktop-client": {
+      "product_id": "world.empery.desktop.client",
+      "channel": "connected",
+      "package_id": "elite-ew-desktop-client",
+      "package_type": "rpm",
+      "metadata_key_id": "connected-meta-1",
+      "metadata_pubkey_hex": "23c0e20fd622b0882f343b73e87ec77bd780ef33025cdc15d71be05e990cbdae",
+      "artifact_key_id": "connected-artifact-1",
+      "denylist_pubkey_hex": "ed30206ca47f2e1362e265ac599d0390de3b91716f1a3afc7469715595f7e1ca",
+      "entitlement_pubkey_hex": "81eedca9e03b1ddd9cf323e2da0b5535651b287c04588e632d08af42bcfcc2e4",
+      "ai_local_base_url": "http://127.0.0.1:11434",
+      "ai_local_model": "",
+      "ai_eliteew_base_url": "",
+      "ai_eliteew_model": ""
+    }
+  }
+}

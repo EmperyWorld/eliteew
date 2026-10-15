@@ -1,0 +1,14 @@
+# EliteEW · Portal Private Tunnel — command-center probe timer (every 5 min)
+[Unit]
+Description=EliteEW Portal Private Tunnel edge probe timer
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=true
+Unit=portal-private-tunnel-probe.service
+
+[Install]
+WantedBy=timers.target

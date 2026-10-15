@@ -1,0 +1,6 @@
+{"doc": "worklog/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "documentation/api/", "section": "worklog", "status": "match"}
+{"doc": "worklog/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "documentation/database/", "section": "worklog", "status": "match"}
+{"doc": "worklog/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "documentation/platform/", "section": "worklog", "status": "match"}
+{"doc": "worklog/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "documentation/product/", "section": "worklog", "status": "match"}
+{"doc": "worklog/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "documentation/reference/", "section": "worklog", "status": "match"}
+{"doc": "worklog/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "scripts/eliteew/write-session-summary.py", "section": "worklog", "status": "match"}

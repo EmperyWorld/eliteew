@@ -1,0 +1,213 @@
+{
+  "posts": [
+    {
+      "id": "2026-04-08-ewrp",
+      "post_id": "3600b41d-4c5e-47c5-845b-c1b669fe6b51",
+      "clip_prompt": "кристаллы слайдов в тумане, cyan"
+    },
+    {
+      "id": "2026-04-08-notifications",
+      "post_id": "f9ef5336-39e9-4f17-a7f3-c87e1253fdaa",
+      "clip_prompt": "мягкие кольца сигнала, violet"
+    },
+    {
+      "id": "2026-04-09-content-comfort",
+      "post_id": "7af0580f-19e6-4ff2-8483-74d59fcb722c",
+      "clip_prompt": "стеклянные слои в глубине"
+    },
+    {
+      "id": "2026-04-09-doc-editor",
+      "post_id": "53cc7025-d89e-494e-a66b-34d3884844c5",
+      "clip_prompt": "два луча сходятся в точке"
+    },
+    {
+      "id": "2026-04-09-ewdesk-reading",
+      "post_id": "92fb1320-4af4-4aeb-aabc-1fdb5e828246",
+      "clip_prompt": "лента света в воздухе"
+    },
+    {
+      "id": "2026-04-10-desktop-smooth",
+      "post_id": "e18ec7b3-7ea1-4d68-86ae-c7ee79eb5c7e",
+      "clip_prompt": "спокойное aurora на горизонте"
+    },
+    {
+      "id": "2026-04-11-mobile",
+      "post_id": "4aee9285-9aa0-407c-a3db-e124899bd058",
+      "clip_prompt": "огни далёкого города, ночь"
+    },
+    {
+      "id": "2026-04-11-updates-preview",
+      "post_id": "b1cf1be9-33b1-49fe-b96f-ad50f35bc02b",
+      "clip_prompt": "прилив света на берегу"
+    },
+    {
+      "id": "2026-04-11-poemma",
+      "post_id": "8c8bf29a-973e-4328-b9f5-c49a8dfedee8",
+      "clip_prompt": "золотая сфера в дымке"
+    },
+    {
+      "id": "2026-05-01-settings-report",
+      "clip_prompt": "щит из света, минимализм"
+    },
+    {
+      "id": "2026-05-02-start-library",
+      "clip_prompt": "архив света, violet акcent"
+    },
+    {
+      "id": "2026-05-03-gaf-video",
+      "clip_prompt": "два силуэта через призму"
+    },
+    {
+      "id": "2026-05-05-professional-worlds",
+      "clip_prompt": "ключ и сфера, неон"
+    },
+    {
+      "id": "2026-05-08-ewa-voice-memory",
+      "clip_prompt": "пульс в центре тумана"
+    },
+    {
+      "id": "2026-05-09-arlika-companion",
+      "clip_prompt": "две звезды на орбите"
+    },
+    {
+      "id": "2026-05-10-android-login",
+      "clip_prompt": "развилка световых дорог"
+    },
+    {
+      "id": "2026-05-11-mobile-auth",
+      "clip_prompt": "ворота из света, cyan"
+    },
+    {
+      "id": "2026-05-12-ewa-server-actions",
+      "clip_prompt": "орбита вокруг ядра"
+    },
+    {
+      "id": "2026-05-13-ewa-desk-actions",
+      "clip_prompt": "каскад световых окон"
+    },
+    {
+      "id": "2026-05-14-desktop-ewa-smooth",
+      "clip_prompt": "гладкая волна, liquid light"
+    },
+    {
+      "id": "2026-05-15-ugs-providers",
+      "clip_prompt": "созвездие точек света"
+    },
+    {
+      "id": "2026-05-16-ewa-memory-strip",
+      "clip_prompt": "нить памяти в пустоте"
+    },
+    {
+      "id": "2026-05-17-mobile-android-ux",
+      "clip_prompt": "комета над водой"
+    },
+    {
+      "id": "2026-05-18-ewrp-editor",
+      "clip_prompt": "стопка световых пластин"
+    },
+    {
+      "id": "2026-05-19-ewa-quick-intents",
+      "clip_prompt": "искры над поверхностью"
+    },
+    {
+      "id": "2026-05-20-ewa-voice-tts",
+      "clip_prompt": "звуковая спираль, violet"
+    },
+    {
+      "id": "2026-05-21-gaf-meet-calls",
+      "clip_prompt": "мост из света между башнями"
+    },
+    {
+      "id": "2026-05-22-ewa-tool-router-music",
+      "clip_prompt": "разветвление неоновых рек"
+    },
+    {
+      "id": "2026-05-23-companion-music-xl",
+      "clip_prompt": "кристалл резонирует, cyan"
+    },
+    {
+      "id": "2026-05-24-companion-vision-image",
+      "clip_prompt": "призма и луч"
+    },
+    {
+      "id": "2026-05-25-ewa-workflows-arlika",
+      "clip_prompt": "две орбиты переплетаются"
+    },
+    {
+      "id": "2026-05-26-professional-worlds-crm",
+      "clip_prompt": "узел связей, glowing"
+    },
+    {
+      "id": "2026-05-27-ewdesk-feed-landing",
+      "clip_prompt": "горизонт с двумя солнцами"
+    },
+    {
+      "id": "2026-05-28-companion-chat-android",
+      "clip_prompt": "рассвет над неоновым морем"
+    },
+    {
+      "id": "2026-05-29-site-studio",
+      "clip_prompt": "лестница из света в облаках"
+    },
+    {
+      "id": "2026-05-30-companion-name-editor",
+      "clip_prompt": "один яркий огонь в небе"
+    },
+    {
+      "id": "2026-05-31-music-evolution-app",
+      "clip_prompt": "росток света из почвы"
+    },
+    {
+      "id": "2026-06-01-maintenance-session",
+      "clip_prompt": "маяк в тумане, cyan"
+    },
+    {
+      "id": "2026-06-02-app-store",
+      "clip_prompt": "сетка световых плит"
+    },
+    {
+      "id": "2026-06-03-doc-editor-v2-foundation",
+      "clip_prompt": "монолит из стекла"
+    },
+    {
+      "id": "2026-06-04-doc-editor-v2",
+      "clip_prompt": "два потока света"
+    },
+    {
+      "id": "2026-06-05-music-evolution-polish",
+      "clip_prompt": "пульсирующий кристалл"
+    },
+    {
+      "id": "2026-06-06-about-project",
+      "clip_prompt": "арх в пустом зале"
+    },
+    {
+      "id": "2026-06-07-social-hub",
+      "clip_prompt": "кольца вокруг сферы"
+    },
+    {
+      "id": "2026-06-08-feedback-notifications",
+      "clip_prompt": "слои стекла, cyan"
+    },
+    {
+      "id": "2026-06-09-mobile-deeplinks",
+      "clip_prompt": "лучи из центра"
+    },
+    {
+      "id": "2026-06-10-music-player",
+      "clip_prompt": "волна над водой"
+    },
+    {
+      "id": "2026-06-11-companion-voice",
+      "clip_prompt": "спираль звука"
+    },
+    {
+      "id": "2026-06-12-gaf-mobile-video",
+      "clip_prompt": "два сияния через стекло"
+    },
+    {
+      "id": "2026-06-13-guided-tours",
+      "clip_prompt": "сфера в тумане, рассвет"
+    }
+  ]
+}

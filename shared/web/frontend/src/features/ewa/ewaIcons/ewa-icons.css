@@ -1,0 +1,106 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://eliteew.ru
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Core styles for ``EwaIcon`` (sizes, motion, brand tones) — adapted from EWASolution ``icons-system.css``.
+ * Invariants: Respect ``prefers-reduced-motion`` for spin/pulse helpers; keep the raw sprite sheet out of visible text extraction.
+ * Related: src/features/ewa/ewaIcons/EwaIcon.tsx
+ */
+
+.ewa-icon {
+	display: inline-block;
+	flex-shrink: 0;
+	fill: currentColor;
+	stroke: currentColor;
+	vertical-align: middle;
+	transition:
+		color 0.2s ease,
+		transform 0.2s ease,
+		opacity 0.2s ease;
+}
+
+.ewa-icon--xs {
+	width: 1rem;
+	height: 1rem;
+}
+.ewa-icon--sm {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+.ewa-icon--md {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+.ewa-icon--lg {
+	width: 2rem;
+	height: 2rem;
+}
+.ewa-icon--xl {
+	width: 3rem;
+	height: 3rem;
+}
+
+.ewa-icon--brand {
+	color: #00d4ff;
+}
+.ewa-icon--success {
+	color: #10b981;
+}
+.ewa-icon--warning {
+	color: #f59e0b;
+}
+.ewa-icon--danger {
+	color: #ef4444;
+}
+.ewa-icon--muted {
+	color: var(--companion-text-soft, #94a3b8);
+}
+.ewa-icon--aura {
+	color: var(--companion-aura, #6366f1);
+}
+
+.ewa-icon--spinning {
+	animation: ewa-icon-spin 1.2s linear infinite;
+}
+.ewa-icon--pulsing {
+	animation: ewa-icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes ewa-icon-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes ewa-icon-pulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.72;
+		transform: scale(1.06);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ewa-icon--spinning,
+	.ewa-icon--pulsing {
+		animation: none;
+	}
+}
+
+.ewa-icon-sprites-host {
+	display: none;
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	pointer-events: none;
+}

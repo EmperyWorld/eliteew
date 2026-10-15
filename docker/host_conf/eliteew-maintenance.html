@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store" />
+    <title>EliteEW · восстановление связи</title>
+    <link rel="stylesheet" href="/preloader.css" />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family:
+          Inter, Manrope, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #020617;
+        color: #f8fafc;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: #020617;
+      }
+
+      .maintenance-layer {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        padding-top: 6.5rem;
+      }
+
+      .maintenance-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.84);
+        backdrop-filter: blur(6px);
+      }
+
+      .maintenance-banner {
+        position: fixed;
+        top: 1rem;
+        left: 50%;
+        z-index: 2;
+        transform: translateX(-50%);
+        width: min(calc(100% - 2rem), 40rem);
+        border: 1px solid rgba(190, 242, 100, 0.28);
+        border-radius: 1.75rem;
+        background: rgba(2, 6, 23, 0.88);
+        box-shadow:
+          0 25px 50px -12px rgba(0, 0, 0, 0.35),
+          0 0 0 1px rgba(190, 242, 100, 0.06);
+        padding: 0.9rem 1.15rem;
+        backdrop-filter: blur(24px);
+      }
+
+      .maintenance-banner__badge {
+        margin: 0 0 0.35rem;
+        color: #d9f99d;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .maintenance-banner h2 {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.3;
+      }
+
+      .maintenance-banner p {
+        margin: 0.4rem 0 0;
+        color: rgba(226, 232, 240, 0.86);
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+
+      .recovery-panel {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 28rem);
+      }
+
+      .recovery-panel .elite-glass-panel {
+        margin: 0 auto;
+      }
+
+      .maintenance-quote-crossfade {
+        animation: maintenance-quote-enter 0.45s ease-out both;
+      }
+
+      @keyframes maintenance-quote-enter {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .maintenance-quote-crossfade {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="maintenance-layer" role="status" aria-live="polite">
+      <div class="maintenance-backdrop" aria-hidden="true"></div>
+      <div class="maintenance-banner">
+        <p class="maintenance-banner__badge">Идёт обслуживание</p>
+        <h2>EliteEW восстанавливает связь</h2>
+        <p>Связь с сервером временно прервана. Окна и данные сохранены.</p>
+      </div>
+      <div class="recovery-panel">
+        <div class="elite-glass-panel elite-glass-panel-premium" style="padding: 1.5rem 1.35rem">
+          <div
+            class="elite-recovery-ornament"
+            style="margin: 0 auto 1rem; display: flex; width: 3.5rem; height: 3.5rem; align-items: center; justify-content: center"
+            aria-hidden="true"
+          >
+            <span class="elite-recovery-ornament-ring"></span>
+            <span class="elite-recovery-ornament-ring elite-recovery-ornament-ring--delay"></span>
+            <span class="elite-recovery-ornament-core">EW</span>
+          </div>
+          <p class="elite-recovery-progress-label" style="text-align: center; margin: 0 0 0.5rem">
+            Связь восстанавливается
+          </p>
+          <div class="elite-recovery-progress-track" style="margin-bottom: 1.25rem">
+            <div class="elite-recovery-progress-shimmer" aria-hidden="true"></div>
+          </div>
+          <blockquote class="preloader-quote elite-quote-card-light maintenance-quote-crossfade" id="maintenance-quote">
+            <p class="preloader-quote-text" id="maintenance-quote-text"></p>
+            <cite class="preloader-quote-author" id="maintenance-quote-author"></cite>
+          </blockquote>
+          <p style="margin: 1.25rem 0 0; text-align: center">
+            <a
+              href="/"
+              style="
+                display: inline-block;
+                padding: 0.7rem 1.2rem;
+                border: 1px solid rgba(190, 242, 100, 0.42);
+                border-radius: 999px;
+                background: rgba(157, 255, 0, 0.16);
+                color: #f7fee7;
+                font-weight: 600;
+                text-decoration: none;
+              "
+              >Проверить связь</a
+            >
+          </p>
+          <p
+            style="
+              margin: 1rem 0 0;
+              text-align: center;
+              font-size: 0.75rem;
+              line-height: 1.45;
+              color: rgba(203, 213, 225, 0.72);
+            "
+          >
+            Вкладку можно оставить открытой — восстановление автоматическое.
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="/elite-quotes-inline.js"></script>
+    <script>
+      (function () {
+        var ROTATION_MS = 7000;
+        var RECOVERY_CATEGORIES = { perseverance: true, strategy: true };
+        var fallbackQuotes = [
+          {
+            author: 'Ганнибал',
+            text: 'Мы либо найдём дорогу, либо проложим её сами.',
+            category: 'strategy',
+          },
+          {
+            author: 'Марк Аврелий',
+            text: 'Препятствие на пути становится путём.',
+            category: 'perseverance',
+          },
+        ];
+
+        var pool = (window.__ELITEEW_QUOTES__ || fallbackQuotes).filter(function (entry) {
+          return RECOVERY_CATEGORIES[entry.category];
+        });
+        if (pool.length === 0) {
+          pool = fallbackQuotes;
+        }
+
+        var lastIndex = -1;
+        var textNode = document.getElementById('maintenance-quote-text');
+        var authorNode = document.getElementById('maintenance-quote-author');
+        var block = document.getElementById('maintenance-quote');
+
+        function pickQuote() {
+          if (pool.length === 1) {
+            return pool[0];
+          }
+          var index = 0;
+          do {
+            index = Math.floor(Math.random() * pool.length);
+          } while (index === lastIndex);
+          lastIndex = index;
+          return pool[index];
+        }
+
+        function renderQuote() {
+          var quote = pickQuote();
+          if (textNode) {
+            textNode.textContent = '«' + quote.text + '»';
+          }
+          if (authorNode) {
+            authorNode.textContent = quote.author;
+          }
+          if (block) {
+            block.classList.remove('maintenance-quote-crossfade');
+            void block.offsetWidth;
+            block.classList.add('maintenance-quote-crossfade');
+          }
+        }
+
+        renderQuote();
+        if (pool.length > 1) {
+          setInterval(renderQuote, ROTATION_MS);
+        }
+      })();
+    </script>
+  </body>
+</html>

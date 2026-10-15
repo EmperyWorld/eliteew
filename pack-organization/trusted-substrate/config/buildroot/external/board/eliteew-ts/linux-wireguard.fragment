@@ -1,0 +1,4 @@
+# FoFline portal datapath. Built from the in-tree Linux 6.12 WireGuard
+# sources. Module so a live seat can insmod without baking peer keys.
+# Userspace stay split-tunnel (AllowedIPs=10.88.89.1/32) — not a default route.
+CONFIG_WIREGUARD=m

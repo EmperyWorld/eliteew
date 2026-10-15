@@ -1,0 +1,25 @@
+{
+  "distDir": "dist-build/assets",
+  "includeExtensions": [".js", ".mjs", ".css"],
+  "defaultMaxGzipKB": 180,
+  "budgets": [
+    { "pattern": "UltimateDocEditor-*.js", "maxGzipKB": 75 },
+    { "pattern": "TiptapEditor-*.js", "maxGzipKB": 110 },
+    { "pattern": "TiptapEditorCollaboration-*.js", "maxGzipKB": 50 },
+    { "pattern": "DesktopWorkspaceContent-*.js", "maxGzipKB": 280 },
+    { "pattern": "SiteStudioAdminShell-*.js", "maxGzipKB": 210 },
+    { "pattern": "UserSiteStudio-*.js", "maxGzipKB": 230 },
+    { "pattern": "PDFProcessingPanel-*.js", "maxGzipKB": 155 },
+    { "pattern": "pdf.worker.min-*.mjs", "maxGzipKB": 370 },
+    { "pattern": "config-*.js", "maxGzipKB": 230 },
+    { "pattern": "exceljs.min-*.js", "maxGzipKB": 320 },
+    { "pattern": "exceljs-vendor-*.js", "maxGzipKB": 320 },
+    { "pattern": "marketingCanvasTldrawPane-*.js", "maxGzipKB": 420 },
+    { "pattern": "marketingCanvasDrawingPane-*.js", "maxGzipKB": 200 },
+    { "pattern": "excalidraw-core-*.js", "maxGzipKB": 1520 },
+    { "pattern": "excalidraw-rendering-*.js", "maxGzipKB": 220 },
+    { "pattern": "excalidraw-helpers-*.js", "maxGzipKB": 190 },
+    { "pattern": "react-vendor-*.js", "maxGzipKB": 140 },
+    { "pattern": "index-*.css", "maxGzipKB": 125 }
+  ]
+}

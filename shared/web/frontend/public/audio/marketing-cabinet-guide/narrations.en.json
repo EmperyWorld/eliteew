@@ -1,0 +1,13 @@
+{
+  "language": "en",
+  "voice": "en_0",
+  "steps": {
+    "intro": "Marketing cabinet. Company, project, and strategy cycle. Sections on the left; context and actions in the header. Use arrow keys or buttons between steps.",
+    "toolbar": "Header and context: company, project, document, content manager, copy page link, refresh, and the AI job center.",
+    "sidebar": "Cabinet sections. Switch JTBD, analysis, campaigns, IMC, chat, and more. In compact mode, hover an icon to see its name.",
+    "overviewMode": "Overview mode shows health cards and narratives. Open the interactive dashboard from the header for a customizable widget grid.",
+    "dashboardToolbar": "Dashboard toolbar: layout presets, preset search, add widgets, import and export, and keyboard shortcuts — press question mark.",
+    "widgetChrome": "Tile chrome: title, widget type icon, a help hint on the title, and actions to pin, hide, or remove the tile.",
+    "dashboardGrid": "Widget grid. Drag and resize tiles. Use the tile menu or right-click to pin, duplicate, or hide."
+  }
+}

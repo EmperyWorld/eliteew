@@ -1,0 +1,11 @@
+--- a/package/jpeg-turbo/jpeg-turbo.mk
++++ b/package/jpeg-turbo/jpeg-turbo.mk
+@@ -16,6 +16,8 @@
+ JPEG_TURBO_DEPENDENCIES = host-pkgconf
+ 
+ JPEG_TURBO_CONF_OPTS = -DWITH_JPEG8=ON
++# Host CMake ≥4 removed compat for cmake_minimum_required < 3.5 (jpeg-turbo 2.1.5 uses 2.8.12).
++JPEG_TURBO_CONF_OPTS += -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+ 
+ ifeq ($(BR2_STATIC_LIBS),y)
+ JPEG_TURBO_CONF_OPTS += -DENABLE_STATIC=ON -DENABLE_SHARED=OFF

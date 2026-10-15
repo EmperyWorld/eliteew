@@ -1,0 +1,9 @@
+{"doc": "database/DATABASE_TABLES_REGISTRY.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/", "section": "database", "status": "match"}
+{"doc": "database/DATABASE_TABLES_REGISTRY.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/ewa_platform/migrations/applied/", "section": "database", "status": "match"}
+{"doc": "database/DATABASE_TABLES_REGISTRY.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/migrations/", "section": "database", "status": "match"}
+{"doc": "database/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "docker/scripts/apply-eliteew-migrations.sh", "section": "database", "status": "match"}
+{"doc": "database/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/ewa_platform/migrations/", "section": "database", "status": "match"}
+{"doc": "database/README.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/migrations/", "section": "database", "status": "match"}
+{"doc": "database/TRIGGERS_KEEP_VS_REMOVE.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/migrations/", "section": "database", "status": "match"}
+{"doc": "database/TRIGGERS_KEEP_VS_REMOVE.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/migrations/drop_triggers_first_wave.sql", "section": "database", "status": "match"}
+{"doc": "database/TRIGGERS_KEEP_VS_REMOVE.md", "exists_in_repo": true, "kind": "path_ref", "path": "shared/api/migrations/list_orphan_trigger_functions.sql", "section": "database", "status": "match"}

@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.0.0",
+  "updated": "2026-09-15",
+  "registry_root": "documentation/reference/fixed-errors",
+  "products": [
+    {
+      "id": "kursorina",
+      "label": "Курсорина",
+      "aliases": [
+        "курсорина",
+        "kursorina",
+        "KursorinaApp"
+      ],
+      "path_prefixes": [
+        "shared/api/services/kursorina/",
+        "shared/api/routers/kursorina.py",
+        "shared/api/tasks/kursorina.py",
+        "shared/api/tests/test_kursorina_",
+        "shared/web/frontend/src/pages/Desktop/apps/KursorinaApp.tsx",
+        "shared/apps/kursorina/",
+        "documentation/product/desktop/KURSORINA.md",
+        "documentation/reference/fixed-errors/kursorina/"
+      ]
+    },
+    {
+      "id": "ewa",
+      "label": "EWA companion / platform",
+      "aliases": [
+        "ewa",
+        "companion",
+        "ewa_platform"
+      ],
+      "path_prefixes": [
+        "shared/api/ewa_platform/",
+        "shared/web/frontend/src/features/ewa/",
+        "documentation/product/ewa/",
+        "documentation/reference/fixed-errors/ewa/"
+      ]
+    },
+    {
+      "id": "desktop-shell",
+      "label": "Desktop shell / apps chrome",
+      "aliases": [
+        "desktop",
+        "desktop-shell",
+        "рабочий стол"
+      ],
+      "path_prefixes": [
+        "shared/web/frontend/src/pages/Desktop/",
+        "shared/apps/",
+        "documentation/product/desktop/",
+        "documentation/reference/fixed-errors/desktop-shell/"
+      ]
+    },
+    {
+      "id": "desktop-client",
+      "label": "Tauri Connection Agent (pack-organization)",
+      "aliases": [
+        "desktop-client",
+        "tauri",
+        "connection-agent",
+        "fofline"
+      ],
+      "path_prefixes": [
+        "pack-organization/connection-agent/",
+        "documentation/product/desktop/DESKTOP-TAURI",
+        "documentation/product/desktop/DESKTOP-CLIENT",
+        "documentation/reference/fixed-errors/desktop-client/"
+      ]
+    },
+    {
+      "id": "trusted-substrate",
+      "label": "EliteEW Trusted Substrate (from-source OS carrier)",
+      "aliases": [
+        "trusted-substrate",
+        "trusted substrate",
+        "sealed-os-carrier",
+        "buildroot-kiosk"
+      ],
+      "path_prefixes": [
+        "pack-organization/trusted-substrate/",
+        "documentation/product/desktop/ELITEEW-TRUSTED-SUBSTRATE",
+        "documentation/reference/fixed-errors/trusted-substrate/"
+      ]
+    },
+    {
+      "id": "content-manager",
+      "label": "Content Manager / unified_content",
+      "aliases": [
+        "content-manager",
+        "cm",
+        "unified_content",
+        "библиотека"
+      ],
+      "path_prefixes": [
+        "shared/api/services/unified_content/",
+        "shared/api/routers/unified_content",
+        "shared/web/frontend/src/pages/ContentManager/",
+        "documentation/product/CONTENT-MANAGER",
+        "documentation/reference/fixed-errors/content-manager/"
+      ]
+    },
+    {
+      "id": "mobile",
+      "label": "Mobile Android (pack-cloud)",
+      "aliases": [
+        "mobile",
+        "android",
+        "pack-cloud"
+      ],
+      "path_prefixes": [
+        "pack-cloud/mobile/",
+        "documentation/product/mobile/",
+        "documentation/reference/fixed-errors/mobile/"
+      ]
+    },
+    {
+      "id": "site-studio",
+      "label": "Site Studio / olenti runtime worker",
+      "aliases": [
+        "site-studio",
+        "sitestudio",
+        "imperorg",
+        "olenti"
+      ],
+      "path_prefixes": [
+        "shared/api/services/site_studio",
+        "shared/api/services/imperorg",
+        "shared/web/frontend/src/features/site-studio/",
+        "docker/stack/stack0_b.yml",
+        "docker/builders/stack0-api/Dockerfile",
+        "documentation/product/SITE-STUDIO.md",
+        "documentation/platform/SITE-EDGE-CARRIER.md",
+        "documentation/reference/fixed-errors/site-studio/"
+      ]
+    },
+    {
+      "id": "stack0-deploy",
+      "label": "stack0 deploy / prod-line",
+      "aliases": [
+        "stack0",
+        "prod-line",
+        "eeprodline",
+        "eeprodbaked"
+      ],
+      "path_prefixes": [
+        "docker/scripts/eliteew-deploy.sh",
+        "docker/scripts/eeprodline",
+        "documentation/platform/PROD-CORE",
+        "documentation/reference/fixed-errors/stack0-deploy/"
+      ]
+    },
+    {
+      "id": "marketing-cabinet",
+      "label": "Marketing Cabinet SPA",
+      "aliases": [
+        "marketing-cabinet",
+        "MarketingCabinet",
+        "маркетинг-кабинет",
+        "MC"
+      ],
+      "path_prefixes": [
+        "shared/web/frontend/src/pages/MarketingCabinet/",
+        "documentation/product/marketing",
+        "documentation/reference/fixed-errors/marketing-cabinet/",
+        "documentation/reference/solution-readiness/2026-09-06-frontend-ts-biome-hygiene-forecast.md"
+      ]
+    },
+    {
+      "id": "eliteew-spa",
+      "label": "EliteEW SPA hygiene / frontend TS",
+      "aliases": [
+        "eliteew-spa",
+        "spa-hygiene",
+        "frontend-ts"
+      ],
+      "path_prefixes": [
+        "shared/web/frontend/src/",
+        "documentation/platform/FRONTEND-TOOLCHAIN-AND-BUILD.md",
+        "documentation/reference/fixed-errors/eliteew-spa/",
+        "documentation/reference/solution-readiness/2026-09-06-frontend-ts"
+      ]
+    },
+    {
+      "id": "agent-cursor",
+      "label": "Agent / Cursor rules-hooks-skills",
+      "aliases": [
+        "cursor",
+        "agent",
+        ".cursor"
+      ],
+      "path_prefixes": [
+        ".cursor/",
+        "documentation/platform/AGENT-",
+        "documentation/reference/fixed-errors/agent-cursor/"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="dark" />
+  <title>EliteEW — full text</title>
+  <link rel="stylesheet" href="../assets/export.css" />
+</head>
+<body class="page-book">
+  <div class="read-progress" aria-hidden="true"><div class="read-progress-bar" data-progress></div></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="site-top">
+    <div class="site-top-inner">
+      <a class="brand-row" href="index.html">
+        <img class="logo" src="../assets/brand/emperyworld-logo.webp" alt="" width="34" height="34" />
+        <div>
+          <span class="brand-name">EliteEW</span>
+          <span class="brand-sub">HTML primary · not an operations runbook</span>
+        </div>
+      </a>
+      <div class="nav-wrap">
+        <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Menu">☰</button>
+        <nav class="nav" aria-label="Export sections">
+          <a href="index.html">Start</a>
+          <a href="onepagers.html">Brief</a>
+          <a href="book.html" class="active">Full text</a>
+          <a href="diagrams.html">Diagrams</a>
+          <a class="nav-cta" href="book.html#01-what-is-eliteew">Begin →</a>
+          <a class="lang-switch" href="../ru/book.html" hreflang="ru" lang="ru" data-lang-switch>Русский</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <header class="cover is-compact">
+    <div class="cover-copy">
+      <p class="eyebrow">Empery World · product overview</p>
+      <h1>EliteEW</h1>
+      <p class="promise">Work layer ∩ secure perimeter</p>
+    </div>
+    <a class="nav-cta" href="index.html">← Cover</a>
+  </header>
+
+  <main class="wrap">
+
+    <button type="button" class="rail-fab" data-rail-toggle aria-expanded="false" aria-controls="book-side-rail">
+      Contents
+    </button>
+    <div class="rail-scrim" data-rail-scrim hidden aria-hidden="true"></div>
+    <div class="book-layout">
+      <aside class="side-rail" id="book-side-rail" aria-label="Chapter navigation">
+        <p class="sr-title">Parts</p>
+        <label class="sr-search">
+          <span class="sr-search-label">Search</span>
+          <input type="search" data-book-search autocomplete="off"
+            placeholder="Filter chapters…"
+            aria-label="Filter table of contents" />
+        </label>
+        <p class="sr-search-empty" data-book-search-empty hidden>
+          No matches
+        </p>
+        <div class="sr-part" data-part="start"><p class="sr-part-title">Start</p><a href="#00-README">EliteEW — product overview</a></div><div class="sr-part" data-part="product"><p class="sr-part-title">Product</p><a href="#01-what-is-eliteew">P1 — What EliteEW is</a><a href="#01a-any-device-vr">P1a — Any device, including immersive di…</a></div><div class="sr-part" data-part="security"><p class="sr-part-title">Perimeter &amp; security</p><a href="#02-threats-and-protection">P2 — Threats and protection</a><a href="#02a-agentless-instant-access">P2a — Agentless access and a fast start</a></div><div class="sr-part" data-part="gift"><p class="sr-part-title">Gift &amp; adoption</p><a href="#03-regulatory-map">P3 — Regulatory orientation map</a><a href="#03a-employee-day-adoption">P3a — Employee day: internal adoption</a><a href="#03b-industry-profiles">P3b — Industry profiles</a><a href="#03c-full-complex-source">P3c — The complex, open source, gift to …</a><a href="#03d-tco-orientative">P3d — Self-host cost structure (orientat…</a><a href="#03e-delivery-models">P3e — Gift to the world: how to use the …</a><a href="#03f-transfer-bom-handover">P3f — Receiving the gift in-house (artif…</a><a href="#03g-si-migration-playbook">P3g — Integrator, migration from a tool …</a></div><div class="sr-part" data-part="desk"><p class="sr-part-title">Desk &amp; apps</p><a href="#04-desktop-workspace">P4 — Desk as the work environment</a><a href="#04a-files-two-planes">P4a — Files: metadata, object store, acc…</a><a href="#04b-document-collaboration">P4b — Co-editing documents</a><a href="#05-apps-store-ai-contours">P5 — Apps, catalog, two AI contours</a><a href="#05a-roles-org-project">P5a — Organization and project roles</a><a href="#05b-generation-spend-vault-ai">P5b — Generation spend control · AI on p…</a><a href="#05c-single-sign-on-sessions">P5c — Single sign-on and session control</a><a href="#06-app-index-brief">P6 — App index (brief)</a></div><div class="sr-part" data-part="mobile"><p class="sr-part-title">Mobile &amp; native</p><a href="#07-android-satellite-security">P7 — Android satellite and security</a><a href="#07a-internal-messenger">P7a — Internal messenger (GAF)</a><a href="#07b-internal-video-calls">P7b — Internal video calls</a><a href="#07c-trusted-phone-e2ee">P7c — Trusted phone and on-device E2EE k…</a><a href="#07d-edge-wall-one-click">P7d — Edge: closed wall and one meaningf…</a><a href="#07e-mobile-capability-matrix">P7e — Mobile capability matrix</a><a href="#08-tauri-clients-ota">P8 — Tauri clients and update trust</a><a href="#08a-atomic-conditional-access">P8a — Atomic Conditional Access</a></div><div class="sr-part" data-part="access"><p class="sr-part-title">Access &amp; editions</p><a href="#09-capsules-enterprise-seats">P9 — Capsules and place access</a><a href="#09a-controlled-licenses-sealed">P9a — Service access and sealed materials</a><a href="#10-editions">P10 — Editions: cloud / on-prem / client</a><a href="#10a-native-tauri-hybrid">P10a — Native client and hybrid</a><a href="#10b-live-sealed-install">P10b — Live carrier and sealed install</a><a href="#10c-ops-scale-not-user-cli">P10c — Ops scale: deploy and control (no…</a><a href="#10d-external-messenger-honesty">P10d — Optional external notify channels</a></div><div class="sr-part" data-part="cards"><p class="sr-part-title">App cards</p><a href="#11-must-app-cards">P11 — Must: app cards (tier 1)</a><a href="#11a-should-app-cards">P11 — Should: app cards (tier 2)</a><a href="#11b-later-app-cards">P11 — Later: brief cards (tier 3)</a></div><div class="sr-part" data-part="limits"><p class="sr-part-title">Honest limits</p><a href="#12-honest-limits">P12 — Honest limits</a></div><div class="sr-part" data-part="briefs"><p class="sr-part-title">Briefs</p><a href="#13-onepager-executive">Overview: gift to the world and your con…</a><a href="#13-onepager-ciso">Security / perimeter overview</a><a href="#13-onepager-industry">Rollout / industry overview</a><a href="#13-onepager-dd-rfi">Questions before deep reading</a><a href="#13-summary-matrix">Summary matrix (Host | DIY | EliteEW)</a><a href="#glossary">Glossary</a><a href="#14-export-pdf-html">P14 — Export HTML + Markdown (+ optional…</a></div>
+      </aside>
+      <div class="book-main">
+        <p class="meta reveal">Full text by part · diagrams inline · <a href="diagrams.html">diagram catalog</a>.</p>
+        <header class="part-head reveal" id="part-start"><h2>Start</h2></header><article class="chapter reveal" id="00-README">
+<h1>EliteEW — product overview</h1>
+<p>A short pack on <strong>what EliteEW is</strong>, how to receive it as a gift to the world<br />
+under MIT, and where the honest limits are. Not an ops runbook and not a<br />
+service tariff sheet.</p>
+<p><strong>Languages:</strong> <a href="#00-README">English</a> · <a href="../ru/index.html">Русский</a></p>
+<p><strong>Audience:</strong> people and organizations that want their own work contour · IT ·<br />
+security · integrators.<br />
+<strong>Model:</strong> first-party code is a gift under <code>MIT</code><br />
+(<a href="#03c-full-complex-source">P3c</a>); hosted runtime and hands-on help are<br />
+<strong>optional accompaniment</strong>, never a substitute for the open source grant<br />
+(<a href="#03e-delivery-models">P3e</a>).</p>
+<h2>Start here</h2>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Open</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it is</td>
+<td><a href="#01-what-is-eliteew">P1</a> · <a href="#13-onepager-executive">overview</a></td>
+</tr>
+<tr>
+<td>Gift / license / license terms</td>
+<td><a href="#03c-full-complex-source">P3c</a> · <a href="#03e-delivery-models">P3e</a></td>
+</tr>
+<tr>
+<td>Perimeter &amp; security</td>
+<td><a href="#13-onepager-ciso">CISO</a> · <a href="#02-threats-and-protection">P2</a> · <a href="#12-honest-limits">P12</a></td>
+</tr>
+<tr>
+<td>Bring it up in-house</td>
+<td><a href="#03f-transfer-bom-handover">P3f</a> · <a href="#03g-si-migration-playbook">P3g</a> · <a href="#13-onepager-dd-rfi">Q&amp;A</a></td>
+</tr>
+<tr>
+<td>Employee day</td>
+<td><a href="#13-onepager-industry">industry</a> · <a href="#03a-employee-day-adoption">P3a</a></td>
+</tr>
+<tr>
+<td>Terms</td>
+<td><a href="#glossary">glossary</a></td>
+</tr>
+</tbody>
+</table>
+<p>Path diagram: </p>
+<figure class="diagram" id="D10-reading-paths">
+<figcaption><strong>D10</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  P0[&quot;P0 Contents&quot;]
+  P0 --&gt; ORG[&quot;Organization / adoption&quot;]
+  P0 --&gt; CISO[&quot;Security / perimeter&quot;]
+  P0 --&gt; IND[&quot;Industry / employee day&quot;]
+  P0 --&gt; SI[&quot;Migration / integrator&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 threats&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  P0[&quot;P0 Contents&quot;]
+  P0 --&gt; ORG[&quot;Organization / adoption&quot;]
+  P0 --&gt; CISO[&quot;Security / perimeter&quot;]
+  P0 --&gt; IND[&quot;Industry / employee day&quot;]
+  P0 --&gt; SI[&quot;Migration / integrator&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 threats&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre></details>
+</figure>
+
+<p>.</p>
+<p><strong>Also available in Russian:</strong> <a href="../ru/index.html">Русский</a>.</p>
+<h2>How to read comparisons</h2>
+<p>Where a comparison helps, columns are <strong>Host | DIY | EliteEW</strong>. The product<br />
+formula lives in <a href="#01-what-is-eliteew">P1</a>; hard limits live in<br />
+<a href="#12-honest-limits">P12</a>.</p>
+<h2>Contents</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>File</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td><a href="#01-what-is-eliteew">01-what-is-eliteew.md</a></td>
+</tr>
+<tr>
+<td>P1a</td>
+<td><a href="#01a-any-device-vr">01a-any-device-vr.md</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td><a href="#02-threats-and-protection">02-threats-and-protection.md</a></td>
+</tr>
+<tr>
+<td>P2a</td>
+<td><a href="#02a-agentless-instant-access">02a-agentless-instant-access.md</a></td>
+</tr>
+<tr>
+<td>P3</td>
+<td><a href="#03-regulatory-map">03-regulatory-map.md</a></td>
+</tr>
+<tr>
+<td>P3a</td>
+<td><a href="#03a-employee-day-adoption">03a-employee-day-adoption.md</a></td>
+</tr>
+<tr>
+<td>P3b</td>
+<td><a href="#03b-industry-profiles">03b-industry-profiles.md</a></td>
+</tr>
+<tr>
+<td>P3c</td>
+<td><a href="#03c-full-complex-source">03c-full-complex-source.md</a></td>
+</tr>
+<tr>
+<td>P3d</td>
+<td><a href="#03d-tco-orientative">03d-tco-orientative.md</a></td>
+</tr>
+<tr>
+<td>P3e</td>
+<td><a href="#03e-delivery-models">03e-delivery-models.md</a></td>
+</tr>
+<tr>
+<td>P3f</td>
+<td><a href="#03f-transfer-bom-handover">03f-transfer-bom-handover.md</a></td>
+</tr>
+<tr>
+<td>P3g</td>
+<td><a href="#03g-si-migration-playbook">03g-si-migration-playbook.md</a></td>
+</tr>
+<tr>
+<td>P4</td>
+<td><a href="#04-desktop-workspace">04-desktop-workspace.md</a></td>
+</tr>
+<tr>
+<td>P4a</td>
+<td><a href="#04a-files-two-planes">04a-files-two-planes.md</a></td>
+</tr>
+<tr>
+<td>P4b</td>
+<td><a href="#04b-document-collaboration">04b-document-collaboration.md</a></td>
+</tr>
+<tr>
+<td>P5</td>
+<td><a href="#05-apps-store-ai-contours">05-apps-store-ai-contours.md</a></td>
+</tr>
+<tr>
+<td>P5a</td>
+<td><a href="#05a-roles-org-project">05a-roles-org-project.md</a></td>
+</tr>
+<tr>
+<td>P5b</td>
+<td><a href="#05b-generation-spend-vault-ai">05b-generation-spend-vault-ai.md</a></td>
+</tr>
+<tr>
+<td>P5c</td>
+<td><a href="#05c-single-sign-on-sessions">05c-single-sign-on-sessions.md</a></td>
+</tr>
+<tr>
+<td>P6</td>
+<td><a href="#06-app-index-brief">06-app-index-brief.md</a></td>
+</tr>
+<tr>
+<td>P7</td>
+<td><a href="#07-android-satellite-security">07-android-satellite-security.md</a></td>
+</tr>
+<tr>
+<td>P7a–e</td>
+<td><a href="#07a-internal-messenger">07a</a> · <a href="#07b-internal-video-calls">07b</a> · <a href="#07c-trusted-phone-e2ee">07c</a> · <a href="#07d-edge-wall-one-click">07d</a> · <a href="#07e-mobile-capability-matrix">07e</a></td>
+</tr>
+<tr>
+<td>P8</td>
+<td><a href="#08-tauri-clients-ota">08-tauri-clients-ota.md</a> · <a href="#08a-atomic-conditional-access">08a</a></td>
+</tr>
+<tr>
+<td>P9</td>
+<td><a href="#09-capsules-enterprise-seats">09-capsules-enterprise-seats.md</a> · <a href="#09a-controlled-licenses-sealed">09a</a></td>
+</tr>
+<tr>
+<td>P10</td>
+<td><a href="#10-editions">10-editions.md</a> · <a href="#10a-native-tauri-hybrid">10a</a> · <a href="#10b-live-sealed-install">10b</a> · <a href="#10c-ops-scale-not-user-cli">10c</a> · <a href="#10d-external-messenger-honesty">10d</a></td>
+</tr>
+<tr>
+<td>P11</td>
+<td><a href="#11-must-app-cards">11-must</a> · <a href="#11a-should-app-cards">11a</a> · <a href="#11b-later-app-cards">11b</a></td>
+</tr>
+<tr>
+<td>P12</td>
+<td><a href="#12-honest-limits">12-honest-limits.md</a></td>
+</tr>
+<tr>
+<td>P13</td>
+<td><a href="#13-onepager-executive">overview</a> · <a href="#13-onepager-ciso">CISO</a> · <a href="#13-onepager-industry">industry</a> · <a href="#13-onepager-dd-rfi">Q&amp;A</a> · <a href="#13-summary-matrix">matrix</a></td>
+</tr>
+<tr>
+<td>—</td>
+<td><a href="#glossary">glossary.md</a> · <a href="#14-export-pdf-html">export</a></td>
+</tr>
+</tbody>
+</table>
+<p>Diagrams are shared: <a href="../assets/diagrams-md/"><code>../assets/diagrams/</code></a>.</p>
+</article>
+<header class="part-head reveal" id="part-product"><h2>Product</h2></header><article class="chapter reveal" id="01-what-is-eliteew">
+<h1>P1 — What EliteEW is</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D01-hybrid-formula">
+<figcaption><strong>D01</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  subgraph Host[&quot;Host device&quot;]
+    OS[&quot;Desktop / server OS / VR browser&quot;]
+  end
+  subgraph Elite[&quot;EliteEW work layer&quot;]
+    Desk[&quot;Desk + apps + files&quot;]
+    Sec[&quot;Perimeter + roles + access&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph Host[&quot;Host device&quot;]
+    OS[&quot;Desktop / server OS / VR browser&quot;]
+  end
+  subgraph Elite[&quot;EliteEW work layer&quot;]
+    Desk[&quot;Desk + apps + files&quot;]
+    Sec[&quot;Perimeter + roles + access&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre></details>
+</figure>
+
+<h2>Formula</h2>
+<p><strong>EliteEW</strong> is an organization work environment: a desktop with apps, files and<br />
+documents, projects on your own data, communication inside the contour, and AI<br />
+grounded in the organization’s materials.</p>
+<p>It is a <strong>managed work layer</strong> on top of an ordinary device: work apps and files<br />
+live in the product, not as “just folders on a personal desktop.”<br />
+It is <strong>not</strong> a host-OS replacement and <strong>not</strong> a sterile-disk promise.</p>
+<p>It is also a <strong>gift to the world</strong>: first-party code is released under<br />
+<code>MIT</code> — you may run, study, modify, and share it under that<br />
+license (<a href="#03c-full-complex-source">P3c</a>). Software freedom is not a promise<br />
+of authors on staff, and it is not a promise of operated hosting.</p>
+<h2>Host / DIY / EliteEW</h2>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Host</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Role</td>
+<td>Familiar PC / server</td>
+<td>Self-built stack</td>
+<td>Work layer on the host</td>
+</tr>
+<tr>
+<td>Stronger here</td>
+<td>Drivers, local software</td>
+<td>Build flexibility</td>
+<td>One desk, apps, files, roles, session perimeter</td>
+</tr>
+<tr>
+<td>Out of scope</td>
+<td>—</td>
+<td>—</td>
+<td>Replacing the OS kernel “on every edition”</td>
+</tr>
+</tbody>
+</table>
+<h2>Who it is for</h2>
+<p>Anyone who needs <strong>their own</strong> work contour instead of a zoo of external<br />
+services — and who is ready to receive an open complex. How to live with the<br />
+gift: <a href="#03e-delivery-models">P3e</a>. Editions: <a href="#10-editions">P10</a>. Apps:<br />
+<a href="#06-app-index-brief">P6</a> / <a href="#11-must-app-cards">P11</a>.</p>
+</article>
+<article class="chapter reveal" id="01a-any-device-vr">
+<h1>P1a — Any device, including immersive displays</h1>
+<p><strong>Call / GAF detail:</strong> P7a / P7b (here: any-device + immersive displays only)<br />
+<strong>Mobile subset:</strong> P7e · <strong>Desktop client:</strong> P8</p>
+<h2>Thesis</h2>
+<p>EliteEW opens wherever there is a modern <strong>browser</strong> contour — PC, laptop,<br />
+tablet in the browser, Android satellite, and also an <strong>immersive headset</strong><br />
+(VR / XR) through the headset browser.</p>
+<p>The product does <strong>not</strong> ship a separate “VR app from the headset store.”<br />
+Headset use is the <strong>same web layer</strong>: desk, apps, and internal video calls<br />
+(including from GAF Chat) when the headset browser, mic, and camera are usable.</p>
+<p><strong>Checked:</strong> the headset scenario was checked; <strong>the headset model<br />
+is not named in public text</strong>.</p>
+<h2>Device map</h2>
+<table>
+<thead>
+<tr>
+<th>Contour</th>
+<th>What you get</th>
+<th>Not this</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser (PC / laptop / tablet)</td>
+<td>Full work layer in the browser</td>
+<td>Host-OS replacement</td>
+</tr>
+<tr>
+<td>Android satellite</td>
+<td>Feed / chat / push subset (<a href="#07e-mobile-capability-matrix">P7e</a>)</td>
+<td>Full desk as on desktop</td>
+</tr>
+<tr>
+<td>Immersive headset browser</td>
+<td>Web layer + internal calls when hardware allows</td>
+<td>Native VR-OS · store app · “any headset without browser/mic/camera”</td>
+</tr>
+<tr>
+<td>Tauri desktop client</td>
+<td>Connected client contour (<a href="#08-tauri-clients-ota">P8</a>)</td>
+<td>A second product tree</td>
+</tr>
+</tbody>
+</table>
+<h2>Honest framing</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Present</strong></td>
+<td>Browser access · Android satellite · calls = web/WebRTC contour · headset checked without model name</td>
+</tr>
+<tr>
+<td><strong>Checked</strong></td>
+<td>Headset browser path for product web UI and internal calls</td>
+</tr>
+<tr>
+<td><strong>Not promised</strong></td>
+<td>Native VR-OS · headset store listing · “every headset works offline without a browser” · phone = full EliteEW</td>
+</tr>
+</tbody>
+</table>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-security"><h2>Perimeter &amp; security</h2></header><article class="chapter reveal" id="02-threats-and-protection">
+<h1>P2 — Threats and protection</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D02-threat-classes">
+<figcaption><strong>D02</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Threats[&quot;Threat classes&quot;]
+    T1[&quot;Shadow IT / personal messenger&quot;]
+    T2[&quot;Personal clouds&quot;]
+    T3[&quot;Copy-paste / external AI&quot;]
+    T4[&quot;BYOD without separation&quot;]
+    T5[&quot;Analog: screen photo&quot;]
+  end
+  subgraph Answers[&quot;EliteEW responses&quot;]
+    A1[&quot;Work layer + internal chat&quot;]
+    A2[&quot;Managed files&quot;]
+    A3[&quot;AI in project contour&quot;]
+    A4[&quot;Browser / APK without admin agent&quot;]
+    A5[&quot;Minimization · not 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;not absolute&quot;| A5</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Threats[&quot;Threat classes&quot;]
+    T1[&quot;Shadow IT / personal messenger&quot;]
+    T2[&quot;Personal clouds&quot;]
+    T3[&quot;Copy-paste / external AI&quot;]
+    T4[&quot;BYOD without separation&quot;]
+    T5[&quot;Analog: screen photo&quot;]
+  end
+  subgraph Answers[&quot;EliteEW responses&quot;]
+    A1[&quot;Work layer + internal chat&quot;]
+    A2[&quot;Managed files&quot;]
+    A3[&quot;AI in project contour&quot;]
+    A4[&quot;Browser / APK without admin agent&quot;]
+    A5[&quot;Minimization · not 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;not absolute&quot;| A5</pre></details>
+</figure>
+
+<h2>The problem (channel, not people)</h2>
+<p>A common leak path: personal messengers, personal clouds, paste into an external<br />
+AI. A VPN closes a pipe but does not see inside a personal app. Classic endpoint<br />
+DLP often wants an agent — fragile on BYOD.</p>
+<p>EliteEW is a <strong>fast lever</strong> on top of the current security stack: separate work<br />
+from personal. It does <strong>not</strong> replace firewall / antivirus / full DLP.</p>
+<h2>Threat classes → product response</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>What happens</th>
+<th>EliteEW response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shadow IT / personal messenger</td>
+<td>Work files leave into a personal channel</td>
+<td>Work chat/files inside the contour (P7a)</td>
+</tr>
+<tr>
+<td>Personal clouds</td>
+<td>Copy outside org control</td>
+<td>Files in the managed library (P4a)</td>
+</tr>
+<tr>
+<td>Paste / external AI</td>
+<td>Strategy fragments leave</td>
+<td>AI and materials stay in the project contour (P5b)</td>
+</tr>
+<tr>
+<td>BYOD without separation</td>
+<td>Personal OS = work desk</td>
+<td>Browser / APK layer without an admin agent on the personal OS</td>
+</tr>
+<tr>
+<td>Open exposure</td>
+<td>Services open to everyone</td>
+<td>Edge / granted trust (P7d)</td>
+</tr>
+<tr>
+<td>Untrusted device / OTA</td>
+<td>Client substitution</td>
+<td>Client trust boundaries (P8)</td>
+</tr>
+<tr>
+<td>Insider / roles</td>
+<td>Excess rights</td>
+<td>Org/project roles (P5a)</td>
+</tr>
+<tr>
+<td>Screen photo</td>
+<td>Analog channel</td>
+<td>Digital-channel minimization — not 100% (P12)</td>
+</tr>
+<tr>
+<td>“Sterile disk on every edition”</td>
+<td>No traces on personal disk</td>
+<td>Not a universal promise (P12)</td>
+</tr>
+</tbody>
+</table>
+<p>Host / DIY / EliteEW comparison — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="02a-agentless-instant-access">
+<h1>P2a — Agentless access and a fast start</h1>
+<h2>Theses</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Thesis</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agentless</td>
+<td>No system EDR/DLP agents on a personal device</td>
+<td>Access via browser or a light Android APK without root/admin on the personal OS</td>
+</tr>
+<tr>
+<td>Instant provisioning</td>
+<td>The environment is ready within minutes after access is granted</td>
+<td>Without reinstalling the host OS</td>
+</tr>
+</tbody>
+</table>
+<p>This is <strong>not</strong> a promise that “data never touches the OS” on every edition at<br />
+once (see <a href="#12-honest-limits">P12</a>).</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.<br />
+Also: <a href="#02-threats-and-protection">P2</a> · <a href="#07d-edge-wall-one-click">P7d</a>.</p>
+</article>
+<header class="part-head reveal" id="part-gift"><h2>Gift &amp; adoption</h2></header><article class="chapter reveal" id="03-regulatory-map">
+<h1>P3 — Regulatory orientation map</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D03-npa-split">
+<figcaption><strong>D03 — norms: contributes / stays</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  subgraph NPA[&quot;Regulatory orientations&quot;]
+    N1[&quot;Information protection&quot;]
+    N2[&quot;Cross-border data&quot;]
+    N3[&quot;AI use&quot;]
+    N4[&quot;Personal data&quot;]
+  end
+  subgraph EE[&quot;EliteEW contributes&quot;]
+    E1[&quot;Perimeter · roles · access&quot;]
+    E2[&quot;Edition data contour&quot;]
+    E3[&quot;AI in contour&quot;]
+  end
+  subgraph Cust[&quot;Stays with the organization&quot;]
+    C1[&quot;Certification · protective tools&quot;]
+    C2[&quot;Legal bases · policies&quot;]
+    C3[&quot;Data controller&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph NPA[&quot;Regulatory orientations&quot;]
+    N1[&quot;Information protection&quot;]
+    N2[&quot;Cross-border data&quot;]
+    N3[&quot;AI use&quot;]
+    N4[&quot;Personal data&quot;]
+  end
+  subgraph EE[&quot;EliteEW contributes&quot;]
+    E1[&quot;Perimeter · roles · access&quot;]
+    E2[&quot;Edition data contour&quot;]
+    E3[&quot;AI in contour&quot;]
+  end
+  subgraph Cust[&quot;Stays with the organization&quot;]
+    C1[&quot;Certification · protective tools&quot;]
+    C2[&quot;Legal bases · policies&quot;]
+    C3[&quot;Data controller&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre></details>
+</figure>
+
+<h2>Important</h2>
+<p>This chapter is an <strong>orientation map</strong> for security and counsel dialogue inside<br />
+the organization. EliteEW <strong>helps</strong> close an organizational-technical contour<br />
+(data separation, access, roles, perimeter). It does <strong>not</strong> replace<br />
+certification, protective-tool licensing, impact assessment, or internal policy.</p>
+<p><strong>Forbidden in this pack:</strong> claims of “already certified,” “full legal compliance<br />
+out of the box,” guarantees about fines or lawsuits.</p>
+<p>Current wording of norms is checked by the organization’s own counsel.</p>
+<h2>Orientations (meaning map)</h2>
+<table>
+<thead>
+<tr>
+<th>Orientation</th>
+<th>Topic</th>
+<th>What EliteEW contributes</th>
+<th>What stays with the organization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Information protection</td>
+<td>Contour and access</td>
+<td>Managed perimeter, roles, work-layer access control</td>
+<td>Threat model, certification, tool choice, org measures</td>
+</tr>
+<tr>
+<td>Cross-border data</td>
+<td>Where personal data goes</td>
+<td>Storage and work in the <strong>chosen</strong> edition contour (cloud / on-prem)</td>
+<td>Legal bases, contracts, registers</td>
+</tr>
+<tr>
+<td>AI use</td>
+<td>Transparency and control</td>
+<td>Project-data AI inside the contour; access policies (P5b)</td>
+<td>AI policy, risk assessment, operator responsibility</td>
+</tr>
+<tr>
+<td>Personal data</td>
+<td>Protection and separation</td>
+<td>Technical separation and access levers</td>
+<td>Data controller duties, consents, localization by model</td>
+</tr>
+</tbody>
+</table>
+<p>Exact articles and dates belong in the organization’s legal pack; here only<br />
+<strong>meaning</strong>.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="03a-employee-day-adoption">
+<h1>P3a — Employee day: internal adoption</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D04-employee-day">
+<figcaption><strong>D04 — employee day</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  S1[&quot;Sign-in&quot;] --&gt; S2[&quot;Desk + apps&quot;]
+  S2 --&gt; S3[&quot;Files / documents&quot;]
+  S3 --&gt; S4[&quot;GAF comms / calls&quot;]
+  S4 --&gt; S5[&quot;Project / marketing&quot;]
+  S5 --&gt; S6[&quot;AI in contour&quot;]
+  S6 --&gt; S7[&quot;Mobile satellite&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  S1[&quot;Sign-in&quot;] --&gt; S2[&quot;Desk + apps&quot;]
+  S2 --&gt; S3[&quot;Files / documents&quot;]
+  S3 --&gt; S4[&quot;GAF comms / calls&quot;]
+  S4 --&gt; S5[&quot;Project / marketing&quot;]
+  S5 --&gt; S6[&quot;AI in contour&quot;]
+  S6 --&gt; S7[&quot;Mobile satellite&quot;]</pre></details>
+</figure>
+
+<p><strong>Regulation:</strong> pointer only to <a href="#03-regulatory-map">P3</a> — no restatement</p>
+<h2>Position</h2>
+<p>EliteEW is not “another SaaS on the side.” It is a <strong>single workday contour</strong> for<br />
+an organization employee: desk, files, documents, messaging, AI on project<br />
+materials, mobile satellite — with roles and a perimeter.</p>
+<h2>One day (swimlane)</h2>
+<ol>
+<li><strong>Sign-in</strong> — single entry into the work layer (SSO detail — P5c).</li>
+<li><strong>Desk</strong> — windows, role-scoped app catalog (P4, P5, P6).</li>
+<li><strong>Files and documents</strong> — library, ACL/vault, editor (P4a–b).</li>
+<li><strong>Comms</strong> — internal messenger and video calls (P7a–b); phone/VR when needed (P1a, P7).</li>
+<li><strong>Marketing / project</strong> — cabinet on project data (if the role allows) (P5 / Must cards).</li>
+<li><strong>AI</strong> — inside the contour, not “into a personal external chat” (P5b).</li>
+<li><strong>Mobile</strong> — feed/chat/push as a satellite, not the full desk (P7e).</li>
+</ol>
+<p>Threats and agentless stay in <a href="#02-threats-and-protection">P2</a> /<br />
+<a href="#02a-agentless-instant-access">P2a</a>; this chapter does not repeat them.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="03b-industry-profiles">
+<h1>P3b — Industry profiles</h1>
+<p><strong>Regulation:</strong> see <a href="#03-regulatory-map">P3</a></p>
+<h2>How to read profiles</h2>
+<p>These are <strong>not</strong> separate products and <strong>not</strong> industry attestations. They are<br />
+typical <strong>accent assemblies</strong> of one EliteEW complex for large-scale use in an<br />
+organization.</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Accent</th>
+<th>Typical meaning set</th>
+<th>Regulation pointer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Holding / multi-entity</td>
+<td>Roles, single sign-on, perimeter</td>
+<td>Desk · roles · Admin-lite · editions</td>
+<td>P3 · access</td>
+</tr>
+<tr>
+<td>Marketing / agency</td>
+<td>Projects, counterparty, generations</td>
+<td>Marketing cabinet · Counterparty cabinet · files · EWRP</td>
+<td>P3 · AI / personal data</td>
+</tr>
+<tr>
+<td>Real estate / field</td>
+<td>Profiles, objects, mobile</td>
+<td>Professional Worlds · mobile satellite · calls</td>
+<td>P3 · personal data</td>
+</tr>
+<tr>
+<td>Hard perimeter / personal-data contour</td>
+<td>Closed contour, on-prem</td>
+<td>On-prem edition · edge · entitlements · FoFline≠air-gap (P10)</td>
+<td>P3 · local maps</td>
+</tr>
+<tr>
+<td>Contractors / externals</td>
+<td>Limited access</td>
+<td>Roles · Counterparty cabinet · less Shadow IT</td>
+<td>P3 · access</td>
+</tr>
+<tr>
+<td>Demo / live / sealed</td>
+<td>Show without a “naked” host</td>
+<td>Live/sealed (P10b) · any browser (P1a)</td>
+<td>P3 · contour</td>
+</tr>
+<tr>
+<td>Public-sector adjacent</td>
+<td>Compliance dialogue</td>
+<td>P3 map + on-prem + roles — <strong>without</strong> “attested”</td>
+<td>P3 whole</td>
+</tr>
+</tbody>
+</table>
+<p>Edge, entitlements, editions — detail in P7d / P9a / P10; here only the profile.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="03c-full-complex-source">
+<h1>P3c — The complex, open source, gift to the world</h1>
+<h2>Core idea</h2>
+<p>EliteEW is given to the world as <strong>free software</strong>. First-party code defaults to<br />
+<code>MIT</code> (repository root <code>LICENSE</code>). That is about <strong>freedom to use<br />
+and share</strong>, not about a tariff for “opening the repo.”</p>
+<ol>
+<li><strong>A full complex</strong> — not “one chat” and not “one drive”: desk, apps, files,<br />
+   communications, AI, mobile companion, editions (cloud / on-prem / client) in<br />
+   one platform.</li>
+<li><strong>Your instance</strong> — a deployed organizational contour stays <strong>yours</strong><br />
+   (especially on-prem), not a shared demo account.</li>
+<li><strong>Free source</strong> — you may run, study, modify, and redistribute first-party<br />
+   code under MIT. Public source reference:<br />
+<a href="https://github.com/EmperyWorld/eliteew">github.com/EmperyWorld/eliteew</a><br />
+   (see also the platform license map).</li>
+<li><strong>MIT terms</strong> — preserve the copyright and permission notice in copies or substantial portions of the software. MIT does not require publishing modifications or source code for network services.</li>
+<li><strong>Not one license for the whole tree</strong> — first-party default is<br />
+   MIT; explicit component notices and third-party components<br />
+   keep their own SPDX / NOTICE / SBOM. Map:<br />
+<code>documentation/platform/THIRD-PARTY-LICENSE-MAP.md</code>.</li>
+</ol>
+<h2>What MIT does not move</h2>
+<p>The EliteEW name and logo are not “part of MIT.” Forks and modifications follow<br />
+the code license; presenting a fork as official EliteEW without a separate mark<br />
+agreement is out of scope.</p>
+<p>How to live with the gift in practice — <a href="#03e-delivery-models">P3e</a>.<br />
+How to accept release artifacts in-house — <a href="#03f-transfer-bom-handover">P3f</a>.</p>
+</article>
+<article class="chapter reveal" id="03d-tco-orientative">
+<h1>P3d — Self-host cost structure (orientation)</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D09-tco-columns">
+<figcaption><strong>D09</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Win[&quot;Typical desktop contour&quot;]
+    W1[&quot;OS + agents + external services&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Build + support payroll&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Contour + host as-is&quot;]
+  end
+  Note[&quot;Self-host costs · not gift valuation · orientation&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Win[&quot;Typical desktop contour&quot;]
+    W1[&quot;OS + agents + external services&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Build + support payroll&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Contour + host as-is&quot;]
+  end
+  Note[&quot;Self-host costs · not gift valuation · orientation&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre></details>
+</figure>
+
+<h2>Disclaimer</h2>
+<p>Below is a <strong>structure</strong> of cost lines when the organization runs the contour<br />
+<strong>itself</strong>. Not a service tariff, not a monetary valuation of the gift, not an<br />
+ROI formula. The MIT gift is about code freedom; costs appear in host, people,<br />
+and operations.</p>
+<h2>Cost lines</h2>
+<table>
+<thead>
+<tr>
+<th>Line</th>
+<th>Typical desktop contour</th>
+<th>Self-host DIY</th>
+<th>EliteEW self-host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host OS / devices</td>
+<td>OS licenses / PC updates</td>
+<td>Hardware + OS support</td>
+<td>Host stays; layer is the contour profile</td>
+</tr>
+<tr>
+<td>Agent DLP/EDR on BYOD</td>
+<td>Licenses + conflict</td>
+<td>Similar</td>
+<td>No admin agent required on personal OS (P2a)</td>
+</tr>
+<tr>
+<td>External service zoo</td>
+<td>Many subscriptions</td>
+<td>Self-host + payroll</td>
+<td>Unified app contour</td>
+</tr>
+<tr>
+<td>Standing the contour up</td>
+<td>Long agent path</td>
+<td>Long DIY build</td>
+<td>After access — minutes to days (orientation)</td>
+</tr>
+<tr>
+<td>Support</td>
+<td>Agent/software helpdesk</td>
+<td>High DIY payroll</td>
+<td>Your service / integrator</td>
+</tr>
+<tr>
+<td>Shadow IT risk</td>
+<td>High without a layer</td>
+<td>High without a layer</td>
+<td>Separation layer (P2) — not zero risk</td>
+</tr>
+</tbody>
+</table>
+<h2>How to read</h2>
+<p>The gift does not zero payroll. The point is less zoo and less BYOD agent<br />
+conflict <strong>if</strong> scenarios truly consolidate into EliteEW. Concrete numbers stay<br />
+outside this pack.</p>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Host</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cost driver</td>
+<td>OS + agents + SaaS</td>
+<td>Build payroll</td>
+<td>Host + people on the contour</td>
+</tr>
+<tr>
+<td>Trap</td>
+<td>Shadow IT</td>
+<td>“Free” ≠ cheap in payroll</td>
+<td>Role discipline required</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="03e-delivery-models">
+<h1>P3e — Gift to the world: how to use the open complex</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D11-gift-to-world">
+<figcaption><strong>D11</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  Gift[&quot;Gift to the world · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Run / study / modify&quot;]
+  Gift --&gt; Share[&quot;Share under MIT&quot;]
+  Gift --&gt; Net[&quot;Modified network service → source to its users&quot;]
+  Run --&gt; Org[&quot;Organization’s own contour&quot;]
+  Share --&gt; Org
+  Help[&quot;Optional accompaniment&quot;]
+  Help --&gt; Accept[&quot;Help with acceptance / SBOM&quot;]
+  Help --&gt; Ops[&quot;Help with operations&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  Gift[&quot;Gift to the world · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Run / study / modify&quot;]
+  Gift --&gt; Share[&quot;Share under MIT&quot;]
+  Gift --&gt; Net[&quot;Modified network service → source to its users&quot;]
+  Run --&gt; Org[&quot;Organization’s own contour&quot;]
+  Share --&gt; Org
+  Help[&quot;Optional accompaniment&quot;]
+  Help --&gt; Accept[&quot;Help with acceptance / SBOM&quot;]
+  Help --&gt; Ops[&quot;Help with operations&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre></details>
+</figure>
+
+<p><strong>Do not confuse with:</strong> mandatory subscription · certification · closing the source</p>
+<h2>Center of gravity</h2>
+<p>EliteEW is a <strong>gift to the world</strong> as free software. The primary path is to take<br />
+first-party code under <code>MIT</code>, run your own contour, and evolve it.<br />
+Software freedom ≠ authors on staff, SLA, or the official brand “included.”</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Self-hosted under MIT</strong></td>
+<td>Run, study, modify, redistribute first-party code; no fee for “the right to open the repository”</td>
+</tr>
+<tr>
+<td><strong>Your on-prem / isolated contour</strong></td>
+<td>The same gift, deployed by the organization (IT or an integrator)</td>
+</tr>
+<tr>
+<td><strong>Hosted / hands-on help (optional)</strong></td>
+<td>Someone may help operate or accept a release — that is <strong>accompaniment</strong>, not a replacement for MIT and not a way to enclose the source</td>
+</tr>
+<tr>
+<td><strong>Name and mark</strong></td>
+<td>MIT does not transfer EliteEW brand rights; putting your own brand on top is a separate mark topic</td>
+</tr>
+</tbody>
+</table>
+<h2>Why an open contour helps an organization</h2>
+<ol>
+<li><strong>Your work perimeter</strong> — desk, files, communications, roles, mobile companion.</li>
+<li><strong>Data control</strong> where a private contour is required (<a href="#03-regulatory-map">P3</a>).</li>
+<li><strong>One employee day</strong> (<a href="#03a-employee-day-adoption">P3a</a>).</li>
+<li><strong>Industry emphasis</strong> without a second product (<a href="#03b-industry-profiles">P3b</a>).</li>
+<li><strong>AI on your materials</strong> (<a href="#05b-generation-spend-vault-ai">P5b</a>).</li>
+<li><strong>Hosted-channel access</strong> (if you use it) <strong>does not cancel</strong> the right to<br />
+   self-host (<a href="#09-capsules-enterprise-seats">P9</a> · <a href="#09a-controlled-licenses-sealed">P9a</a>).</li>
+<li><strong>Free code for the complex</strong> (<a href="#03c-full-complex-source">P3c</a>).</li>
+</ol>
+<h2>What you can do</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Meaning</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Receive the gift</td>
+<td>Deploy first-party code yourself</td>
+<td>P3c · P10</td>
+</tr>
+<tr>
+<td>Reduce Shadow IT</td>
+<td>Work chat/files/calls/AI inside the contour</td>
+<td>P2 · P2a · P7*</td>
+</tr>
+<tr>
+<td>Build on-prem</td>
+<td>Your edition instance</td>
+<td>P10 · P10b</td>
+</tr>
+<tr>
+<td>Ask for accompaniment</td>
+<td>Optional help with acceptance / operations</td>
+<td>P3f · P3g</td>
+</tr>
+<tr>
+<td>Grow a vertical</td>
+<td>App profile + roles on free code</td>
+<td>P3b · P5a · P11</td>
+</tr>
+<tr>
+<td>No user CLI</td>
+<td>Ops stays with IT / integrator</td>
+<td>P10c · P12</td>
+</tr>
+</tbody>
+</table>
+<p>Next: in-house artifacts — <a href="#03f-transfer-bom-handover">P3f</a>; migration —<br />
+<a href="#03g-si-migration-playbook">P3g</a>; questions — <a href="#13-onepager-dd-rfi">Q&amp;A</a>.</p>
+</article>
+<article class="chapter reveal" id="03f-transfer-bom-handover">
+<h1>P3f — Receiving the gift in-house (artifacts · Day‑0…90)</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D12-transfer-handover">
+<figcaption><strong>D12</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Artifact check&quot;]
+  Check --&gt; Build[&quot;Build / staging&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Org-unit pilot&quot;]
+  Pilot --&gt; Scale[&quot;Scale with own service&quot;]
+  Help[&quot;Optional accompaniment&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Artifact check&quot;]
+  Check --&gt; Build[&quot;Build / staging&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Org-unit pilot&quot;]
+  Pilot --&gt; Scale[&quot;Scale with own service&quot;]
+  Help[&quot;Optional accompaniment&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre></details>
+</figure>
+
+<p><strong>Gift &amp; license:</strong> <a href="#03c-full-complex-source">P3c</a> · <strong>how to use it:</strong> <a href="#03e-delivery-models">P3e</a><br />
+<strong>Do not confuse with:</strong> an operator ops runbook · end-user CLI · “someone else’s production secrets in a zip”</p>
+<h2>Why this chapter exists</h2>
+<p>The code is already open under MIT. An organization needs a practical answer:<br />
+<strong>which artifacts to verify</strong>, what will never arrive with a contour handoff, and<br />
+how to stand up your own instance in the first weeks without mistaking the gift<br />
+for perpetual author staffing.</p>
+<h2>Artifact classes (not a secret manifest)</h2>
+<p>Guidance for self-host / on-prem due diligence. The MIT right to use first-party<br />
+code does <strong>not</strong> depend on this list.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Usually present</th>
+<th>Usually absent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source</td>
+<td>Public MIT source + release commit/tag</td>
+<td>Foreign SaaS accounts, foreign personal data, foreign keys</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Current product/platform canon for evolution</td>
+<td>Internal drafts, agent dialect notes</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>Build recipes, test contours without prod secrets</td>
+<td>Passwords, host keys, live SOPS bundles</td>
+</tr>
+<tr>
+<td>Sample config</td>
+<td>Scrubbed templates / edition profiles</td>
+<td>Live URLs/IPs, another operator’s IdP client ids</td>
+</tr>
+<tr>
+<td>Clients</td>
+<td>Desktop / mobile sources or artifacts in an agreed scope</td>
+<td>Foreign store certificates without a separate transfer</td>
+</tr>
+<tr>
+<td>Knowledge</td>
+<td>Agreed knowledge sessions — <strong>only if</strong> accompaniment was arranged</td>
+<td>A promise of “authors forever”</td>
+</tr>
+<tr>
+<td>Brand</td>
+<td>Only if mark use was separately agreed</td>
+<td>Automatic right to present a fork as official EliteEW</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rights:</strong> first-party default is <code>MIT</code>; explicit component notices and<br />
+third-party components keep their own licenses (third-party map + release SBOM).<br />
+Marks and names are separate. This pack is <strong>not</strong> a legal opinion.</p>
+<h2>“Day of acceptance” logic</h2>
+<ol>
+<li>Public source link and exact commit/tag (+ agreed binaries if needed).</li>
+<li>Checklist of the classes above (not end-user CLI).</li>
+<li>If accompaniment exists — a contact for the acceptance window (not “eternal user support”).</li>
+<li>An implementation architect / mentor — <strong>only</strong> if separately arranged (<a href="#03e-delivery-models">P3e</a>).</li>
+</ol>
+<h2>Day‑0…90 orientation</h2>
+<p>Timing depends on IT/integrator maturity and edition. Numbers are orientation,<br />
+not a contractual SLA.</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Orientation</th>
+<th>Focus</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H0 Verify artifacts</strong></td>
+<td>Day 0–14</td>
+<td>Source, commit/tag, builds, docs</td>
+<td>“What we need for our stand is here”</td>
+</tr>
+<tr>
+<td><strong>H1 First stand</strong></td>
+<td>Day 14–45</td>
+<td>Your instance, IdP, role smoke</td>
+<td>A live stand <strong>you</strong> own</td>
+</tr>
+<tr>
+<td><strong>H2 Pilot</strong></td>
+<td>Day 30–75</td>
+<td>One unit: desk, files, chat, roles (<a href="#03a-employee-day-adoption">P3a</a>)</td>
+<td>A proven employee day</td>
+</tr>
+<tr>
+<td><strong>H3 Scale</strong></td>
+<td>Day 60–90+</td>
+<td>Your service runbooks (<a href="#10c-ops-scale-not-user-cli">P10c</a>)</td>
+<td>Ops without end-user CLI</td>
+</tr>
+<tr>
+<td><strong>H4 Stabilize</strong></td>
+<td>per your plan</td>
+<td>Edition criteria + needed apps</td>
+<td>The contour lives with you</td>
+</tr>
+</tbody>
+</table>
+<p>Migration from a tool zoo — <a href="#03g-si-migration-playbook">P3g</a>.</p>
+<h2>Risks (short)</h2>
+<table>
+<thead>
+<tr>
+<th>Risk</th>
+<th>Meaning</th>
+<th>Anchor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No authors “inside the gift”</td>
+<td>Evolution is yours / integrator</td>
+<td>P3e · P3g · P12</td>
+</tr>
+<tr>
+<td>Key-person</td>
+<td>Not the default</td>
+<td>Only a separate arrangement</td>
+</tr>
+<tr>
+<td>Incomplete artifact list</td>
+<td>Disputes about what was verified</td>
+<td>Commit/tag + class checklist</td>
+</tr>
+<tr>
+<td>Security absolutes</td>
+<td>Over-claims</td>
+<td><a href="#12-honest-limits">P12</a></td>
+</tr>
+<tr>
+<td>Third-party licenses</td>
+<td>Foreign code</td>
+<td>SBOM + NOTICE + third-party map</td>
+</tr>
+<tr>
+<td>Foreign prod secrets</td>
+<td>Not part of the gift</td>
+<td>Do not include; scrub</td>
+</tr>
+</tbody>
+</table>
+<p>Questions — <a href="#13-onepager-dd-rfi">Q&amp;A</a>.</p>
+</article>
+<article class="chapter reveal" id="03g-si-migration-playbook">
+<h1>P3g — Integrator, migration from a tool zoo, PoC before scale</h1>
+<p><strong>Links:</strong> <a href="#03f-transfer-bom-handover">P3f bring-up</a> · <a href="#03e-delivery-models">P3e how to use</a> · <a href="#03a-employee-day-adoption">P3a day</a><br />
+<strong>Audience:</strong> integrator (SI) · organization IT/security · committee on leaving the current zoo</p>
+<h2>Integrator role (self-managed path)</h2>
+<table>
+<thead>
+<tr>
+<th>Zone</th>
+<th>Integrator / org IT</th>
+<th>Not part of the code license</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host / network / backup / monitoring</td>
+<td>Yes</td>
+<td>Permanent author ops staff</td>
+</tr>
+<tr>
+<td>IdP, roles, offboarding</td>
+<td>Yes (with security)</td>
+<td>“Turn on and forget”</td>
+</tr>
+<tr>
+<td>First edition stand</td>
+<td>Yes</td>
+<td>Managed prod mistaken for your self-hosted contour</td>
+</tr>
+<tr>
+<td>Unit pilot</td>
+<td>Yes</td>
+<td>Automatic managed operations “bundled with the code”</td>
+</tr>
+<tr>
+<td>Helpdesk L1–L2</td>
+<td>Yes</td>
+<td>Vendor desk forever</td>
+</tr>
+<tr>
+<td>Backlog evolution</td>
+<td>Yes (or a contractor)</td>
+<td>Someone else’s SaaS roadmap</td>
+</tr>
+<tr>
+<td>Empery architect</td>
+<td>Only a separate arrangement</td>
+<td>A guarantee they will “own” the program</td>
+</tr>
+</tbody>
+</table>
+<h2>Adoption team (orientation)</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Why</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adoption owner (organization)</td>
+<td>Priorities, acceptance</td>
+<td>Do not hand everything to SI with no sponsor</td>
+</tr>
+<tr>
+<td>Platform architect</td>
+<td>Edition, IdP, contour boundaries</td>
+<td>Yours or SI; Empery architect is separate accompaniment</td>
+</tr>
+<tr>
+<td>Security</td>
+<td>Policies, edge, managed service entitlements</td>
+<td>CISO path: P2 → P7d → P8a → P9a</td>
+</tr>
+<tr>
+<td>Desktop / client</td>
+<td>Tauri / FoFline contour</td>
+<td>P8 · P10a</td>
+</tr>
+<tr>
+<td>Mobile (if in scope)</td>
+<td>Satellite, trusted devices</td>
+<td>P7 · P7e</td>
+</tr>
+<tr>
+<td>Data / files</td>
+<td>PG + object store, ACL</td>
+<td>P4a · P4b</td>
+</tr>
+<tr>
+<td>Change / learning</td>
+<td>Employee day</td>
+<td>P3a</td>
+</tr>
+</tbody>
+</table>
+<h2>Migration from a zoo (a program, not a button)</h2>
+<p>Typical large-organization start: mail/chat outside, disk outside, meetings outside,<br />
+AI in personal accounts. EliteEW does <strong>not</strong> promise instant replacement of an<br />
+entire host-OS productivity stack.</p>
+<table>
+<thead>
+<tr>
+<th>Wave</th>
+<th>Meaning</th>
+<th>Anchor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M0 Shadow IT map</td>
+<td>What people actually use (chat/disk/AI)</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>M1 Day contour</td>
+<td>Desk + files + roles for a pilot group</td>
+<td>P4 · P4a · P5a · P3a</td>
+</tr>
+<tr>
+<td>M2 Comms</td>
+<td>Internal messenger / meetings instead of work threads outside</td>
+<td>P7a · P7b</td>
+</tr>
+<tr>
+<td>M3 AI</td>
+<td>Generations and vault on own materials instead of personal SaaS</td>
+<td>P5 · P5b</td>
+</tr>
+<tr>
+<td>M4 Mobile / edge</td>
+<td>Satellite and trust-based access — as needed</td>
+<td>P7 · P7d</td>
+</tr>
+<tr>
+<td>M5 Exit</td>
+<td>Policy: work channels only inside the contour</td>
+<td>Security + org order; not product magic</td>
+</tr>
+</tbody>
+</table>
+<p>Honestly: a parallel dual-contour period is almost always needed; duration is<br />
+Discovery, not a tariff orientation.</p>
+<h2>PoC before scale (honest)</h2>
+<p>PoC goal — confirm real product capabilities, not absolutes from <a href="#12-honest-limits">P12</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expect</th>
+<th>Do not expect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agentless / fast access</td>
+<td>No admin agent on personal OS as the norm</td>
+<td>“Sterile disk always”</td>
+</tr>
+<tr>
+<td>Pilot-group day</td>
+<td>Desk + files + roles work</td>
+<td>1000+ users in a week</td>
+</tr>
+<tr>
+<td>On-prem / isolated edition</td>
+<td>Stand <strong>at you</strong> brought up by SI</td>
+<td>Someone else’s shared demo = your contour</td>
+</tr>
+<tr>
+<td>E2EE chat (if in scope)</td>
+<td>Opt-in + key on the phone</td>
+<td>All chats always E2EE</td>
+</tr>
+<tr>
+<td>Atomic native (if Connected/FoFline)</td>
+<td>Native-client gate</td>
+<td>Same for the whole browser SPA</td>
+</tr>
+<tr>
+<td>Latency / UX</td>
+<td>PoC orientation</td>
+<td>Universal ≤200 ms as a promise</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>“Helps” map</td>
+<td>Information-protection attestation out of the box</td>
+</tr>
+</tbody>
+</table>
+<p>Limits: <a href="#12-honest-limits">P12</a>. Q&amp;A table: <a href="#13-onepager-dd-rfi">13-onepager-dd-rfi.md</a>.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-desk"><h2>Desk &amp; apps</h2></header><article class="chapter reveal" id="04-desktop-workspace">
+<h1>P4 — Desk as the work environment</h1>
+<h2>Thesis</h2>
+<p>The EliteEW desk carries windows, icons, a taskbar, a launcher, and apps scoped<br />
+to the person’s role. It is an <strong>integrated environment</strong> in the browser (and in<br />
+client / FoFline shells — see P10), not a pile of unrelated browser tabs.</p>
+<p>Which icons appear depends on <strong>role</strong>, the <strong>app catalog</strong>, and organization<br />
+policy — desks are not identical for everyone.</p>
+<p>Host / DIY / EliteEW comparisons live briefly in <a href="#01-what-is-eliteew">P1</a>;<br />
+promise boundaries live in <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="04a-files-two-planes">
+<h1>P4a — Files: metadata, object store, access, search</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D05-files-two-planes">
+<figcaption><strong>D05</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  UI[&quot;File manager&quot;]
+  PG[&quot;PostgreSQL\nmetadata · ACL · versions · project&quot;]
+  OBJ[&quot;Object store S3-class\nfile bytes\nSeaweedFS in Empery contour&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  UI[&quot;File manager&quot;]
+  PG[&quot;PostgreSQL\nmetadata · ACL · versions · project&quot;]
+  OBJ[&quot;Object store S3-class\nfile bytes\nSeaweedFS in Empery contour&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre></details>
+</figure>
+
+<h2>Two planes (honestly)</h2>
+<table>
+<thead>
+<tr>
+<th>Plane</th>
+<th>What it holds</th>
+<th>Meaning for the organization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PostgreSQL</strong></td>
+<td>Metadata, versions, ACL, company/project binding</td>
+<td>Who can see a file and which project it belongs to</td>
+</tr>
+<tr>
+<td><strong>Object store (S3-class; Empery contour uses SeaweedFS)</strong></td>
+<td>File bytes</td>
+<td>Content is not “only on the employee’s laptop disk” as the sole source of truth</td>
+</tr>
+</tbody>
+</table>
+<p>People work through the <strong>file manager</strong>; they do not touch PG or Seaweed by hand.</p>
+<h2>What the contour can do</h2>
+<ul>
+<li>One library with folders, versions, sharing, and storage quota</li>
+<li>Scope by <strong>company / project</strong> (including a marketing project vault)</li>
+<li>Search: full text and <strong>smart</strong> search (full text + semantics over the document index)</li>
+<li>After text extraction / OCR of scans, material becomes findable (platform-side processing; not “100% magic on every scan”)</li>
+</ul>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="04b-document-collaboration">
+<h1>P4b — Co-editing documents</h1>
+<h2>Thesis</h2>
+<p>The <strong>document editor</strong> supports joint work: who is present, cursors, and<br />
+synchronized edits. Joining a shared session is <strong>explicit</strong> (the person turns<br />
+on “Connect”) — not a hidden background mode.</p>
+<p>Only the <strong>document owner</strong> can invite collaborators. Comments / review live<br />
+inside the editor.</p>
+<h2>Honest framing</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Present</strong></td>
+<td>Co-presence · cursors · sync inside the product editor · owner invites</td>
+</tr>
+<tr>
+<td><strong>Not promised</strong></td>
+<td>Feature parity with every external co-editor · co-editing any office binary without conversion</td>
+</tr>
+</tbody>
+</table>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.<br />
+Also: <a href="#04a-files-two-planes">P4a</a> (files and ACL).</p>
+</article>
+<article class="chapter reveal" id="05-apps-store-ai-contours">
+<h1>P5 — Apps, catalog, two AI contours</h1>
+<h2>App catalog</h2>
+<p>The desk has a <strong>catalog</strong>: browse, install/remove under organization access,<br />
+and an app card. The desk is assembled for the role — not one fixed icon set<br />
+for everyone.</p>
+<p><strong>Fleet / App Store</strong> here means “catalog + installed set” in the desktop shell.<br />
+Do not confuse it with the host OS store or the host package store.</p>
+<h2>Two AI contours — keep them apart</h2>
+<table>
+<thead>
+<tr>
+<th>Contour</th>
+<th>Name in UI</th>
+<th>Substance</th>
+<th>Do not confuse with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EWA</strong></td>
+<td>Assistant / companion</td>
+<td>Presence and actions on the desk; orchestration</td>
+<td>Experts</td>
+</tr>
+<tr>
+<td><strong>Experts</strong></td>
+<td>Experts / AI chat</td>
+<td>Instrumental chat with files and a “team”</td>
+<td>The EWA companion</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Present:</strong> these are different products on the desk. <strong>Not promised:</strong> “one AI does<br />
+everything the same way.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="05a-roles-org-project">
+<h1>P5a — Organization and project roles</h1>
+<p><strong>Exemplar:</strong> marketing cabinet + project files</p>
+<h2>Model (overview language)</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Meaning</th>
+<th>Typical powers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Owner of the company contour</strong></td>
+<td>Sets the organization frame</td>
+<td>Company scope; high access across projects</td>
+</tr>
+<tr>
+<td><strong>Project lead</strong></td>
+<td>Runs one project (<code>created_by</code> / lead)</td>
+<td>Team, modules, sensitive deletes, settings</td>
+</tr>
+<tr>
+<td><strong>Participant</strong></td>
+<td>Works in granted modules</td>
+<td>Only explicit section rights; empty rights ≠ full write</td>
+</tr>
+</tbody>
+</table>
+<p>Separately: permission to upload into the <strong>project vault</strong> can be granted on<br />
+its own and does <strong>not</strong> unlock every cabinet module by itself.</p>
+<p>Project invites are controlled by the lead; server-side access checks are<br />
+mandatory (not “everyone sees everything”).</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="05b-generation-spend-vault-ai">
+<h1>P5b — Generation spend control · AI on project data</h1>
+<p>Heavy generations (images, presentations, music, and others through the shared<br />
+generation contour) are accounted as <strong>energy / credits</strong> by generation type.<br />
+The UI shows cost before start; if balance is short — a clear refusal, never a<br />
+silent success.</p>
+<p>This is <strong>in-product spend control</strong>, not a bank billing statement in this pack.</p>
+<h2>AI on project data (vault RAG)</h2>
+<p>In the marketing contour, research and answers can lean on <strong>project vault<br />
+documents</strong> (RAG), not on an “internet brain” by default for <code>imc_rag_*</code> types.<br />
+Quality depends on what is loaded into the vault; thin coverage is surfaced<br />
+honestly with prompts.</p>
+<p><strong>Not promised:</strong> “the AI always knows everything about the company with no documents.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="05c-single-sign-on-sessions">
+<h1>P5c — Single sign-on and session control</h1>
+<h2>Thesis</h2>
+<p>Entry into the work layer goes through <strong>organization identity</strong> (OIDC /<br />
+organization SSO). A product session is not “just opened a website”; sign-out<br />
+and access policy are set by the organization’s contour and edition.</p>
+<p>Browser, mobile satellite, and desktop-client / FoFline each have <strong>their own</strong><br />
+session and device-trust rules — detail in P7–P10. Principle here only: <strong>one<br />
+organization account → work layer</strong>, without handing out passwords to a dozen<br />
+SaaS tools as the normal path.</p>
+<p><strong>Not in public text:</strong> internal client ids, IdP URLs, JWT claim names.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="06-app-index-brief">
+<h1>P6 — App index (brief)</h1>
+<p><strong>App names:</strong> desktop component registry + product card</p>
+<h2>Why this file</h2>
+<p>A short pointer <strong>without</strong> restating every app’s capabilities. Full cards live in the P11 wave.</p>
+<h2>Groups (orientation)</h2>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Examples (UI names)</th>
+<th>Detail chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desk / shell</td>
+<td>Catalog, Settings, Notifications</td>
+<td>P4, P5</td>
+</tr>
+<tr>
+<td>Files &amp; text</td>
+<td>File manager, Document editor, EWRP</td>
+<td>P4a–b</td>
+</tr>
+<tr>
+<td>Marketing &amp; counterparty</td>
+<td>Marketing cabinet, Counterparty cabinet</td>
+<td>P5a–b</td>
+</tr>
+<tr>
+<td>AI</td>
+<td>Assistant (EWA), Experts, Knowledge</td>
+<td>P5</td>
+</tr>
+<tr>
+<td>Comms</td>
+<td>GAF Chat, Video Calls</td>
+<td>P7a–b</td>
+</tr>
+<tr>
+<td>Creative</td>
+<td>Image / Video Studio · MusicForge + player · GU Studio</td>
+<td>P11 Should</td>
+</tr>
+<tr>
+<td>Sites</td>
+<td>Site Studio, KIRS</td>
+<td>P11</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>Admin, tickets, EWDesk</td>
+<td>P11 / P10c</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Honestly:</strong> not every role sees the full list; the mobile satellite is a <strong>subset</strong> (P7e).</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-mobile"><h2>Mobile &amp; native</h2></header><article class="chapter reveal" id="07-android-satellite-security">
+<h1>P7 — Android satellite and security</h1>
+<h2>Thesis</h2>
+<p>The Android app is a <strong>satellite</strong> of the work contour: feed, messenger, friends,<br />
+notifications, profile, some generations, and video calls. It is <strong>not</strong> the full<br />
+desk and <strong>not</strong> the marketing cabinet on a phone.</p>
+<p>On top of organization sign-in sits an optional <strong>trusted-device</strong> layer (phone<br />
+binding): keys are generated on-device; the server never receives private keys.<br />
+Without a configured screen lock, trusted binding and GAF E2EE do not enable.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07a-internal-messenger">
+<h1>P7a — Internal messenger (GAF)</h1>
+<h2>Thesis</h2>
+<p><strong>GAF Chat</strong> is the 1:1 messenger inside the contour: threads, files, composer.<br />
+Against Shadow IT, the work channel does <strong>not</strong> have to leave into a personal<br />
+OS messenger.</p>
+<p>By default a chat may be <strong>ordinary</strong> (not E2EE). End-to-end encryption is a<br />
+separate mode (P7c), not “every message is always E2EE.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07b-internal-video-calls">
+<h1>P7b — Internal video calls</h1>
+<h2>Thesis</h2>
+<p>Internal video lives in the <strong>Video Calls</strong> app; 1:1 often starts from GAF.<br />
+Media goes through the product’s internal Meet contour; the call opens <strong>inside</strong><br />
+the product window (not “just a link in a foreign browser” as the only normal path).</p>
+<p><strong>1:1:</strong> the caller does <strong>not</strong> enter the room until the callee <strong>accepts</strong><br />
+(accept first, then join). Explicit statuses (waiting / active / missed) and delivery<br />
+of the inbound call to chosen surfaces.</p>
+<p><strong>Where to accept the call:</strong> both surfaces (default) · desk only · mobile only —<br />
+a user setting.</p>
+<p><strong>Group calls:</strong> a separate scenario; the organizer’s room-entry rules differ from<br />
+the 1:1 accept rules — do not collapse them into one claim.</p>
+<p><strong>Not promised:</strong> “native VR-OS telephony”; VR calls go through the browser layer<br />
+(P1a, checked).</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07c-trusted-phone-e2ee">
+<h1>P7c — Trusted phone and on-device E2EE keys</h1>
+<h2>Thesis</h2>
+<p>With <strong>trusted phone binding</strong>, separate key families can appear on the device:</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+<th>Private key</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Device identity</td>
+<td>Prove “same phone”</td>
+<td>On the phone</td>
+</tr>
+<tr>
+<td>Secure Connection channel</td>
+<td>Enter the protected perimeter</td>
+<td>On the phone</td>
+</tr>
+<tr>
+<td><strong>GAF E2EE</strong></td>
+<td>End-to-end chat encryption</td>
+<td>On the phone</td>
+</tr>
+</tbody>
+</table>
+<p>The server keeps <strong>public</strong> material and message ciphertext; it does <strong>not</strong><br />
+recover a lost GAF private key. Lose the key without a transfer path = old E2EE<br />
+messages are unreadable from the server.</p>
+<p><strong>Turning E2EE on in a chat :</strong> not by default; needs mutual consent and<br />
+ready trusted devices with keys. While E2EE is active, ordinary plaintext is<br />
+not accepted into that chat.</p>
+<p><strong>Not promised:</strong> “all chats always E2EE” · “the server holds the decryption secret” ·<br />
+“E2EE = the same key as WireGuard.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07d-edge-wall-one-click">
+<h1>P7d — Edge: closed wall and one meaningful access step</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D06-edge-wall">
+<figcaption><strong>D06</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  Scan[&quot;Scanner / foreign internet&quot;] --&gt;|extra entries closed| Wall[&quot;Blind wall&quot;]
+  Trust[&quot;Trusted\nissued key / seat&quot;] --&gt;|1 action| Chan[&quot;Protected channel&quot;]
+  Chan --&gt; Work[&quot;EliteEW work contour&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  Scan[&quot;Scanner / foreign internet&quot;] --&gt;|extra entries closed| Wall[&quot;Blind wall&quot;]
+  Trust[&quot;Trusted\nissued key / seat&quot;] --&gt;|1 action| Chan[&quot;Protected channel&quot;]
+  Chan --&gt; Work[&quot;EliteEW work contour&quot;]</pre></details>
+</figure>
+
+<p><strong>Not in public text:</strong> IPs, ports, interface names</p>
+<h2>Thesis</h2>
+<p>From the outside the contour is <strong>default-deny</strong>: surplus entries for scanners /<br />
+casual internet stay closed (a “closed wall”). Work access opens on <strong>issued<br />
+trust</strong> (seat / peer / trusted device) — for the person this collapses to <strong>one<br />
+meaningful action</strong> (import access / raise a protected channel / bind a device),<br />
+not “open ports to the world.”</p>
+<p>Phone and desktop-client have <strong>separate</strong> trust contours — not one key for<br />
+everything (see P7c / P8 / P9a).</p>
+<p><strong>Not promised:</strong> air-gap · “impossible to breach” · publishing internal topology.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07e-mobile-capability-matrix">
+<h1>P7e — Mobile capability matrix</h1>
+<h2>On the Android satellite</h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feed / EWDesk</td>
+<td>Satellite</td>
+</tr>
+<tr>
+<td>GAF messenger</td>
+<td>Including E2EE path when trusted (P7c)</td>
+</tr>
+<tr>
+<td>Friends / profile</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Notifications / push</td>
+<td>Yes (with category policies)</td>
+</tr>
+<tr>
+<td>Part of UGS (chat, images, songs, decks)</td>
+<td>Subset</td>
+</tr>
+<tr>
+<td>Video calls (WebView Meet)</td>
+<td>Yes; honors the “where to accept the call” setting</td>
+</tr>
+<tr>
+<td>Simplified desk remote</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Trusted device / Secure Connection</td>
+<td>Optional security layer</td>
+</tr>
+</tbody>
+</table>
+<h2>Not on the satellite (by design / not yet)</h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Full desk</td>
+<td>Web / desktop-client (P4, P8)</td>
+</tr>
+<tr>
+<td>EWA companion</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>Marketing / counterparty cabinets</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>POEMMA, Professional Worlds</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>Site Studio</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>Knowledge as a separate native app</td>
+<td>Desktop / web</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not promised:</strong> “the phone is full EliteEW.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="08-tauri-clients-ota">
+<h1>P8 — Tauri clients and update trust</h1>
+<h2>Thesis</h2>
+<p>Besides the browser there are <strong>native clients</strong> (Tauri) for Connected /<br />
+offline-capable / FoFline-adjacent scenarios: launcher, access import, protected<br />
+channel, product start, and <strong>signed</strong> updates over a trusted channel.</p>
+<table>
+<thead>
+<tr>
+<th>Invariant</th>
+<th>Meaning for the organization</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OTA fail-closed</td>
+<td>Unsigned / revoked updates are not installed silently</td>
+</tr>
+<tr>
+<td>Not kiosk / not Trusted Substrate</td>
+<td>A laptop client ≠ a sealed OS carrier (P10b)</td>
+</tr>
+<tr>
+<td>Do not mix products</td>
+<td>Connected and FoFline are different channels; do not treat “both packages mixed” as normal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not promised:</strong> “any internet executable is trusted” · FoFline = air-gap.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="08a-atomic-conditional-access">
+<h1>P8a — Atomic Conditional Access</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D07-atomic-access">
+<figcaption><strong>D07</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  I[&quot;Identity&quot;] --&gt; AND{&quot;All true?&quot;}
+  L[&quot;Entitlement active&quot;] --&gt; AND
+  C[&quot;Channel allowed&quot;] --&gt; AND
+  D[&quot;Device / key&quot;] --&gt; AND
+  B[&quot;Account binding&quot;] --&gt; AND
+  AND --&gt;|yes| OK[&quot;Product access&quot;]
+  AND --&gt;|no| DENY[&quot;Deny · no detailed oracle&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  I[&quot;Identity&quot;] --&gt; AND{&quot;All true?&quot;}
+  L[&quot;Entitlement active&quot;] --&gt; AND
+  C[&quot;Channel allowed&quot;] --&gt; AND
+  D[&quot;Device / key&quot;] --&gt; AND
+  B[&quot;Account binding&quot;] --&gt; AND
+  AND --&gt;|yes| OK[&quot;Product access&quot;]
+  AND --&gt;|no| DENY[&quot;Deny · no detailed oracle&quot;]</pre></details>
+</figure>
+
+<h2>Invariant (overview language)</h2>
+<p>For <strong>native</strong> Connected and FoFline clients, product entry is gated on:</p>
+<pre><code class="language-text">identity confirmed
+  ∧ entitlement active
+  ∧ channel allowed
+  ∧ device / key proof present
+  ∧ account binding consistent
+→ access allowed
+</code></pre>
+<p>Refusal uses a general user-facing wording (no detailed external oracle);<br />
+detail stays in protected audit.</p>
+<h2>Honest boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>In atomic scope (current program)</th>
+<th>Outside v1 / separate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Native Connected and FoFline clients</td>
+<td>Ordinary organization browser SPA</td>
+</tr>
+<tr>
+<td>Enforce on the cloud contour for those clients</td>
+<td>Mobile SSO as the only factor</td>
+</tr>
+<tr>
+<td>Offline-only seat — local entitlement without OIDC</td>
+<td>“Absolute impossibility of bypass”</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not promised:</strong> atomic replaces a firewall · atomic already on every HTTP request<br />
+of every client worldwide · browser entry “removed forever for everyone.”</p>
+<p><em>(Internal OIDC client ids stay out of public text.)</em></p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-access"><h2>Access &amp; editions</h2></header><article class="chapter reveal" id="09-capsules-enterprise-seats">
+<h1>P9 — Capsules and place access</h1>
+<p><strong>Boundary:</strong> a capsule / seat is <strong>service access</strong> to a hosted or trusted<br />
+channel. It is <strong>not</strong> a code license and does <strong>not</strong> cancel the MIT gift of<br />
+self-hosting.</p>
+<p>If the organization uses official cloud, a managed contour, or a trusted place<br />
+connection, access is issued as an <strong>access file (capsule)</strong>: an operator<br />
+issues it, the user imports it — without “storefront self-registration of a<br />
+key.” Self-hosted first-party MIT launch does <strong>not</strong> require a capsule.</p>
+<p>Place modes: <strong>offline</strong> / <strong>cloud</strong> / <strong>both</strong>.</p>
+<p>A capsule carries place trust; it is <strong>not</strong> a chat E2EE key and <strong>not</strong> an IdP password.</p>
+</article>
+<article class="chapter reveal" id="09a-controlled-licenses-sealed">
+<h1>P9a — Service access and sealed materials</h1>
+<p>In older API names, “license” here means a <strong>service entitlement</strong>: access to<br />
+hosted features, managed functions, or a trusted channel. That is <strong>not</strong> the<br />
+MIT code license and does <strong>not</strong> block self-hosted use of the gift.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control</td>
+<td>Entitlement can be revoked / time-bounded / capability-narrowed where supported</td>
+</tr>
+<tr>
+<td>At rest</td>
+<td>Storage keeps a <strong>hash</strong> / sealed materials — not everlasting plaintext keys as the norm</td>
+</tr>
+<tr>
+<td>Issuance</td>
+<td>An access secret may appear <strong>once</strong> at issuance; then the capsule</td>
+</tr>
+<tr>
+<td>UX</td>
+<td>Import a <strong>sealed</strong> capsule; not “paste a key into Notepad” as the main path</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>Place private material stays in the OS-protected store, not in JS/logs</td>
+</tr>
+</tbody>
+</table>
+<p>We do <strong>not</strong> promise: users must edit conf by hand · the server stores chat<br />
+private keys · a capsule is a password to every service in the world.</p>
+</article>
+<article class="chapter reveal" id="10-editions">
+<h1>P10 — Editions: cloud / on-prem / client</h1>
+<p><strong>Diagram:</strong> </p>
+<figure class="diagram" id="D08-editions">
+<figcaption><strong>D08</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph One[&quot;One EliteEW product&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · organization contour&quot;]
+    Client[&quot;Client · device&quot;]
+  end
+  FoF[&quot;FoFline · local pack + channel\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph One[&quot;One EliteEW product&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · organization contour&quot;]
+    Client[&quot;Client · device&quot;]
+  end
+  FoF[&quot;FoFline · local pack + channel\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre></details>
+</figure>
+
+<p><strong>FoFline:</strong> ≠ air-gap (below)</p>
+<h2>Three forms of one product</h2>
+<table>
+<thead>
+<tr>
+<th>Edition</th>
+<th>Who holds infrastructure</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloud</strong></td>
+<td>Hosted contour</td>
+<td>Work in a shared hosted layer (place access is separate from MIT)</td>
+</tr>
+<tr>
+<td><strong>On-prem</strong></td>
+<td>Organization</td>
+<td>Self-host the gift under MIT, or a contour with optional accompaniment</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>Mostly the device</td>
+<td>Offline-capable subset; remote tools by allowlist and entitlement</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not promised:</strong> “on-prem is one button for anyone without a profile.”</p>
+<h2>FoFline (client-adjacent)</h2>
+<p>A free <strong>local</strong> pack + optional protected channel to the same API.<br />
+A local self-host profile starts <strong>without</strong> a service capsule; hosted /<br />
+trusted channel may require entitlement. <strong>Not</strong> pure air-gap.<br />
+<strong>Not</strong> a second independent backend.</p>
+<p>Foundation (entitlement, SSO, shell OTA, local Start) is shipped.<br />
+Residual live-smoke / pack parity is <strong>not</strong> masked as “Done” for the whole<br />
+contour.</p>
+</article>
+<article class="chapter reveal" id="10a-native-tauri-hybrid">
+<h1>P10a — Native client and hybrid</h1>
+<p>Delivery is not “browser only” and not “containers only”:</p>
+<ul>
+<li><strong>Browser</strong> work layer (cloud / on-prem)</li>
+<li><strong>Native</strong> clients (Connected / FoFline / offline-capable seats) on open server OS and ordinary desktop OS</li>
+<li>Container runtime on the platform side — for services, <strong>not</strong> as the only way a person opens the desk</li>
+</ul>
+<p>Hybrid: the host stays yours; EliteEW is a managed layer on top of it (<a href="#01-what-is-eliteew">P1</a>).</p>
+</article>
+<article class="chapter reveal" id="10b-live-sealed-install">
+<h1>P10b — Live carrier and sealed install</h1>
+<h2>Thesis</h2>
+<table>
+<thead>
+<tr>
+<th>Carrier</th>
+<th>Meaning</th>
+<th>Honest status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sealed capsule / seat</strong></td>
+<td>Access file to a place (P9a)</td>
+<td>Current access-issue path for the desktop client</td>
+</tr>
+<tr>
+<td><strong>Live USB / metal install</strong></td>
+<td>Boot media → install a sealed OS carrier (Trusted Substrate)</td>
+<td>Development target contour; a mass sealed image at every organization is not claimed</td>
+</tr>
+<tr>
+<td><strong>Persistent install</strong></td>
+<td>Kiosk-class OS + EliteEW payload</td>
+<td>Target end-state; bootstrap payload may differ from the final Tauri</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not promised:</strong> live USB = ready air-gap with no channel · Substrate replaces Connection Agent · “already fully replaced Fedora kiosk at Empery.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="10c-ops-scale-not-user-cli">
+<h1>P10c — Ops scale: deploy and control (not user CLI)</h1>
+<h2>Thesis</h2>
+<p>Empery / contour operators keep <strong>hundreds</strong> of automations for deploy, control,<br />
+and care (on the order of <strong>250–300+</strong> scripts and wrappers). That is a scale<br />
+orientation — not “thousands” and not an invented round number.</p>
+<p>For an <strong>organization employee</strong> that means: recovery and rollout belong to the<br />
+operator and Admin panel — <strong>not</strong> “open a terminal and run a deploy script.”</p>
+<p>In self-hosted / on-prem the same principle: ops scale sits with the<br />
+organization’s <strong>IT/SI</strong>. Managed enterprise ops and architect participation can<br />
+be a separate accompaniment — see <a href="#03e-delivery-models">P3e</a>.</p>
+<p>Desk Admin is a <strong>lightweight admin panel</strong> for responsible people (people,<br />
+catalog, queues) — not a full IdP admin replacement and not a day-to-day<br />
+end-user feature.</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="10d-external-messenger-honesty">
+<h1>P10d — Optional external notify channels</h1>
+<h2>Channels (honestly)</h2>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Outbound notify</strong></td>
+<td><strong>Present</strong> when policy enables it</td>
+<td>Optional API/companion integration. Not the staff messenger and not a required entry into EliteEW</td>
+</tr>
+<tr>
+<td><strong>Access / IP-verif bot</strong></td>
+<td><strong>Historical</strong></td>
+<td>Historical access bot; not used as a product entry today</td>
+</tr>
+<tr>
+<td><strong>Third-party messenger as “product entry”</strong></td>
+<td><strong>Not positioned</strong></td>
+<td>Do not position as a product entry channel</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Not promised:</strong> “all of EliteEW opens only through an external messenger” ·<br />
+“a third-party bot is already production as the normal entry.”</p>
+<p>Comparisons — <a href="#01-what-is-eliteew">P1</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-cards"><h2>App cards</h2></header><article class="chapter reveal" id="11-must-app-cards">
+<h1>P11 — Must: app cards (tier 1)</h1>
+<p>Anti-tautology: essence / outcome / where to read only; file/role/E2EE detail lives in P4–P9.</p>
+<p>Each card: Host | DIY | EliteEW — one comparison line.</p>
+<hr />
+<h3>File manager</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>One organization file library</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>ContentManagerPro</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Folders, versions, access, search without “file only on someone else’s disk”</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#04a-files-two-planes">P4a</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Document editor (+ co-edit)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Documents in the contour; co-edit on explicit join</td>
+</tr>
+<tr>
+<td><strong>Components</strong></td>
+<td><code>DocEditor</code> · <code>DocEditorV2</code> (current UI)</td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Text and review without mandatory export to external Docs</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#04b-document-collaboration">P4b</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>GAF Chat</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Internal 1:1 messenger</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>GAFChatApp</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Work chat inside the perimeter; E2EE is optional (P7c), not default</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#07a-internal-messenger">P7a</a> · <a href="#07c-trusted-phone-e2ee">P7c</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Video Calls</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Internal calls; 1:1 — accept first, then join</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>VideoCallApp</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Sync without a zoo of links; choose where to accept the call</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#07b-internal-video-calls">P7b</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>App catalog</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Catalog and install of desk programs</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>AppStore</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Desk assembled for the role, not one icon set</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#05-apps-store-ai-contours">P5</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Desk settings</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Theme, wallpaper, window/panel behavior</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td>shell Settings (shell chrome, not a separate app id)</td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Desk personalization without editing the OS</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#04-desktop-workspace">P4</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Marketing cabinet</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Company → project → strategy / campaigns / research</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>MarketingCabinet</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Project on its own materials; RAG over vault (P5b)</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td><a href="#05a-roles-org-project">P5a</a> · <a href="#05b-generation-spend-vault-ai">P5b</a></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Counterparty cabinet</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Simplified contour for the counterparty side</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>CustomerCabinet</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Alignment / summary <strong>without</strong> the marketer’s kitchen</td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>≠ marketing cabinet · ≠ KIRS</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Assistant (EWA)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Desk companion: dialogue and in-contour actions</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>EwaApp</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Help “in place,” orchestration of desk scenarios</td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td><strong>≠ Experts</strong> (P5)</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Experts</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Instrumental AI chat: files, memory, “team”</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>DesktopAiChatApp</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Drafts and material review inside the contour</td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td><strong>≠ EWA companion</strong></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Admin</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Responsible panel: people, catalog, queues</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>UnifiedAdminApp</code></td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Access order without handing ops-CLI to end users</td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>≠ full IdP admin · ≠ day-to-day user feature (P10c)</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</article>
+<article class="chapter reveal" id="11a-should-app-cards">
+<h1>P11 — Should: app cards (tier 2)</h1>
+<p><strong>Catalog check (2026-09-30):</strong> about <strong>46</strong> desktop apps in the registry (manifests ∪ legacy).<br />
+<strong>Must:</strong> <a href="#11-must-app-cards">11-must-app-cards.md</a> · <strong>Later:</strong> <a href="#11b-later-app-cards">11b-later-app-cards.md</a></p>
+<p>Honestly: not every role has every app; heavy generations depend on the environment (P5b / P12).</p>
+<hr />
+<h3>EWRP (presentations)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Theme → illustrated slides → PDF</td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Deck inside the contour without mandatory external slide-editor-as-norm</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>EWRP</code> (+ archive <code>Presentations</code> / <code>PresentationsArchive</code>)</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Image Studio</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Text → image; edit by instruction</td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Visuals for projects inside the perimeter (where enabled)</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>ImageStudio</code></td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>Needs Comfy/queue availability; energy (P5b)</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Video Studio</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Image → short video (within contour capabilities)</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>VideoStudio</code></td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>Not a full heavy video NLE; depends on services</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Voice / GU Studio</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Voice scenarios: dialogue, command staff, Live Voice, transcription</td>
+</tr>
+<tr>
+<td><strong>Component (current UI)</strong></td>
+<td><code>StudioGU</code></td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>Legacy catalog ids <code>VoiceStudio</code> / <code>AudioTranscriptionPro</code> / part of <code>VoiceCommand</code> remain in the registry; the <strong>user</strong> contour is GU Studio (+ on-demand staff where enabled). Do not promise “everything always online”</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Music (player + song studio)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Library player; song creation — <strong>MusicForge</strong> (“Song Studio”)</td>
+</tr>
+<tr>
+<td>**Components **</td>
+<td><code>MusicPlayer</code>, <code>MusicForgeApp</code></td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td><code>MusicGenerator</code> / <code>MusicEvolutionApp</code> are <strong>legacy</strong> ids (shortcuts/notifications → MusicForge); do not position as separate active studios. Canon is MusicForge</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Professional Worlds</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Professional environments; “Realtor” pack and others</td>
+</tr>
+<tr>
+<td><strong>Outcome</strong></td>
+<td>Objects / counterparties / playbooks in contour</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>ProfessionalWorlds</code> — in the app registry (<strong>46</strong>)</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Social hub / friends</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Profile, friends, privacy, jump to chat</td>
+</tr>
+<tr>
+<td><strong>Components</strong></td>
+<td><code>SocialHubApp</code>, <code>FriendsApp</code>, <code>UserProfile</code></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Notification center</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Single product event feed</td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>NotificationsApp</code></td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Site Studio and KIRS</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Personal site studio · site from a marketing project · counterparty showcase</td>
+</tr>
+<tr>
+<td><strong>Components</strong></td>
+<td><code>UserSiteStudio</code>, <code>KirsCuration</code>, <code>KirsClientSite</code></td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>KIRS ≠ personal Studio ≠ counterparty cabinet (P11 Must)</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>UGS (hub / scenario studio)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Essence</strong></td>
+<td>Queue and overview of generations / scenarios</td>
+</tr>
+<tr>
+<td><strong>Components</strong></td>
+<td><code>UGSHubApp</code>, <code>UGS</code></td>
+</tr>
+<tr>
+<td><strong>Honestly</strong></td>
+<td>Queue/cards/quick-execute — in product. Separate <strong>Workflow Builder</strong> shell on Hub — <strong>retired</strong> (not in the active UI). Not “unlimited free”</td>
+</tr>
+<tr>
+<td>**Host</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>EWDesk · tickets · POEMMA (brief)</h3>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Essence</th>
+<th>Honestly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EWDeskApp</code></td>
+<td>Product news feed</td>
+<td>Not CRM</td>
+</tr>
+<tr>
+<td><code>FeedbackHubApp</code></td>
+<td>Ideas/bugs → team reply</td>
+<td>Not a support SLA guarantee in this text</td>
+</tr>
+<tr>
+<td><code>PoemmaApp</code></td>
+<td>90-day business map</td>
+<td><strong>≠</strong> marketing hall</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="11b-later-app-cards">
+<h1>P11 — Later: brief cards (tier 3)</h1>
+<hr />
+<table>
+<thead>
+<tr>
+<th>UI name</th>
+<th>Component / surface</th>
+<th>Essence</th>
+<th>Honestly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local Service</td>
+<td><code>LocalServiceIframeApp</code></td>
+<td>Embed a local/agreed service in a window</td>
+<td>Not “any URL without policy”</td>
+</tr>
+<tr>
+<td>Clipboard</td>
+<td><code>ClipboardManager</code></td>
+<td>Copy history on the desk</td>
+<td>Not a corporate OS DLP agent</td>
+</tr>
+<tr>
+<td>System monitor</td>
+<td><code>SystemMonitorWidget</code> (widget)</td>
+<td>Environment metrics</td>
+<td>GPU/metrics with caveats; <strong>not</strong> a full separate app</td>
+</tr>
+<tr>
+<td>Calendar</td>
+<td><code>CalendarApp</code></td>
+<td>Calendar scenarios on the desk</td>
+<td>Not a full replacement for corp mail calendar</td>
+</tr>
+<tr>
+<td>ComfyUI (window)</td>
+<td><code>ComfyUI</code></td>
+<td>Service/creative window to generative UI where enabled</td>
+<td><strong>Not</strong> user Image/Video Studio; user path is the studios. Id stays in the registry</td>
+</tr>
+<tr>
+<td>MusicGenerator / Music Evolution (legacy)</td>
+<td><code>MusicGenerator</code>, <code>MusicEvolutionApp</code></td>
+<td>Historical ids</td>
+<td>Shortcuts → <strong>MusicForge</strong>; not separate active apps</td>
+</tr>
+<tr>
+<td>In-desk browser</td>
+<td><code>EBrowserApp</code></td>
+<td>Embedded browser contour</td>
+<td>Not a full host-browser replacement for everything</td>
+</tr>
+<tr>
+<td>Kursorina</td>
+<td><code>KursorinaApp</code></td>
+<td>Research agent over clues</td>
+<td>≠ Experts · ≠ EWA</td>
+</tr>
+<tr>
+<td>Knowledge / Assistant FAQ</td>
+<td><code>AssistantApp</code></td>
+<td>FAQ + RAG on the product</td>
+<td>≠ EWA companion (different apps)</td>
+</tr>
+<tr>
+<td>About the project</td>
+<td><code>ProjectAboutApp</code></td>
+<td>Product overview on the desk</td>
+<td>Supporting material</td>
+</tr>
+<tr>
+<td>Survey hub</td>
+<td><code>SurveyHubApp</code></td>
+<td>Surveys</td>
+<td>Narrow scenario</td>
+</tr>
+<tr>
+<td>UGS Studio (legacy label)</td>
+<td>see Should UGS</td>
+<td>—</td>
+<td>Do not invent a second Must card</td>
+</tr>
+</tbody>
+</table>
+<h2>Host environment vs work layer</h2>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Host</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utility tools</td>
+<td>Built-ins + zoo</td>
+<td>Packages</td>
+<td>Point apps/widgets in contour</td>
+</tr>
+<tr>
+<td>Display priority</td>
+<td>—</td>
+<td>—</td>
+<td>Below Must/Should</td>
+</tr>
+</tbody>
+</table>
+</article>
+<header class="part-head reveal" id="part-limits"><h2>Honest limits</h2></header><article class="chapter reveal" id="12-honest-limits">
+<h1>P12 — Honest limits</h1>
+<p>So capabilities are not confused with absolutes. Below is what must <strong>not</strong> be<br />
+promised “for every edition at once.”</p>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Say this</th>
+<th>Do not say this</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sterile disk / wipe</td>
+<td>Edition policy; verify on PoC</td>
+<td>“We guarantee a sterile disk everywhere”</td>
+</tr>
+<tr>
+<td>UI latency</td>
+<td>Comfort orientation on PoC</td>
+<td>“Always ≤200 ms for everyone”</td>
+</tr>
+<tr>
+<td>Screen photos</td>
+<td>Digital-channel minimization, not 100%</td>
+<td>“Screen capture is impossible”</td>
+</tr>
+<tr>
+<td>FoFline = air-gap</td>
+<td>No: local pack + channel (<a href="#10-editions">P10</a>)</td>
+<td>“Full air-gap”</td>
+</tr>
+<tr>
+<td>Replacing firewall/AV/DLP</td>
+<td>A layer on the stack (<a href="#02-threats-and-protection">P2</a>)</td>
+<td>“We replace the whole security stack”</td>
+</tr>
+<tr>
+<td>AI replaces experts</td>
+<td>Speeds drafts on your data</td>
+<td>“Replaces the team”</td>
+</tr>
+<tr>
+<td>Multiple song studios</td>
+<td>Current: <strong>MusicForge</strong> (+ player)</td>
+<td>Several equal active studios</td>
+</tr>
+<tr>
+<td>Phone = full desk</td>
+<td>Subset (<a href="#07e-mobile-capability-matrix">P7e</a>)</td>
+<td>“All of EliteEW in a pocket”</td>
+</tr>
+<tr>
+<td>Always E2EE</td>
+<td>By consent (<a href="#07c-trusted-phone-e2ee">P7c</a>)</td>
+<td>“Always E2EE”</td>
+</tr>
+<tr>
+<td>Self-host costs</td>
+<td>Payroll/host orientation (<a href="#03d-tco-orientative">P3d</a>)</td>
+<td>“The gift means zero cost forever”</td>
+</tr>
+<tr>
+<td>External messenger as entry</td>
+<td>Not a primary product channel (<a href="#10d-external-messenger-honesty">P10d</a>)</td>
+<td>“This is our main entry”</td>
+</tr>
+<tr>
+<td>Certification out of the box</td>
+<td>Forbidden (<a href="#03-regulatory-map">P3</a>)</td>
+<td>“Already certified”</td>
+</tr>
+<tr>
+<td>Authors “inside the gift”</td>
+<td>No (<a href="#03e-delivery-models">P3e</a>)</td>
+<td>“Authors will run you for years”</td>
+</tr>
+<tr>
+<td>MIT = whole monorepo</td>
+<td>First-party default; exceptions and third-party separate (<a href="#03c-full-complex-source">P3c</a>)</td>
+<td>“Everything in the repo is one license”</td>
+</tr>
+<tr>
+<td>Hosted for everyone tomorrow</td>
+<td>Optional contour, not an MIT consequence</td>
+<td>“Free managed operations come with the code”</td>
+</tr>
+<tr>
+<td>Brand on any fork</td>
+<td>Mark separate from MIT</td>
+<td>“A fork is official EliteEW”</td>
+</tr>
+</tbody>
+</table>
+<p>This chapter does <strong>not</strong> cancel work-layer capabilities — it limits absolutes.</p>
+</article>
+<header class="part-head reveal" id="part-briefs"><h2>Briefs</h2></header><article class="chapter reveal" id="13-onepager-executive">
+<h1>Overview: gift to the world and your contour</h1>
+<p>A short page for people deciding whether to <strong>receive EliteEW</strong> as an open work<br />
+complex inside the organization.</p>
+<h2>What it is</h2>
+<p><strong>EliteEW</strong> = the organization’s work desk (apps, files, projects, AI on your data)<br />
+<strong>+</strong> a closed work layer (personal and work stay separated)<br />
+<strong>+</strong> first-party code as a <strong>gift to the world</strong> under MIT.</p>
+<p>Not a host-OS replacement. Not “100% protection.” Not a certificate. Not<br />
+“receiving the gift locks authors onto your payroll forever.”</p>
+<p>Formula — <a href="#01-what-is-eliteew">P1</a>; license and license terms —<br />
+<a href="#03c-full-complex-source">P3c</a>; limits — <a href="#12-honest-limits">P12</a>.</p>
+<h2>Four questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What is given to the world?</td>
+<td>First-party code: run, study, modify, redistribute under MIT; preserve copyright and permission notices</td>
+<td><a href="#03c-full-complex-source">P3c</a></td>
+</tr>
+<tr>
+<td>What is outside the gift?</td>
+<td>Author staffing, SLA, official brand, foreign secrets</td>
+<td><a href="#03e-delivery-models">P3e</a> · <a href="#12-honest-limits">P12</a></td>
+</tr>
+<tr>
+<td>Who stands the contour up?</td>
+<td>Organization IT/security and/or an integrator; accompaniment is optional</td>
+<td><a href="#03g-si-migration-playbook">P3g</a> · <a href="#10c-ops-scale-not-user-cli">P10c</a></td>
+</tr>
+<tr>
+<td>How do we accept it in-house?</td>
+<td>Source + commit/tag, artifacts, pilot, your own runbooks</td>
+<td><a href="#03f-transfer-bom-handover">P3f</a> · <a href="#13-onepager-dd-rfi">Q&amp;A</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Editions</h2>
+<p>Cloud (hosted) · On-prem (organization contour) · Client/FoFline (device + channel; <strong>not</strong> air-gap) — <a href="#10-editions">P10</a>.</p>
+<h2>Next by role</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Security</td>
+<td><a href="#13-onepager-ciso">CISO</a></td>
+</tr>
+<tr>
+<td>Rollout</td>
+<td><a href="#13-onepager-industry">industry</a> · <a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td>Terms</td>
+<td><a href="#glossary">glossary</a></td>
+</tr>
+<tr>
+<td>Full pack</td>
+<td><a href="#00-README">contents</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="13-onepager-ciso">
+<h1>Security / perimeter overview</h1>
+<p>Compressed entry. Full path: <a href="#02-threats-and-protection">P2</a> → <a href="#02a-agentless-instant-access">P2a</a> → <a href="#07d-edge-wall-one-click">P7d</a> → <a href="#09a-controlled-licenses-sealed">P9a</a> → <a href="#08a-atomic-conditional-access">P8a</a> → <a href="#08-tauri-clients-ota">P8</a> → <a href="#07c-trusted-phone-e2ee">P7c</a> → <a href="#12-honest-limits">P12</a> → <a href="#03-regulatory-map">P3</a>.</p>
+<h2>In one paragraph</h2>
+<p>EliteEW adds a <strong>work layer</strong> on a personal device: organization files and apps<br />
+stay in the contour, without a system agent on the personal OS as the normal<br />
+path. Outside — a closed perimeter and access by granted trust. Native<br />
+Connected/FoFline clients bind identity ∧ service entitlement ∧ channel ∧<br />
+device (not universal for every browser path). Chat E2EE is by consent, with a<br />
+key on the phone. The regulatory map “helps the contour” and is <strong>not</strong> a<br />
+certificate. Gift model — <a href="#03e-delivery-models">P3e</a>.</p>
+<h2>Thesis map</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Meaning</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shadow IT / personal messengers</td>
+<td>Mass channel outside the perimeter</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>Firewall / AV / full DLP</td>
+<td>Does not replace</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>Access without a personal-OS agent</td>
+<td>Fast work-layer grant</td>
+<td>P2a</td>
+</tr>
+<tr>
+<td>External perimeter</td>
+<td>Default-deny + trust</td>
+<td>P7d</td>
+</tr>
+<tr>
+<td>Service access / capsules</td>
+<td>Managed place access, revocable</td>
+<td>P9a</td>
+</tr>
+<tr>
+<td>Native conditional access</td>
+<td>Identity ∧ entitlement ∧ channel ∧ device</td>
+<td>P8a</td>
+</tr>
+<tr>
+<td>Client updates</td>
+<td>Signed channel, fail-closed</td>
+<td>P8</td>
+</tr>
+<tr>
+<td>Chat E2EE</td>
+<td>Option, not default</td>
+<td>P7c</td>
+</tr>
+<tr>
+<td>Sterile disk / air-gap</td>
+<td>Not an absolute</td>
+<td>P12 · P10</td>
+</tr>
+<tr>
+<td>Norms and certification</td>
+<td>Helps; does not replace</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+<p>Limits — <a href="#12-honest-limits">P12</a>. Formula — <a href="#01-what-is-eliteew">P1</a>.</p>
+</article>
+<article class="chapter reveal" id="13-onepager-industry">
+<h1>Rollout / industry overview</h1>
+<p>For rollout leads and people standing the contour up.</p>
+<h2>In one paragraph</h2>
+<p>EliteEW is a <strong>work environment</strong> and a <strong>gift to the world</strong> under MIT: the<br />
+organization receives the code, deploys its own instance with IT/integrator<br />
+effort, and lives in its own contour. Accompaniment (if needed) is optional —<br />
+it does not replace the gift with a closed product story. Self-host cost<br />
+structure is payroll/host orientation, not a code tariff<br />
+(<a href="#03d-tco-orientative">P3d</a> · <a href="#03e-delivery-models">P3e</a>).</p>
+<h2>Map</h2>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it is</td>
+<td><a href="#01-what-is-eliteew">P1</a></td>
+</tr>
+<tr>
+<td>Gift / MIT / license terms</td>
+<td><a href="#03c-full-complex-source">P3c</a></td>
+</tr>
+<tr>
+<td>How to use the gift</td>
+<td><a href="#03e-delivery-models">P3e</a></td>
+</tr>
+<tr>
+<td>Employee day</td>
+<td><a href="#03a-employee-day-adoption">P3a</a></td>
+</tr>
+<tr>
+<td>Industry accents</td>
+<td><a href="#03b-industry-profiles">P3b</a></td>
+</tr>
+<tr>
+<td>Accept in-house</td>
+<td><a href="#03f-transfer-bom-handover">P3f</a></td>
+</tr>
+<tr>
+<td>Migration from a zoo</td>
+<td><a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td>Roles</td>
+<td><a href="#05a-roles-org-project">P5a</a></td>
+</tr>
+<tr>
+<td>Files</td>
+<td><a href="#04a-files-two-planes">P4a</a></td>
+</tr>
+<tr>
+<td>Limits</td>
+<td><a href="#12-honest-limits">P12</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="13-onepager-dd-rfi">
+<h1>Questions before deep reading</h1>
+<p>Short answers. <strong>Does not replace:</strong> a legal opinion, certification, or transfer<br />
+of someone else’s secrets.</p>
+<p>Related: <a href="#03c-full-complex-source">P3c</a> · <a href="#03e-delivery-models">P3e</a> ·<br />
+<a href="#03f-transfer-bom-handover">P3f</a> · <a href="#03g-si-migration-playbook">P3g</a></p>
+<h2>Gift and license</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First-party license?</td>
+<td><code>MIT</code> (root LICENSE); not one license for the whole monorepo</td>
+</tr>
+<tr>
+<td>What freedoms?</td>
+<td>Run, study, modify, redistribute under MIT</td>
+</tr>
+<tr>
+<td>Modified network service?</td>
+<td>MIT does not require publishing service source code</td>
+</tr>
+<tr>
+<td>Third-party / MIT exceptions?</td>
+<td>Their own licenses; map + SBOM / NOTICE</td>
+</tr>
+<tr>
+<td>EliteEW brand?</td>
+<td>Not transferred by MIT</td>
+</tr>
+<tr>
+<td>Authors / SLA inside the gift?</td>
+<td>No; accompaniment is a separate option</td>
+</tr>
+<tr>
+<td>Service tariffs in this pack?</td>
+<td>No — this pack carries no tariffs</td>
+</tr>
+</tbody>
+</table>
+<h2>Product and security</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Answer</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Host-OS replacement?</td>
+<td>No — a layer on the host</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Agent on personal OS?</td>
+<td>Not the normal path</td>
+<td>P2a</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Certificate “out of the box”?</td>
+<td>No</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>FoFline air-gap?</td>
+<td>No</td>
+<td>P10 · P12</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Always E2EE?</td>
+<td>No; by consent</td>
+<td>P7c</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Native conditional access?</td>
+<td>For Connected/FoFline native</td>
+<td>P8a</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Sterile disk everywhere?</td>
+<td>Not as an absolute</td>
+<td>P12</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Screen photos impossible?</td>
+<td>No</td>
+<td>P12</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Where is data?</td>
+<td>By edition</td>
+<td>P10</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Mobile = full desk?</td>
+<td>A subset</td>
+<td>P7e</td>
+</tr>
+</tbody>
+</table>
+<h2>Receiving it in-house</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Question</th>
+<th>Answer</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11</td>
+<td>What to verify on acceptance?</td>
+<td>Source, commit/tag, build, docs, SBOM</td>
+<td>P3f</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Foreign production secrets?</td>
+<td>Not part of the gift</td>
+<td>P3f</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Who stands it up?</td>
+<td>Organization IT / integrator</td>
+<td>P3e · P3g</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Migration from a tool zoo?</td>
+<td>Waves, not one button</td>
+<td>P3g</td>
+</tr>
+<tr>
+<td>15</td>
+<td>PoC?</td>
+<td>Yes; against real capabilities</td>
+<td>P3g · P12</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Self-host cost structure?</td>
+<td>Orientation (payroll/host), not a code tariff</td>
+<td>P3d</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Official brand on a fork?</td>
+<td>Only a separate mark agreement</td>
+<td>P3c · P3e</td>
+</tr>
+<tr>
+<td>18</td>
+<td>OSS / third-party?</td>
+<td>Map + release SBOM</td>
+<td>P3c · P3f</td>
+</tr>
+</tbody>
+</table>
+<h2>Next</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overview</td>
+<td><a href="#13-onepager-executive">executive</a></td>
+</tr>
+<tr>
+<td>Security</td>
+<td><a href="#13-onepager-ciso">CISO</a></td>
+</tr>
+<tr>
+<td>Rollout</td>
+<td><a href="#13-onepager-industry">industry</a> · <a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td>Terms</td>
+<td><a href="#glossary">glossary</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="13-summary-matrix">
+<h1>Summary matrix (Host | DIY | EliteEW)</h1>
+<p>Compression of chapters already written; no new promises.</p>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Host</th>
+<th>DIY</th>
+<th>EliteEW</th>
+<th>Chapter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Role in the day</td>
+<td>Host OS + apps</td>
+<td>Host OS + packages</td>
+<td>Work <strong>layer</strong> on the host</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>Shadow IT</td>
+<td>Personal apps nearby</td>
+<td>Same</td>
+<td>Contour for chat/files/AI</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>Endpoint agent on BYOD</td>
+<td>Typical for DLP</td>
+<td>Typical</td>
+<td><strong>No</strong> admin agent on personal OS</td>
+<td>P2a</td>
+</tr>
+<tr>
+<td>Regulation / attestation</td>
+<td>Separate contour</td>
+<td>Separate</td>
+<td>Helps the contour; <strong>not</strong> an attestation</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>Employee day</td>
+<td>Scattered SaaS</td>
+<td>Same</td>
+<td>One swimlane</td>
+<td>P3a</td>
+</tr>
+<tr>
+<td>Industry organization</td>
+<td>Verticals</td>
+<td>DIY</td>
+<td>Accent profiles</td>
+<td>P3b</td>
+</tr>
+<tr>
+<td>Source / instance</td>
+<td>Closed OS</td>
+<td>Open kernel</td>
+<td>MIT gift · self-host</td>
+<td>P3c</td>
+</tr>
+<tr>
+<td>Gift vs accompaniment</td>
+<td>—</td>
+<td>DIY</td>
+<td>Code open; accompaniment optional</td>
+<td>P3e</td>
+</tr>
+<tr>
+<td>Bring-up in-house</td>
+<td>Volume / image</td>
+<td>Distro + packages</td>
+<td>Commit/tag + build + SBOM · Day‑0…90</td>
+<td>P3f</td>
+</tr>
+<tr>
+<td>SI / migration</td>
+<td>Change apps</td>
+<td>DIY cutover</td>
+<td>Waves M0–M5 · PoC on real capabilities</td>
+<td>P3g</td>
+</tr>
+<tr>
+<td>Cost structure</td>
+<td>Licenses+agents</td>
+<td>DIY labor</td>
+<td>Structure · Discovery</td>
+<td>P3d</td>
+</tr>
+<tr>
+<td>Files</td>
+<td>Disk/cloud</td>
+<td>FS/DIY</td>
+<td>PG + object store + ACL</td>
+<td>P4a</td>
+</tr>
+<tr>
+<td>Collab docs</td>
+<td>365 / third-party</td>
+<td>self-host office DIY</td>
+<td>Contour editor</td>
+<td>P4b</td>
+</tr>
+<tr>
+<td>AI</td>
+<td>External chat</td>
+<td>DIY LLM</td>
+<td>EWA <strong>≠</strong> Experts</td>
+<td>P5</td>
+</tr>
+<tr>
+<td>Roles</td>
+<td>group directory</td>
+<td>LDAP DIY</td>
+<td>Owner/lead/participant</td>
+<td>P5a</td>
+</tr>
+<tr>
+<td>Generations</td>
+<td>External SaaS</td>
+<td>DIY GPU</td>
+<td>Energy / quotas</td>
+<td>P5b</td>
+</tr>
+<tr>
+<td>Mobile</td>
+<td>MDM apps</td>
+<td>Same</td>
+<td>Satellite · subset</td>
+<td>P7e</td>
+</tr>
+<tr>
+<td>E2EE chat</td>
+<td>Signal etc.</td>
+<td>Same</td>
+<td>Opt-in · key on phone</td>
+<td>P7c</td>
+</tr>
+<tr>
+<td>Edge access</td>
+<td>VPN/firewall</td>
+<td>DIY</td>
+<td>Wall + issued trust</td>
+<td>P7d</td>
+</tr>
+<tr>
+<td>Native client</td>
+<td>Store/desktop installer</td>
+<td>RPM/portable build</td>
+<td>Tauri + signed OTA</td>
+<td>P8</td>
+</tr>
+<tr>
+<td>Conditional access</td>
+<td>Entra CA</td>
+<td>DIY</td>
+<td>Atomic native scope</td>
+<td>P8a</td>
+</tr>
+<tr>
+<td>Service access</td>
+<td>Volume</td>
+<td>DIY</td>
+<td>Capsule/entitlement; MIT self-host not blocked</td>
+<td>P9a</td>
+</tr>
+<tr>
+<td>Editions</td>
+<td>SaaS/RDS</td>
+<td>Self-host</td>
+<td>cloud/onprem/client</td>
+<td>P10</td>
+</tr>
+<tr>
+<td>FoFline air-gap</td>
+<td>—</td>
+<td>—</td>
+<td><strong>No</strong> (local+channel)</td>
+<td>P10</td>
+</tr>
+<tr>
+<td>Live sealed OS</td>
+<td>Image</td>
+<td>Live USB</td>
+<td>Substrate <strong>target</strong></td>
+<td>P10b</td>
+</tr>
+<tr>
+<td>Sterile disk</td>
+<td>—</td>
+<td>—</td>
+<td>Not a universal promise</td>
+<td>P12</td>
+</tr>
+<tr>
+<td>Analog (photo)</td>
+<td>Not closed by OS</td>
+<td>Not closed</td>
+<td>Minimization · not 100%</td>
+<td>P12</td>
+</tr>
+</tbody>
+</table>
+<h2>One-pager index</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Audience</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#13-onepager-executive">13-onepager-executive.md</a></td>
+<td>Committee / organization</td>
+</tr>
+<tr>
+<td><a href="#13-onepager-ciso">13-onepager-ciso.md</a></td>
+<td>Security</td>
+</tr>
+<tr>
+<td><a href="#13-onepager-industry">13-onepager-industry.md</a></td>
+<td>Adoption / industry</td>
+</tr>
+<tr>
+<td><a href="#13-onepager-dd-rfi">13-onepager-dd-rfi.md</a></td>
+<td>DD / RFI (adoption + security)</td>
+</tr>
+<tr>
+<td><a href="#03e-delivery-models">03e-delivery-models.md</a></td>
+<td>Gift to the world: how to use</td>
+</tr>
+<tr>
+<td><a href="#03f-transfer-bom-handover">03f-transfer-bom-handover.md</a></td>
+<td>Bring-up · artifacts</td>
+</tr>
+<tr>
+<td><a href="#03g-si-migration-playbook">03g-si-migration-playbook.md</a></td>
+<td>SI · migration · PoC</td>
+</tr>
+<tr>
+<td><a href="#glossary">glossary.md</a></td>
+<td>Terms</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Before external share:</strong> no IPs/ports/client ids/ops-CLI; absolute security claims only via <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="glossary">
+<h1>Glossary</h1>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in this pack</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EliteEW</strong></td>
+<td>Work environment (desk, apps, files, communications, AI) + managed layer; not a host-OS replacement</td>
+</tr>
+<tr>
+<td><strong>Gift to the world</strong></td>
+<td>First-party code released as free software under MIT</td>
+</tr>
+<tr>
+<td><strong>MIT</strong></td>
+<td>Permissive license: use, modify, and redistribute while preserving copyright and permission notices</td>
+</tr>
+<tr>
+<td><strong>Corresponding source</strong></td>
+<td>Source of the version you make available to users of a modified network service</td>
+</tr>
+<tr>
+<td><strong>First-party</strong></td>
+<td>EliteEW authors’ code without a narrower file license; default MIT</td>
+</tr>
+<tr>
+<td><strong>Third-party</strong></td>
+<td>Foreign components — their own licenses; see map / SBOM / NOTICE</td>
+</tr>
+<tr>
+<td><strong>Layer / contour</strong></td>
+<td>Organization work environment on top of the host OS</td>
+</tr>
+<tr>
+<td><strong>Self-hosted</strong></td>
+<td>Running the gift yourself</td>
+</tr>
+<tr>
+<td><strong>Accompaniment (optional)</strong></td>
+<td>Help with acceptance/operations; does not enclose the source</td>
+</tr>
+<tr>
+<td><strong>Acceptance artifacts</strong></td>
+<td>Source, commit/tag, build, docs, SBOM — <a href="#03f-transfer-bom-handover">P3f</a></td>
+</tr>
+<tr>
+<td><strong>SI</strong></td>
+<td>Systems integrator / rollout partner</td>
+</tr>
+<tr>
+<td><strong>Edition cloud / on-prem / client</strong></td>
+<td>Where the contour runs — <a href="#10-editions">P10</a></td>
+</tr>
+<tr>
+<td><strong>Agentless</strong></td>
+<td>No system agent on a personal OS as the normal access path</td>
+</tr>
+<tr>
+<td><strong>Service access (seat / capsule)</strong></td>
+<td>Access to a hosted/trusted channel; <strong>not</strong> the MIT code license</td>
+</tr>
+<tr>
+<td><strong>E2EE (chat)</strong></td>
+<td>End-to-end encryption by consent</td>
+</tr>
+<tr>
+<td><strong>Edge / wall</strong></td>
+<td>Default-deny outside + access by granted trust</td>
+</tr>
+<tr>
+<td><strong>MusicForge</strong></td>
+<td>Current “Song Studio”</td>
+</tr>
+<tr>
+<td><strong>PoC</strong></td>
+<td>Proof against real capabilities — <a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td><strong>Q&amp;A</strong></td>
+<td><a href="#13-onepager-dd-rfi">13-onepager-dd-rfi.md</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="14-export-pdf-html">
+<h1>P14 — Export HTML + Markdown (+ optional PDF)</h1>
+<p><strong>Status:</strong> ✅ <strong>HTML primary</strong> · <strong>MD pack</strong> · handover · visual polish · PDF secondary<br />
+<strong>Bundle:</strong> <a href="../index.html"><code>export/</code></a></p>
+<h2>Outputs</h2>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Artifact</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 · HTML</strong></td>
+<td>Start: 4 path cards + Layering + TOC by part · nav: Start / Brief / Full text / Diagrams</td>
+<td><code>export/html/</code> (lang picker + <code>ru/</code> + <code>en/</code>)</td>
+</tr>
+<tr>
+<td><strong>1 · HTML</strong></td>
+<td>Full text by part + side-rail</td>
+<td><code>book.html</code> per language</td>
+</tr>
+<tr>
+<td><strong>1 · HTML</strong></td>
+<td>Brief / Q&amp;A / diagrams</td>
+<td><code>onepagers.html</code> · <code>diagrams.html</code></td>
+</tr>
+<tr>
+<td><strong>1 · MD</strong></td>
+<td>Same spine</td>
+<td><code>export/md/ru/</code> · <code>export/md/en/</code></td>
+</tr>
+<tr>
+<td>2 · PDF</td>
+<td>optional</td>
+<td><code>export/pdf/</code> — <code>ELITEEW_OVERVIEW_WITH_PDF=1</code></td>
+</tr>
+<tr>
+<td>Share</td>
+<td>zip</td>
+<td><code>export/share/eliteew-product-overview-share-YYYYMMDD.zip</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">.venv/bin/python documentation/product/product-overview/export/build_export.py
+ELITEEW_OVERVIEW_WITH_PDF=1 .venv/bin/python documentation/product/product-overview/export/build_export.py
+</code></pre>
+<h2>Look</h2>
+<p>Shared visual tokens · Layering metaphor · <strong>not</strong> marketing-landing copy.<br />
+Manrope · sticky chrome · path cards · <strong>handover-strip</strong> · side-rail by part · fade-in ·<br />
+<strong>read-progress</strong> · <strong>honesty badges</strong> · <strong>table-scroll</strong> · <strong>book search</strong> · cover glow /<br />
+logo float · staggered path cards · lang-switch keeps page/hash · Mermaid.</p>
+<h2>Host environment vs work layer</h2>
+<table>
+<thead>
+<tr>
+<th>Axis</th>
+<th>Host</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primary delivery</td>
+<td>DIY PDF</td>
+<td>same</td>
+<td><strong>HTML bundle</strong> + <strong>MD pack</strong></td>
+</tr>
+<tr>
+<td>Print</td>
+<td>optional</td>
+<td>optional</td>
+<td>PDF secondary</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PDF tip:</strong> for a short committee pack prefer <code>eliteew-overview-{lang}-onepagers.pdf</code>;<br />
+<code>*-book.pdf</code> is the full spine (~80 pages). Open <code>OPEN.html</code> in the share zip for HTML.</p>
+<h2>Honestly</h2>
+<p>UI screenshots deferred · safe-to-share after HTML/MD review.</p>
+<h2>Related</h2>
+<p><code>export/build_export.py</code> · <code>export/html/index.html</code></p>
+</article>
+
+      </div>
+    </div>
+
+    <footer class="export-foot">
+      Empery World / EliteEW · <strong>HTML is primary</strong> · PDF secondary · shared visual tokens · text: product overview only (not marketing landing) · not an operations runbook
+    </footer>
+  </main>
+  <button type="button" class="back-top" data-back-top aria-label="Top">↑</button>
+  <script src="../assets/export.js"></script>
+
+  <script src="../assets/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      securityLevel: "strict",
+      flowchart: { htmlLabels: false },
+      themeVariables: {
+        primaryColor: "#0e131c",
+        primaryTextColor: "#e8eef7",
+        primaryBorderColor: "#00f2ff55",
+        lineColor: "#2dd4bf99",
+        secondaryColor: "#121820",
+        tertiaryColor: "#0b0e14",
+        fontFamily: "Manrope, system-ui, sans-serif"
+      }
+    });
+  </script>
+
+</body>
+</html>

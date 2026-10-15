@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_dag_quota_demo",
+  "version": 1,
+  "title_ru": "Quota demo",
+  "title_en": "Quota demo",
+  "enabled": false,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^dag quota demo$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc1",
+      "type": "prompt_gen",
+      "inputs": { "prompt": "{{turn.user_line}}" },
+      "outputs": { "reply": { "type": "text" } }
+    },
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc2",
+      "type": "logic_filter",
+      "inputs": {
+        "text": "{{cccccccc-cccc-4ccc-8ccc-ccccccccccc1.reply}}",
+        "contains": "x"
+      },
+      "outputs": { "matched": { "type": "boolean" } }
+    },
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc3",
+      "type": "api_call",
+      "inputs": { "url": "https://example.test/a" },
+      "outputs": { "reply": { "type": "text" } }
+    },
+    {
+      "id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc4",
+      "type": "api_call",
+      "inputs": { "url": "https://example.test/b" },
+      "outputs": { "reply": { "type": "text" } }
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc1",
+      "target_node_id": "cccccccc-cccc-4ccc-8ccc-ccccccccccc2"
+    }
+  ],
+  "execution_mode": "sync"
+}

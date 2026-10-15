@@ -1,0 +1,629 @@
+{
+  "$defs": {
+    "CompanionWorkflowBuilderMetaNodePositionV2": {
+      "description": "Canvas position for one DAG node (visual editor only).",
+      "properties": {
+        "x": {
+          "title": "X",
+          "type": "number"
+        },
+        "y": {
+          "title": "Y",
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "title": "CompanionWorkflowBuilderMetaNodePositionV2",
+      "type": "object"
+    },
+    "CompanionWorkflowBuilderMetaV2": {
+      "description": "Visual layout metadata stored with v2 definitions; ignored by the DAG runner.",
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "node_positions": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CompanionWorkflowBuilderMetaNodePositionV2"
+          },
+          "title": "Node Positions",
+          "type": "object"
+        },
+        "viewport": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "React Flow viewport: x, y, zoom.",
+          "title": "Viewport"
+        }
+      },
+      "title": "CompanionWorkflowBuilderMetaV2",
+      "type": "object"
+    },
+    "CompanionWorkflowEdgeV2": {
+      "description": "Directed edge with optional key→template mapping and branch label.",
+      "properties": {
+        "source_node_id": {
+          "format": "uuid",
+          "title": "Source Node Id",
+          "type": "string"
+        },
+        "target_node_id": {
+          "format": "uuid",
+          "title": "Target Node Id",
+          "type": "string"
+        },
+        "branch": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Branch label for decision/switch nodes (e.g. yes, no, case_a, default).",
+          "title": "Branch"
+        },
+        "mapping_rules": {
+          "additionalProperties": true,
+          "title": "Mapping Rules",
+          "type": "object"
+        }
+      },
+      "required": [
+        "source_node_id",
+        "target_node_id"
+      ],
+      "title": "CompanionWorkflowEdgeV2",
+      "type": "object"
+    },
+    "CompanionWorkflowInputSpecV2": {
+      "description": "Expected resolved type for one node input key.",
+      "properties": {
+        "type": {
+          "enum": [
+            "string",
+            "text",
+            "json",
+            "boolean",
+            "number",
+            "image_url"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "CompanionWorkflowInputSpecV2",
+      "type": "object"
+    },
+    "CompanionWorkflowNodeConfigV2": {
+      "description": "LLM/service hyperparameters for a DAG node.",
+      "properties": {
+        "temperature": {
+          "default": 0.7,
+          "maximum": 2.0,
+          "minimum": 0.0,
+          "title": "Temperature",
+          "type": "number"
+        },
+        "max_tokens": {
+          "default": 1024,
+          "maximum": 128000,
+          "minimum": 1,
+          "title": "Max Tokens",
+          "type": "integer"
+        },
+        "top_p": {
+          "default": 1.0,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Top P",
+          "type": "number"
+        },
+        "tool_name": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional override mapping to ``tool_registry`` name (``api_call`` nodes).",
+          "title": "Tool Name"
+        },
+        "delay_sec": {
+          "default": 0,
+          "maximum": 3600,
+          "minimum": 0,
+          "title": "Delay Sec",
+          "type": "integer"
+        },
+        "confirm_message_ru": {
+          "default": "",
+          "title": "Confirm Message Ru",
+          "type": "string"
+        },
+        "confirm_message_en": {
+          "default": "",
+          "title": "Confirm Message En",
+          "type": "string"
+        },
+        "condition": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional human-readable condition label for decision/switch nodes.",
+          "title": "Condition"
+        },
+        "condition_op": {
+          "anyOf": [
+            {
+              "maxLength": 32,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Comparison operator: eq, ne, gt, gte, lt, lte, contains, truthy, length_gt, …",
+          "title": "Condition Op"
+        },
+        "condition_field": {
+          "default": "text",
+          "maxLength": 64,
+          "title": "Condition Field",
+          "type": "string"
+        },
+        "condition_value": {
+          "default": null,
+          "title": "Condition Value"
+        },
+        "condition_expression": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Boolean expression with placeholders and AND/OR (overrides condition_op when set).",
+          "title": "Condition Expression"
+        },
+        "items_field": {
+          "default": "items",
+          "maxLength": 64,
+          "title": "Items Field",
+          "type": "string"
+        },
+        "switch_source": {
+          "default": "text",
+          "maxLength": 64,
+          "title": "Switch Source",
+          "type": "string"
+        },
+        "switch_cases": {
+          "items": {
+            "$ref": "#/$defs/CompanionWorkflowSwitchCaseV2"
+          },
+          "title": "Switch Cases",
+          "type": "array"
+        },
+        "transform_op": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "data_transformer operation name (json_parse, string_trim, …).",
+          "title": "Transform Op"
+        },
+        "transform_args": {
+          "additionalProperties": true,
+          "description": "Optional op-specific args for data_transformer nodes.",
+          "title": "Transform Args",
+          "type": "object"
+        }
+      },
+      "title": "CompanionWorkflowNodeConfigV2",
+      "type": "object"
+    },
+    "CompanionWorkflowNodeV2": {
+      "description": "One node in a DAG workflow.",
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "prompt_gen",
+            "api_call",
+            "image_gen",
+            "document_import",
+            "pdf_generate",
+            "telegram_sender",
+            "email_dispatcher",
+            "vision_analyzer",
+            "llm_summarizer",
+            "llm_classifier",
+            "pdf_parser",
+            "document_extractor",
+            "logic_filter",
+            "confirm_gate",
+            "delay",
+            "decision",
+            "switch",
+            "print_log",
+            "for_each",
+            "data_transformer"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "mode": {
+          "default": "stateful",
+          "enum": [
+            "stateless",
+            "stateful"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "config": {
+          "$ref": "#/$defs/CompanionWorkflowNodeConfigV2"
+        },
+        "inputs": {
+          "additionalProperties": true,
+          "title": "Inputs",
+          "type": "object"
+        },
+        "input_specs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CompanionWorkflowInputSpecV2"
+          },
+          "title": "Input Specs",
+          "type": "object"
+        },
+        "outputs": {
+          "additionalProperties": {
+            "$ref": "#/$defs/CompanionWorkflowOutputSpecV2"
+          },
+          "title": "Outputs",
+          "type": "object"
+        },
+        "on_error": {
+          "$ref": "#/$defs/CompanionWorkflowOnErrorV2"
+        },
+        "title_ru": {
+          "default": "",
+          "title": "Title Ru",
+          "type": "string"
+        },
+        "title_en": {
+          "default": "",
+          "title": "Title En",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "title": "CompanionWorkflowNodeV2",
+      "type": "object"
+    },
+    "CompanionWorkflowOnErrorV2": {
+      "description": "Per-node failure policy (circuit breaker).",
+      "properties": {
+        "strategy": {
+          "default": "stop",
+          "enum": [
+            "stop",
+            "retry",
+            "fallback_value"
+          ],
+          "title": "Strategy",
+          "type": "string"
+        },
+        "max_attempts": {
+          "default": 3,
+          "maximum": 5,
+          "minimum": 1,
+          "title": "Max Attempts",
+          "type": "integer"
+        },
+        "fallback_outputs": {
+          "additionalProperties": true,
+          "title": "Fallback Outputs",
+          "type": "object"
+        }
+      },
+      "title": "CompanionWorkflowOnErrorV2",
+      "type": "object"
+    },
+    "CompanionWorkflowOutputSpecV2": {
+      "description": "Declared output field produced by a node.",
+      "properties": {
+        "type": {
+          "enum": [
+            "string",
+            "text",
+            "json",
+            "boolean",
+            "number",
+            "image_url"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "CompanionWorkflowOutputSpecV2",
+      "type": "object"
+    },
+    "CompanionWorkflowSwitchCaseV2": {
+      "description": "One labeled branch arm for a ``switch`` node.",
+      "properties": {
+        "branch": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Branch",
+          "type": "string"
+        },
+        "op": {
+          "default": "eq",
+          "maxLength": 32,
+          "title": "Op",
+          "type": "string"
+        },
+        "value": {
+          "default": null,
+          "title": "Value"
+        },
+        "source": {
+          "default": "text",
+          "maxLength": 64,
+          "title": "Source",
+          "type": "string"
+        },
+        "expression": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expression"
+        }
+      },
+      "required": [
+        "branch"
+      ],
+      "title": "CompanionWorkflowSwitchCaseV2",
+      "type": "object"
+    },
+    "CompanionWorkflowTriggerV1": {
+      "description": "How a workflow may be started.",
+      "properties": {
+        "type": {
+          "enum": [
+            "regex",
+            "tool_router_tool",
+            "quick_intent_id",
+            "manual_admin"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "pattern": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pattern"
+        },
+        "tool_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Name"
+        },
+        "min_confidence": {
+          "default": 0.65,
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Min Confidence",
+          "type": "number"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "CompanionWorkflowTriggerV1",
+      "type": "object"
+    }
+  },
+  "description": "Full declarative DAG workflow definition (user + future catalog).",
+  "properties": {
+    "schema_version": {
+      "const": 2,
+      "default": 2,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "workflow_id": {
+      "pattern": "^[a-z][a-z0-9_]{2,63}$",
+      "title": "Workflow Id",
+      "type": "string"
+    },
+    "version": {
+      "minimum": 1,
+      "title": "Version",
+      "type": "integer"
+    },
+    "title_ru": {
+      "minLength": 1,
+      "title": "Title Ru",
+      "type": "string"
+    },
+    "title_en": {
+      "minLength": 1,
+      "title": "Title En",
+      "type": "string"
+    },
+    "description_ru": {
+      "default": "",
+      "title": "Description Ru",
+      "type": "string"
+    },
+    "description_en": {
+      "default": "",
+      "title": "Description En",
+      "type": "string"
+    },
+    "enabled": {
+      "default": false,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "triggers": {
+      "items": {
+        "$ref": "#/$defs/CompanionWorkflowTriggerV1"
+      },
+      "minItems": 1,
+      "title": "Triggers",
+      "type": "array"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/CompanionWorkflowNodeV2"
+      },
+      "maxItems": 10,
+      "minItems": 1,
+      "title": "Nodes",
+      "type": "array"
+    },
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/CompanionWorkflowEdgeV2"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "execution_mode": {
+      "default": "async",
+      "enum": [
+        "sync",
+        "async"
+      ],
+      "title": "Execution Mode",
+      "type": "string"
+    },
+    "env_gate": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Env Gate"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "builder_meta": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CompanionWorkflowBuilderMetaV2"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "Optional visual-editor layout; not consumed by execution."
+    }
+  },
+  "required": [
+    "workflow_id",
+    "version",
+    "title_ru",
+    "title_en",
+    "triggers",
+    "nodes"
+  ],
+  "title": "CompanionWorkflowDefinitionV2",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/companion_workflow_v2.json"
+}

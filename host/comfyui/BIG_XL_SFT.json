@@ -1,0 +1,304 @@
+{
+  "202": {
+    "inputs": {
+      "seed": 0,
+      "steps": 50,
+      "cfg": 7,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "duration": 60,
+      "infer_method": "ode",
+      "guidance_mode": "apg",
+      "batch_size": 1,
+      "latent_shift": 0,
+      "latent_rescale": 1,
+      "fade_in_duration": 0,
+      "fade_out_duration": 0,
+      "use_tiled_vae": false,
+      "unload_models_after_generate": false,
+      "voice_boost": 0,
+      "apg_eta": 0,
+      "apg_momentum": -0.75,
+      "apg_norm_threshold": 2.5,
+      "guidance_interval": 1.0,
+      "guidance_interval_decay": 0,
+      "min_guidance_scale": 3,
+      "guidance_scale_text": -1,
+      "guidance_scale_lyric": -1,
+      "omega_scale": 0,
+      "erg_scale": 0,
+      "cfg_interval_start": 0,
+      "cfg_interval_end": 1,
+      "shift": 3.0,
+      "model": [
+        "206",
+        0
+      ],
+      "positive": [
+        "208",
+        0
+      ],
+      "negative": [
+        "208",
+        1
+      ],
+      "vae": [
+        "207",
+        2
+      ]
+    },
+    "class_type": "AceStepSFTGenerate",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Generate"
+    }
+  },
+  "203": {
+    "inputs": {
+      "seed": 0,
+      "steps": 50,
+      "cfg": 7,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "duration": 60,
+      "infer_method": "ode",
+      "guidance_mode": "apg",
+      "batch_size": 1,
+      "latent_shift": 0,
+      "latent_rescale": 1,
+      "fade_in_duration": 0,
+      "fade_out_duration": 0,
+      "use_tiled_vae": false,
+      "unload_models_after_generate": false,
+      "voice_boost": 0,
+      "apg_eta": 0,
+      "apg_momentum": -0.75,
+      "apg_norm_threshold": 2.5,
+      "guidance_interval": 1.0,
+      "guidance_interval_decay": 0,
+      "min_guidance_scale": 3,
+      "guidance_scale_text": -1,
+      "guidance_scale_lyric": -1,
+      "omega_scale": 0,
+      "erg_scale": 0,
+      "cfg_interval_start": 0,
+      "cfg_interval_end": 1,
+      "shift": 3.0,
+      "model": [
+        "202",
+        0
+      ],
+      "positive": [
+        "202",
+        2
+      ],
+      "negative": [
+        "202",
+        3
+      ],
+      "vae": [
+        "202",
+        1
+      ],
+      "latent_or_audio": [
+        "202",
+        4
+      ]
+    },
+    "class_type": "AceStepSFTGenerate",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Generate"
+    }
+  },
+  "204": {
+    "inputs": {
+      "seed": 0,
+      "steps": 50,
+      "cfg": 7,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "duration": 60,
+      "infer_method": "ode",
+      "guidance_mode": "apg",
+      "batch_size": 1,
+      "latent_shift": 0,
+      "latent_rescale": 1,
+      "fade_in_duration": 0,
+      "fade_out_duration": 0,
+      "use_tiled_vae": false,
+      "unload_models_after_generate": false,
+      "voice_boost": 0,
+      "apg_eta": 0,
+      "apg_momentum": -0.75,
+      "apg_norm_threshold": 2.5,
+      "guidance_interval": 1.0,
+      "guidance_interval_decay": 0,
+      "min_guidance_scale": 3,
+      "guidance_scale_text": -1,
+      "guidance_scale_lyric": -1,
+      "omega_scale": 0,
+      "erg_scale": 0,
+      "cfg_interval_start": 0,
+      "cfg_interval_end": 1,
+      "shift": 3.0,
+      "model": [
+        "203",
+        0
+      ],
+      "positive": [
+        "203",
+        2
+      ],
+      "negative": [
+        "203",
+        3
+      ],
+      "vae": [
+        "203",
+        1
+      ],
+      "latent_or_audio": [
+        "203",
+        4
+      ]
+    },
+    "class_type": "AceStepSFTGenerate",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Generate"
+    }
+  },
+  "205": {
+    "inputs": {
+      "seed": 0,
+      "steps": 50,
+      "cfg": 7,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1,
+      "duration": 60,
+      "infer_method": "ode",
+      "guidance_mode": "apg",
+      "batch_size": 1,
+      "latent_shift": 0,
+      "latent_rescale": 1,
+      "fade_in_duration": 0,
+      "fade_out_duration": 0,
+      "use_tiled_vae": false,
+      "unload_models_after_generate": false,
+      "voice_boost": 0,
+      "apg_eta": 0,
+      "apg_momentum": -0.75,
+      "apg_norm_threshold": 2.5,
+      "guidance_interval": 1.0,
+      "guidance_interval_decay": 0,
+      "min_guidance_scale": 3,
+      "guidance_scale_text": -1,
+      "guidance_scale_lyric": -1,
+      "omega_scale": 0,
+      "erg_scale": 0,
+      "cfg_interval_start": 0,
+      "cfg_interval_end": 1,
+      "shift": 3.0,
+      "model": [
+        "204",
+        0
+      ],
+      "positive": [
+        "204",
+        2
+      ],
+      "negative": [
+        "204",
+        3
+      ],
+      "vae": [
+        "204",
+        1
+      ],
+      "latent_or_audio": [
+        "204",
+        4
+      ]
+    },
+    "class_type": "AceStepSFTGenerate",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Generate"
+    }
+  },
+  "206": {
+    "inputs": {
+      "lora_name": "ACE15XL/ace-step_1-5_xl_danceability_slider.safetensors",
+      "strength_model": 1.0,
+      "strength_clip": 1.0,
+      "model": [
+        "207",
+        0
+      ],
+      "clip": [
+        "207",
+        1
+      ]
+    },
+    "class_type": "AceStepSFTLoraLoader",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Lora Loader"
+    }
+  },
+  "207": {
+    "inputs": {
+      "diffusion_model": "acestep_v1.5_xl_sft_bf16.safetensors",
+      "text_encoder_1": "qwen_0.6b_ace15.safetensors",
+      "text_encoder_2": "qwen_4b_ace15.safetensors",
+      "vae_name": "ace_1.5_vae.safetensors"
+    },
+    "class_type": "AceStepSFTModelLoader",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Model Loader"
+    }
+  },
+  "208": {
+    "inputs": {
+      "caption": "",
+      "lyrics": "",
+      "instrumental": false,
+      "seed": 0,
+      "duration": 164.6,
+      "bpm": 134,
+      "timesignature": "4",
+      "language": "ru",
+      "keyscale": "C major",
+      "generate_audio_codes": true,
+      "lm_cfg_scale": 2,
+      "lm_temperature": 0.85,
+      "lm_top_p": 0.9,
+      "lm_top_k": 0,
+      "lm_min_p": 0,
+      "lm_negative_prompt": "",
+      "clip": [
+        "206",
+        1
+      ]
+    },
+    "class_type": "AceStepSFTTextEncode",
+    "_meta": {
+      "title": "AceStep 1.5 SFT TextEncode"
+    }
+  },
+  "210": {
+    "inputs": {
+      "filename_prefix": "audio/AceStep",
+      "format": "flac",
+      "quality": "V0",
+      "audio": [
+        "205",
+        5
+      ]
+    },
+    "class_type": "AceStepSFTSaveAudio",
+    "_meta": {
+      "title": "AceStep 1.5 SFT Save Audio"
+    }
+  }
+}

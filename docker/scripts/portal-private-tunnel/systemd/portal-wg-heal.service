@@ -1,0 +1,13 @@
+# EliteEW · edge system unit — bounded self-heal for portal WG only
+[Unit]
+Description=EliteEW Portal Private Tunnel bounded self-heal (wg-portal only)
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/eliteew-portal/edge-heal-wg-portal.sh
+# Never pass interface args — script hardcodes wg-portal.
+User=root
+Group=root
+PrivateTmp=true

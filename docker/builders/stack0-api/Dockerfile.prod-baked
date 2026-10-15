@@ -1,0 +1,153 @@
+# syntax=docker/dockerfile:1.7
+# ---
+# EliteEW · Empery World · https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose:
+# Тонкий слой поверх уже собранных stack0 backend-образов: COPY API-кода и frontend-dist
+# в конец сборки (кэш venv/runtime не инвалидируется). Контекст — корень репозитория.
+# Invariants:
+# - Базовые теги (STACK0_*_IMAGE) должны существовать до сборки prod-baked.
+# - dist-build собирается на хосте до `docker build` (pnpm build:react-compiler).
+# - Product Assistant handbook kb-*.md bake в api-образ (без bind documentation на prod-core).
+# - shared/apps/*/app.manifest.yaml bake → /app/apps (desktop_app_manifests loader).
+# - BUILD_GIT_SHA / BUILD_LOCK_HASH injected at build time for post-mortem traceability.
+# - api-baked installs openssh-clients and fails closed if /usr/bin/ssh is missing
+#   (SKIP_BASE=1 never rebuilds eliteew-api:v3). Compose still sets STACK0_USER.
+# - dnf in this layer uses dl.fedoraproject.org only (no MirrorManager metalink),
+#   including when the base image was built before that pin.
+# Related:
+# - docker/scripts/build-stack0-prod-baked-images.sh
+# - docker/stack/stack0_b.prod-baked.override.yml
+# - shared/api/services/desktop_app_manifests/loader.py
+# ---
+
+ARG BUILD_GIT_SHA=unknown
+ARG BUILD_LOCK_HASH=unknown
+ARG BUILD_QUEUE_WORKER_LOCK_HASH=unknown
+ARG BUILD_DEPLOY_ID=unknown
+ARG BUILD_MANIFEST_SHA256=unknown
+
+ARG STACK0_API_IMAGE=docker.io/library/eliteew-api:v3
+ARG STACK0_QUEUE_WORKER_IMAGE=docker.io/library/eliteew-queue-worker:v3
+ARG STACK0_CELERY_WORKER_IMAGE=docker.io/library/eliteew-celery-worker:v3
+ARG STACK0_CELERY_BEAT_IMAGE=docker.io/library/eliteew-celery-beat:v3
+ARG STACK0_SITE_STUDIO_WORKER_IMAGE=docker.io/library/eliteew-site-studio-worker:v3
+
+FROM ${STACK0_API_IMAGE} AS api-baked
+# Thin Line A bake (SKIP_BASE=1) does not rebuild eliteew-api:v3. Air enroll
+# create/reveal execs ssh in this process; fail closed if the client is absent.
+USER 0
+COPY docker/builders/stack0-api/fedora-dnf-official-repos.sh /tmp/fedora-dnf-official-repos.sh
+RUN bash /tmp/fedora-dnf-official-repos.sh \
+    && dnf install -y --setopt=install_weak_deps=False \
+    --disablerepo=fedora-cisco-openh264 \
+    openssh-clients \
+    && test -x /usr/bin/ssh \
+    && dnf clean all
+ARG BUILD_GIT_SHA
+ARG BUILD_LOCK_HASH
+ARG BUILD_QUEUE_WORKER_LOCK_HASH
+ARG BUILD_DEPLOY_ID
+ARG BUILD_MANIFEST_SHA256
+COPY shared/api /app/api
+COPY shared/apps /app/apps
+COPY host/kernel-offline /app/shared
+COPY shared/assistant_desktop_link_components.json /app/shared/assistant_desktop_link_components.json
+COPY shared/tools /app/shared_tools
+COPY shared/web/frontend/dist-build /app/frontend-dist
+COPY documentation/product/handbook-kb-articles /app/documentation/product/handbook-kb-articles
+ENV BUILD_GIT_SHA=${BUILD_GIT_SHA} \
+    BUILD_LOCK_HASH=${BUILD_LOCK_HASH} \
+    BUILD_QUEUE_WORKER_LOCK_HASH=${BUILD_QUEUE_WORKER_LOCK_HASH} \
+    BUILD_DEPLOY_ID=${BUILD_DEPLOY_ID} \
+    BUILD_MANIFEST_SHA256=${BUILD_MANIFEST_SHA256}
+LABEL org.eliteew.build.git_sha="${BUILD_GIT_SHA}" \
+      org.eliteew.build.lock_hash="${BUILD_LOCK_HASH}" \
+      org.eliteew.build.queue_worker_lock_hash="${BUILD_QUEUE_WORKER_LOCK_HASH}" \
+      org.eliteew.deploy.deploy_id="${BUILD_DEPLOY_ID}" \
+      org.eliteew.deploy.manifest_sha256="${BUILD_MANIFEST_SHA256}"
+
+FROM ${STACK0_QUEUE_WORKER_IMAGE} AS queue-worker-baked
+ARG BUILD_GIT_SHA
+ARG BUILD_LOCK_HASH
+ARG BUILD_QUEUE_WORKER_LOCK_HASH
+ARG BUILD_DEPLOY_ID
+ARG BUILD_MANIFEST_SHA256
+COPY shared/api /app/api
+COPY shared/apps /app/apps
+ENV BUILD_GIT_SHA=${BUILD_GIT_SHA} \
+    BUILD_LOCK_HASH=${BUILD_LOCK_HASH} \
+    BUILD_QUEUE_WORKER_LOCK_HASH=${BUILD_QUEUE_WORKER_LOCK_HASH} \
+    BUILD_DEPLOY_ID=${BUILD_DEPLOY_ID} \
+    BUILD_MANIFEST_SHA256=${BUILD_MANIFEST_SHA256}
+LABEL org.eliteew.build.git_sha="${BUILD_GIT_SHA}" \
+      org.eliteew.build.lock_hash="${BUILD_LOCK_HASH}" \
+      org.eliteew.build.queue_worker_lock_hash="${BUILD_QUEUE_WORKER_LOCK_HASH}" \
+      org.eliteew.deploy.deploy_id="${BUILD_DEPLOY_ID}" \
+      org.eliteew.deploy.manifest_sha256="${BUILD_MANIFEST_SHA256}"
+
+FROM queue-worker-baked AS api-worker-baked
+
+FROM ${STACK0_CELERY_WORKER_IMAGE} AS celery-worker-baked
+ARG BUILD_GIT_SHA
+ARG BUILD_LOCK_HASH
+ARG BUILD_QUEUE_WORKER_LOCK_HASH
+ARG BUILD_DEPLOY_ID
+ARG BUILD_MANIFEST_SHA256
+COPY shared/api /app/api
+COPY shared/apps /app/apps
+ENV BUILD_GIT_SHA=${BUILD_GIT_SHA} \
+    BUILD_LOCK_HASH=${BUILD_LOCK_HASH} \
+    BUILD_QUEUE_WORKER_LOCK_HASH=${BUILD_QUEUE_WORKER_LOCK_HASH} \
+    BUILD_DEPLOY_ID=${BUILD_DEPLOY_ID} \
+    BUILD_MANIFEST_SHA256=${BUILD_MANIFEST_SHA256}
+LABEL org.eliteew.build.git_sha="${BUILD_GIT_SHA}" \
+      org.eliteew.build.lock_hash="${BUILD_LOCK_HASH}" \
+      org.eliteew.build.queue_worker_lock_hash="${BUILD_QUEUE_WORKER_LOCK_HASH}" \
+      org.eliteew.deploy.deploy_id="${BUILD_DEPLOY_ID}" \
+      org.eliteew.deploy.manifest_sha256="${BUILD_MANIFEST_SHA256}"
+
+FROM ${STACK0_CELERY_BEAT_IMAGE} AS celery-beat-baked
+ARG BUILD_GIT_SHA
+ARG BUILD_LOCK_HASH
+ARG BUILD_QUEUE_WORKER_LOCK_HASH
+ARG BUILD_DEPLOY_ID
+ARG BUILD_MANIFEST_SHA256
+COPY shared/api /app/api
+COPY shared/apps /app/apps
+ENV BUILD_GIT_SHA=${BUILD_GIT_SHA} \
+    BUILD_LOCK_HASH=${BUILD_LOCK_HASH} \
+    BUILD_QUEUE_WORKER_LOCK_HASH=${BUILD_QUEUE_WORKER_LOCK_HASH} \
+    BUILD_DEPLOY_ID=${BUILD_DEPLOY_ID} \
+    BUILD_MANIFEST_SHA256=${BUILD_MANIFEST_SHA256}
+LABEL org.eliteew.build.git_sha="${BUILD_GIT_SHA}" \
+      org.eliteew.build.lock_hash="${BUILD_LOCK_HASH}" \
+      org.eliteew.build.queue_worker_lock_hash="${BUILD_QUEUE_WORKER_LOCK_HASH}" \
+      org.eliteew.deploy.deploy_id="${BUILD_DEPLOY_ID}" \
+      org.eliteew.deploy.manifest_sha256="${BUILD_MANIFEST_SHA256}"
+
+FROM ${STACK0_SITE_STUDIO_WORKER_IMAGE} AS site-studio-worker-baked
+ARG BUILD_GIT_SHA
+ARG BUILD_LOCK_HASH
+ARG BUILD_QUEUE_WORKER_LOCK_HASH
+ARG BUILD_DEPLOY_ID
+ARG BUILD_MANIFEST_SHA256
+COPY shared/api /app/api
+COPY shared/apps /app/apps
+# Thin bake skips rebuilding site-studio-worker:v3. XDG dir must exist here: uid 1000
+# cannot mkdir /var/lib/eliteew (parent /var/lib is root 755). Compose HOME is SSH-only.
+USER 0
+RUN mkdir -p /var/lib/eliteew/xdg-config \
+    && chown -R 1000:1000 /var/lib/eliteew
+ENV XDG_CONFIG_HOME=/var/lib/eliteew/xdg-config
+ENV BUILD_GIT_SHA=${BUILD_GIT_SHA} \
+    BUILD_LOCK_HASH=${BUILD_LOCK_HASH} \
+    BUILD_QUEUE_WORKER_LOCK_HASH=${BUILD_QUEUE_WORKER_LOCK_HASH} \
+    BUILD_DEPLOY_ID=${BUILD_DEPLOY_ID} \
+    BUILD_MANIFEST_SHA256=${BUILD_MANIFEST_SHA256}
+LABEL org.eliteew.build.git_sha="${BUILD_GIT_SHA}" \
+      org.eliteew.build.lock_hash="${BUILD_LOCK_HASH}" \
+      org.eliteew.build.queue_worker_lock_hash="${BUILD_QUEUE_WORKER_LOCK_HASH}" \
+      org.eliteew.deploy.deploy_id="${BUILD_DEPLOY_ID}" \
+      org.eliteew.deploy.manifest_sha256="${BUILD_MANIFEST_SHA256}"

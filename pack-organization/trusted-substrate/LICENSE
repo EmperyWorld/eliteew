@@ -1,0 +1,33 @@
+Trusted Substrate license map
+
+SPDX-FileCopyrightText: 2026 Кундухов Артём Георгиевич (po&T)
+SPDX-FileCopyrightText: 2026 Кундухова Татьяна Александровна (TZBrand)
+SPDX-License-Identifier: MIT
+
+This directory is mixed. One blanket license for every included component
+would be false.
+
+MIT License, under the monorepo root
+LICENSE, and only where a file does not already carry MIT or an upstream
+license:
+
+- policy/ Python gates
+- rootfs_overlay scripts and units written for this product
+- board fragments and defconfig that are product configuration
+
+MIT, do not relicense:
+
+- installer/LICENSE
+- state-unlock-agent/LICENSE
+
+GPL or the upstream package license, do not mark proprietary:
+
+- Linux kernel built by this factory (GPL-2.0-only WITH Linux-syscall-note)
+- Buildroot (GPL-2.0-or-later)
+- config/buildroot/patches and package-dropins (see NOTICE in that directory)
+- external/package/labwc (GPL-2.0-only)
+- external/package/gnome-keyring (GPL-2.0-or-later)
+
+The EliteEW monorepo outside this directory is not part of the OS image SBOM.
+Its first-party code follows the root license and any nearer component
+exceptions; it is not licensed by this map.

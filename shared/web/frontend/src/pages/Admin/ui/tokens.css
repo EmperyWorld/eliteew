@@ -1,0 +1,67 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: New World Admin UI design tokens (Independent of Old World chrome).
+ * Invariants: Consume --desktop-* CSS vars only; never import Admin section / PW / AppStore modules.
+ * Related: documentation/platform/UNIFIED-ADMIN-DESIGN-SYSTEM-AND-GAP-ROADMAP.md
+ */
+
+.eliteew-admin-ui {
+	/* Density */
+	--admin-ui-space-1: 0.25rem;
+	--admin-ui-space-2: 0.5rem;
+	--admin-ui-space-3: 0.75rem;
+	--admin-ui-space-4: 1rem;
+	--admin-ui-space-5: 1.25rem;
+	--admin-ui-space-6: 1.5rem;
+
+	/* Type */
+	--admin-ui-text-xs: 0.75rem;
+	--admin-ui-text-sm: 0.875rem;
+	--admin-ui-text-md: 1rem;
+	--admin-ui-font: var(--desktop-font-sans, ui-sans-serif, system-ui, sans-serif);
+	--admin-ui-fg: var(--desktop-text-primary, rgb(226 232 240));
+	--admin-ui-fg-muted: var(--desktop-text-secondary, rgb(148 163 184));
+	--admin-ui-fg-dim: var(--desktop-text-dim, rgb(100 116 139));
+
+	/* Surfaces from desktop inputs */
+	--admin-ui-surface: var(--desktop-surface-soft, rgba(15, 23, 42, 0.72));
+	--admin-ui-surface-panel: var(--desktop-surface-panel, rgba(15, 23, 42, 0.88));
+	--admin-ui-surface-strong: var(
+		--desktop-surface-panel-strong,
+		rgba(2, 6, 23, 0.94)
+	);
+	--admin-ui-border: var(--desktop-border-subtle, rgba(255, 255, 255, 0.1));
+	--admin-ui-radius: var(--desktop-radius-xl, 0.75rem);
+	--admin-ui-radius-sm: var(--desktop-radius-lg, 0.5rem);
+
+	/* Accent via desktop RGB */
+	--admin-ui-accent: rgb(var(--desktop-accent-rgb, 139 92 246) / 1);
+	--admin-ui-accent-soft: rgb(var(--desktop-accent-rgb, 139 92 246) / 0.18);
+	--admin-ui-focus-ring: rgb(var(--desktop-accent-rgb, 139 92 246) / 0.4);
+
+	/* Status */
+	--admin-ui-status-success: rgb(34 197 94 / 0.9);
+	--admin-ui-status-success-bg: rgb(34 197 94 / 0.12);
+	--admin-ui-status-warning: rgb(234 179 8 / 0.95);
+	--admin-ui-status-warning-bg: rgb(234 179 8 / 0.12);
+	--admin-ui-status-danger: rgb(239 68 68 / 0.95);
+	--admin-ui-status-danger-bg: rgb(239 68 68 / 0.14);
+	--admin-ui-status-info: rgb(59 130 246 / 0.95);
+	--admin-ui-status-info-bg: rgb(59 130 246 / 0.12);
+
+	/* Overlay */
+	--admin-ui-backdrop: rgba(2, 6, 23, 0.72);
+	--admin-ui-z-modal: 80;
+
+	color: var(--admin-ui-fg);
+	font-family: var(--admin-ui-font);
+	font-size: var(--admin-ui-text-sm);
+}
+
+.eliteew-admin-ui * {
+	box-sizing: border-box;
+}

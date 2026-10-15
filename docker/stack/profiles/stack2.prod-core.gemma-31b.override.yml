@@ -1,0 +1,58 @@
+# =============================================================================
+# EliteEW · stack2 · prod-core · Gemma4 dense 31B (−c 200000)
+# =============================================================================
+# podman-compose не подставляет ${VAR} в command — значения явные.
+# Активация: docker/scripts/eliteew-llama-chat-model.sh 31b
+# GGUF train ctx=262144; на dual-GPU (3090+5060 Ti) полный 262k с f16 KV OOM.
+# Рабочее окно: -c 200000 (ниже прежнего auto ~209k / failed 262k).
+# =============================================================================
+
+services:
+  llama-chat:
+    user: "0:0"
+    # CUDA 13.3 / driver 610: concurrent-stream graph opt. Dual-GPU split OK.
+    environment:
+      - GGML_CUDA_GRAPH_OPT=1
+    command: !override
+      - -m
+      - /models/gemma-4-31B-it-Q4_K_M.gguf
+      - --no-mmproj
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8080"
+      - -c
+      - "200000"
+      - --cache-ram
+      - "2048"
+      - --parallel
+      - "1"
+      - -ngl
+      - "999"
+      - -ncmoe
+      - "0"
+      - --flash-attn
+      - "on"
+      - --cache-type-k
+      - "f16"
+      - --cache-type-v
+      - "f16"
+      - -b
+      - "512"
+      - -ub
+      - "512"
+      - --reasoning
+      - "off"
+      - --temp
+      - "0.7"
+      - --top-p
+      - "0.8"
+      - --top-k
+      - "20"
+      - --min-p
+      - "0.0"
+      - --presence-penalty
+      - "0.0"
+      - --repeat-penalty
+      - "1.0"
+      - --metrics

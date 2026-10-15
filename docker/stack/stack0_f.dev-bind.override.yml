@@ -1,0 +1,19 @@
+# =============================================================================
+# EliteEW · stack0 frontend · prod-core dev-bind line (NFS export from .136)
+# =============================================================================
+# Mutually exclusive with stack0_f.prod-baked.override.yml on the same ports/names.
+# Uses prod-baked nginx image; live SPA from NFS ro mount (nginx config stays in image).
+# =============================================================================
+
+services:
+  eliteew-frontend-prod:
+    image: ${STACK0_FRONTEND_BAKED_IMAGE:?Set STACK0_FRONTEND_BAKED_IMAGE}
+    container_name: ${STACK0_FRONTEND_BAKED_CONTAINER_NAME:-stack0-eliteew-frontend-prod-baked}
+    environment:
+      ELITEEW_RUNTIME_LINE: dev-bind
+    volumes: !override
+      - /mnt/eliteew-prod-line-export/frontend-dist:/usr/share/nginx/html:ro
+      - ../../docker/builders/stack0-frontend/docker-entrypoint-csp.sh:/docker-entrypoint-csp.sh:ro,z
+      - ../logs/stack0/eliteew-frontend-prod-baked:/logs:z
+      - /srv/eliteew/desktop-client-updates:/srv/eliteew/desktop-client-updates:ro,z
+      - /srv/eliteew/fofline-updates:/srv/eliteew/fofline-updates:ro,z

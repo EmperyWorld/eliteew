@@ -1,0 +1,31 @@
+# ---
+# EliteEW · Empery World · https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose:
+# Baked Keycloak 26.7.1 image with EliteEW binding SPI (Wave 3).
+# Invariants:
+# - Build on command-center only; never podman build on prod-core .111.
+# - Provider JAR is compiled --release 21 against Keycloak 26.7.1.
+# Related:
+# - documentation/product/desktop/DESKTOP-ATOMIC-CONDITIONAL-ACCESS.md
+# - documentation/platform/docker-re_doc/KEYCLOAK-ELITEEW.md
+# ---
+FROM quay.io/keycloak/keycloak:26.7.1 AS builder
+
+COPY eliteew-binding.jar /opt/keycloak/providers/eliteew-binding.jar
+
+WORKDIR /opt/keycloak
+# Build-time only. HTTP/hostname/proxy stay runtime via stack6.yml (KC_*).
+# transaction-xa-enabled MUST match stack6.yml KC_TRANSACTION_XA_ENABLED.
+# Mismatch + `start --optimized` → Keycloak 26.7 exits 2 (auth crash-loop).
+RUN /opt/keycloak/bin/kc.sh build \
+    --db=postgres \
+    --health-enabled=true \
+    --metrics-enabled=true \
+    --transaction-xa-enabled=false
+
+FROM quay.io/keycloak/keycloak:26.7.1
+COPY --from=builder /opt/keycloak /opt/keycloak
+# Optimized start; compose may override with `start` for the stock quay image.
+CMD ["start", "--optimized"]

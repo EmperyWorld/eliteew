@@ -1,0 +1,7 @@
+# VPN view (stack12): те же overrides — только edge + туннель, не 192.168.1.136.
+93.77.165.185 eliteew.ru
+93.77.165.185 app.eliteew.ru
+93.77.165.185 auth.eliteew.ru
+93.77.165.185 admin.eliteew.ru
+93.77.165.185 meet.eliteew.ru
+93.77.165.185 sites.eliteew.ru

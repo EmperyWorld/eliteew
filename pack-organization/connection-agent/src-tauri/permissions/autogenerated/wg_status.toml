@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-wg-status"
+description = "Enables the wg_status command without any pre-configured scope."
+commands.allow = ["wg_status"]
+
+[[permission]]
+identifier = "deny-wg-status"
+description = "Denies the wg_status command without any pre-configured scope."
+commands.deny = ["wg_status"]

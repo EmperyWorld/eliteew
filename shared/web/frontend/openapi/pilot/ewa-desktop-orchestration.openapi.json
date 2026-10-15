@@ -1,0 +1,171 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EWA desktop orchestration (frontend pilot)",
+    "version": "1.0.0",
+    "description": "Hand-maintained slice until `eliteew-openapi-export.json` includes `/api/v1/ewa/desktop-orchestration/*`. Regenerate TS: `pnpm run openapi:pilot:ewa-desktop-orchestration`. Companion fragments mirror `normalize_desktop_orchestration_turn_companion_hints` + `validate_seed` in shared/api."
+  },
+  "paths": {
+    "/api/v1/ewa/desktop-orchestration/turn": {
+      "post": {
+        "tags": ["EWA - Desktop orchestration"],
+        "operationId": "ewa_desktop_orchestration_turn",
+        "summary": "Desktop orchestration: process one observation (envelope v1)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EwaDesktopOrchestrationTurnRequestEnvelope"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "EwaResponseV1 mapping (`ewa_desktop_orchestration_result_v1`)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/api/v1/ewa/desktop-orchestration/sessions/{session_id}/events": {
+      "get": {
+        "tags": ["EWA - Desktop orchestration"],
+        "operationId": "ewa_desktop_orchestration_session_events_sse",
+        "summary": "SSE snapshot of orchestration events (+ optional keep-alive stream)",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "follow",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "`text/event-stream` (`data:` JSON lines + `: keep-alive`)",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EwaCatalogSeedPersonaId": {
+        "type": "string",
+        "enum": ["feni", "kora", "mela", "parent", "tala", "zera"],
+        "description": "Catalog seed persona id after trim + lowercasing (`api/ewa_platform/schemas/pydantic/companion.py` `_VALID_SEEDS`). Invalid ids are omitted from normalized hints with a warning."
+      },
+      "EwaDesktopOrchestrationCompanionHints": {
+        "type": "object",
+        "description": "`payload.metadata.companion`: optional client hints; normalized by `normalize_desktop_orchestration_turn_companion_hints` (unknown keys tolerated and ignored server-side).",
+        "properties": {
+          "seed_persona_id": {
+            "$ref": "#/components/schemas/EwaCatalogSeedPersonaId"
+          },
+          "client_seed_persona_id": {
+            "$ref": "#/components/schemas/EwaCatalogSeedPersonaId",
+            "description": "Alias for `seed_persona_id` when the former is absent."
+          },
+          "expect_companion_revision": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Positive integer revision hint (`>= 1`). Server may coerce string forms; malformed or non-positive values are skipped (warnings only, not HTTP errors)."
+          }
+        },
+        "additionalProperties": true
+      },
+      "EwaDesktopOrchestrationPayloadMetadata": {
+        "type": "object",
+        "description": "Optional `payload.metadata` extension bucket; unknown top-level keys are tolerated.",
+        "properties": {
+          "companion": {
+            "$ref": "#/components/schemas/EwaDesktopOrchestrationCompanionHints"
+          }
+        },
+        "additionalProperties": true
+      },
+      "EwaDesktopOrchestrationTurnRequestEnvelope": {
+        "description": "`EwaRequestV1`-shaped envelope (`api/ewa_platform/gateways/routers/desktop.py`). First branch documents `payload.metadata.companion`; the second keeps forward-compatible openness.",
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "api_version": {
+                "type": "string"
+              },
+              "message_type": {
+                "type": "string",
+                "description": "Typically `signal` for desktop orchestration turns."
+              },
+              "correlation_id": {
+                "type": "string"
+              },
+              "auth_context_ref": {
+                "type": ["string", "null"]
+              },
+              "schema_ref": {
+                "type": ["string", "null"]
+              },
+              "payload": {
+                "type": "object",
+                "description": "`payload.kind` must be `ewa_desktop_orchestration_v1` at the gateway; required observation/session fields enforced server-side.",
+                "properties": {
+                  "kind": {
+                    "type": "string"
+                  },
+                  "session_id": {
+                    "type": "string"
+                  },
+                  "observation": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "metadata": {
+                    "$ref": "#/components/schemas/EwaDesktopOrchestrationPayloadMetadata"
+                  }
+                },
+                "additionalProperties": true
+              }
+            },
+            "required": ["api_version", "message_type", "correlation_id", "payload"]
+          },
+          {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Whole-body tolerance: extra envelope fields remain valid JSON."
+          }
+        ]
+      }
+    }
+  }
+}

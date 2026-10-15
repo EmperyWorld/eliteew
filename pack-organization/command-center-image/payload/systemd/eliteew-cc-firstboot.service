@@ -1,0 +1,13 @@
+[Unit]
+Description=EliteEW command-center first boot (NVIDIA, tuned, harden)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=!/var/lib/eliteew-cc-firstboot.done
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/eliteew-cc-firstboot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

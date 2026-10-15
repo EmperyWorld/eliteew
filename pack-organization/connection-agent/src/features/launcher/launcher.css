@@ -1,0 +1,64 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Shell launch CTA card — professional primary above the fold.
+ * Invariants: One filled primary; secondary update check; fills column.
+ * Related: documentation/product/desktop/DESKTOP-TAURI-CONNECTED-CLIENT.md
+ */
+
+.launcher-panel {
+  width: 100%;
+  padding: 1.4rem 1.4rem 1.5rem;
+  background:
+    linear-gradient(155deg, rgba(201, 166, 107, 0.14), transparent 46%),
+    linear-gradient(165deg, rgba(255, 255, 255, 0.03), transparent 40%),
+    var(--dc-surface);
+  border-color: rgba(201, 166, 107, 0.28);
+}
+
+.launcher-panel .panel-kicker {
+  margin-bottom: 0.35rem;
+}
+
+.launcher-panel h2 {
+  font-size: clamp(1.3rem, 1.15rem + 0.45vw, 1.55rem);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.02em;
+}
+
+.launcher-lead {
+  margin: 0.3rem 0 0.85rem;
+  color: var(--dc-muted);
+  font-size: 0.98rem;
+  max-width: 48rem;
+  line-height: 1.5;
+}
+
+.launcher-actions {
+  margin-top: 1.15rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.launcher-actions .primary {
+  min-width: 15rem;
+  padding: 0.78rem 1.25rem;
+  font-size: 1.02rem;
+  border-radius: 12px;
+}
+
+@media (min-width: 1024px) {
+  .launcher-panel {
+    padding: 1.6rem 1.65rem 1.7rem;
+  }
+
+  .launcher-lead {
+    max-width: none;
+    font-size: 1.02rem;
+  }
+}

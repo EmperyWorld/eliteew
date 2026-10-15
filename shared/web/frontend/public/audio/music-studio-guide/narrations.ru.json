@@ -1,0 +1,14 @@
+{
+  "voice": "man_1",
+  "steps": {
+    "music-gen-intro": "[TODO narration for music-gen-intro]",
+    "music-gen-tabs": "[TODO narration for music-gen-tabs]",
+    "music-gen-workspace": "[TODO narration for music-gen-workspace]",
+    "music-gens-intro": "[TODO narration for music-gens-intro]",
+    "music-gens-list": "[TODO narration for music-gens-list]",
+    "music-wizard-intro": "[TODO narration for music-wizard-intro]",
+    "music-wizard-tabs": "[TODO narration for music-wizard-tabs]",
+    "music-xl-intro": "[TODO narration for music-xl-intro]",
+    "music-xl-sampling": "[TODO narration for music-xl-sampling]"
+  }
+}

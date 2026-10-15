@@ -1,0 +1,200 @@
+---
+description: EliteEW — short mandatory agent contract; details in .cursor/rules/*.mdc and documentation/
+alwaysApply: true
+---
+
+# EliteEW · Powered By Empery World — Agent Contract
+
+This file is a **short hard contract**. It does not replace domain rules or documentation.
+On conflict, precedence is:
+
+1. Explicit operator instruction in the current message, if it does not violate security/git policy.
+2. This contract (+ pull `eliteew-user-workflow-preferences.mdc` for full DoD when closing medium+ work).
+3. **Pack layout (doors on disk):** `documentation/platform/ELITEEW-PACK-LAYOUT.md` + rule `eliteew-pack-layout.mdc`.
+4. **Target product (editions + app platform):** `documentation/platform/ELITEEW-PRODUCT-EDITIONS-AND-APP-PLATFORM.md` + rule `eliteew-product-editions-app-platform.mdc`.
+5. Current **cloud** topology: `documentation/platform/PRODUCTION-TOPOLOGY-STATE.md` §Current (do not confuse with on-prem/client packs).
+6. Narrow `.cursor/rules/*.mdc` by domain/path.
+7. Living canon under `documentation/{product,platform,api,database,reference}/` (`documentation/worklog/` is a retired stub only — not living canon).
+
+## Repository
+
+| Area | Path |
+|------|------|
+| Monorepo root | `powered_by_emperyworld/` |
+| Backend | `shared/api/` |
+| Frontend | `shared/web/frontend/` |
+| Cursor rules source | `.cursor/` at monorepo root only |
+| Canonical docs | `documentation/` only |
+
+**Retired from workspace root (soft-retire in `trash/`):** DEWA, EWPower, EWC, EWCoderOrchestrator, EWGen, nexus-root, SSFEW, access-gate-logwatch, tg_bot_ip_verif. Do **not** recreate as parallel products. Prefer **capability harvest** into EliteEW modules per editions canon; whole-tree restore only on explicit operator request.
+
+**Cursor workspace:** open the **monorepo root**. `EliteEW/.cursor` / `EliteEW/.cursorrules` mirror — **retired** (2026-08-16); do not recreate.
+
+## User Product Obligations (HARD)
+
+EliteEW is a **user product**, not a system utility. Owner:
+`.cursor/rules/eliteew-user-product-obligations.mdc`.
+
+- Fix the cause layer and the full user journey; a symptom workaround is not Done.
+- Recovery, upgrade, and permissions are performed by the application; the user does not run shell commands, edit env/config, or hunt for RPM/EXE in a browser.
+- User-facing UI and copy must be professional, clear, and respectful: no debug/sysadmin dialect, raw error codes, hidden downgrades, or fake success.
+- If the OS requires privileges, the application itself invokes the native prompt, explains the action, and provides retry/recovery.
+- If full self-recovery is not implemented, the task remains incomplete.
+
+## Current Topology (cloud edition runtime)
+
+Full source of truth for **hosted cloud** hosts/stacks: `documentation/platform/PRODUCTION-TOPOLOGY-STATE.md` §Current.
+Do not invent another **cloud** production layout.
+
+**Product direction (all editions):** platform Kernel + pluggable Desktop apps; packs for **cloud / onprem / client** — `documentation/platform/ELITEEW-PRODUCT-EDITIONS-AND-APP-PLATFORM.md`. On-prem and client are edition packs over the same codebase, not a second Empery prod-core topology.
+
+| Host | IP / public | Role |
+|------|-------------|------|
+| **prod-core** | `192.168.1.111` | Public runtime only: baked stack0, stack1, EWA PG, stack2 `llama-chat`, stack4, stack6, stack11, stack12, yandex tunnel, landing/mobile artifacts. No builds. |
+| **command-center** | `192.168.1.136` | Git, docs, plaintext env staging, SOPS bundle, all builds (`eeprodbaked`, `eeprodruntime`, MobileAndroid), Phase 4 `llama-deep` `:8080`. |
+| **gpu141** | `192.168.1.141` | Remote inference: embed `:8081`, rerank `:8082`, companion tool-router `:8083`, **ComfyUI `:31003`**. |
+| **edge VM** | `93.77.165.185` | Public nginx; HTTP backhaul via Meet WG `10.77.77.2` (SSH reverse tunnel = manual reserve). |
+
+Live drift (see `documentation/platform/PRODUCTION-TOPOLOGY-STATE.md` §Live drift):
+landing / mobile OTA — cleared; Comfy `COMFYUI_URL→.141:31003` — **cutover 2026-09-26**;
+`power.eliteew.ru` / `dewa.eliteew.ru` — **wontfix** (soft-retired; residual edge nginx only).
+
+## Production Deploy Invariants
+
+- **Build on `.136`, run on `.111`:** never `pnpm build`, `podman build`, `compose build`, or rebake on prod-core.
+- **stack0 prod release (line A — baked):** from command-center **only**
+  `bash docker/scripts/eliteew-deploy.sh release stack0 --all`
+  (optional `--yes`; optional `--refresh-openapi-pilots` for same-release FE OpenAPI pilots before SPA build). **Forbidden for agents:** `--frontend-only`, `--backend-only`, bare `eeprodbaked --frontend-only`, or other partial stack0 release flags.
+- **stack0 hotfix (line B — dev-bind):** `eeprodline sync` (+ optional `--with-frontend-build`) → `eeprodline up-dev-bind --yes` from command-center; lines mutually exclusive — `eeprodline status`. Not a replacement for release rebake. Canon: `documentation/platform/PROD-CORE-DEV-BIND-LINE.md`; skill `eliteew-prod-line`.
+- **stack2 + stack4 runtime deploy:** `eeprodruntime --yes --all` or narrowed flags from command-center.
+- **MobileAndroid:** build/publish on `.136`; OTA server/artifacts live on `.111`; stack0 API/SPA release still goes through `eliteew-deploy.sh release stack0 --all`.
+- **Config Plane:** plaintext env is edited on `.136`; prod-core runtime env is tmpfs only: `$XDG_RUNTIME_DIR/eliteew/env-runtime/` / `ELITEEW_ENV_RUNTIME_DIR`. Ops wrappers: `docker/scripts/eliteew-*.sh` (Config Plane / bake / landing; formerly `dewa-ops-*`).
+- **No persistent plaintext env on `.111`:** no routine `scp` of `.env` files to prod-core.
+
+Detailed owner: `.cursor/rules/project-and-deploy.mdc`.
+
+## Absolute Prohibitions
+
+| Forbidden | Use instead |
+|-----------|-------------|
+| `git init`, `git add -A`, `git push`, branch switch, rebase, reset without explicit request | `git status`, `git diff`, `git log`; `git commit` **only on explicit ask**; see `verified-proposal-protocol.mdc` |
+| Secrets, passwords, keys, prod URLs/IPs hardcoded in app code | env / `unified_config` / `ServiceConfig` |
+| Demo code in prod path: `pass`, empty handlers, `# TODO implement` | real implementation or explicit domain/HTTP error |
+| Delete from project tree (`rm`, Delete tool, `git rm`, overwrite-Write) | `bash scripts/eliteew/trash-move.sh <path>` → `trash/`; see `trash-and-deletion-policy.mdc` |
+| Silent `except Exception: pass` | structured log + degrade/re-raise; see `eliteew-strict-roast.mdc` |
+| `npm install`, `yarn`, `npx` for frontend scripts | `pnpm` / `pnpm exec` from `shared/web/frontend` |
+| ESLint/Prettier introduction | Biome only |
+| New primary functionality on Chroma | Qdrant/vector backend canon |
+| stack3/stack5 resurrection without operator task | use `podman logs` / `docker/logs`; do not fix removed web-search stack |
+| Product markdown in repo root | `documentation/...` |
+| Import/call `amka_core` from `ewa_platform` | keep EWA and marketing AMKA separate; see `ewa-platform-default.mdc` |
+
+## Developer Tooling Preferences
+
+Full tooling canon: `.cursor/rules/dev-tooling.mdc` (CLI, extensions, format gates).
+**Git push to GitHub — never without explicit operator request** (`git-agent-restrictions.mdc`).
+
+| Avoid | Prefer | Purpose |
+|-------|--------|---------|
+| `grep` | `rg` | Text search in files |
+| `find` | `fd` | File search by name/pattern |
+| `cat` | `bat` | File reading with syntax highlighting |
+| `ls` | `eza` | Directory listing |
+| `pip` | `uv` | Python package management |
+| `npm` / `yarn` | `pnpm` | JS/TS package management |
+
+## Scope Defaults
+
+- **Pack layout (HARD):** name edition **and** entrance — rule `eliteew-pack-layout.mdc` + SoT `documentation/platform/ELITEEW-PACK-LAYOUT.md`.
+  - **Cloud door:** shared core (`shared/api`, `shared/web/frontend`, `shared/apps`) + `pack-cloud/mobile/`. Do **not** touch `pack-organization/connection-agent/` without ask.
+  - **Organization door:** shared core + `pack-organization/connection-agent/`. Do **not** touch `pack-cloud/mobile/` without ask.
+  - **Shared-only:** API/Meet/Keycloak/compose — no door trees until scope expanded.
+  - One `main` — **not** long-lived `organization` product branch. Physical `pack-*` folders = migration Wave 1 (operator Scope lock).
+- If the user mentions EWA/desktop companion without marketing-cabinet words, scope is EWA platform: `shared/api/ewa_platform/`, `/api/v1/ewa/*`, `shared/web/frontend/src/features/ewa/`.
+- Marketing AMKA is out of scope unless the user explicitly says marketing cabinet / Marketing Cabinet / `marketing_amka` / AMKA tab in cabinet.
+- Keycloak/OIDC changes must follow `keycloak-eliteew.mdc` and its skill.
+- Mentions of DEWA / EWGen / EWPower / EWC / EWCO / SSFEW / nexus-root / access-gate / tg_bot without an explicit restore-from-trash request → remind operator those trees are retired under `trash/`; default path is **harvest into EliteEW modules**, not revive the tree.
+- Product shape (editions, install checkboxes, offline client, new Desktop app) → follow `eliteew-product-editions-app-platform.mdc` and the editions canon; do not default to “new full product repo/stack”.
+
+## Task Intake — Failure/Edge-Case Matrix
+
+Every **medium/high** task must include a short **Failure/Edge-Case Matrix** before implementation closes. Agent fills it if the operator did not — do not block start, but do not close without explicit answers.
+
+| Axis | Required coverage |
+|------|-------------------|
+| **Offline-mode** | Behavior when agent/service is unreachable: fail vs queue vs retry; operator-visible outcome. For **client** edition work: offline-first subset vs remote-tools allowlist (editions canon §3.4 / §12). |
+| **Dual-flag / conflict** | When two routing or target flags are set — precedence, error, or silent override. |
+| **Permission / access boundary** | Auth, RBAC, host vs controller scope; default deny. |
+| **Regression command** | Proof of no regression: domain-specific narrow test / smoke (not a retired `nexus-root` verify path). |
+
+Full policy: `.cursor/rules/task-intake-and-risk-gate.mdc`.
+
+## Completion Contract
+
+The full Definition of Done lives in `.cursor/rules/eliteew-user-workflow-preferences.mdc`
+(agent-requestable — pull on medium+ closeout). Short form:
+
+1. Know every path changed.
+2. Run the applicable Ruff/Biome/shell/doc checks, or record the blocker.
+3. Maintain file headers for changed Python/TS/TSX/CSS files in scope.
+4. Apply semantic verification triggers from `agent-code-verification.mdc` when code contracts/intents/actions change.
+5. **Docs HARD:** read living canon under `documentation/` before code edits; mandatory same-phase doc-sync when behavior/contracts change — alwaysApply checklist `living-documentation-contract.mdc` + owner `documentation-maintenance.mdc` §HARD + skill `eliteew-doc-sync` (not deferred to session end).
+6. For substantial work, summarize in chat; session-summary files only if operator explicitly asks (`session-summary-files.mdc`; worklog retired).
+7. Cursor SoT is monorepo-root `.cursor/` only — do **not** recreate `EliteEW/.cursor` (mirror retired 2026-08-16).
+8. For scoped Tauri desktop-client trust-boundary changes, run **`eliteew-tauri-security`** first; commit/publish/general acceptance require a fresh F-01…F-13 domain verdict.
+9. **Commit on demand only** — `verified-proposal-protocol.mdc`; never commit at «готово»; push only on explicit operator request.
+10. Optional `/validate-via-gemma` — only when the operator asks (not a closeout gate).
+
+## Smoke Commands
+
+Prod-core runtime:
+
+```bash
+ssh 192.168.1.111 'curl -sf http://127.0.0.1:29000/api/health'
+ssh 192.168.1.111 'curl -sf http://127.0.0.1:29001/ >/dev/null'
+ssh 192.168.1.111 'podman exec stack0-eliteew-api-prod-baked curl -sf http://127.0.0.1:8000/api/health'
+```
+
+Command-center:
+
+```bash
+bash docker/scripts/eliteew-command-center.sh smoke
+bash docker/scripts/eliteew-migration-command-center.sh acceptance
+```
+
+GPU141:
+
+```bash
+ssh gpu141 'curl -sf http://127.0.0.1:8081/health && curl -sf http://127.0.0.1:8082/health && curl -sf http://127.0.0.1:8083/health'
+```
+
+## Rule Ownership Index
+
+| Policy | Owner |
+|--------|-------|
+| Product editions + Desktop app platform (direction) | `eliteew-product-editions-app-platform.mdc` + `documentation/platform/ELITEEW-PRODUCT-EDITIONS-AND-APP-PLATFORM.md` |
+| Agent workflow / DoD | `eliteew-user-workflow-preferences.mdc` (pull on closeout) |
+| Deploy/runtime | `project-and-deploy.mdc` (pull on deploy/topology) |
+| Stack0 prod-line (baked/dev-bind) | `documentation/platform/PROD-CORE-DEV-BIND-LINE.md`, skill `eliteew-prod-line` |
+| Documentation gate | `living-documentation-contract.mdc` (alwaysApply checklist) + `documentation-maintenance.mdc` (owner) |
+| Session summary files | `session-summary-files.mdc` |
+| Semantic verification | `agent-code-verification.mdc` + `documentation/platform/AGENT-CODE-VERIFICATION-WORKFLOW.md` |
+| File headers | `eliteew-file-authorship.mdc` |
+| Git safety / commit on demand | `git-agent-restrictions.mdc`, `verified-proposal-protocol.mdc` |
+| Domain boundary gate | `domain-boundary-gate.mdc`, `.cursor/domain_matrix.json` |
+| Strict production quality | `eliteew-strict-roast.mdc` |
+| Engineering excellence (Clean Code / SOLID / 12-factor) | `engineering-excellence.mdc` |
+| EWA default scope | `ewa-platform-default.mdc` |
+| Mobile secure connection / trusted-device WG | `mobile-secure-connection.mdc` |
+| Cursor context indexing | `agent-context-indexing.mdc` |
+| Agent onboarding (rules/skills/hooks/canvas) | `agent-configuration.mdc`, `agent-skills.mdc`, `agent-hooks.mdc`, `agent-canvas.mdc` |
+| Agent code review / merge bar | `agent-code-review-and-testing.mdc` |
+| Optional Gemma auditor (`.111:8080`) | `gemma-senior-auditor-gate.mdc`, skills `validate-via-gemma` + `deploy-gemma-gate` |
+| Language bridge (RU↔EN via Gemma) | **Unhooked 2026-09-22** — helper CLI may remain under `.cursor/skills/eliteew-language-bridge/scripts/`; living RU UI path = `eliteew-localization-engine.mdc`; canon note `documentation/platform/AGENT-LANGUAGE-BRIDGE.md` |
+| Tauri defensive security gate | **Unhooked 2026-09-22** from agent loop — process canon `documentation/platform/AGENT-TAURI-SECURITY-WORKFLOW.md` + matrix under `.cursor/skills/eliteew-tauri-security/references/` (rule/SKILL removed; do not recreate without operator task) |
+| Dev tooling / IDE | `dev-tooling.mdc` |
+| Task Failure/Edge-Case Matrix | `task-intake-and-risk-gate.mdc` |
+| Cause-first (root cause before symptoms) | `cause-first-intake.mdc` |
+| User product obligations (self-healing / no sysadmin UX) | `eliteew-user-product-obligations.mdc` |
+| Premium user-facing interface | `premium-user-interface.mdc`, skill `eliteew-premium-interface` |
+| Desktop app Suspense layout wake (no forever preloader) | `desktop-app-window-layout-wake.mdc` |

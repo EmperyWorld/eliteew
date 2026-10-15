@@ -1,0 +1,10 @@
+# Wave K9: desktop-client + private @eliteew/* packages (not npm-published).
+# pnpm 11: build allowlist is allowBuilds only (no onlyBuiltDependencies).
+packages:
+  - "."
+  - "../../shared/packages/*"
+
+allowBuilds:
+  esbuild: true
+
+confirmModulesPurge: false

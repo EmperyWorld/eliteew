@@ -1,0 +1,1301 @@
+{
+	"ai": {
+		"errorTitle": "AI error",
+		"title": "AI assistant",
+		"subtitle": "Document context",
+		"close": "Close AI assistant",
+		"streamStatus": "Generating reply, about {{count}} characters received",
+		"streamStarting": "Generating reply…",
+		"streamDone": "Reply finished",
+		"errors": {
+			"generic": "The assistant could not complete the request. Try again later.",
+			"network": "Network error. Check your connection and try again.",
+			"unavailable": "AI service is not available. Ask your operator or support.",
+			"timeout": "The request took too long. Try a shorter selection or retry.",
+			"aborted": "Generation was cancelled.",
+			"savePromptGeneric": "Could not save the prompt"
+		},
+		"voiceErrors": {
+			"micDenied": "Microphone access denied. Allow access in the browser settings.",
+			"micNotFound": "No microphone found. Connect a device and try again.",
+			"micBusy": "Microphone is in use by another app.",
+			"transcribeFailed": "Speech recognition failed. Try again or type your request.",
+			"emptyTranscript": "No speech detected. Speak closer to the mic and retry."
+		},
+		"savePrompt": {
+			"title": "Save prompt",
+			"nameLabel": "Prompt name",
+			"namePlaceholder": "Name this prompt",
+			"cancel": "Cancel",
+			"confirm": "Save"
+		},
+		"fileManagerContext": {
+			"banner": "File list context: «{{title}}» (not opened in the editor yet).",
+			"clear": "Use the open document",
+			"seedPrompt": "Briefly describe the content and purpose of «{{title}}» using the text fragment below."
+		},
+		"actionPrefix": {
+			"rewrite": "Rewrite the text in a clearer, more structured way.",
+			"expand": "Expand the text with details and examples while preserving the meaning.",
+			"summarize": "Give a concise summary of the key ideas.",
+			"translate": "Translate the text into English or Russian depending on the source language.",
+			"free": ""
+		},
+		"compose": {
+			"contextHeader": "Context ({{scope}}):"
+		},
+		"scopeShort": {
+			"selection": "selection",
+			"section": "section",
+			"document": "document"
+		},
+		"labels": {
+			"contextWithLabel": "Context: {{label}}",
+			"actionWithLabel": "Action: {{label}}"
+		},
+		"actionShort": {
+			"free": "free-form",
+			"rewrite": "rewrite",
+			"expand": "expand",
+			"summarize": "summarize",
+			"translate": "translate"
+		},
+		"aborted": {
+			"stoppedByUserInline": "stopped by user",
+			"stoppedByUserOnly": "Stopped by user."
+		},
+		"quickPrompts": {
+			"summarize": "Summarize the following text in 2–3 sentences:",
+			"improve": "Improve the quality and clarity of this writing:",
+			"correct": "Fix any grammar, spelling, or punctuation issues in this text:",
+			"translate": "Translate this text into English (or into Russian if it is already in English):",
+			"expand": "Expand this text with more detail and examples:",
+			"simplify": "Simplify this text so it is easier to understand:"
+		},
+		"toast": {
+			"promptSavedTitle": "Prompt saved",
+			"promptSavedBody": "“{{name}}” was added to your prompt library",
+			"promptSaveFailedTitle": "Could not save",
+			"draftRestoredTitle": "Draft restored",
+			"draftRestoredBody": "Messages were added to the Assistant chat",
+			"voiceAddedTitle": "Voice input",
+			"voiceAddedBody": "Transcribed text was added to the request"
+		},
+		"recovery": {
+			"banner": "A local draft from an interrupted generation was found (another tab, closing the panel, or a network drop). You can restore it into the chat or discard it.",
+			"restore": "Restore to chat",
+			"dismiss": "Discard draft",
+			"noteFromDraft": "draft restored from local storage",
+			"noteNoAnswer": "No answer was received or it was empty. You can send the same request again."
+		},
+		"policy": {
+			"blockedTitle": "AI policy block",
+			"blockedBody": "Content did not pass the policy check",
+			"reviewTitle": "AI content review",
+			"reviewBody": "Review the content: {{warnings}}",
+			"unavailableTitle": "Policy check unavailable",
+			"unavailableBody": "Could not run the AI content check"
+		},
+		"voice": {
+			"statusTranscribing": "Transcribing…",
+			"statusRecording": "Recording: {{time}}",
+			"statusIdle": "Microphone inserts text into the request field"
+		},
+		"quickActions": {
+			"summarize": "Summarize",
+			"improve": "Improve",
+			"correct": "Fix",
+			"translate": "Translate",
+			"expand": "Expand",
+			"simplify": "Simplify",
+			"needSelection": "Select text"
+		},
+		"select": {
+			"contextAria": "Context for the AI request",
+			"actionAria": "AI action on the text"
+		},
+		"quickActionsHint": "Select text to enable quick actions",
+		"tokenBudget": "Estimated token budget: ~{{count}}",
+		"diff": {
+			"previewTitle": "Replace preview (selection → AI)",
+			"stats": "{{before}} → {{after}} chars ({{delta}})",
+			"before": "Before:",
+			"after": "After:",
+			"replaceStrict": "Replace selection exactly",
+			"insertAsProposal": "Insert as proposal",
+			"addTracked": "Add to tracked suggestions",
+			"chars": "chars"
+		},
+		"emptyChat": {
+			"title": "Start a conversation",
+			"description": "Use a quick action above or describe the task in the input field. Ctrl+Enter to send."
+		},
+		"message": {
+			"insert": "Insert",
+			"replace": "Replace",
+			"toSuggestions": "To suggestions",
+			"metaLine": "AI: {{model}} • action: {{action}} • context: {{context}}"
+		},
+		"suggestions": {
+			"heading": "Tracked suggestions ({{pending}} pending)",
+			"statusPending": "Awaiting decision",
+			"statusAccepted": "Accepted",
+			"statusRejected": "Rejected",
+			"accept": "Accept",
+			"reject": "Reject"
+		},
+		"streaming": {
+			"label": "Generating…"
+		},
+		"savedPrompts": {
+			"summary": "Prompts ({{count}})"
+		},
+		"composer": {
+			"placeholder": "Request… (Ctrl+Enter)",
+			"stop": "Stop",
+			"transcribingShort": "Transcribing…",
+			"stopRecording": "Stop recording",
+			"voiceInput": "Voice input",
+			"sendShort": "Send"
+		},
+		"footer": {
+			"selectionChars": "Context: {{count}} chars",
+			"latestReply": "Last reply: {{model}} • {{action}} • {{context}}"
+		}
+	},
+	"voice": {
+		"title": "Voice processing",
+		"subtitle": "Speech transcription and synthesis",
+		"close": "Close voice panel",
+		"tabRecord": "Record & transcribe",
+		"tabUpload": "Upload audio",
+		"tabSynth": "Text-to-speech",
+		"errors": {
+			"micDenied": "Could not access the microphone. Check browser permissions.",
+			"micNotFound": "No microphone detected.",
+			"transcribeFailed": "Transcription failed. Try clearer audio or a shorter clip.",
+			"synthFailed": "Speech synthesis failed. Try again later.",
+			"playFailed": "Could not play audio.",
+			"synthNeedsText": "Enter text to synthesize.",
+			"generic": "Voice service error. Try again or contact support.",
+			"pickAudioFile": "Choose an audio file (MP3, WAV, OGG, WebM, etc.).",
+			"fileTooBig": "File is too large. Maximum {{mb}} MB."
+		},
+		"toasts": {
+			"recordingCompleted": "Recording finished",
+			"recordingStarted": "Recording…",
+			"transcriptionCompleted": "Transcription ready",
+			"synthSuccess": "Speech synthesized",
+			"transcriptionInserted": "Transcription inserted",
+			"audioElementInserted": "Audio block inserted",
+			"audioUploaded": "Audio file uploaded"
+		},
+		"models": {
+			"sileroDescription": "Canonical stack9 TTS for Russian voice"
+		},
+		"languages": {
+			"ru": "Russian",
+			"en": "English",
+			"es": "Spanish",
+			"fr": "French",
+			"de": "German"
+		},
+		"aria": {
+			"processingNoRecord": "Processing audio; recording unavailable",
+			"stopRecording": "Stop recording",
+			"startRecording": "Start recording"
+		},
+		"empty": {
+			"recordingsTitle": "No recordings yet",
+			"recordingsDesc": "Start a recording or upload audio to see history here.",
+			"uploadTitle": "Upload audio",
+			"uploadDesc": "Upload a file for stack9-accelerated transcription.",
+			"uploadChoose": "Choose files",
+			"synthListTitle": "No synthesized audio yet",
+			"synthListDesc": "Enter text and run synthesis to see results here."
+		},
+		"synth": {
+			"languageLabel": "Language",
+			"voiceModelLabel": "Voice model",
+			"voicePresetLabel": "Voice",
+			"presetDefault": "Default",
+			"presetMale": "Male",
+			"presetFemale": "Female",
+			"presetChild": "Child",
+			"inputPlaceholder": "Text for UGS speech synthesis…",
+			"synthesize": "Synthesize speech",
+			"synthesizing": "Synthesizing…",
+			"historyTitle": "Synthesized audio"
+		},
+		"actions": {
+			"insert": "Insert",
+			"transcribe": "Transcribe",
+			"insertToDocument": "Insert into document"
+		},
+		"labels": {
+			"transcription": "Transcription",
+			"currentRecording": "Current recording"
+		},
+		"history": {
+			"recordings": "Recording history"
+		},
+		"embed": {
+			"title": "Synthesized audio",
+			"audioUnsupported": "Your browser does not support the audio element."
+		},
+		"status": {
+			"processing": "Processing…",
+			"recording": "Recording…",
+			"idle": "Idle"
+		},
+		"languageSelectAria": "Speech recognition language",
+		"uploadAudioInputAria": "Choose audio files to transcribe"
+	},
+	"collab": {
+		"title": "Collaboration",
+		"subtitle": "Invites and live activity",
+		"close": "Close collaboration panel",
+		"participantsHeading": "In this document",
+		"statusInDoc": "In document",
+		"statusEditing": "Editing",
+		"statusEditingLine": "Editing, block {{block}}",
+		"cursorBlockShort": "block {{block}}",
+		"cursorBlockTitle": "Block index in the document structure (not a soft-wrapped line)",
+		"participantFallback": "Participant",
+		"inviteRequiresConnect": "Use «Connect» in the editor header first to send invites.",
+		"inviteRequiresOwner": "Only the document owner can invite friends. You are connected as a collaborator.",
+		"kickParticipant": "Disconnect",
+		"kickParticipantTitle": "Remove this participant from the live session",
+		"connection": {
+			"srOnlyConnected": "Connection active",
+			"srOnlyConnecting": "Connecting to live collaboration",
+			"badgeConnected": "Connected",
+			"badgeConnecting": "Connecting…",
+			"yjsSynced": "Text synced",
+			"yjsConnecting": "Syncing text…",
+			"yjsReconnecting": "Reconnecting text…",
+			"yjsOffline": "Text sync unavailable"
+		},
+		"errors": {
+			"genericTitle": "Error",
+			"acceptInviteFailed": "Could not accept the invite",
+			"declineInviteFailed": "Could not decline",
+			"sendInviteFailed": "Could not send the invite",
+			"revokeInviteFailed": "Could not revoke",
+			"noDocumentTitle": "No document",
+			"noDocumentBody": "Save the document first.",
+			"contactBlockedTitle": "Contact blocked",
+			"contactBlockedBody": "Unblock them in Friends to send an invite."
+		},
+		"toasts": {
+			"inviteAcceptedTitle": "Invite accepted",
+			"inviteAcceptedBody": "Document opened. Live collaboration is on.",
+			"inviteDeclinedTitle": "Invite declined",
+			"inviteSentTitle": "Invite sent",
+			"inviteSentBody": "{{name}} will see the invite under Collaboration.",
+			"inviteRevokedTitle": "Invite revoked",
+			"linkCopiedTitle": "Link copied",
+			"linkCopiedBody": "Send it to a friend—they can open the document and work with you"
+		},
+		"incoming": {
+			"heading": "Incoming invites",
+			"loading": "Loading…",
+			"emptyTitle": "No new invites",
+			"emptyDescription": "When friends share a document with you, invites appear here.",
+			"documentLabel": "Document: {{title}}",
+			"untitled": "Untitled",
+			"accept": "Accept",
+			"decline": "Decline",
+			"userFallback": "User"
+		},
+		"share": {
+			"copied": "Link copied",
+			"copyLink": "Copy document link",
+			"hint": "Or invite someone via «Invite friends» (after you press Connect in the header)—they’ll see the invite here."
+		},
+		"inviteFriends": {
+			"heading": "Invite friends",
+			"needOpenDoc": "Create or open a document before inviting friends to collaborate.",
+			"intro": "Send an invite—your friend will see it under Collaboration and can accept or decline. After accepting, this document opens and you edit together.",
+			"allowSaveLabel": "Let them save the document",
+			"allowSaveHint": "— if off, they only edit in the session; you save to the file on the server.",
+			"friendsListTitle": "Friends",
+			"noFriendsTitle": "No friends yet",
+			"noFriendsDescription": "Add friends in Content or your profile to send invites.",
+			"friendPickerEmpty": "Add friends in the Friends app to send invites.",
+			"helperBlocked": "Blocked from interactions",
+			"helperMuted": "Notifications muted for this contact",
+			"invite": "Invite",
+			"connectFirst": "Connect first",
+			"ownerOnly": "Owner only",
+			"revoke": "Revoke",
+			"friendFallback": "Friend"
+		},
+		"participantsEmpty": {
+			"title": "No one here yet",
+			"description": "Copy the link above or invite someone from the list."
+		},
+		"activity": {
+			"heading": "Activity",
+			"join": " joined",
+			"leave": " left",
+			"edit": " made changes",
+			"participantFallback": "Participant",
+			"emptyTitle": "No activity yet",
+			"emptyDescription": "Collaboration events will show up here."
+		},
+		"relative": {
+			"hoursAgo": "{{count}}h ago",
+			"minutesAgo": "{{count}}m ago",
+			"secondsAgo": "{{count}}s ago",
+			"justNow": "just now"
+		},
+		"footer": {
+			"liveRealtime": "Real-time collaboration",
+			"online": "Online",
+			"srStatusOnline": "Status: online"
+		}
+	},
+	"comments": {
+		"title": "Comments & review",
+		"loadErrorTitle": "Could not load comments",
+		"loadErrorHint": "Check your connection or permissions, then retry.",
+		"retry": "Retry",
+		"emptyWithError": "Comments are unavailable until loading succeeds.",
+		"reviewStatus": {
+			"draft": "Draft",
+			"in_review": "In review",
+			"approved": "Approved",
+			"rejected": "Rejected",
+			"changes_requested": "Changes requested"
+		},
+		"roles": {
+			"owner": "Owner",
+			"reviewer": "Reviewer",
+			"viewer": "Viewer"
+		},
+		"relative": {
+			"daysAgo": "{{count}}d ago",
+			"hoursAgo": "{{count}}h ago",
+			"minutesAgo": "{{count}}m ago",
+			"justNow": "just now"
+		},
+		"errors": {
+			"needSavedDoc": "Comments are only available for a saved document.",
+			"insufficientRightsTitle": "Insufficient permissions",
+			"noCommentWriteBody": "You cannot create comments in this document.",
+			"capabilitiesUnavailableBody": "Comment permissions are not loaded yet. Refresh the panel or wait a moment.",
+			"cannotCreateThreadTitle": "Cannot create comment",
+			"saveDocumentFirstBody": "Save the document first.",
+			"createThreadFailedTitle": "Could not create comment",
+			"tryAgainRefreshBody": "Try again or refresh the panel.",
+			"noResolveThreadsBody": "You cannot resolve threads in this document.",
+			"cannotResolveTitle": "Cannot resolve thread",
+			"resolveFailedTitle": "Could not resolve thread",
+			"tryAgainBody": "Please try again.",
+			"noReopenThreadsBody": "You cannot reopen threads in this document.",
+			"cannotReopenTitle": "Cannot reopen thread",
+			"reopenFailedTitle": "Could not reopen thread",
+			"noReplyThreadsBody": "You cannot reply in threads in this document.",
+			"cannotAddReplyTitle": "Cannot add reply",
+			"addReplyFailedTitle": "Could not add reply",
+			"cannotUpdateThreadTitle": "Cannot update thread",
+			"pinUpdateFailedTitle": "Could not update pin",
+			"followUpdateFailedTitle": "Could not update subscription",
+			"noAssignReviewersBody": "You cannot assign reviewers in this document.",
+			"cannotAssignReviewerTitle": "Cannot assign reviewer",
+			"assignReviewerFailedTitle": "Could not assign reviewer",
+			"assignReviewerCheckBody": "Check the data and try again.",
+			"viewerBulkBody": "The viewer role cannot run bulk operations.",
+			"cannotBulkOpTitle": "Cannot run operation",
+			"bulkResolvePartialTitle": "Some threads could not be resolved",
+			"bulkResolvePartialBody": "Succeeded: {{succeeded}}, failed: {{failed}}.",
+			"bulkReopenPartialTitle": "Some threads could not be reopened",
+			"viewerReviewStatusBody": "The viewer role cannot change review status."
+		},
+		"toasts": {
+			"threadResolved": "Thread resolved",
+			"threadReopened": "Thread reopened",
+			"commentAddedSelectionTitle": "Comment linked to selection",
+			"commentAddedTitle": "Comment added",
+			"commentAddedSelectionDesc": "A new thread was created for the selected range.",
+			"commentAddedGeneralDesc": "A new document-wide thread was added.",
+			"replyAdded": "Reply added",
+			"bulkResolvedTitle": "Threads resolved",
+			"bulkResolvedBody": "Resolved threads: {{count}}.",
+			"bulkReopenedTitle": "Threads reopened",
+			"bulkReopenedBody": "Reopened threads: {{count}}.",
+			"reviewStatusUpdated": "Review status updated: {{status}}"
+		},
+		"header": {
+			"loading": "Loading…",
+			"subtitleCounts": "{{unresolved}} open • {{total}} total",
+			"limitedMode": "Limited mode",
+			"capabilitiesUnavailable": "permissions not loaded",
+			"capabilitiesUnavailableTitle": "Server comment permissions are not loaded yet — actions are blocked",
+			"capabilitiesMatrixTitle": "Comment permissions matrix",
+			"hotkeysShow": "Show keyboard shortcuts",
+			"hotkeysHide": "Hide keyboard shortcuts",
+			"closeTitle": "Close",
+			"closeAria": "Close comments panel"
+		},
+		"tabs": {
+			"comments": "Comments ({{count}})",
+			"review": "Review status"
+		},
+		"filters": {
+			"searchPlaceholder": "Search comments…",
+			"queueAria": "Review queue",
+			"queueAll": "Queue: all",
+			"queueAssignedToMe": "Queue: assigned to me",
+			"queueUnresolvedInSelection": "Queue: unresolved in current selection",
+			"queueRecentlyChanged": "Queue: recently changed",
+			"authorFilterAria": "Filter by comment author",
+			"allAuthors": "All authors",
+			"showAllCommentsTitle": "Show all comments",
+			"hideResolvedTitle": "Hide resolved comments",
+			"sortAria": "Sort comment threads",
+			"sortRecent": "Newest first",
+			"sortOldest": "Oldest first",
+			"sortOpenFirst": "Open threads first"
+		},
+		"bulk": {
+			"nextActionableTitle": "Go to next actionable thread (Alt+L)",
+			"nextActionable": "Next actionable",
+			"noPermissionTitle": "Insufficient permissions",
+			"noOpenThreadsTitle": "No visible open threads",
+			"resolveVisibleTitle": "Resolve visible threads ({{count}})",
+			"resolving": "Resolving…",
+			"resolveAll": "Resolve all ({{count}})",
+			"noResolvedThreadsTitle": "No fully resolved visible threads",
+			"reopenVisibleTitle": "Reopen visible threads ({{count}})",
+			"reopen": "Reopen ({{count}})"
+		},
+		"hotkeysInline": "Shortcuts: Alt+J next thread, Alt+K previous, Alt+L next actionable, Alt+R resolve, Alt+Shift+R reopen, Alt+N new comment, Alt+M reply in open thread.",
+		"composer": {
+			"selectedRange": "Selected text: {{start}}–{{end}}",
+			"jumpToFragment": "Go to fragment",
+			"generalThread": "Document thread",
+			"hint": "Select text in the editor to anchor a comment. Without a selection, a document-wide thread is created.",
+			"placeholderSelection": "Comment on selection…",
+			"placeholderGeneral": "Add a document comment…"
+		},
+		"empty": {
+			"noneFoundTitle": "No comments found",
+			"noneFoundDesc": "Try changing your query.",
+			"noCommentsTitle": "No comments yet",
+			"noCommentsDesc": "Add the first comment to the document."
+		},
+		"thread": {
+			"newBadge": "New",
+			"pinnedBadge": "Pinned",
+			"reviewer": "Reviewer: {{name}}",
+			"reviewerUnassigned": "Reviewer: not assigned",
+			"pinRemoveTitle": "Unpin thread",
+			"pinAddTitle": "Pin thread",
+			"unfollowTitle": "Unsubscribe",
+			"followTitle": "Subscribe to thread",
+			"assignReviewerAria": "Assign reviewer",
+			"noReviewerOption": "No reviewer",
+			"resolvedBadge": "Resolved",
+			"selectedTextInThread": "Selected text: {{start}}–{{end}}",
+			"assignMe": "Assign me",
+			"reply": "Reply",
+			"resolve": "Resolve",
+			"reopen": "Reopen",
+			"replyPlaceholder": "Write a reply…"
+		},
+		"reviewTab": {
+			"statusHeading": "Review status",
+			"summaryHeading": "Review summary",
+			"totalComments": "Total comments:",
+			"resolved": "Resolved:",
+			"unresolved": "Unresolved:",
+			"reviewers": "Reviewers:",
+			"exportHeading": "Export",
+			"exportPdf": "Export comments to PDF",
+			"exportReport": "Export review report",
+			"comingSoonTitle": "This feature is not wired up yet"
+		}
+	},
+	"panels": {
+		"imageGen": {
+			"title": "Image generation",
+			"subtitle": "Via the connected image studio",
+			"close": "Close image generation panel",
+			"progressConnect": "Connecting to the service…",
+			"progressRunning": "Generation in progress…",
+			"cancelWait": "Stop waiting",
+			"cancelHint": "Hides this queued run in the UI. The server may still finish in the background.",
+			"generating": "Generating…",
+			"generate": "Generate",
+			"pipelineHint": "UGS · image generation · workflow",
+			"promptLabel": "Prompt",
+			"promptPlaceholder": "Describe the image…",
+			"promptCharCount": "{{count}} chars",
+			"resultsHeading": "Results ({{count}})",
+			"clear": "Clear",
+			"generatingAria": "Generating image",
+			"genErrorAria": "Generation error",
+			"generatingFallback": "Generating…",
+			"generationFailed": "Generation failed",
+			"pending": "Pending",
+			"insert": "Insert",
+			"downloadTitle": "Download image",
+			"downloadAria": "Download generated image",
+			"copyPromptTitle": "Copy prompt",
+			"copyPromptAria": "Copy prompt text to clipboard",
+			"firstResultAria": "Waiting for the first generation result",
+			"firstResultHint": "The result will appear in the gallery below.",
+			"emptyTitle": "No images yet",
+			"emptyDescription": "Enter a prompt and tap Generate.",
+			"previewLoadError": "Could not load preview (check your network and API access)",
+			"previewLoadingAria": "Loading preview",
+			"toast": {
+				"missingPromptTitle": "Missing prompt",
+				"missingPromptBody": "Please enter a prompt to generate an image",
+				"startedTitle": "Image generation started",
+				"startedBody": "Your image is being generated. This can take about a minute…",
+				"genFailedTitle": "Generation failed",
+				"genFailedFallback": "Could not generate image",
+				"insertedTitle": "Image inserted",
+				"insertedBody": "The image was inserted into the document",
+				"insertFailedTitle": "Insert failed",
+				"insertFailedBody": "Could not load the image for insertion (check API access)",
+				"downloadedTitle": "Downloaded",
+				"downloadedBody": "Image saved to your downloads folder",
+				"downloadFailedTitle": "Download failed",
+				"downloadFailedBody": "Could not get the image file",
+				"copiedTitle": "Copied!",
+				"copiedBody": "Prompt copied to clipboard",
+				"copyFailedTitle": "Copy failed",
+				"copyFailedBody": "Could not copy the prompt to clipboard"
+			}
+		},
+		"charts": {
+			"emptyPreview": "No chart data",
+			"emptyHint": "Add at least one row with a label and a non-zero value, or adjust existing rows.",
+			"exportData": "Export data (CSV)",
+			"exportConfig": "Export chart (HTML snippet)",
+			"title": "Charts and diagrams",
+			"subtitle": "A Recharts chart from table data or a Mermaid diagram — insert into the document.",
+			"closeTitle": "Close",
+			"closeAria": "Close charts panel",
+			"modeLabel": "Mode",
+			"modeChart": "Chart from table",
+			"modeMermaid": "Mermaid diagram",
+			"chartTypeLabel": "Chart type",
+			"types": {
+				"bar": "Bar",
+				"line": "Line",
+				"pie": "Pie",
+				"area": "Area"
+			},
+			"chartTitleLabel": "Title",
+			"dataLabel": "Data",
+			"addRow": "Add row",
+			"nameLabel": "Label",
+			"valueLabel": "Value",
+			"namePlaceholder": "Label",
+			"valuePlaceholder": "0",
+			"removeRowTitle": "Remove row",
+			"removeRowAria": "Remove data row “{{name}}”",
+			"previewLabel": "Preview",
+			"insertChart": "Insert chart into document",
+			"noteChartSvg": "A real static SVG with the current data is inserted — not a placeholder.",
+			"mermaidCodeLabel": "Mermaid code",
+			"mermaidAria": "Mermaid diagram source",
+			"previewMermaid": "Preview",
+			"insertMermaid": "Insert diagram into document",
+			"mermaidBusy": "Rendering…",
+			"noteMermaidSvg": "The diagram is inserted as an image (SVG), like charts.",
+			"errRenderMermaid": "Could not render the diagram",
+			"errInsertMermaid": "Could not insert the diagram",
+			"diagramConfigTitle": "Mermaid",
+			"defaultTitle": "My chart",
+			"newRowName": "Item {{n}}",
+			"demo": {
+				"jan": "Jan",
+				"feb": "Feb",
+				"mar": "Mar",
+				"apr": "Apr",
+				"may": "May"
+			},
+			"mermaid": {
+				"defaultSource": "flowchart TD\n  A[Start] --> B{Condition}\n  B -->|yes| C[Yes]\n  B -->|no| D[No]"
+			}
+		},
+		"search": {
+			"resultsLabel": "Search results",
+			"resultsCount": "Found {{count}} document(s)",
+			"keyboardHint": "Use arrow keys to move, Enter to open the focused document.",
+			"title": "Document search",
+			"subtitle": "ES + ChromaDB",
+			"closeTitle": "Close",
+			"closeAria": "Close search panel",
+			"typeFulltextLabel": "🔍 Full text",
+			"typeFulltextDesc": "Fast keyword search",
+			"typeSemanticLabel": "✨ Semantic",
+			"typeSemanticDesc": "Meaning-based search with AI",
+			"placeholderFulltext": "Keywords… (e.g. \"project plan\")",
+			"placeholderSemantic": "By meaning… (e.g. \"docs about marketing\")",
+			"searchButton": "Search",
+			"searchingButton": "Searching…",
+			"recentHeading": "Recent searches",
+			"clearHistory": "Clear",
+			"clearResults": "Clear results",
+			"wordCount": "{{count}} words",
+			"emptyTitle": "No results",
+			"emptyHintWithQuery": "Try other words or semantic search",
+			"emptyHintNoQuery": "Enter a query to search documents",
+			"date": {
+				"today": "Today",
+				"yesterday": "Yesterday",
+				"daysAgo": "{{count}}d ago",
+				"weeksAgo": "{{count}}w ago",
+				"monthsAgo": "{{count}}mo ago"
+			}
+		},
+		"fileLibrary": {
+			"title": "Open from library",
+			"subtitleShort": "Unified Content",
+			"limitHint": "One file (max {{max}}). Formats: .docx, .pdf, .txt, .md, images, etc.",
+			"retryList": "Reload list",
+			"closeAria": "Close library picker",
+			"footerHint": "New files: drag into the editor or use Import."
+		},
+		"ocr": {
+			"progressTitle": "OCR in progress",
+			"cancel": "Cancel batch",
+			"statusBanner": "Processing images — you can scroll results below.",
+			"title": "Text recognition",
+			"subtitleGpu": "OCR via stack4 (Tika)",
+			"closeTitle": "Close",
+			"closeAria": "Close OCR panel",
+			"languageHeading": "Recognition language",
+			"languages": {
+				"rus": "Russian",
+				"eng": "English",
+				"rus_eng": "Russian + English",
+				"fra": "French",
+				"deu": "German",
+				"spa": "Spanish"
+			},
+			"dropAria": "Upload images for OCR",
+			"dropHeadingBusy": "Wait until processing finishes",
+			"dropHeadingRelease": "Release to add files",
+			"dropHeadingDefault": "Upload images for OCR",
+			"dropHintBusy": "The file picker is temporarily unavailable",
+			"dropHintDefault": "Drag images here or click to choose",
+			"filesHeading": "Images to process ({{count}})",
+			"clearAllTitle": "Clear list and results",
+			"clearAll": "Clear all",
+			"removeImageTitle": "Remove image",
+			"progressLine": "{{current}} of {{total}} images",
+			"resultsHeading": "Recognition results",
+			"successLine": "Processed successfully",
+			"confidencePct": "{{pct}}% confidence",
+			"insert": "Insert",
+			"insertToDocument": "Insert into document",
+			"insertAllToDocument": "Insert recognized text into document",
+			"copy": "Copy",
+			"processingShort": "Processing…",
+			"processCta_one": "Process {{count}} image",
+			"processCta_other": "Process {{count}} images",
+			"footerHint": "Recognized text appears under Results below—it is not inserted automatically. Click Insert. Engine: stack4 (Tika/Tesseract), not local GPU.",
+			"progress": {
+				"initializing": "Connecting to stack4 (Tika)…",
+				"processing": "Recognizing “{{name}}”…",
+				"complete": "OCR complete!"
+			},
+			"errors": {
+				"invalidDropTitle": "Invalid files",
+				"invalidDropBody": "Only PNG, JPG, JPEG, BMP, TIFF, and WebP images are supported for OCR.",
+				"invalidSelectTitle": "Unsupported files",
+				"invalidSelectBody": "Only PNG, JPG, JPEG, BMP, TIFF, and WebP images are supported for OCR.",
+				"processFailed": "OCR processing failed"
+			},
+			"toast": {
+				"stoppedTitle": "OCR",
+				"stoppedBody": "Processing stopped. Showing results for files already processed.",
+				"completeTitle": "OCR complete",
+				"complete_one": "Successfully processed {{count}} image",
+				"complete_other": "Successfully processed {{count}} images",
+				"issuesTitle": "OCR issues",
+				"failed_one": "Failed to process {{count}} image",
+				"failed_other": "Failed to process {{count}} images",
+				"insertedTitle": "Text inserted",
+				"insertedBody": "OCR text was inserted into the document",
+				"insertFailedTitle": "Insert failed",
+				"insertFailedBody": "No recognized text to insert",
+				"editorNotReady": "Open a document in the editor and try again",
+				"copiedTitle": "Copied",
+				"copiedBody": "Text copied to clipboard",
+				"copyFailedTitle": "Copy failed",
+				"copyFailedBody": "Could not copy text to clipboard"
+			},
+			"fileSize": {
+				"bytes": "B",
+				"kb": "KB",
+				"mb": "MB",
+				"gb": "GB"
+			}
+		},
+		"import": {
+			"busyHint": "Import in progress — progress is shown above; you can scroll the file list.",
+			"title": "Document import",
+			"subtitleMeta": "GPU • DOC/DOCX",
+			"wordBadge": "Word",
+			"wordDocBadge": "Word DOC/DOCX",
+			"closeTitle": "Close",
+			"closeAria": "Close import panel",
+			"dropZoneAria": "Upload documents: drag files here or click to choose",
+			"dropHeadingInvalid": "Unsupported files",
+			"dropHeadingRelease": "Release to add",
+			"dropHeadingDefault": "Upload documents",
+			"dropHintInvalid": "Drop a supported file type or click this area to choose files.",
+			"dropHintRelease": "You can drop files or an entire folder.",
+			"dropHintDefault": "Drop files or a folder here, or click to browse.",
+			"queueEmptyTitle": "Queue is empty",
+			"queueEmptyDescription": "Add files in the area above — they will appear here.",
+			"filesHeading": "Files to import ({{count}})",
+			"viewList": "List",
+			"viewPreview": "Preview",
+			"clearAll": "Clear all",
+			"removeFileTitle": "Remove file",
+			"priorityBadge": "Priority",
+			"extensionMismatchBadge": "Extension mismatch",
+			"detectedAs": "Detected: {{format}}",
+			"formatWithDetection": "{{label}} (detected as {{format}})",
+			"progressAria": "Import progress",
+			"progressFileLine": "File: {{name}}",
+			"progressStep": "Step {{current}} of {{total}}",
+			"resultsHeading": "Import results",
+			"resultSuccess": "Imported • {{words}} words",
+			"importing": "Importing…",
+			"importButton": "Import ({{count}})",
+			"footerIdleHint": "Processing happens on the server; heavy formats may take longer.",
+			"errors": {
+				"noValidTitle": "No supported files",
+				"noValidBody": "No supported files were found. Allowed: DOC, DOCX, PDF, TXT, MD, HTML, RTF, ODT, and images.",
+				"dropFailedTitle": "Import error",
+				"dropFailedBody": "Could not process the dropped items. Try selecting files individually.",
+				"unsupportedTitle": "Unsupported files",
+				"unsupportedBody": "{{count}} file(s) were skipped (unsupported).",
+				"importFailedFallback": "Import failed"
+			},
+			"info": {
+				"folderTitle": "Folder import",
+				"folderBody": "Found {{count}} valid document(s) in the dropped folder(s).",
+				"extensionMismatchTitle": "Extension mismatches",
+				"extensionMismatchBody": "Some files have mismatched extensions: {{list}}. They will be processed by detected format.",
+				"mismatchListItem": "{{name}} (detected as {{format}})",
+				"filesAddedTitle": "Files added",
+				"filesAddedBody": "Added {{count}} supported file(s) from your selection."
+			},
+			"toast": {
+				"successTitle": "Import complete",
+				"successBody": "Successfully imported {{count}} document(s).",
+				"successBodyWord": "Successfully imported {{count}} document(s) ({{wordCount}} Word).",
+				"issuesTitle": "Import issues",
+				"issuesBody": "Failed to import {{count}} document(s)."
+			},
+			"progress": {
+				"starting": "Starting import…",
+				"processingFile": "Processing {{name}}…",
+				"convertingDoc": "Converting legacy Word DOC…",
+				"processingDocx": "Processing Word DOCX…",
+				"complete": "Import complete!"
+			},
+			"formatLabels": {
+				"wordLegacy": "Word document (legacy)",
+				"word": "Word document",
+				"pdf": "PDF document",
+				"text": "Text file",
+				"markdown": "Markdown",
+				"html": "HTML file",
+				"rtf": "Rich Text Format",
+				"odt": "OpenDocument text",
+				"pngOcr": "PNG image (OCR)",
+				"jpegOcr": "JPEG image (OCR)"
+			},
+			"processing": {
+				"doc": "Legacy Word — enhanced conversion",
+				"docx": "Modern Word — XML parsing",
+				"pdf": "PDF — text extraction with layout",
+				"rtf": "RTF — direct parsing",
+				"odt": "OpenDocument — XML pipeline",
+				"txt": "Plain text — direct import",
+				"md": "Markdown — formatting",
+				"html": "HTML — sanitize & convert",
+				"default": "Standard processing"
+			},
+			"size": {
+				"bytesZero": "0 B",
+				"bytes": "B",
+				"kb": "KB",
+				"mb": "MB",
+				"gb": "GB"
+			}
+		},
+		"math": {
+			"latexTooLong": "LaTeX is very long (over {{max}} characters). Consider shortening it for stability."
+		},
+		"mathFormula": {
+			"title": "Formula editor",
+			"subtitle": "LaTeX, live preview, ready-made templates, and symbol help.",
+			"templatesButton": "Templates",
+			"copyLatexTitle": "Copy LaTeX",
+			"copyLatexAria": "Copy formula LaTeX code",
+			"exportPngTitle": "Export PNG",
+			"exportPngAria": "Export formula preview as PNG",
+			"closeTitle": "Close",
+			"closeAria": "Close formula editor",
+			"latexLabel": "LaTeX code",
+			"latexPlaceholder": "Example: \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+			"katexErrorLabel": "LaTeX error",
+			"katexErrorHint": "Check brackets and commands — the preview highlights the broken part.",
+			"snippets": {
+				"fraction": "Fraction",
+				"sqrt": "Root",
+				"sum": "Sum",
+				"integral": "Integral",
+				"matrix": "Matrix"
+			},
+			"preview": {
+				"label": "Preview",
+				"rendering": "Rendering…",
+				"loadingAria": "Loading formula preview",
+				"updating": "Updating preview…",
+				"renderFailed": "Could not render formula",
+				"emptyTitle": "Preview will appear here",
+				"emptyDescription": "Enter LaTeX or pick a template on the right."
+			},
+			"templatesPanel": {
+				"title": "Built-in templates",
+				"subtitle": "Quick starters for common expressions.",
+				"closeTitle": "Close templates",
+				"closeAria": "Close formula templates panel",
+				"useTemplate": "Use template"
+			},
+			"reference": {
+				"title": "Symbols and help",
+				"subtitle": "Click a symbol to insert it; the description and example update below.",
+				"helpBadge": "Help",
+				"exampleLabel": "Example",
+				"emptyTitle": "No hint yet",
+				"emptyDescription": "Pick a category that has symbols."
+			},
+			"footerHint": "Use LaTeX plus the built-in hints to assemble clean math quickly.",
+			"cancel": "Cancel",
+			"insert": "Insert formula",
+			"categories": {
+				"algebra": "Algebra",
+				"analysis": "Calculus / analysis",
+				"linearAlgebra": "Linear algebra",
+				"probability": "Probability",
+				"discrete": "Discrete math",
+				"basics": "Basics",
+				"functions": "Functions",
+				"greek": "Greek letters",
+				"structures": "Structures",
+				"operators": "Operators"
+			},
+			"templates": {
+				"quadratic": {
+					"name": "Quadratic equation",
+					"description": "Roots via the discriminant."
+				},
+				"sum": {
+					"name": "Series sum",
+					"description": "Summation with lower and upper bounds."
+				},
+				"integral": {
+					"name": "Definite integral",
+					"description": "Integral template with limits and differential."
+				},
+				"matrix": {
+					"name": "2×2 matrix",
+					"description": "Quick starter for matrix work."
+				},
+				"probability": {
+					"name": "Bayes' rule",
+					"description": "Template for conditional probabilities."
+				},
+				"derivative": {
+					"name": "Derivative",
+					"description": "Classic derivative notation."
+				},
+				"logic": {
+					"name": "Logical expression",
+					"description": "Implication, negation, and disjunction."
+				}
+			},
+			"symbols": {
+				"frac": {
+					"name": "Fraction",
+					"description": "Numerator and denominator. Use for ratios and probabilities."
+				},
+				"sqrt": {
+					"name": "Square root",
+					"description": "Square root. For nth root use \\sqrt[n]{x}."
+				},
+				"power": {
+					"name": "Superscript",
+					"description": "Exponent or upper index."
+				},
+				"subscript": {
+					"name": "Subscript",
+					"description": "Lower index for sequences, matrices, and labels."
+				},
+				"sum": {
+					"name": "Summation",
+					"description": "Sum from a lower index to an upper bound."
+				},
+				"integral": {
+					"name": "Integral",
+					"description": "Integral with limits; often ends with \\;dx or \\,dt."
+				},
+				"limit": {
+					"name": "Limit",
+					"description": "Limit of an expression as a variable approaches a value."
+				},
+				"log": {
+					"name": "Logarithm",
+					"description": "Log base a. For natural log use \\ln x."
+				},
+				"sin": {
+					"name": "Sine",
+					"description": "Trig function; you can also insert \\cos and \\tan."
+				},
+				"partial": {
+					"name": "Partial derivative",
+					"description": "For functions of several variables."
+				},
+				"alpha": {
+					"name": "Alpha",
+					"description": "Often used for coefficients, angles, and parameters."
+				},
+				"lambda": {
+					"name": "Lambda",
+					"description": "Rates, eigenvalues, or generic parameters."
+				},
+				"pi": {
+					"name": "Pi",
+					"description": "Constant; also common for probability."
+				},
+				"matrixTemplate": {
+					"name": "Matrix",
+					"description": "Matrix template with square brackets."
+				},
+				"piecewise": {
+					"name": "Piecewise function",
+					"description": "For piecewise definitions and case splits."
+				},
+				"autoBrackets": {
+					"name": "Delimiter scaling",
+					"description": "\\left and \\right size brackets to their content."
+				},
+				"vec": {
+					"name": "Vector",
+					"description": "Arrow above a symbol for vectors."
+				},
+				"leq": {
+					"name": "Less or equal",
+					"description": "Comparison; often paired with \\geq and \\neq."
+				},
+				"infty": {
+					"name": "Infinity",
+					"description": "Infinity and limits at infinity."
+				}
+			},
+			"toast": {
+				"templateTitle": "Formula template",
+				"templateBody": "Inserted template «{{name}}»",
+				"copiedTitle": "Copied",
+				"copiedBody": "LaTeX copied to clipboard",
+				"copyFailedTitle": "Copy failed",
+				"copyFailedBody": "Could not copy LaTeX to clipboard",
+				"exportTitle": "Export ready",
+				"exportBody": "Formula saved as PNG",
+				"insertTitle": "Formula inserted",
+				"insertBody": "The formula was inserted into the document"
+			},
+			"errors": {
+				"enterFormulaFirstTitle": "No formula yet",
+				"enterFormulaFirstBody": "Enter a formula first",
+				"exportFailedTitle": "Export failed",
+				"exportFailedBody": "Could not export the formula",
+				"enterLatexTitle": "No LaTeX",
+				"enterLatexBody": "Enter a LaTeX expression"
+			}
+		},
+		"table": {
+			"formulaInvalid": "Formula could not be evaluated",
+			"advanced": {
+				"title": "Advanced table editor",
+				"subtitle": "Excel-like table editing",
+				"undoTitle": "Undo (Ctrl+Z)",
+				"undoAria": "Undo table change",
+				"redoTitle": "Redo (Ctrl+Y)",
+				"redoAria": "Redo table change",
+				"copyTitle": "Copy (Ctrl+C)",
+				"copyAria": "Copy selected cells",
+				"pasteTitle": "Paste (Ctrl+V)",
+				"pasteAria": "Paste cells from buffer",
+				"exportCsvTitle": "Export to CSV",
+				"exportCsvAria": "Export table to CSV",
+				"closeTitle": "Close",
+				"closeAria": "Close table editor",
+				"addRow": "Add row",
+				"addColumn": "Add column",
+				"deleteRow": "Delete row",
+				"deleteColumn": "Delete column",
+				"cellBadge": "Cell {{col}}{{row}}",
+				"deleteColumnAria": "Delete column {{label}}",
+				"deleteRowAria": "Delete row {{n}}",
+				"editCellAria": "Edit cell {{col}}{{row}}",
+				"dimensions": "{{rows}} rows × {{cols}} columns",
+				"cancel": "Cancel",
+				"insertTable": "Insert table",
+				"toast": {
+					"copyTitle": "Copied",
+					"copyBody": "Selected cells copied to the internal buffer",
+					"pasteTitle": "Pasted",
+					"pasteBody": "Data pasted into the selected area",
+					"exportCsv": "CSV exported",
+					"inserted": "Table inserted into document"
+				}
+			}
+		},
+		"pdf": {
+			"errors": {
+				"invalidFile": "Please choose a valid PDF file",
+				"loadFailedDetail": "Could not load the PDF. Check the file and try again.",
+				"loadFailedShort": "Could not load the PDF. Try another file.",
+				"renderPageFailed": "Could not render the page. Switch pages or reload the file.",
+				"renderPageToast": "Could not render the PDF page",
+				"uploadPageFirst": "Upload a PDF page first",
+				"exportFailed": "Could not export PDF"
+			},
+			"toasts": {
+				"uploadSuccess": "PDF loaded successfully!",
+				"insertSuccess": "PDF inserted into the document!",
+				"exportSuccess": "PDF exported successfully!"
+			},
+			"insert": {
+				"noteSaved": "PDF ({{pages}} pp.) saved to your content library. The link points to a server download (same as chat attachments).",
+				"noteSavedUnknown": "PDF saved to your content library. The link points to a server download (same as chat attachments).",
+				"noteTemp": "PDF ({{pages}} pp.) — temporary link (browser session). Upload to server failed: {{message}}",
+				"noteTempUnknown": "PDF — temporary link (browser session). Upload to server failed: {{message}}"
+			},
+			"previewAlt": "Preview: {{name}}",
+			"tools": {
+				"text": "Text",
+				"highlight": "Highlight",
+				"rectangle": "Rectangle",
+				"circle": "Circle",
+				"arrow": "Arrow",
+				"formText": "Text field",
+				"checkbox": "Checkbox",
+				"dropdown": "Dropdown",
+				"signature": "Signature"
+			},
+			"modes": {
+				"view": "View",
+				"annotate": "Annotate",
+				"forms": "Forms",
+				"sign": "Sign",
+				"merge": "Merge",
+				"split": "Split"
+			},
+			"header": {
+				"title": "PDF processing",
+				"subtitleIdle": "Preview in the embedded viewer and insert as a linked attachment",
+				"pagesSubtitle": "{{name}} • {{count}} pp.",
+				"pagesSubtitlePreview": "{{name}} • browser preview"
+			},
+			"actions": {
+				"export": "Export",
+				"insertLoading": "Loading…",
+				"insert": "Insert",
+				"closePanelAria": "Close panel",
+				"closeTitle": "Close",
+				"dismissErrorAria": "Dismiss error message"
+			},
+			"steps": {
+				"aria": "PDF workflow steps",
+				"viewLoading": "Rendering page…",
+				"viewReady": "View",
+				"toolsWhenNoPdf": "Tools",
+				"step1Upload": "Upload"
+			},
+			"stageNav": {
+				"view": "View",
+				"annotate": "Annotate",
+				"forms": "Forms",
+				"sign": "Sign",
+				"merge": "Merge",
+				"split": "Split"
+			},
+			"upload": {
+				"pickAria": "Choose PDF",
+				"uploadAria": "Upload PDF",
+				"uploadTitle": "Upload PDF",
+				"uploadButton": "Upload PDF"
+			},
+			"lists": {
+				"noAnnotationsTitle": "No annotations",
+				"noAnnotationsDesc": "Add the first annotation on the page.",
+				"noFieldsTitle": "No fields",
+				"noFieldsDesc": "Create the first form field."
+			},
+			"viewer": {
+				"thumbnailsAria": "Toggle thumbnails",
+				"thumbnailsTitle": "Thumbnails",
+				"prevPageAria": "Previous page",
+				"prevPageTitle": "Previous page",
+				"nextPageAria": "Next page",
+				"nextPageTitle": "Next page",
+				"zoomOutAria": "Zoom out",
+				"zoomOutTitle": "Zoom out",
+				"zoomInAria": "Zoom in",
+				"zoomInTitle": "Zoom in",
+				"zoomResetAria": "Reset zoom",
+				"zoomResetTitle": "Reset zoom",
+				"pageTitle": "Page {{n}}",
+				"pageOfUnknown": "{{current}} / {{count}}",
+				"nativeViewerHint": "Page buttons use the viewer hash; totals may vary by browser. Use native controls where needed.",
+				"previewFrameTitle": "PDF preview",
+				"zoomResetButton": "Reset",
+				"pageLoadingOverlay": "Loading page…"
+			},
+			"sidebar": {
+				"annotateHeading": "Annotation tools",
+				"annotationsListHeading": "Annotations",
+				"formsHeading": "Form fields",
+				"fieldsListHeading": "Fields",
+				"pageAbbrev": "p. {{n}}"
+			},
+			"empty": {
+				"title": "Upload a PDF",
+				"description": "Choose a PDF to preview and insert into the document as a downloadable link.",
+				"previewHelp": "Advanced text extraction or page-perfect rendering belongs on the server; this panel saves or links your file.",
+				"pickFile": "Choose PDF file"
+			},
+			"textPrompt": {
+				"title": "Text annotation",
+				"description": "Enter the label to pin on the current PDF page.",
+				"label": "Annotation text",
+				"placeholder": "e.g.: Wording review",
+				"submit": "Add"
+			}
+		},
+		"templates": {
+			"filterDifficulty": "Difficulty",
+			"difficultyAll": "All levels",
+			"difficulty": {
+				"easy": "Easy",
+				"medium": "Medium",
+				"hard": "Hard"
+			},
+			"categories": {
+				"business": "Business",
+				"academic": "Research",
+				"creative": "Writing & Markdown",
+				"legal": "Legal"
+			},
+			"categoryFallback": "Template",
+			"preview": {
+				"loading": "Preparing template preview…",
+				"error": "Could not prepare template preview."
+			},
+			"previewModal": {
+				"sourceTitle": "Source Markdown",
+				"sourceHint": "Skim the structure and reuse it as a starting point for your document."
+			},
+			"errors": {
+				"loadCatalog": "Could not load the server template catalog.",
+				"degradedCatalog": "Template catalog is running in a limited mode: {{reason}}",
+				"notAppliedTitle": "Template not applied",
+				"notAppliedPreflight": "Server preflight blocked apply for the selected mode.",
+				"createFailed": "Could not create a document from the template"
+			},
+			"toasts": {
+				"preflightTitle": "Preflight",
+				"appliedTitle": "Template applied",
+				"appliedBody": "Template “{{name}}” applied ({{mode}})",
+				"createdBody": "Created document “{{name}}”"
+			},
+			"applyModeLabels": {
+				"replace": "replace document",
+				"insert": "insert at cursor",
+				"append": "append to end"
+			},
+			"header": {
+				"title": "Document templates",
+				"subtitle": "Template text comes from the server (Markdown → HTML in the editor). Entries are intentionally a scaffold with section hints—not a finished long doc—extend them for your task.",
+				"subtitleFallbackSuffix": " Showing the built-in fallback catalog."
+			},
+			"limitedMode": "Limited mode",
+			"viewList": "Show as list",
+			"viewGrid": "Show as grid",
+			"close": "Close",
+			"searchPlaceholder": "Search by title, tags, or content…",
+			"applyModeAria": "Template apply mode",
+			"applyOptionReplace": "Apply: replace document",
+			"applyOptionInsert": "Apply: insert at cursor",
+			"applyOptionAppend": "Apply: append to end",
+			"categoryAria": "Template category",
+			"allCategories": "All categories",
+			"sortAria": "Sort templates",
+			"sortName": "Sort: by name",
+			"sortCategory": "Sort: by category",
+			"sortDifficulty": "Sort: by difficulty",
+			"pillAll": "All ({{count}})",
+			"loadingTitle": "Loading templates",
+			"loadingDesc": "One moment—fetching the catalog from the server.",
+			"emptyTitle": "Nothing found",
+			"emptyDesc": "Try a different search, category, sort—or reset filters.",
+			"preview": "Preview",
+			"use": "Use",
+			"footerFound": "Templates found: {{count}}",
+			"footerLoading": "Loading server catalog…",
+			"footerPreflightOk": "Templates are applied with a preflight check.",
+			"footerFallbackCatalog": "Using the server fallback catalog."
+		}
+	},
+	"versions": {
+		"loadFailed": "Could not load version history",
+		"title": "Version history",
+		"subtitle": "Unified content API",
+		"close": "Close version history",
+		"previewHint": "Snapshot of the selected version (read-only). Switch entries in the list to compare visually.",
+		"restoreLabel": "Restore this version",
+		"restoreConfirmTitle": "This will revert the document to version {{n}}. The current content will be saved as a new version first.",
+		"restoring": "Restoring…",
+		"restoreConfirm": "Confirm restore",
+		"restoreFailed": "Could not restore this version",
+		"compareHint": "Select another version in the timeline — the preview below updates for comparison.",
+		"dash": "—",
+		"timeUnknown": "unknown",
+		"relativeDaysAgo": "{{count}}d ago",
+		"relativeHoursAgo": "{{count}}h ago",
+		"relativeMinutesAgo": "{{count}}m ago",
+		"relativeJustNow": "just now",
+		"currentVersionHeading": "Current version",
+		"versionNumberLine": "Version {{n}}",
+		"totalVersionsCount": "{{count}} versions total",
+		"loadingTitle": "Loading versions",
+		"loadingDesc": "Fetching history from the content API.",
+		"noFileTitle": "No document selected",
+		"noFileDesc": "Open or save a document first — then the version timeline appears.",
+		"emptyHistoryTitle": "No version history yet",
+		"emptyHistoryDesc": "Save the document to create snapshots you can roll back to.",
+		"badgeCurrent": "Current",
+		"cancel": "Cancel",
+		"previewPickHint": "Pick a version in the list on the left — a snapshot will appear here.",
+		"footerAutoVersioning": "Auto-versioning",
+		"footerTotal": "total: {{count}}"
+	}
+}

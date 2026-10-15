@@ -1,0 +1,14 @@
+FROM nginx:alpine
+
+# Для healthcheck в docker-compose (wget --spider http://localhost/health)
+RUN apk add --no-cache wget
+
+# Ожидаем, что `dist/` уже собран на хосте (npm run build в Olenti)
+COPY dist /usr/share/nginx/html
+
+# Nginx config
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "default_profile": "companion_ewa",
+  "recording_ref_text": "Здравствуйте. Это проверочная запись голоса для синтеза. Я произношу фразы ровно и отчётливо.",
+  "aliases": {
+    "xenia": "woman_2",
+    "baya": "woman_2",
+    "kseniya": "woman_2",
+    "female": "woman_2",
+    "woman": "woman_2",
+    "woman_1": "woman_1",
+    "woman_2": "woman_2",
+    "aidar": "man_1",
+    "eugene": "man_1",
+    "male": "man_1",
+    "man": "man_1",
+    "man_1": "man_1",
+    "man_2": "man_2",
+    "companion_ewa": "companion_ewa",
+    "companion_mela": "companion_mela",
+    "companion_zera": "companion_zera",
+    "companion_kora": "companion_kora",
+    "companion_tala": "companion_tala",
+    "companion_feni": "companion_feni",
+    "companion_arlika": "companion_arlika",
+    "companion_arlika_v2": "companion_arlika_v2",
+    "ewa": "companion_ewa",
+    "parent": "companion_ewa"
+  },
+  "persona_voices": {
+    "parent": "companion_ewa",
+    "mela": "companion_mela",
+    "zera": "companion_zera",
+    "kora": "companion_kora",
+    "tala": "companion_tala",
+    "feni": "companion_feni",
+    "arlika": "companion_arlika",
+    "arlika_v2": "companion_arlika_v2"
+  },
+  "legacy_alias_labels": {
+    "xenia": {
+      "name": "Ксения",
+      "gender": "female",
+      "description": "Legacy alias → woman_2"
+    },
+    "baya": {
+      "name": "Бая",
+      "gender": "female",
+      "description": "Legacy alias → woman_2"
+    },
+    "kseniya": {
+      "name": "Ксения",
+      "gender": "female",
+      "description": "Legacy alias → woman_2"
+    },
+    "aidar": {
+      "name": "Айдар",
+      "gender": "male",
+      "description": "Legacy alias → man_1"
+    },
+    "eugene": {
+      "name": "Евгений",
+      "gender": "male",
+      "description": "Legacy alias → man_1"
+    }
+  }
+}

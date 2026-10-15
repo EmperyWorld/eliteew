@@ -1,0 +1,178 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/marketing-cabinet/projects/{project_id}/live-jobs-summary)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/marketing-cabinet/projects/{project_id}/live-jobs-summary": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Project Insights",
+          "Marketing Cabinet - Projects"
+        ],
+        "summary": "Get Project Live Jobs Summary",
+        "description": "Счётчики активных AI/IMC runs для rail и Job Center (один round-trip).",
+        "operationId": "get_project_live_jobs_summary_api_v1_marketing_cabinet_projects__project_id__live_jobs_summary_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectLiveJobsSummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/companies/{company_id}/live-jobs-summary": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Live jobs",
+          "Marketing Cabinet - Live jobs"
+        ],
+        "summary": "Get Company Live Jobs Summary",
+        "description": "Счётчики активных AI/IMC runs для company-only Job Center (один round-trip).",
+        "operationId": "get_company_live_jobs_summary_api_v1_marketing_cabinet_companies__company_id__live_jobs_summary_get",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectLiveJobsSummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MarketingProjectLiveJobsSummaryResponse": {
+        "properties": {
+          "ai_active_total": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Ai Active Total"
+          },
+          "imc_active_total": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Imc Active Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ai_active_total",
+          "imc_active_total"
+        ],
+        "title": "MarketingProjectLiveJobsSummaryResponse",
+        "description": "Лёгкий снимок для rail/badge: только счётчики активных AI и IMC runs."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

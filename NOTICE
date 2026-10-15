@@ -1,0 +1,23 @@
+EliteEW · Empery World
+
+SPDX-FileCopyrightText: 2026 Кундухов Артём Георгиевич (po&T)
+SPDX-FileCopyrightText: 2026 Кундухова Татьяна Александровна (TZBrand)
+SPDX-License-Identifier: MIT
+
+Copyright notices for first-party contributions:
+
+Copyright (C) 2026 Кундухов Артём Георгиевич (po&T)
+Copyright (C) 2026 Кундухова Татьяна Александровна (TZBrand)
+
+Unless a file or a nearer directory license states otherwise, first-party
+software in this repository is licensed under the MIT License. The complete license
+text is in LICENSE.
+
+Some first-party components retain an earlier permissive license, and
+third-party components remain under their respective upstream licenses. See
+documentation/platform/THIRD-PARTY-LICENSE-MAP.md and the license files nearest
+to those components.
+
+The MIT license covers software copyright. It does not grant rights to the
+EliteEW or Empery World names, logos, or other brand identifiers. See
+documentation/platform/ELITEEW-TRADEMARK-POLICY.md.

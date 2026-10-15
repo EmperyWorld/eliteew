@@ -1,0 +1,5 @@
+# stack0 backend — minimal caps only (avant-garde: prefer latest resolves via uv --upgrade).
+# Optional GPU / legacy ML caps live in constraints-gpu.txt (not used by default targets).
+
+# Socket.IO: bump together with python-socketio + frontend socket.io-client when crossing v6.
+# python-socketio<7

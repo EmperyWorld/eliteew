@@ -1,0 +1,23 @@
+# KBSEW offline/live eval fixture (non-secret sample queries).
+# Override barrel_id via KBSEW_EVAL_BARREL_ID or per-case barrel_id.
+version: 1
+defaults:
+  barrel_id: "da11ce9f-1d46-4747-8112-7210ebf9f6f2"
+  k: 5
+cases:
+  - id: marketing_brand
+    query: "маркетинг бренд позиционирование"
+    must_include_substrings:
+      - "маркет"
+      - "бренд"
+    must_not_match:
+      - "С т р а н и ц а"
+      - "(?i)callupper"
+  - id: positioning
+    query: "позиционирование товара"
+    must_include_substrings:
+      - "позици"
+    must_not_match:
+      - "С т р а н и ц а"
+      - "индивидуальнос ти"
+      - "необходи мо"

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "id": "interview_prep_v1",
+  "version": 2,
+  "title": "Подготовка к интервью",
+  "description": "Карточка комнаты: тема, цель, состав панели (hero_id) и гайд. «Пройти интервью» стартует Discussion с этим составом и контекстом.",
+  "artifact_type": "interview_prep",
+  "required_context": [
+    "interview_subject",
+    "decision_to_make",
+    "hypotheses"
+  ],
+  "quality_rubric": [
+    "Тема и цель достаточно короткие, чтобы вставить их в комнату дискуссии без правки.",
+    "Панель — только герои текущего Team; у каждого строка с `hero_id` в backticks и роль в интервью.",
+    "Гайд — вопросы к человеку, не монолог ИИ и не спор героев между собой.",
+    "Не обещай статистику и точные N. Не подменяй интервью готовым отчётом.",
+    "Если субъект интервью не назван, явно пометь missing input."
+  ],
+  "output_sections": [
+    "Interview topic",
+    "Interview goal",
+    "Interview panel",
+    "Panel guide"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "ip1",
+      "title": "Тема интервью",
+      "instruction_for_model": "Дай одну ясную тему интервью: о чём разговор с человеком (не с рынком вообще). 1–3 предложения. Без `##`, без гайда вопросов, без цели, без списка панели.",
+      "required_slots": {
+        "research": 3,
+        "product": 2
+      },
+      "scope_fence": "Только формулировка темы комнаты.",
+      "output_format": [
+        "Interview topic"
+      ]
+    },
+    {
+      "step_id": "ip2",
+      "title": "Цель интервью",
+      "instruction_for_model": "Сформулируй операционную цель: какое решение команда сможет принять после ответов. 2–5 предложений. Без `##`, без повторения темы дословно, без полного research plan, без списка панели.",
+      "required_slots": {
+        "research": 3,
+        "rigor": 3,
+        "product": 2
+      },
+      "scope_fence": "Только цель комнаты.",
+      "output_format": [
+        "Interview goal"
+      ]
+    },
+    {
+      "step_id": "ip4",
+      "title": "Панель интервью",
+      "instruction_for_model": "Назначь 1–4 героев панели ТОЛЬКО из текущего Team этого чата (не выдумывай чужих). На каждую строку: `- \\`hero_id\\` — роль в интервью` (например ведущий / уточнения по JTBD / техника). hero_id латиницей в backticks как в системе (arlyqueen, it_kernel, …). Без вопросов гайда и без темы/цели.",
+      "required_slots": {
+        "research": 2,
+        "product": 2,
+        "rigor": 2
+      },
+      "scope_fence": "Только состав панели и роли.",
+      "output_format": [
+        "Panel member",
+        "Role"
+      ]
+    },
+    {
+      "step_id": "ip3",
+      "title": "Гайд для панели",
+      "instruction_for_model": "5–8 вопросов панели ИИ к человеку, в логике: контекст → боль → текущие альтернативы → JTBD → барьеры. Укажи, что считать достаточным покрытием. Можно коротко пометить, кто из панели ведёт блок (по hero_id). Без `##` в теле, без выдуманных цитат респондента.",
+      "required_slots": {
+        "research": 3,
+        "behavioral": 2,
+        "rigor": 2
+      },
+      "scope_fence": "Только гайд вопросов и критерий достаточности.",
+      "output_format": [
+        "Question",
+        "Probe",
+        "Coverage criterion"
+      ]
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Тема интервью",
+      "step_ids": ["ip1"]
+    },
+    {
+      "heading": "Цель интервью",
+      "step_ids": ["ip2"]
+    },
+    {
+      "heading": "Панель интервью",
+      "step_ids": ["ip4"]
+    },
+    {
+      "heading": "Гайд для панели",
+      "step_ids": ["ip3"]
+    }
+  ]
+}

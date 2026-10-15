@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "id": "campaign_plan_v1",
+  "version": 3,
+  "title": "Campaign plan",
+  "description": "Цель, KPI, аудитория, каналы, креативы, бюджетная рамка, таймлайн и измерение. При ростере 4–6 — sales ops, talent owners и capital kill/scale.",
+  "artifact_type": "campaign_plan",
+  "required_context": [
+    "business_goal",
+    "target_audience",
+    "offer",
+    "budget_or_constraints",
+    "measurement"
+  ],
+  "quality_rubric": [
+    "Свяжи цель кампании с бизнес-результатом и KPI.",
+    "Выбирай каналы по аудитории и задаче, а не стандартным списком.",
+    "Не выдумывай бюджет, CAC, CPM, CTR и сроки без входных данных.",
+    "Обязательно покажи, что нужно измерять и какие данные ещё нужны."
+  ],
+  "output_sections": [
+    "Objective and audience",
+    "Channel and creative strategy",
+    "Timeline, budget and measurement",
+    "Sales ops handoff",
+    "Owners and talent",
+    "Capital kill/scale"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": true,
+  "steps": [
+    {
+      "step_id": "cp1",
+      "title": "Цель, аудитория и KPI",
+      "instruction_for_model": "Сформулируй campaign objective как связь бизнес-цели и поведения аудитории. Укажи аудиторию/ICP, stage воронки, ключевой инсайт и KPI. Если чисел нет, предложи типы метрик без конкретных значений. Отдели факты от гипотез и назови missing inputs: бюджет, география, период, активы, ограничения. Без `##`, без channel list.",
+      "required_slots": {
+        "brand_voice": 3,
+        "growth": 3,
+        "rigor": 2
+      },
+      "scope_fence": "Только цель, аудитория, инсайт, KPI и missing inputs. Не выбирать каналы и не писать календарь.",
+      "output_format": [
+        "Business objective",
+        "Audience and funnel stage",
+        "KPI model",
+        "Missing inputs"
+      ]
+    },
+    {
+      "step_id": "cp2",
+      "title": "Каналы, сообщения и креативы",
+      "instruction_for_model": "Выбери каналы только если они следуют из аудитории, цели или входных данных; если данных нет, дай channel hypotheses и что нужно проверить. Для каждого канала: роль в воронке, сообщение, формат актива, reason to believe, риск. Не перечисляй SEO/SMM/email/performance как обязательный набор. Без плагиата чужих брендов и без выдуманных метрик. Без `##`.",
+      "required_slots": {
+        "brand_voice": 3,
+        "creative": 3,
+        "growth": 3
+      },
+      "scope_fence": "Только канальный rationale, сообщения и креативные активы. Без календаря, бюджета и общего conclusion.",
+      "output_format": [
+        "Channel rationale",
+        "Message",
+        "Asset",
+        "Risk",
+        "Evidence needed"
+      ]
+    },
+    {
+      "step_id": "cp3",
+      "title": "Таймлайн, бюджетная рамка и измерение",
+      "instruction_for_model": "Дай фазы запуска: подготовка, производство активов, запуск, оптимизация, ретро. Если бюджет/сроки не указаны, не придумывай суммы и даты — задай бюджетные категории и decision points. Укажи owners, измерение, критерии stop/scale и основные риски. В конце ровно один mermaid flowchart LR/TB на 5–8 узлов: подготовка → запуск → оптимизация → ретро. Без `##` вне code fence.",
+      "required_slots": {
+        "rigor": 3,
+        "operations": 2,
+        "finance": 2,
+        "growth": 2
+      },
+      "scope_fence": "Только таймлайн, budget buckets, owners, measurement и риски исполнения. Не возвращаться к сегментам и сообщениям подробно.",
+      "output_format": [
+        "Timeline",
+        "Budget buckets",
+        "Owners",
+        "Measurement",
+        "Stop/scale criteria"
+      ]
+    },
+    {
+      "step_id": "cp4",
+      "title": "Sales ops handoff",
+      "min_roster": 4,
+      "instruction_for_model": "Опиши handoff маркетинг→продажи: SLA лида, qual критерии, материалы для AE/SDR, риск разрыва воронки. Не выдумывай MQL/SQL объёмы. Без `##`, без имён героев, без нового mermaid.",
+      "required_slots": {
+        "growth": 3,
+        "operations": 3
+      },
+      "scope_fence": "Только sales ops handoff.",
+      "output_format": [
+        "Lead SLA",
+        "Qual criteria",
+        "Enablement",
+        "Break risk"
+      ]
+    },
+    {
+      "step_id": "cp5",
+      "title": "Owners and talent bar",
+      "min_roster": 5,
+      "instruction_for_model": "Закрепи critical owners и talent bar для кампании: кто отвечает за креатив, media, sales follow-up; где не хватает компетенций. Без ФОТ. Без `##`, без имён героев.",
+      "required_slots": {
+        "behavioral": 3,
+        "operations": 2,
+        "brand_voice": 2
+      },
+      "scope_fence": "Только owners/talent bar.",
+      "output_format": [
+        "Owner map",
+        "Skill gaps",
+        "Hiring/contract signal"
+      ]
+    },
+    {
+      "step_id": "cp6",
+      "title": "Capital kill/scale gates",
+      "min_roster": 6,
+      "instruction_for_model": "Задай capital gates: при каких сигналах убивать кампанию, при каких масштабировать бюджет. Не выдумывай суммы. Без `##`, без имён героев.",
+      "required_slots": {
+        "finance": 3,
+        "engineering": 2,
+        "rigor": 2
+      },
+      "scope_fence": "Только kill/scale capital gates.",
+      "output_format": [
+        "Kill gate",
+        "Scale gate",
+        "Capital question",
+        "Data needed"
+      ]
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Стратегия",
+      "step_ids": [
+        "cp1"
+      ]
+    },
+    {
+      "heading": "Каналы",
+      "step_ids": [
+        "cp2"
+      ]
+    },
+    {
+      "heading": "Таймлайн",
+      "step_ids": [
+        "cp3"
+      ]
+    },
+    {
+      "heading": "Sales ops",
+      "step_ids": [
+        "cp4"
+      ]
+    },
+    {
+      "heading": "Owners and talent",
+      "step_ids": [
+        "cp5"
+      ]
+    },
+    {
+      "heading": "Capital gates",
+      "step_ids": [
+        "cp6"
+      ]
+    }
+  ]
+}

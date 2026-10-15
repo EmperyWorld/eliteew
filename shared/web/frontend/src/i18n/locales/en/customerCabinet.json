@@ -1,0 +1,172 @@
+{
+  "title": "Customer workspace",
+  "subtitle": "Companies where you are set as the customer representative. Only projects you may access appear here: you were added under Team in the marketing cabinet, or you created the project as the company card owner.",
+  "loading": "Loading…",
+  "refresh": "Refresh",
+  "refreshAria": "Refresh companies and projects",
+  "searchPlaceholder": "Search companies and projects…",
+  "searchAria": "Search companies and projects",
+  "filterEmpty": "No matches",
+  "filterEmptyDescription": "Change your search query or clear the field to see all companies again.",
+  "summaryError": "Summary unavailable",
+  "loadError": "Could not load the list. Check your connection and try again.",
+  "loadErrorRetry": "Retry loading",
+  "emptyCompanies": {
+    "title": "No linked companies yet",
+    "description": "When your agency assigns you as the customer representative on a company card, it will show up here."
+  },
+  "projectsSection": "Projects you can open",
+  "projectsLoadError": "Could not load projects.",
+  "projectsEmpty": "No projects with your access yet. The project lead needs to add you under Team in the marketing cabinet. Representatives do not get automatic access to every project in the company.",
+  "interactionSection": "Summary, documents, presentations, and chat",
+  "expandDetails": "Show summary, documents, presentations, and chat",
+  "collapseDetails": "Hide",
+  "workspace": {
+    "tablistAria": "Customer cabinet sections for this project",
+    "tabHintPendingDocs": "Documents pending approval: {{count}}",
+    "tabHintPresentations": "Published decks: {{count}}",
+    "tabs": {
+      "summary": "Summary",
+      "summaryHasContentHint": "Lead published summary content",
+      "diagnostic": "Diagnostic",
+      "documents": "Documents",
+      "presentations": "Presentations",
+      "chat": "Messages"
+    }
+  },
+  "diagnostic": {
+    "loading": "Loading diagnostic…",
+    "loadError": "Could not load the diagnostic session.",
+    "saveError": "Could not save answers. Check your connection.",
+    "welcomeKicker": "Full diagnostic",
+    "welcomeTitle": "Project diagnostic",
+    "welcomeBody": "Five modules: brand archetype, values, business, service, and an emotion map. Answers autosave—you can pause and continue later.",
+    "welcomeStatModules": "modules",
+    "welcomeStatPause": "pause anytime",
+    "welcomeStatAuto": "autosave",
+    "start": "Start",
+    "hubTitle": "Modules",
+    "hubHint": "Modules unlock in order: finish the previous block first. Progress and answers autosave.",
+    "hubAllDoneHint": "All modules are done. Open each card for details; use the button below for the full summary with charts.",
+    "viewFullResults": "Full summary",
+    "progressLabel": "{{percent}}%",
+    "done": "done",
+    "statusPending": "Not started",
+    "statusInProgress": "In progress",
+    "statusCompleted": "Done",
+    "statusLocked": "Locked",
+    "retakePending": "Awaiting lead approval",
+    "retakeRejected": "Retake declined",
+    "requestRetake": "Request retake",
+    "moduleLockedHint": "Finish the \"{{module}}\" module first.",
+    "moduleLockedAria": "Locked until you complete: {{module}}",
+    "questionsProgress": "{{answered}} / {{total}} questions",
+    "stepProgress": "Step {{current}} of {{max}}",
+    "resultsTitle": "Summary",
+    "resultsHint": "Narrative summary and charts from your answers.",
+    "resultArchetype": "Leading archetype: {{name}} ({{pct}}%).",
+    "resultArchetypeSecondary": "Secondary archetype: {{name}} ({{pct}}%).",
+    "resultBusiness": "Business health index: {{idx}}%.",
+    "resultService": "Service quality index: {{idx}} out of 10.",
+    "resultEmotions": "Emotional index: {{idx}}.",
+    "chartArchetype": "Archetypes (top shares)",
+    "chartValues": "Values profile",
+    "chartBusiness": "Business areas, %",
+    "chartService": "Service: expectation vs perception",
+    "chartShare": "Share, %",
+    "chartScore": "Score, %",
+    "chartExpectation": "Expectation",
+    "chartReality": "Perception",
+    "moduleSubtitle": {
+      "archetype": "Brand archetype mapping",
+      "values": "Values pattern analysis",
+      "business": "Holistic business snapshot",
+      "service": "Customer service quality",
+      "emotions": "Emotional journey"
+    },
+    "valueAxis": {
+      "power": "Power",
+      "achievement": "Achievement",
+      "hedonism": "Hedonism",
+      "stimulation": "Stimulation",
+      "self_direction": "Self-direction",
+      "universalism": "Universalism",
+      "benevolence": "Benevolence",
+      "tradition": "Tradition",
+      "conformity": "Conformity",
+      "security": "Security"
+    },
+    "backModules": "Back to modules",
+    "back": "Module overview",
+    "prev": "Back",
+    "next": "Next"
+  },
+  "summary": {
+    "loading": "Loading summary…",
+    "loadError": "Could not load the summary.",
+    "retry": "Try again",
+    "retrying": "Retrying…",
+    "refresh": "Refresh summary",
+    "refreshing": "Refreshing…",
+    "leadPublishedHint": "Your project lead prepares this on the Summary tab under With customer in the marketing cabinet.",
+    "emptyTitle": "No summary for this project",
+    "emptyDescription": "Content will show up after your project lead saves the Summary tab under With customer in the marketing cabinet. They can autofill from the project card and overview there. If another project already has a summary, open that project in the list.",
+    "updatedHint": "Updated: {{time}}"
+  },
+  "badges": {
+    "pendingApproval": "Pending approval: {{count}}",
+    "approved": "Approved: {{count}}",
+    "removalPending": "Removal requests: {{count}}",
+    "presentations": "Decks: {{count}}"
+  },
+  "goalsHint": "Project goals",
+  "guide": {
+    "badge": "Tour",
+    "kbdHint": "Navigate: Left/Right arrows, Home/End; close with Escape.",
+    "progressAria": "Step {{current}} of {{total}}",
+    "closeDimAria": "Close hint",
+    "closeAria": "Close",
+    "audioToggleAria": "Toggle tour narration",
+    "audioToggleTitle": "Step narration (public/audio/customer-cabinet-guide)",
+    "back": "Back",
+    "skip": "Skip",
+    "next": "Next",
+    "finish": "Finish tour",
+    "launchAria": "Customer Cabinet tour",
+    "launchTitle": "In-depth Customer Cabinet tour",
+    "steps": {
+      "intro": {
+        "title": "Customer Cabinet",
+        "body": "Companies where you are the customer representative and projects you can access from Marketing Cabinet."
+      },
+      "header": {
+        "title": "Header",
+        "body": "Title explains access rules. Refresh and Tour buttons on the right."
+      },
+      "search": {
+        "title": "Search",
+        "body": "Filters loaded companies/projects by name, industry, or goals."
+      },
+      "company-tree": {
+        "title": "Company card",
+        "body": "Name, industry, and accessible projects section."
+      },
+      "project-row": {
+        "title": "Project row",
+        "body": "Click expands workspace tabs; badges show pending docs and presentations."
+      },
+      "workspace": {
+        "title": "Project workspace",
+        "body": "Summary, diagnostic, documents, presentations, chat tabs. Tour expands the first project for this step."
+      },
+      "refresh": {
+        "title": "Refresh",
+        "body": "Reloads companies, projects, and signal badges from the server."
+      },
+      "outro": {
+        "title": "Done",
+        "body": "Pick a project tab and continue. Restart tour from the header."
+      }
+    }
+  }
+}

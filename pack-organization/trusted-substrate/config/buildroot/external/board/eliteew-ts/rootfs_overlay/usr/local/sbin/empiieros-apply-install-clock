@@ -1,0 +1,52 @@
+#!/bin/sh
+# Apply the installer wall clock once when the RTC is implausible.
+# Operator time is the seat SoT. timesyncd stays masked. No public NTP.
+set -eu
+
+ROOT="${EMPIIEROS_CLOCK_ROOT:-}"
+STAMP="${ROOT}/etc/empiieros/install-wall-clock"
+APPLIED="${ROOT}/etc/empiieros/install-wall-clock.applied"
+TZFILE="${ROOT}/etc/timezone"
+
+log() {
+  printf 'empiieros-apply-install-clock: %s\n' "$*" >&2
+}
+
+if [ -e "$APPLIED" ]; then
+  exit 0
+fi
+if [ ! -f "$STAMP" ] || [ -L "$STAMP" ]; then
+  log "no stamp; leaving kernel/RTC clock"
+  exit 0
+fi
+
+stamp=$(tr -d '\r\n' <"$STAMP")
+case "$stamp" in
+  [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\ [0-9][0-9]:[0-9][0-9]) ;;
+  *)
+    log "stamp malformed; leaving clock"
+    exit 0
+    ;;
+esac
+
+tz=UTC
+if [ -f "$TZFILE" ] && [ ! -L "$TZFILE" ]; then
+  tz=$(tr -d '\r\n' <"$TZFILE")
+fi
+
+year=$(date +%Y)
+if [ "$year" -ge 2024 ] && [ "$year" -le 2100 ]; then
+  printf 'rtc_plausible year=%s\n' "$year" >"$APPLIED"
+  chmod 0644 "$APPLIED"
+  log "RTC year=${year}; not rewinding to install stamp"
+  exit 0
+fi
+
+log "RTC year=${year} implausible; applying operator stamp"
+TZ="$tz" date -s "$stamp" >/dev/null
+if command -v hwclock >/dev/null 2>&1; then
+  hwclock --systohc --utc || log "hwclock systohc failed"
+fi
+printf 'applied stamp=%s timezone=%s\n' "$stamp" "$tz" >"$APPLIED"
+chmod 0644 "$APPLIED"
+log "applied operator wall clock"

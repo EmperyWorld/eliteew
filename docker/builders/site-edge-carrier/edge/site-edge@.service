@@ -1,0 +1,31 @@
+# systemd template for a Site-Image on Edge (rootful or user systemd).
+# Install:
+#   sudo cp site-edge@.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now site-edge@demo.service
+#
+# Expects image already loaded: local/site-edge/%i:latest
+# Optional env drop-in: /etc/eliteew/site-edge/%i.env  (HOST_PORT=8080)
+
+[Unit]
+Description=EliteEW Site-Edge static site (%i)
+Documentation=file:///var/lib/eliteew/site-edge
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=HOST_PORT=8080
+EnvironmentFile=-/etc/eliteew/site-edge/%i.env
+ExecStartPre=-/usr/bin/podman stop site-edge-%i
+ExecStartPre=-/usr/bin/podman rm site-edge-%i
+ExecStart=/usr/bin/podman run --name site-edge-%i --rm \
+  -p ${HOST_PORT}:8080 \
+  --restart=no \
+  local/site-edge/%i:latest
+ExecStop=/usr/bin/podman stop -t 10 site-edge-%i
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

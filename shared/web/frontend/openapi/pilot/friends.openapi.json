@@ -1,0 +1,2151 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/friends)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/friends/admin/reports": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends",
+          "Friends Admin"
+        ],
+        "summary": "Admin List Social Reports",
+        "operationId": "admin_list_social_reports_api_v1_friends_admin_reports_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialReportAdminListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/admin/reports/{report_id}": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends",
+          "Friends Admin"
+        ],
+        "summary": "Admin Get Social Report",
+        "operationId": "admin_get_social_report_api_v1_friends_admin_reports__report_id__get",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialReportAdminItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Friends",
+          "Friends",
+          "Friends Admin"
+        ],
+        "summary": "Admin Patch Social Report",
+        "operationId": "admin_patch_social_report_api_v1_friends_admin_reports__report_id__patch",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Report Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SocialReportAdminPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocialReportAdminItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "List Friends",
+        "description": "List current user's friends (id, username, avatar_url, full_name).",
+        "operationId": "list_friends_api_v1_friends_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FriendUser"
+                  },
+                  "type": "array",
+                  "title": "Response List Friends Api V1 Friends Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/overview": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Get Friends Overview",
+        "description": "Return the main Friends app payload in a single API call.\n\nSets ``ETag`` (SHA-256 of the JSON body). With ``If-None-Match``, returns 304 and no body when unchanged.",
+        "operationId": "get_friends_overview_api_v1_friends_overview_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendsOverviewResponse"
+                }
+              }
+            },
+            "headers": {
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Quoted SHA-256 of canonical JSON response body."
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified — empty body; reuse the JSON from the last 200 for this URL.",
+            "headers": {
+              "ETag": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Same entity tag as for 200."
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Optional. Prior ETag value; server returns 304 when the JSON body is unchanged."
+          }
+        ]
+      }
+    },
+    "/api/v1/friends/users/search": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Search Friend Users",
+        "description": "Search users and return relationship-aware candidates for the Friends UI.",
+        "operationId": "search_friend_users_api_v1_friends_users_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "description": "Username or full name query",
+              "title": "Q"
+            },
+            "description": "Username or full name query"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 20,
+              "minimum": 1,
+              "description": "Max number of results",
+              "default": 8,
+              "title": "Limit"
+            },
+            "description": "Max number of results"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FriendSearchCandidate"
+                  },
+                  "title": "Response Search Friend Users Api V1 Friends Users Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/referral": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Get Friends Referral Invite",
+        "description": "Return a stable referral code and invite URL for Social Hub / mobile share UI.",
+        "operationId": "get_friends_referral_invite_api_v1_friends_referral_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendsReferralInviteResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/referral/preview": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Preview Friends Referral Code",
+        "description": "Public preview for mobile landing pages opened from a referral link.",
+        "operationId": "preview_friends_referral_code_api_v1_friends_referral_preview_get",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 10,
+              "maxLength": 10,
+              "description": "Referral invite code",
+              "title": "Code"
+            },
+            "description": "Referral invite code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendsReferralPreviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/request": {
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Send Friend Request",
+        "description": "Send friend request by username. No user search/list — exact username only.",
+        "operationId": "send_friend_request_api_v1_friends_request_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendRequestSendBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendRequestSendResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/request/by-user/{user_id}": {
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Send Friend Request To User",
+        "description": "Send friend request directly to a target user id.",
+        "operationId": "send_friend_request_to_user_api_v1_friends_request_by_user__user_id__post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendRequestSendResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/circles": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "List Friend Circles",
+        "description": "List owner-scoped friend circles for segmentation and filtering.",
+        "operationId": "list_friend_circles_api_v1_friends_circles_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FriendCircleItem"
+                  },
+                  "type": "array",
+                  "title": "Response List Friend Circles Api V1 Friends Circles Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Create Friend Circle",
+        "description": "Create a new owner-scoped friend circle.",
+        "operationId": "create_friend_circle_api_v1_friends_circles_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendCircleCreateBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendCircleItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/circles/{circle_id}": {
+      "patch": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Update Friend Circle",
+        "description": "Update an owner-scoped friend circle label, order, or visual metadata.",
+        "operationId": "update_friend_circle_api_v1_friends_circles__circle_id__patch",
+        "parameters": [
+          {
+            "name": "circle_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Circle Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendCircleUpdateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendCircleItem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Delete Friend Circle",
+        "description": "Delete an owner-scoped friend circle and its memberships.",
+        "operationId": "delete_friend_circle_api_v1_friends_circles__circle_id__delete",
+        "parameters": [
+          {
+            "name": "circle_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Circle Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Delete Friend Circle Api V1 Friends Circles  Circle Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/{user_id}/profile": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Get Friend Profile",
+        "description": "Return detailed friend profile for the current user.",
+        "operationId": "get_friend_profile_api_v1_friends__user_id__profile_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/{user_id}/relationship": {
+      "patch": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Update Friend Relationship",
+        "description": "Update private relationship metadata like favorite flag and private note.",
+        "operationId": "update_friend_relationship_api_v1_friends__user_id__relationship_patch",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendRelationshipUpdateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendProfileResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/requests": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "List Incoming Requests",
+        "description": "List incoming pending friend requests.",
+        "operationId": "list_incoming_requests_api_v1_friends_requests_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/IncomingRequestItem"
+                  },
+                  "type": "array",
+                  "title": "Response List Incoming Requests Api V1 Friends Requests Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/requests/sent": {
+      "get": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "List Sent Requests",
+        "description": "List outgoing pending friend requests.",
+        "operationId": "list_sent_requests_api_v1_friends_requests_sent_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SentRequestItem"
+                  },
+                  "type": "array",
+                  "title": "Response List Sent Requests Api V1 Friends Requests Sent Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/requests/{request_id}/accept": {
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Accept Request",
+        "description": "Accept an incoming friend request.",
+        "operationId": "accept_request_api_v1_friends_requests__request_id__accept_post",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Accept Request Api V1 Friends Requests  Request Id  Accept Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/requests/{request_id}/reject": {
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Reject Request",
+        "description": "Reject an incoming friend request.",
+        "operationId": "reject_request_api_v1_friends_requests__request_id__reject_post",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Reject Request Api V1 Friends Requests  Request Id  Reject Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/requests/{request_id}/cancel": {
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Cancel Request",
+        "description": "Cancel an outgoing (sent) friend request.",
+        "operationId": "cancel_request_api_v1_friends_requests__request_id__cancel_post",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Cancel Request Api V1 Friends Requests  Request Id  Cancel Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/{user_id}": {
+      "delete": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Remove Friend",
+        "description": "Remove friend (mutual removal from friendships).",
+        "operationId": "remove_friend_api_v1_friends__user_id__delete",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Remove Friend Api V1 Friends  User Id  Delete"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/friends/{user_id}/report": {
+      "post": {
+        "tags": [
+          "Friends",
+          "Friends"
+        ],
+        "summary": "Report Friend User",
+        "description": "Submit a moderation report for a user from Social Hub.",
+        "operationId": "report_friend_user_api_v1_friends__user_id__report_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FriendReportBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FriendReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SocialReportAdminListOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SocialReportAdminItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "SocialReportAdminListOut"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "SocialReportAdminItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "reporter_user_id": {
+            "type": "string",
+            "title": "Reporter User Id"
+          },
+          "reported_user_id": {
+            "type": "string",
+            "title": "Reported User Id"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "details": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Details"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "reviewed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewed At"
+          },
+          "reviewer_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer User Id"
+          },
+          "reporter_username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporter Username"
+          },
+          "reporter_display_name": {
+            "type": "string",
+            "title": "Reporter Display Name"
+          },
+          "reported_username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported Username"
+          },
+          "reported_display_name": {
+            "type": "string",
+            "title": "Reported Display Name"
+          },
+          "reviewer_username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reviewer Username"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "reporter_user_id",
+          "reported_user_id",
+          "reason",
+          "status",
+          "reporter_display_name",
+          "reported_display_name"
+        ],
+        "title": "SocialReportAdminItem"
+      },
+      "SocialReportAdminPatchBody": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 1,
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "SocialReportAdminPatchBody"
+      },
+      "FriendUser": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite",
+            "default": false
+          },
+          "is_muted": {
+            "type": "boolean",
+            "title": "Is Muted",
+            "default": false
+          },
+          "is_blocked": {
+            "type": "boolean",
+            "title": "Is Blocked",
+            "default": false
+          },
+          "share_activity_with_friend": {
+            "type": "boolean",
+            "title": "Share Activity With Friend",
+            "default": true
+          },
+          "activity_visible_to_current_user": {
+            "type": "boolean",
+            "title": "Activity Visible To Current User",
+            "default": true
+          },
+          "last_activity_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Activity At"
+          },
+          "last_interaction_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Interaction At"
+          },
+          "circles": {
+            "items": {
+              "$ref": "#/components/schemas/FriendCircleItem"
+            },
+            "type": "array",
+            "title": "Circles",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username",
+          "avatar_url",
+          "full_name"
+        ],
+        "title": "FriendUser"
+      },
+      "FriendsOverviewResponse": {
+        "properties": {
+          "friends": {
+            "items": {
+              "$ref": "#/components/schemas/FriendUser"
+            },
+            "type": "array",
+            "title": "Friends"
+          },
+          "incoming_requests": {
+            "items": {
+              "$ref": "#/components/schemas/IncomingRequestItem"
+            },
+            "type": "array",
+            "title": "Incoming Requests"
+          },
+          "sent_requests": {
+            "items": {
+              "$ref": "#/components/schemas/SentRequestItem"
+            },
+            "type": "array",
+            "title": "Sent Requests"
+          },
+          "circles": {
+            "items": {
+              "$ref": "#/components/schemas/FriendCircleItem"
+            },
+            "type": "array",
+            "title": "Circles",
+            "default": []
+          },
+          "stats": {
+            "$ref": "#/components/schemas/FriendsOverviewStats"
+          }
+        },
+        "type": "object",
+        "required": [
+          "friends",
+          "incoming_requests",
+          "sent_requests",
+          "stats"
+        ],
+        "title": "FriendsOverviewResponse"
+      },
+      "FriendSearchCandidate": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          },
+          "relationship_status": {
+            "type": "string",
+            "title": "Relationship Status"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          },
+          "is_muted": {
+            "type": "boolean",
+            "title": "Is Muted",
+            "default": false
+          },
+          "is_blocked": {
+            "type": "boolean",
+            "title": "Is Blocked",
+            "default": false
+          },
+          "share_activity_with_friend": {
+            "type": "boolean",
+            "title": "Share Activity With Friend",
+            "default": true
+          },
+          "activity_visible_to_current_user": {
+            "type": "boolean",
+            "title": "Activity Visible To Current User",
+            "default": true
+          },
+          "last_activity_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Activity At"
+          },
+          "last_interaction_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Interaction At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username",
+          "avatar_url",
+          "full_name",
+          "relationship_status"
+        ],
+        "title": "FriendSearchCandidate"
+      },
+      "FriendsReferralInviteResponse": {
+        "properties": {
+          "referral_code": {
+            "type": "string",
+            "title": "Referral Code"
+          },
+          "invite_url": {
+            "type": "string",
+            "title": "Invite Url"
+          },
+          "inviter_display_name": {
+            "type": "string",
+            "title": "Inviter Display Name"
+          },
+          "share_message": {
+            "type": "string",
+            "title": "Share Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "referral_code",
+          "invite_url",
+          "inviter_display_name",
+          "share_message"
+        ],
+        "title": "FriendsReferralInviteResponse"
+      },
+      "FriendsReferralPreviewResponse": {
+        "properties": {
+          "valid": {
+            "type": "boolean",
+            "title": "Valid",
+            "default": true
+          },
+          "referral_code": {
+            "type": "string",
+            "title": "Referral Code"
+          },
+          "inviter_display_name": {
+            "type": "string",
+            "title": "Inviter Display Name"
+          },
+          "invite_url": {
+            "type": "string",
+            "title": "Invite Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "referral_code",
+          "inviter_display_name",
+          "invite_url"
+        ],
+        "title": "FriendsReferralPreviewResponse"
+      },
+      "FriendRequestSendBody": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Username",
+            "description": "Username to send request to"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username"
+        ],
+        "title": "FriendRequestSendBody"
+      },
+      "FriendRequestSendResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "pending"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "FriendRequestSendResponse"
+      },
+      "FriendCircleItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "members_count": {
+            "type": "integer",
+            "title": "Members Count",
+            "default": 0
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order",
+            "default": 0
+          },
+          "color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color"
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Icon"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "FriendCircleItem"
+      },
+      "FriendCircleCreateBody": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "FriendCircleCreateBody"
+      },
+      "FriendCircleUpdateBody": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "sort_order": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sort Order"
+          },
+          "color": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Color"
+          },
+          "icon": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Icon"
+          }
+        },
+        "type": "object",
+        "title": "FriendCircleUpdateBody"
+      },
+      "FriendProfileResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          },
+          "is_favorite": {
+            "type": "boolean",
+            "title": "Is Favorite",
+            "default": false
+          },
+          "is_muted": {
+            "type": "boolean",
+            "title": "Is Muted",
+            "default": false
+          },
+          "is_blocked": {
+            "type": "boolean",
+            "title": "Is Blocked",
+            "default": false
+          },
+          "share_activity_with_friend": {
+            "type": "boolean",
+            "title": "Share Activity With Friend",
+            "default": true
+          },
+          "activity_visible_to_current_user": {
+            "type": "boolean",
+            "title": "Activity Visible To Current User",
+            "default": true
+          },
+          "last_activity_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Activity At"
+          },
+          "last_interaction_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Interaction At"
+          },
+          "circles": {
+            "items": {
+              "$ref": "#/components/schemas/FriendCircleItem"
+            },
+            "type": "array",
+            "title": "Circles",
+            "default": []
+          },
+          "private_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Private Note"
+          },
+          "note_updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note Updated At"
+          },
+          "friendship_created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Friendship Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username",
+          "avatar_url",
+          "full_name"
+        ],
+        "title": "FriendProfileResponse"
+      },
+      "FriendRelationshipUpdateBody": {
+        "properties": {
+          "is_favorite": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Favorite"
+          },
+          "is_muted": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Muted"
+          },
+          "is_blocked": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Blocked"
+          },
+          "share_activity_with_friend": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Share Activity With Friend"
+          },
+          "circle_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Circle Ids"
+          },
+          "private_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Private Note"
+          }
+        },
+        "type": "object",
+        "title": "FriendRelationshipUpdateBody"
+      },
+      "IncomingRequestItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "from_user_id": {
+            "type": "string",
+            "title": "From User Id"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "from_user_id",
+          "created_at",
+          "username",
+          "avatar_url",
+          "full_name"
+        ],
+        "title": "IncomingRequestItem"
+      },
+      "SentRequestItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "to_user_id": {
+            "type": "string",
+            "title": "To User Id"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "to_user_id",
+          "created_at",
+          "username",
+          "avatar_url",
+          "full_name"
+        ],
+        "title": "SentRequestItem"
+      },
+      "FriendReportBody": {
+        "properties": {
+          "reason": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "details": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reason"
+        ],
+        "title": "FriendReportBody"
+      },
+      "FriendReportResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "FriendReportResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "FriendsOverviewStats": {
+        "properties": {
+          "friends_count": {
+            "type": "integer",
+            "title": "Friends Count"
+          },
+          "incoming_requests_count": {
+            "type": "integer",
+            "title": "Incoming Requests Count"
+          },
+          "sent_requests_count": {
+            "type": "integer",
+            "title": "Sent Requests Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "friends_count",
+          "incoming_requests_count",
+          "sent_requests_count"
+        ],
+        "title": "FriendsOverviewStats"
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/install.profile.schema.json",
+  "title": "EliteEW Install Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "edition",
+    "mode",
+    "access_mode",
+    "seat_activation_required"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "edition": {
+      "type": "string",
+      "enum": [
+        "cloud",
+        "onprem",
+        "client"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "edition_default",
+        "allowlist"
+      ],
+      "description": "edition_default: all manifests with edition_default[edition]=true; allowlist: only apps[] that also pass edition_default"
+    },
+    "access_mode": {
+      "type": "string",
+      "enum": [
+        "community",
+        "managed"
+      ],
+      "description": "community: the self-hosted runtime does not require a commercial entitlement; managed: access to an operator-managed service or delivery channel may require an entitlement"
+    },
+    "seat_activation_required": {
+      "type": "boolean",
+      "description": "Whether this delivery profile requires a native signed seat activation. Must be false for access_mode=community"
+    },
+    "include_legacy": {
+      "type": "boolean",
+      "default": false,
+      "description": "When true, union legacy app_components (cloud transition only)"
+    },
+    "apps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "uniqueItems": true,
+      "description": "Manifest ids (not app_component). Required non-empty when mode=allowlist"
+    },
+    "extra_app_components": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true,
+      "default": [],
+      "description": "Optional desktop app_component ids (legacy or non-manifest) unioned after allowlist/edition_default resolve. Must be known in legacy registry or a manifest surface. Used by fofline-connected selective surface."
+    }
+  }
+}

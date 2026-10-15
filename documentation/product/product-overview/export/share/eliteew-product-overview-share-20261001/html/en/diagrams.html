@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="dark" />
+  <title>EliteEW — diagrams D01–D12</title>
+  <link rel="stylesheet" href="../assets/export.css" />
+</head>
+<body class="page-diagrams">
+  <div class="read-progress" aria-hidden="true"><div class="read-progress-bar" data-progress></div></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="site-top">
+    <div class="site-top-inner">
+      <a class="brand-row" href="index.html">
+        <img class="logo" src="../assets/brand/emperyworld-logo.webp" alt="" width="34" height="34" />
+        <div>
+          <span class="brand-name">EliteEW</span>
+          <span class="brand-sub">HTML primary · not an operations runbook</span>
+        </div>
+      </a>
+      <div class="nav-wrap">
+        <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Menu">☰</button>
+        <nav class="nav" aria-label="Export sections">
+          <a href="index.html">Start</a>
+          <a href="onepagers.html">Brief</a>
+          <a href="book.html">Full text</a>
+          <a href="diagrams.html" class="active">Diagrams</a>
+          <a class="nav-cta" href="book.html#01-what-is-eliteew">Begin →</a>
+          <a class="lang-switch" href="../ru/diagrams.html" hreflang="ru" lang="ru" data-lang-switch>Русский</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <header class="cover is-compact">
+    <div class="cover-copy">
+      <p class="eyebrow">Empery World · product overview</p>
+      <h1>EliteEW</h1>
+      <p class="promise">Work layer ∩ secure perimeter</p>
+    </div>
+    <a class="nav-cta" href="index.html">← Cover</a>
+  </header>
+
+  <main class="wrap">
+<p class="meta reveal">Diagrams D01–D12 · Mermaid in the browser · sources in <code>../assets/diagrams-md/</code>.</p>
+<div class="reveal"><figure class="diagram" id="D01-hybrid-formula">
+<figcaption><strong>D01 — Hybrid formula (P1)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  subgraph Host[&quot;Host device&quot;]
+    OS[&quot;Desktop / server OS / VR browser&quot;]
+  end
+  subgraph Elite[&quot;EliteEW work layer&quot;]
+    Desk[&quot;Desk + apps + files&quot;]
+    Sec[&quot;Perimeter + roles + access&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph Host[&quot;Host device&quot;]
+    OS[&quot;Desktop / server OS / VR browser&quot;]
+  end
+  subgraph Elite[&quot;EliteEW work layer&quot;]
+    Desk[&quot;Desk + apps + files&quot;]
+    Sec[&quot;Perimeter + roles + access&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D02-threat-classes">
+<figcaption><strong>D02 — Threat classes → responses (P2)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Threats[&quot;Threat classes&quot;]
+    T1[&quot;Shadow IT / personal messenger&quot;]
+    T2[&quot;Personal clouds&quot;]
+    T3[&quot;Copy-paste / external AI&quot;]
+    T4[&quot;BYOD without separation&quot;]
+    T5[&quot;Analog: screen photo&quot;]
+  end
+  subgraph Answers[&quot;EliteEW responses&quot;]
+    A1[&quot;Work layer + internal chat&quot;]
+    A2[&quot;Managed files&quot;]
+    A3[&quot;AI in project contour&quot;]
+    A4[&quot;Browser / APK without admin agent&quot;]
+    A5[&quot;Minimization · not 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;not absolute&quot;| A5</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Threats[&quot;Threat classes&quot;]
+    T1[&quot;Shadow IT / personal messenger&quot;]
+    T2[&quot;Personal clouds&quot;]
+    T3[&quot;Copy-paste / external AI&quot;]
+    T4[&quot;BYOD without separation&quot;]
+    T5[&quot;Analog: screen photo&quot;]
+  end
+  subgraph Answers[&quot;EliteEW responses&quot;]
+    A1[&quot;Work layer + internal chat&quot;]
+    A2[&quot;Managed files&quot;]
+    A3[&quot;AI in project contour&quot;]
+    A4[&quot;Browser / APK without admin agent&quot;]
+    A5[&quot;Minimization · not 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;not absolute&quot;| A5</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D03-npa-split">
+<figcaption><strong>D03 — Norms: EliteEW contributes / stays with org (P3)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  subgraph NPA[&quot;Regulatory orientations&quot;]
+    N1[&quot;Information protection&quot;]
+    N2[&quot;Cross-border data&quot;]
+    N3[&quot;AI use&quot;]
+    N4[&quot;Personal data&quot;]
+  end
+  subgraph EE[&quot;EliteEW contributes&quot;]
+    E1[&quot;Perimeter · roles · access&quot;]
+    E2[&quot;Edition data contour&quot;]
+    E3[&quot;AI in contour&quot;]
+  end
+  subgraph Cust[&quot;Stays with the organization&quot;]
+    C1[&quot;Certification · protective tools&quot;]
+    C2[&quot;Legal bases · policies&quot;]
+    C3[&quot;Data controller&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph NPA[&quot;Regulatory orientations&quot;]
+    N1[&quot;Information protection&quot;]
+    N2[&quot;Cross-border data&quot;]
+    N3[&quot;AI use&quot;]
+    N4[&quot;Personal data&quot;]
+  end
+  subgraph EE[&quot;EliteEW contributes&quot;]
+    E1[&quot;Perimeter · roles · access&quot;]
+    E2[&quot;Edition data contour&quot;]
+    E3[&quot;AI in contour&quot;]
+  end
+  subgraph Cust[&quot;Stays with the organization&quot;]
+    C1[&quot;Certification · protective tools&quot;]
+    C2[&quot;Legal bases · policies&quot;]
+    C3[&quot;Data controller&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D04-employee-day">
+<figcaption><strong>D04 — Employee day (P3a)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  S1[&quot;Sign-in&quot;] --&gt; S2[&quot;Desk + apps&quot;]
+  S2 --&gt; S3[&quot;Files / documents&quot;]
+  S3 --&gt; S4[&quot;GAF comms / calls&quot;]
+  S4 --&gt; S5[&quot;Project / marketing&quot;]
+  S5 --&gt; S6[&quot;AI in contour&quot;]
+  S6 --&gt; S7[&quot;Mobile satellite&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  S1[&quot;Sign-in&quot;] --&gt; S2[&quot;Desk + apps&quot;]
+  S2 --&gt; S3[&quot;Files / documents&quot;]
+  S3 --&gt; S4[&quot;GAF comms / calls&quot;]
+  S4 --&gt; S5[&quot;Project / marketing&quot;]
+  S5 --&gt; S6[&quot;AI in contour&quot;]
+  S6 --&gt; S7[&quot;Mobile satellite&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D05-files-two-planes">
+<figcaption><strong>D05 — Files: two planes (P4a)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  UI[&quot;File manager&quot;]
+  PG[&quot;PostgreSQL\nmetadata · ACL · versions · project&quot;]
+  OBJ[&quot;Object store S3-class\nfile bytes\nSeaweedFS in Empery contour&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  UI[&quot;File manager&quot;]
+  PG[&quot;PostgreSQL\nmetadata · ACL · versions · project&quot;]
+  OBJ[&quot;Object store S3-class\nfile bytes\nSeaweedFS in Empery contour&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D06-edge-wall">
+<figcaption><strong>D06 — Edge: wall and one click (P7d)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  Scan[&quot;Scanner / foreign internet&quot;] --&gt;|extra entries closed| Wall[&quot;Blind wall&quot;]
+  Trust[&quot;Trusted\nissued key / seat&quot;] --&gt;|1 action| Chan[&quot;Protected channel&quot;]
+  Chan --&gt; Work[&quot;EliteEW work contour&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  Scan[&quot;Scanner / foreign internet&quot;] --&gt;|extra entries closed| Wall[&quot;Blind wall&quot;]
+  Trust[&quot;Trusted\nissued key / seat&quot;] --&gt;|1 action| Chan[&quot;Protected channel&quot;]
+  Chan --&gt; Work[&quot;EliteEW work contour&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D07-atomic-access">
+<figcaption><strong>D07 — Atomic conditional access (P8a)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  I[&quot;Identity&quot;] --&gt; AND{&quot;All true?&quot;}
+  L[&quot;Entitlement active&quot;] --&gt; AND
+  C[&quot;Channel allowed&quot;] --&gt; AND
+  D[&quot;Device / key&quot;] --&gt; AND
+  B[&quot;Account binding&quot;] --&gt; AND
+  AND --&gt;|yes| OK[&quot;Product access&quot;]
+  AND --&gt;|no| DENY[&quot;Deny · no detailed oracle&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  I[&quot;Identity&quot;] --&gt; AND{&quot;All true?&quot;}
+  L[&quot;Entitlement active&quot;] --&gt; AND
+  C[&quot;Channel allowed&quot;] --&gt; AND
+  D[&quot;Device / key&quot;] --&gt; AND
+  B[&quot;Account binding&quot;] --&gt; AND
+  AND --&gt;|yes| OK[&quot;Product access&quot;]
+  AND --&gt;|no| DENY[&quot;Deny · no detailed oracle&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D08-editions">
+<figcaption><strong>D08 — Editions (P10)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph One[&quot;One EliteEW product&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · organization contour&quot;]
+    Client[&quot;Client · device&quot;]
+  end
+  FoF[&quot;FoFline · local pack + channel\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph One[&quot;One EliteEW product&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · organization contour&quot;]
+    Client[&quot;Client · device&quot;]
+  end
+  FoF[&quot;FoFline · local pack + channel\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D09-tco-columns">
+<figcaption><strong>D09 — Cost structure: three columns (P3d)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Win[&quot;Typical desktop contour&quot;]
+    W1[&quot;OS + agents + external services&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Build + support payroll&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Contour + host as-is&quot;]
+  end
+  Note[&quot;Self-host costs · not gift valuation · orientation&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Win[&quot;Typical desktop contour&quot;]
+    W1[&quot;OS + agents + external services&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Build + support payroll&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Contour + host as-is&quot;]
+  end
+  Note[&quot;Self-host costs · not gift valuation · orientation&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D10-reading-paths">
+<figcaption><strong>D10 — Reading paths (P0)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  P0[&quot;P0 Contents&quot;]
+  P0 --&gt; ORG[&quot;Organization / adoption&quot;]
+  P0 --&gt; CISO[&quot;Security / perimeter&quot;]
+  P0 --&gt; IND[&quot;Industry / employee day&quot;]
+  P0 --&gt; SI[&quot;Migration / integrator&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 threats&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  P0[&quot;P0 Contents&quot;]
+  P0 --&gt; ORG[&quot;Organization / adoption&quot;]
+  P0 --&gt; CISO[&quot;Security / perimeter&quot;]
+  P0 --&gt; IND[&quot;Industry / employee day&quot;]
+  P0 --&gt; SI[&quot;Migration / integrator&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 threats&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D11-gift-to-world">
+<figcaption><strong>D11 — Gift to the world: MIT and optional accompaniment (P3e)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  Gift[&quot;Gift to the world · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Run / study / modify&quot;]
+  Gift --&gt; Share[&quot;Share under MIT&quot;]
+  Gift --&gt; Net[&quot;Modified network service → source to its users&quot;]
+  Run --&gt; Org[&quot;Organization’s own contour&quot;]
+  Share --&gt; Org
+  Help[&quot;Optional accompaniment&quot;]
+  Help --&gt; Accept[&quot;Help with acceptance / SBOM&quot;]
+  Help --&gt; Ops[&quot;Help with operations&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart LR
+  Gift[&quot;Gift to the world · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Run / study / modify&quot;]
+  Gift --&gt; Share[&quot;Share under MIT&quot;]
+  Gift --&gt; Net[&quot;Modified network service → source to its users&quot;]
+  Run --&gt; Org[&quot;Organization’s own contour&quot;]
+  Share --&gt; Org
+  Help[&quot;Optional accompaniment&quot;]
+  Help --&gt; Accept[&quot;Help with acceptance / SBOM&quot;]
+  Help --&gt; Ops[&quot;Help with operations&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D12-transfer-handover">
+<figcaption><strong>D12 — Accept the gift locally (P3f)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Artifact check&quot;]
+  Check --&gt; Build[&quot;Build / staging&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Org-unit pilot&quot;]
+  Pilot --&gt; Scale[&quot;Scale with own service&quot;]
+  Help[&quot;Optional accompaniment&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre>
+<details class="diagram-source"><summary>Diagram source (text)</summary><pre class="diagram-fallback">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Artifact check&quot;]
+  Check --&gt; Build[&quot;Build / staging&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Org-unit pilot&quot;]
+  Pilot --&gt; Scale[&quot;Scale with own service&quot;]
+  Help[&quot;Optional accompaniment&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre></details>
+</figure>
+</div>
+    <footer class="export-foot">
+      Empery World / EliteEW · <strong>HTML is primary</strong> · PDF secondary · shared visual tokens · text: product overview only (not marketing landing) · not an operations runbook
+    </footer>
+  </main>
+  <button type="button" class="back-top" data-back-top aria-label="Top">↑</button>
+  <script src="../assets/export.js"></script>
+
+  <script src="../assets/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      securityLevel: "strict",
+      flowchart: { htmlLabels: false },
+      themeVariables: {
+        primaryColor: "#0e131c",
+        primaryTextColor: "#e8eef7",
+        primaryBorderColor: "#00f2ff55",
+        lineColor: "#2dd4bf99",
+        secondaryColor: "#121820",
+        tertiaryColor: "#0b0e14",
+        fontFamily: "Manrope, system-ui, sans-serif"
+      }
+    });
+  </script>
+
+</body>
+</html>

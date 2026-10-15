@@ -1,0 +1,349 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://eliteew.ru
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: keyframes and atmospheric layers for the EWA companion presence canvas — breathing sigil, aura glow,
+ *   thinking ripple, ambient backdrop. CSS variables (`--companion-*`) come from `companionMoodPalette.ts`.
+ * Invariants: every animation falls back to a static frame under `prefers-reduced-motion: reduce`; sigil breath avoids animating
+ *   **`filter`** (static glow + **`transform` only**) per desktop GPU guidance; pseudo-element backdrop drift is **static** (no keyframes).
+ *   When `EwaCompanionChatPanel` adds **`companion-presence-background`** (shell window not foreground), continuous animations pause.
+ *   When foreground but idle (**`companion-presence-at-rest`** — no pending stream/ops work), ambient sigil loops pause the same way.
+ * Related: src/features/ewa/companionPresence/CompanionSigil.tsx; src/features/ewa/EwaCompanionChatPanel.tsx;
+ *   documentation/product/desktop/DESKTOP-WINDOW-RUNTIME-PERFORMANCE.md
+ */
+
+@property --companion-work-intensity {
+	syntax: '<number>';
+	inherits: true;
+	initial-value: 0;
+}
+
+@keyframes companion-breath {
+	0%, 100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.04);
+	}
+}
+
+@keyframes companion-aura-pulse {
+	0%, 100% {
+		opacity: 0.55;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.85;
+		transform: scale(1.07);
+	}
+}
+
+@keyframes companion-thinking-wave {
+	0% {
+		stroke-dashoffset: 60;
+		opacity: 0.2;
+	}
+	50% {
+		stroke-dashoffset: 0;
+		opacity: 0.95;
+	}
+	100% {
+		stroke-dashoffset: -60;
+		opacity: 0.2;
+	}
+}
+
+.companion-presence-root {
+	position: relative;
+	overflow: hidden;
+	--companion-work-intensity: 0;
+	transition:
+		--companion-work-intensity 1.25s ease-in-out,
+		box-shadow 1.25s ease-in-out;
+}
+
+.companion-presence-root::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(60% 50% at 50% 25%, var(--companion-bg) 0%, transparent 70%),
+		radial-gradient(40% 30% at 50% 100%, var(--companion-glow) 0%, transparent 70%);
+	background-repeat: no-repeat;
+	background-size: 200% 200%;
+	pointer-events: none;
+	z-index: 0;
+	opacity: calc(0.55 + var(--companion-work-intensity) * 0.38);
+	transition: opacity 1.25s ease-in-out;
+}
+
+.companion-presence-root.companion-presence-work-active {
+	box-shadow:
+		inset 0 0 0 1px color-mix(
+			in srgb,
+			var(--companion-aura) calc(28% + var(--companion-work-intensity) * 52%),
+			transparent
+		),
+		inset 0 0 28px -8px color-mix(
+			in srgb,
+			var(--companion-glow) calc(var(--companion-work-intensity) * 65%),
+			transparent
+		);
+}
+
+.companion-presence-root.companion-presence-arlika.companion-presence-work-active {
+	box-shadow:
+		inset 0 0 0 1px color-mix(
+			in srgb,
+			var(--companion-aura) calc(40% + var(--companion-work-intensity) * 58%),
+			transparent
+		),
+		inset 0 0 36px -6px color-mix(
+			in srgb,
+			var(--companion-glow) calc(45% + var(--companion-work-intensity) * 45%),
+			transparent
+		);
+}
+
+.companion-presence-root.companion-presence-work-active::before {
+	opacity: calc(0.62 + var(--companion-work-intensity) * 0.38);
+}
+
+/* Stabilization: freeze ambient loops while agentic/operations chrome is active. */
+.companion-presence-root.companion-presence-work-active .companion-sigil,
+.companion-presence-root.companion-presence-work-active .companion-sigil-aura,
+.companion-presence-root.companion-presence-work-active .companion-sigil-thinking-ring,
+.companion-presence-root.companion-presence-work-active .companion-transcript-active,
+.companion-presence-root.companion-presence-work-active .companion-transcript-streaming,
+.companion-presence-root.companion-presence-work-active .companion-presence-acting,
+.companion-presence-root.companion-presence-work-active .companion-thinking-hint {
+	animation: none !important;
+}
+
+.companion-presence-root.companion-presence-work-active .companion-thinking-hint {
+	color: var(--companion-text-soft);
+	background: none;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+}
+
+.companion-presence-root > * {
+	position: relative;
+	z-index: 1;
+}
+
+.companion-sigil {
+	filter: drop-shadow(0 0 8px var(--companion-glow));
+	animation: companion-breath 4s ease-in-out infinite;
+	transform-origin: center center;
+}
+
+.companion-sigil-aura {
+	animation: companion-aura-pulse 5s ease-in-out infinite;
+	transform-origin: center center;
+}
+
+.companion-sigil-thinking-ring {
+	stroke: var(--companion-aura);
+	stroke-dasharray: 8 6;
+	animation: companion-thinking-wave 1.6s linear infinite;
+}
+
+@keyframes companion-ring-breathe {
+	0%, 100% {
+		stroke-opacity: 0.35;
+	}
+	50% {
+		stroke-opacity: 0.95;
+	}
+}
+
+@keyframes companion-aura-shimmer {
+	0% {
+		opacity: 0.55;
+	}
+	33% {
+		opacity: 0.72;
+	}
+	66% {
+		opacity: 0.62;
+	}
+	100% {
+		opacity: 0.55;
+	}
+}
+
+.companion-sigil-waiting .companion-sigil-thinking-ring {
+	animation:
+		companion-thinking-wave 2.8s ease-in-out infinite,
+		companion-ring-breathe 2.2s ease-in-out infinite;
+}
+
+.companion-sigil-waiting .companion-sigil-aura {
+	animation: companion-aura-shimmer 3.8s ease-in-out infinite;
+}
+
+.companion-sigil-streaming .companion-sigil {
+	animation: companion-breath 2s ease-in-out infinite;
+}
+
+.companion-sigil-streaming .companion-sigil-thinking-ring {
+	animation: companion-thinking-wave 0.95s linear infinite;
+}
+
+.companion-sigil-streaming .companion-sigil-aura {
+	animation: companion-aura-pulse 3s ease-in-out infinite;
+}
+
+.companion-sigil-quiet,
+.companion-sigil-quiet .companion-sigil-aura {
+	animation-duration: 9s;
+	opacity: 0.55;
+}
+
+@keyframes companion-transcript-glow {
+	0%, 100% {
+		box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--companion-divider) 85%, transparent);
+	}
+	50% {
+		box-shadow:
+			inset 0 0 0 1px color-mix(in srgb, var(--companion-aura) 45%, transparent),
+			inset 0 0 20px -6px color-mix(in srgb, var(--companion-glow) 35%, transparent);
+	}
+}
+
+@keyframes companion-transcript-busy {
+	0%, 100% {
+		border-color: color-mix(in srgb, var(--companion-divider) 90%, transparent);
+	}
+	50% {
+		border-color: color-mix(in srgb, var(--companion-aura) 55%, transparent);
+	}
+}
+
+.companion-transcript-active {
+	animation: companion-transcript-glow 2.4s ease-in-out infinite;
+}
+
+.companion-transcript-streaming {
+	animation: companion-transcript-glow 1.4s ease-in-out infinite;
+}
+
+/* Token streaming already stresses layout; skip infinite inset glow (see DESKTOP-WINDOW-RUNTIME-PERFORMANCE.md). */
+.companion-transcript-streaming-lowgpu {
+	animation: none !important;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--companion-aura) 38%, transparent);
+}
+
+.companion-presence-acting {
+	animation: companion-transcript-busy 2s ease-in-out infinite;
+	border-radius: 0.375rem;
+}
+
+@keyframes companion-run-pulse {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+	}
+	50% {
+		box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35);
+	}
+}
+
+/* Stabilization: static active ring — no infinite box-shadow repaint (xrdp encoder budget). */
+.companion-run-live-pulse,
+.companion-activity-pulse {
+	animation: none !important;
+	box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--companion-aura) 38%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.companion-run-live-pulse,
+	.companion-activity-pulse {
+		animation: none !important;
+	}
+}
+
+@keyframes companion-thinking-hint-sheen {
+	0% {
+		background-position: 0% 50%;
+	}
+	100% {
+		background-position: 200% 50%;
+	}
+}
+
+.companion-thinking-hint {
+	background: linear-gradient(
+		110deg,
+		transparent 0%,
+		color-mix(in srgb, var(--companion-aura) 22%, transparent) 45%,
+		color-mix(in srgb, var(--companion-aura) 38%, transparent) 50%,
+		color-mix(in srgb, var(--companion-aura) 22%, transparent) 55%,
+		transparent 100%
+	);
+	background-size: 220% 100%;
+	animation: companion-thinking-hint-sheen 2.8s linear infinite;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+/* Shell not foreground, or foreground idle — freeze ambient sigil loops (desktop GPU budget). */
+.companion-presence-root.companion-presence-background .companion-sigil,
+.companion-presence-root.companion-presence-at-rest .companion-sigil,
+.companion-presence-root.companion-presence-background .companion-sigil-aura,
+.companion-presence-root.companion-presence-at-rest .companion-sigil-aura,
+.companion-presence-root.companion-presence-background .companion-sigil-thinking-ring,
+.companion-presence-root.companion-presence-at-rest .companion-sigil-thinking-ring {
+	animation: none !important;
+}
+
+.companion-presence-root.companion-presence-background::before,
+.companion-presence-root.companion-presence-at-rest::before {
+	opacity: 0.55;
+}
+
+.companion-presence-root.companion-presence-background .companion-transcript-active,
+.companion-presence-root.companion-presence-at-rest .companion-transcript-active,
+.companion-presence-root.companion-presence-background .companion-transcript-streaming,
+.companion-presence-root.companion-presence-at-rest .companion-transcript-streaming,
+.companion-presence-root.companion-presence-background .companion-presence-acting,
+.companion-presence-root.companion-presence-at-rest .companion-presence-acting,
+.companion-presence-root.companion-presence-background .companion-thinking-hint,
+.companion-presence-root.companion-presence-at-rest .companion-thinking-hint {
+	animation: none !important;
+}
+
+.companion-presence-root.companion-presence-background .companion-thinking-hint,
+.companion-presence-root.companion-presence-at-rest .companion-thinking-hint {
+	color: var(--companion-text-soft);
+	background: none;
+	-webkit-background-clip: border-box;
+	background-clip: border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.companion-sigil,
+	.companion-sigil-aura,
+	.companion-sigil-thinking-ring,
+	.companion-presence-root::before,
+	.companion-transcript-active,
+	.companion-transcript-streaming,
+	.companion-presence-acting,
+	.companion-thinking-hint {
+		animation: none !important;
+	}
+	.companion-thinking-hint {
+		color: var(--companion-text-soft);
+		background: none;
+		-webkit-background-clip: border-box;
+		background-clip: border-box;
+	}
+}
+
+.companion-bond-arc {
+	transition: stroke-dashoffset 800ms ease-out, stroke 600ms ease-out;
+}

@@ -1,0 +1,96 @@
+title = "EliteEW secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Container image tags are not API credentials"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(^|/)docker/env_file/\.env\.stack0\.backend(?:\.prod-baked)?\.example$''',
+  '''(^|/)docker/scripts/verify-prod-core-env-preserve-selftest\.sh$''',
+  '''(^|/)documentation/reference/fixed-errors/desktop-client/2026-09-17-air-enroll-api-ssh-thin-bake\.md$''',
+]
+regexes = ['''eliteew-api:[A-Za-z0-9][A-Za-z0-9._-]*''']
+
+[[allowlists]]
+description = "Compose service host and port are not database credentials"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(^|/)docker/stack/stack6\.yml$''',
+  '''(^|/)documentation/database/DATABASE_TABLES_REGISTRY\.md$''',
+]
+regexes = ['''stack6-keycloak-postgres:[0-9]+''']
+
+[[allowlists]]
+description = "RFC WebSocket sample nonce is public protocol data"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['''(^|/)docker/scripts/jitsi-meet-http-smoke\.sh$''']
+regexes = ['''Sec-WebSocket-Key:\s+dGhlIHNhbXBsZSBub25jZQ==''']
+
+[[allowlists]]
+description = "WireGuard show fixtures contain public keys only"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(^|/)docker/scripts/mobile-private-tunnel/tests/test-peer-parity-lib\.sh$''',
+  '''(^|/)docker/scripts/mobile-private-tunnel/tests/fixtures/wg-show-mixed\.txt$''',
+]
+regexes = ['''public key:\s+[A-Za-z0-9+/]{43}=''']
+
+[[allowlists]]
+description = "Stable preference and catalog identifiers are not credentials"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(^|/)shared/api/ewa_platform/companion/proactive/review_engine\.py$''',
+  '''(^|/)shared/api/ewa_platform/settings/catalog_entries\.py$''',
+  '''(^|/)shared/api/services/marketing_cabinet/amka_ensemble_mapping\.py$''',
+  '''(^|/)shared/web/frontend/src/pages/MarketingCabinet/dashboard-widgets/widgets/marketingCanvasPersistKey\.ts$''',
+  '''(^|/)shared/web/frontend/src/services/ewa/ewaCompanionProfileApi\.ts$''',
+  '''(^|/)pack-cloud/mobile/app/src/main/java/world/empery/mobile/trusteddevice/MobileTrustedDeviceKeyStore\.kt$''',
+]
+regexes = [
+  '''TURN_PLAN_KEY\s*=''',
+  '''key\s*=\s*"EWA_[A-Z0-9_]+"''',
+  '''section_key''',
+  '''marketingCanvasPersistKey\s*=''',
+  '''EWA_COMPANION_(?:PRESENCE|SOFT_INITIATIVE)_PREF_KEY''',
+  '''KEY_GAF_PRIVATE\s*=''',
+]
+
+[[allowlists]]
+description = "Deterministic contract-test identifiers are not credentials"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '''(^|/)pack-organization/connection-agent/src-tauri/src/air_enroll_code\.rs$''',
+  '''(^|/)shared/api/tests/test_desktop_client_auth_recovery\.py$''',
+  '''(^|/)shared/api/tests/test_marketing_amka_pulse\.py$''',
+  '''(^|/)shared/api/tests/test_idempotency_music_gen\.py$''',
+  '''(^|/)shared/api/tests/test_ewrp_router\.py$''',
+]
+regexes = [
+  '''assert_eq!\(parsed\.secret,''',
+  '''idempotency_key\s*=''',
+  '''"operation_key"\s*:''',
+  '''_IDEM_KEY\s*=''',
+  '''"Idempotency-Key"\s*:''',
+]
+
+[[allowlists]]
+description = "Operational proof documents contain labels, not secret values"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['''(^|/)documentation/reference/fixed-errors/marketing-cabinet/2026-09-13-embed-dim-and-marketing-31b-drift\.md$''']
+regexes = ['''API printenv:''']

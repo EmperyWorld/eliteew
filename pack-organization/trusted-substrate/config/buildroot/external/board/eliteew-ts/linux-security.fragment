@@ -1,0 +1,13 @@
+# Required by prelicense.nft rules using `ct state`.
+CONFIG_INET=y
+CONFIG_NETFILTER=y
+CONFIG_NF_CONNTRACK=y
+CONFIG_NF_TABLES=y
+CONFIG_NFT_CT=y
+# LUKS2 state slot (dm-crypt). Root stays plain ext4 this wave.
+CONFIG_MD=y
+CONFIG_BLK_DEV_DM=y
+CONFIG_DM_CRYPT=y
+CONFIG_CRYPTO_XTS=y
+CONFIG_CRYPTO_AES=y
+CONFIG_CRYPTO_SHA256=y

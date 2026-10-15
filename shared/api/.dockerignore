@@ -1,0 +1,18 @@
+# Local virtual environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+
+# Local runtime artifacts
+runtime/
+logs/
+tmp/

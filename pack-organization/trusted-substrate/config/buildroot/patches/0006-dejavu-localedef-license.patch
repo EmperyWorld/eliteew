@@ -1,0 +1,25 @@
+Upstream Buildroot 2025.02.1 leaves these license fields empty, so
+legal-info records "unknown". The strings match the shipped LICENSE
+text (DejaVu) and glibc.mk (localedef is the glibc host tool).
+
+--- a/package/dejavu/dejavu.mk
++++ b/package/dejavu/dejavu.mk
+@@ -7,6 +7,7 @@
+ DEJAVU_VERSION = 2.37
+ DEJAVU_SITE = https://sourceforge.net/projects/dejavu/files/dejavu/$(DEJAVU_VERSION)
+ DEJAVU_SOURCE = dejavu-fonts-ttf-$(DEJAVU_VERSION).tar.bz2
++DEJAVU_LICENSE = Bitstream Vera Fonts Copyright, Public Domain (DejaVu changes)
+ DEJAVU_LICENSE_FILES = LICENSE
+ 
+ DEJAVU_FONTS_INSTALL =
+--- a/package/localedef/localedef.mk
++++ b/package/localedef/localedef.mk
+@@ -11,6 +11,8 @@
+ LOCALEDEF_SOURCE = glibc-$(LOCALEDEF_VERSION).tar.gz
+ LOCALEDEF_SITE = $(call github,bminor,glibc,$(LOCALEDEF_VERSION))
+ HOST_LOCALEDEF_DL_SUBDIR = glibc
++HOST_LOCALEDEF_LICENSE = GPL-2.0+ (programs), LGPL-2.1+, BSD-3-Clause, MIT (library)
++HOST_LOCALEDEF_LICENSE_FILES = COPYING COPYING.LIB LICENSES
+ 
+ HOST_LOCALEDEF_DEPENDENCIES = \
+ 	$(BR2_MAKE_HOST_DEPENDENCY) \

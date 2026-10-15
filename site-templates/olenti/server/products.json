@@ -1,0 +1,80 @@
+{
+  "collectionDescriptions": {
+    "starter": "Базовые предложения для быстрого старта и первых продаж.",
+    "signature": "Флагманские позиции с акцентом на ценность и результат."
+  },
+  "products": [
+    {
+      "id": "starter-01",
+      "name": "Стартовый пакет",
+      "collection": "starter",
+      "volume": "1 услуга",
+      "price": 4900,
+      "description": "Базовое предложение для знакомства с форматом работы.",
+      "image": "/uploads/products/product-1.webp",
+      "images": [
+        "/uploads/products/product-1.webp"
+      ]
+    },
+    {
+      "id": "starter-02",
+      "name": "Комплект «Стандарт»",
+      "collection": "starter",
+      "volume": "2 услуги",
+      "price": 7900,
+      "description": "Расширенный набор для клиентов с большим объёмом задач.",
+      "image": "/uploads/products/product-2.webp",
+      "images": [
+        "/uploads/products/product-2.webp"
+      ]
+    },
+    {
+      "id": "signature-01",
+      "name": "Флагманское предложение",
+      "collection": "signature",
+      "volume": "премиум",
+      "price": 14900,
+      "description": "Ключевая позиция витрины с максимальной ценностью.",
+      "image": "/uploads/products/product-3.webp",
+      "images": [
+        "/uploads/products/product-3.webp"
+      ]
+    },
+    {
+      "id": "signature-02",
+      "name": "Пакет сопровождения",
+      "collection": "signature",
+      "volume": "месяц",
+      "price": 29900,
+      "description": "Долгий формат с регулярными итерациями.",
+      "image": "/uploads/products/product-4.webp",
+      "images": [
+        "/uploads/products/product-4.webp"
+      ]
+    },
+    {
+      "id": "signature-03",
+      "name": "Цифровой продукт",
+      "collection": "signature",
+      "volume": "доступ",
+      "price": 5900,
+      "description": "Материалы в цифровом формате.",
+      "image": "/uploads/products/product-5.webp",
+      "images": [
+        "/uploads/products/product-5.webp"
+      ]
+    },
+    {
+      "id": "starter-03",
+      "name": "Мини-курс",
+      "collection": "starter",
+      "volume": "3 занятия",
+      "price": 6900,
+      "description": "Короткая программа обучения.",
+      "image": "/uploads/products/product-6.webp",
+      "images": [
+        "/uploads/products/product-6.webp"
+      ]
+    }
+  ]
+}

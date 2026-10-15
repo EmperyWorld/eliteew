@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schema/amka/desktop_intent_v1.json",
+  "title": "AMKA desktop intent payload v1",
+  "description": "Draft: one intent at a time; discriminator field intent_kind.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["intent_kind"],
+  "properties": {
+    "intent_kind": {
+      "type": "string",
+      "enum": ["open_app", "focus_window", "close_window", "patch_shell_state", "patch_desktop_config", "navigate_deep_link"]
+    },
+    "app_component": { "type": ["string", "null"] },
+    "window_id": { "type": ["string", "null"] },
+    "deep_link_token": { "type": ["string", "null"] },
+    "payload": { "type": "object" },
+    "patch": { "type": "object" }
+  }
+}

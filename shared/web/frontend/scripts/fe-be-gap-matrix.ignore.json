@@ -1,0 +1,12 @@
+{
+	"$schema": "Optional ignore rules for fe-be-gap-matrix.mjs (inventory-side only, paths not in OpenAPI export).",
+	"excludePathPrefixes": ["/api/auth"],
+	"excludePathExact": ["/api/*", "/api/v1", "/api/v1/"],
+	"excludePathSuffixes": ["/"],
+	"excludeIfContains": [":id", "..."],
+	"excludeIfRegex": [
+		"^/api/v1/content/[a-zA-Z0-9-]+/download$",
+		"^/api/v1/content/123$",
+		"^/api/v1/content/x/download$"
+	]
+}

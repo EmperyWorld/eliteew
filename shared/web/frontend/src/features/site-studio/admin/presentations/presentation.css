@@ -1,0 +1,1482 @@
+/* ============================================
+   ПРЕЗЕНТАЦИЯ - ЧИСТЫЙ HTML/CSS/JS
+   ============================================ */
+
+/* Шрифты презентаций: @fontsource через src/styles/fontImports.ts (без Google CDN) */
+
+/* Полноэкранный контейнер */
+.presentation-viewer {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: #000 !important;
+  z-index: 99999 !important;
+  overflow: hidden !important;
+  font-family:
+    'Raleway',
+    'Poppins',
+    'Montserrat',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  visibility: visible !important;
+}
+
+/* Контейнер слайдов - A3 горизонтальный формат */
+.presentation-slides-container {
+  position: relative !important;
+  /* A3 горизонтальный: 420mm x 297mm = 1587px x 1123px при 96 DPI */
+  width: 1587px !important;
+  height: 1123px !important;
+  max-width: 95vw !important;
+  max-height: 95vh !important;
+  aspect-ratio: 420 / 297 !important;
+  display: block !important;
+  visibility: visible !important;
+  margin: auto !important;
+  box-shadow:
+    0 20px 100px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(212, 175, 122, 0.1) !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden !important;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+/* Обертка слайда - A3 формат */
+.slide-wrapper {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0;
+  transform: translateX(100%) scale(0.95);
+  transition:
+    opacity 1s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  visibility: hidden;
+  display: block !important;
+  will-change: transform, opacity !important;
+  backface-visibility: hidden !important;
+}
+
+.slide-wrapper.active {
+  opacity: 1 !important;
+  transform: translateX(0) scale(1) !important;
+  pointer-events: auto !important;
+  z-index: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.slide-wrapper.prev {
+  transform: translateX(-100%) scale(0.95);
+  opacity: 0.3;
+}
+
+.slide-wrapper.next {
+  transform: translateX(100%) scale(0.95);
+  opacity: 0.3;
+}
+
+/* Первый слайд должен быть виден сразу */
+.slide-wrapper.first-slide.active,
+.slide-wrapper:first-child.active {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.slide-wrapper.first-slide.active .presentation-slide-title,
+.slide-wrapper.first-slide.active .presentation-slide h2,
+.slide-wrapper.first-slide.active .slide-content,
+.slide-wrapper.first-slide.active .presentation-slide-image,
+.slide-wrapper:first-child.active .presentation-slide-title,
+.slide-wrapper:first-child.active .presentation-slide h2,
+.slide-wrapper:first-child.active .slide-content,
+.slide-wrapper:first-child.active .presentation-slide-image {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+/* Слайд - A3 формат с увеличенными отступами */
+.presentation-slide {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 6rem 8rem !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: visible !important;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+  isolation: isolate !important;
+  --slide-bg-color: #ffffff;
+  --slide-text-color: #000000;
+  --slide-bg-gradient: none;
+  background-color: var(--slide-bg-color) !important;
+  color: var(--slide-text-color) !important;
+  min-height: 100vh !important;
+}
+
+.presentation-slide.has-gradient {
+  background-color: transparent;
+  background-image: var(--slide-bg-gradient);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Фоновое изображение для full-image */
+.full-image-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.full-image-background + .presentation-slide-title {
+  position: relative;
+  z-index: 1;
+}
+
+/* Заголовок - A3 формат с премиальными шрифтами */
+.presentation-slide-title,
+.presentation-slide h2 {
+  color: var(--slide-title-color, var(--slide-text-color)) !important;
+  font-size: var(--slide-title-font-size, 5.5em) !important;
+  text-align: var(--slide-title-align, center) !important;
+  margin: 0 0 3rem 0 !important;
+  padding: 0 !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s ease-out 0.2s,
+    transform 0.8s ease-out 0.2s;
+  visibility: visible !important;
+  display: block !important;
+  font-family: 'Cormorant Garamond', 'Cinzel', 'Playfair Display', serif !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Для активного слайда показываем сразу */
+.slide-wrapper.active .presentation-slide-title:not(.animate-in),
+.slide-wrapper.active .presentation-slide h2:not(.animate-in) {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.presentation-slide-title.animate-in,
+.presentation-slide h2.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Если слайд активен, показываем элементы сразу */
+.slide-wrapper.active .presentation-slide-title,
+.slide-wrapper.active .presentation-slide h2 {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Контент - A3 формат с увеличенными размерами */
+.slide-content {
+  line-height: var(--slide-line-height, 2) !important;
+  font-size: var(--slide-content-font-size, 2.2em) !important;
+  color: var(--slide-content-color, var(--slide-text-color)) !important;
+  text-align: var(--slide-text-align, center) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 90% !important;
+  position: relative !important;
+  z-index: 1 !important;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s ease-out 0.4s,
+    transform 0.8s ease-out 0.4s;
+  visibility: visible !important;
+  display: block !important;
+  font-family: 'Raleway', 'Poppins', 'Montserrat', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Для активного слайда показываем сразу */
+.slide-wrapper.active .slide-content:not(.animate-in) {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.slide-content.animate-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Если слайд активен, показываем элементы сразу */
+.slide-wrapper.active .slide-content {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+
+/* Изображения */
+.presentation-slide-image {
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  margin: 2rem 0 !important;
+  position: relative !important;
+  z-index: 1 !important;
+  opacity: 0;
+  transform: scale(0.95) translateY(30px);
+  transition:
+    opacity 0.8s ease-out 0.6s,
+    transform 0.8s ease-out 0.6s;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Для активного слайда показываем изображения сразу */
+.slide-wrapper.active .presentation-slide-image:not(.animate-in) {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+.presentation-slide-image.animate-in {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+}
+
+/* Если слайд активен, показываем изображения сразу */
+.slide-wrapper.active .presentation-slide-image {
+  opacity: 1 !important;
+  transform: scale(1) translateY(0) !important;
+  visibility: visible !important;
+  display: block !important;
+}
+
+.presentation-slide-image.image-small {
+  max-height: 300px;
+}
+
+.presentation-slide-image.image-medium {
+  max-height: 500px;
+}
+
+.presentation-slide-image.image-large {
+  max-height: 70vh;
+}
+
+.presentation-slide-image.image-full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Навигация */
+.presentation-nav {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.nav-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 2.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.nav-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.nav-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.nav-info {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.5rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+  pointer-events: auto;
+}
+
+/* Индикаторы */
+.presentation-indicators {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 100;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.2);
+}
+
+.indicator.active {
+  background: #d4af7a;
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* ============================================
+   СТИЛИ ОЛЛЕНТИ
+   ============================================ */
+
+.presentation-slide.format-ollenti {
+  position: relative;
+  overflow: hidden;
+}
+
+.presentation-slide.format-ollenti::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 30% 20%, rgba(212, 175, 122, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.presentation-slide.format-ollenti .presentation-slide-title,
+.presentation-slide.format-ollenti h2 {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.02em;
+}
+
+.presentation-slide.format-ollenti .slide-content {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.presentation-slide.format-ollenti img {
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.02) contrast(1.05);
+}
+
+.presentation-slide.format-ollenti[style*='#1a1612'] .presentation-slide-title,
+.presentation-slide.format-ollenti[style*='#1a1612'] h2,
+.presentation-slide.format-ollenti[style*='#1a1612'] .slide-content {
+  text-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(212, 175, 122, 0.1);
+}
+
+/* ============================================
+   СТИЛИ ОЛЛЕНТИ2 - ПРЕМИУМ
+   ============================================ */
+
+.presentation-slide.format-ollenti2 {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 122, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(173, 139, 86, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 122, 0.02) 0%, transparent 70%);
+  background-size:
+    200% 200%,
+    150% 150%,
+    300% 300%;
+  animation: particleMove 25s ease-in-out infinite;
+}
+
+@keyframes particleMove {
+  0%,
+  100% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      50% 50%;
+  }
+  50% {
+    background-position:
+      100% 100%,
+      0% 0%,
+      25% 75%;
+  }
+}
+
+.presentation-slide.format-ollenti2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at 30% 20%,
+    rgba(212, 175, 122, 0.12) 0%,
+    rgba(173, 139, 86, 0.06) 30%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 0;
+  animation: subtleGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes subtleGlow {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.presentation-slide.format-ollenti2::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 100%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212, 175, 122, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: rotateGlow 20s linear infinite;
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.presentation-slide.format-ollenti2 .presentation-slide-title,
+.presentation-slide.format-ollenti2 h2 {
+  text-shadow:
+    0 3px 20px rgba(0, 0, 0, 0.2),
+    0 0 40px rgba(212, 175, 122, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d4af7a 0%, #ad8b56 50%, #d4af7a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.presentation-slide.format-ollenti2[style*='#1a1612'] .presentation-slide-title,
+.presentation-slide.format-ollenti2[style*='#1a1612'] h2 {
+  background: linear-gradient(135deg, #d4af7a 0%, #f5e6d3 50%, #d4af7a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow:
+    0 3px 24px rgba(0, 0, 0, 0.4),
+    0 0 48px rgba(212, 175, 122, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.presentation-slide.format-ollenti2 .slide-content {
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.12),
+    0 0 24px rgba(212, 175, 122, 0.08);
+  letter-spacing: 0.01em;
+}
+
+.presentation-slide.format-ollenti2[style*='#1a1612'] .slide-content {
+  text-shadow:
+    0 2px 20px rgba(0, 0, 0, 0.4),
+    0 0 32px rgba(212, 175, 122, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.presentation-slide.format-ollenti2 img {
+  border-radius: 1rem;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.2),
+    0 0 80px rgba(212, 175, 122, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(212, 175, 122, 0.15);
+  filter: brightness(1.03) contrast(1.06) saturate(1.05)
+    drop-shadow(0 10px 30px rgba(212, 175, 122, 0.2)) drop-shadow(0 0 20px rgba(173, 139, 86, 0.1));
+  border: 1px solid rgba(212, 175, 122, 0.2);
+  transition:
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.6s ease,
+    filter 0.6s ease;
+  will-change: transform !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+.presentation-slide.format-ollenti2 img:hover {
+  transform: scale(1.03) translateY(-4px) translateZ(0);
+  box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.35),
+    0 0 150px rgba(212, 175, 122, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 2px rgba(212, 175, 122, 0.25);
+  filter: brightness(1.08) contrast(1.12) saturate(1.12)
+    drop-shadow(0 20px 50px rgba(212, 175, 122, 0.35)) drop-shadow(0 0 40px rgba(173, 139, 86, 0.2));
+}
+
+.presentation-slide.format-ollenti2[style*='#1a1612']::before {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(212, 175, 122, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(173, 139, 86, 0.1) 0%, transparent 50%);
+  animation: darkGlow 10s ease-in-out infinite alternate;
+}
+
+@keyframes darkGlow {
+  0% {
+    opacity: 0.7;
+    filter: blur(20px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(30px);
+  }
+}
+
+/* Дополнительные премиум эффекты для Олленти2 */
+.presentation-slide.format-ollenti2 {
+  position: relative;
+}
+
+/* Плавающие декоративные элементы */
+.presentation-slide.format-ollenti2::before {
+  animation:
+    subtleGlow 8s ease-in-out infinite alternate,
+    floatAnimation 15s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+/* Пульсирующее свечение для заголовков */
+.presentation-slide.format-ollenti2 .presentation-slide-title,
+.presentation-slide.format-ollenti2 h2 {
+  position: relative;
+  animation:
+    shimmer 3s linear infinite,
+    pulseGlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(212, 175, 122, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px rgba(212, 175, 122, 0.6));
+  }
+}
+
+/* Интерактивные эффекты для контента */
+.presentation-slide.format-ollenti2 .slide-content {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.presentation-slide.format-ollenti2:hover .slide-content {
+  transform: translateY(-3px);
+  text-shadow:
+    0 3px 16px rgba(0, 0, 0, 0.15),
+    0 0 32px rgba(212, 175, 122, 0.12) !important;
+}
+
+/* Улучшенные эффекты для изображений */
+.presentation-slide.format-ollenti2 img {
+  position: relative;
+  animation: imageFloat 6s ease-in-out infinite;
+}
+
+@keyframes imageFloat {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.01);
+  }
+}
+
+.presentation-slide.format-ollenti2 img:hover {
+  animation: none;
+  transform: scale(1.03) translateY(-5px) !important;
+}
+
+/* Декоративные линии для текста */
+.presentation-slide.format-ollenti2 .slide-content::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, transparent, #d4af7a, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.presentation-slide.format-ollenti2:hover .slide-content::before {
+  opacity: 0.5;
+}
+
+/* Градиентные акценты для списков */
+.presentation-slide.format-ollenti2 .slide-content {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(212, 175, 122, 0.02) 50%,
+    transparent 100%
+  );
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Улучшенные переходы между слайдами */
+.slide-wrapper.active .presentation-slide.format-ollenti2 {
+  animation: slideInPremium 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInPremium {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(30px) translateZ(0);
+    filter: blur(8px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(0.99) translateY(10px) translateZ(0);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0) translateZ(0);
+    filter: blur(0);
+  }
+}
+
+/* Дополнительные эффекты для темных слайдов */
+.presentation-slide.format-ollenti2[style*='#1a1612'] {
+  position: relative;
+}
+
+.presentation-slide.format-ollenti2[style*='#1a1612']::after {
+  animation:
+    rotateGlow 20s linear infinite,
+    pulseRotate 25s ease-in-out infinite;
+}
+
+@keyframes pulseRotate {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* Премиум эффекты для навигации в Олленти2 */
+.presentation-viewer:has(.format-ollenti2) .nav-button {
+  background: rgba(212, 175, 122, 0.15);
+  border-color: rgba(212, 175, 122, 0.3);
+  box-shadow: 0 4px 20px rgba(212, 175, 122, 0.2);
+}
+
+.presentation-viewer:has(.format-ollenti2) .nav-button:hover:not(:disabled) {
+  background: rgba(212, 175, 122, 0.25);
+  border-color: rgba(212, 175, 122, 0.5);
+  box-shadow: 0 6px 30px rgba(212, 175, 122, 0.4);
+  transform: scale(1.15);
+}
+
+.presentation-viewer:has(.format-ollenti2) .nav-info {
+  background: rgba(212, 175, 122, 0.2);
+  color: #d4af7a;
+  border: 1px solid rgba(212, 175, 122, 0.3);
+}
+
+.presentation-viewer:has(.format-ollenti2) .indicator.active {
+  background: #d4af7a;
+  box-shadow: 0 0 15px rgba(212, 175, 122, 0.6);
+  animation: indicatorPulse 2s ease-in-out infinite;
+}
+
+@keyframes indicatorPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(212, 175, 122, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(212, 175, 122, 0.9);
+  }
+}
+
+/* Дополнительные премиум улучшения для Олленти2 */
+
+/* Анимированные частицы на фоне */
+.presentation-slide.format-ollenti2 {
+  overflow: hidden;
+}
+
+.presentation-slide.format-ollenti2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 122, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(173, 139, 86, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 122, 0.04) 0%, transparent 50%);
+  animation:
+    subtleGlow 8s ease-in-out infinite alternate,
+    floatAnimation 15s ease-in-out infinite,
+    particleDrift 25s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes particleDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(20px, -20px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+/* Улучшенные эффекты для текста с эмодзи */
+.presentation-slide.format-ollenti2 .slide-content {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: contentFadeIn 0.8s ease-out;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Анимированные эмодзи */
+.presentation-slide.format-ollenti2 .slide-content {
+  font-size: inherit;
+}
+
+.presentation-slide.format-ollenti2 .slide-content:hover {
+  transform: translateY(-5px) scale(1.01);
+  text-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.18),
+    0 0 40px rgba(212, 175, 122, 0.15) !important;
+}
+
+/* Улучшенные эффекты для изображений с 3D трансформацией */
+.presentation-slide.format-ollenti2 img {
+  position: relative;
+  animation: imageFloat 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.presentation-slide.format-ollenti2 img:hover {
+  animation: none;
+  transform: scale(1.05) translateY(-8px) rotateY(2deg) rotateX(-2deg) !important;
+  box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.35),
+    0 0 150px rgba(212, 175, 122, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Декоративные элементы по углам */
+.presentation-slide.format-ollenti2 {
+  position: relative;
+}
+
+.presentation-slide.format-ollenti2::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    linear-gradient(135deg, transparent 0%, rgba(212, 175, 122, 0.03) 50%, transparent 100%),
+    linear-gradient(225deg, transparent 0%, rgba(173, 139, 86, 0.02) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: cornerGlow 12s ease-in-out infinite;
+}
+
+@keyframes cornerGlow {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Улучшенные переходы с параллакс эффектом */
+.slide-wrapper.active .presentation-slide.format-ollenti2 {
+  animation: slideInPremium 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity !important;
+}
+
+.slide-wrapper.prev .presentation-slide.format-ollenti2 {
+  animation: slideOutLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-wrapper.next .presentation-slide.format-ollenti2 {
+  animation: slideOutRight 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100px) scale(0.95);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100px) scale(0.95);
+  }
+}
+
+/* Премиум эффекты для заголовков с градиентной анимацией */
+.presentation-slide.format-ollenti2 .presentation-slide-title,
+.presentation-slide.format-ollenti2 h2 {
+  position: relative;
+  animation:
+    shimmer 3s linear infinite,
+    pulseGlow 4s ease-in-out infinite,
+    titleFloat 5s ease-in-out infinite;
+  will-change: transform, filter;
+}
+
+@keyframes titleFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Интерактивные эффекты для списков */
+.presentation-slide.format-ollenti2 .slide-content {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(212, 175, 122, 0.03) 30%,
+    rgba(212, 175, 122, 0.02) 50%,
+    rgba(212, 175, 122, 0.03) 70%,
+    transparent 100%
+  );
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(212, 175, 122, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Улучшенные эффекты для темных слайдов */
+.presentation-slide.format-ollenti2[style*='#1a1612'] {
+  position: relative;
+}
+
+.presentation-slide.format-ollenti2[style*='#1a1612']::before {
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 122, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(173, 139, 86, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 122, 0.06) 0%, transparent 60%);
+  animation:
+    darkGlow 10s ease-in-out infinite alternate,
+    floatAnimation 15s ease-in-out infinite,
+    particleDrift 30s linear infinite;
+}
+
+.presentation-slide.format-ollenti2[style*='#1a1612']::after {
+  animation:
+    rotateGlow 20s linear infinite,
+    pulseRotate 25s ease-in-out infinite,
+    cornerGlow 15s ease-in-out infinite;
+}
+
+/* Дополнительные эффекты свечения для навигации */
+.presentation-viewer:has(.format-ollenti2) .nav-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.presentation-viewer:has(.format-ollenti2) .nav-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(212, 175, 122, 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.presentation-viewer:has(.format-ollenti2) .nav-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Улучшенные индикаторы с анимацией */
+.presentation-viewer:has(.format-ollenti2) .indicator {
+  position: relative;
+  overflow: hidden;
+}
+
+.presentation-viewer:has(.format-ollenti2) .indicator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(212, 175, 122, 0.4);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.4s,
+    height 0.4s;
+}
+
+.presentation-viewer:has(.format-ollenti2) .indicator:hover::before {
+  width: 50px;
+  height: 50px;
+}
+
+.presentation-viewer:has(.format-ollenti2) .indicator.active::before {
+  width: 40px;
+  height: 40px;
+  background: rgba(212, 175, 122, 0.6);
+}
+
+/* Плавное появление элементов при смене слайда */
+.slide-wrapper.active .presentation-slide.format-ollenti2 .presentation-slide-title,
+.slide-wrapper.active .presentation-slide.format-ollenti2 h2 {
+  animation:
+    shimmer 3s linear infinite,
+    pulseGlow 4s ease-in-out infinite,
+    titleFloat 5s ease-in-out infinite,
+    fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.slide-wrapper.active .presentation-slide.format-ollenti2 .slide-content {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.slide-wrapper.active .presentation-slide.format-ollenti2 img {
+  animation:
+    imageFloat 6s ease-in-out infinite,
+    fadeInScale 1s ease-out 0.6s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================
+   ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ ДЛЯ ПРЕЗЕНТАЦИЙ
+   ============================================ */
+
+/* Декоративные рамки */
+.presentation-slide.format-ollenti2 .decorative-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  border: 3px solid rgba(212, 175, 122, 0.3);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 50px rgba(212, 175, 122, 0.1);
+}
+
+/* Декоративные линии-разделители */
+.presentation-slide.format-ollenti2 .decorative-divider {
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af7a, transparent);
+  margin: 2rem auto;
+  position: relative;
+}
+
+.presentation-slide.format-ollenti2 .decorative-divider::before,
+.presentation-slide.format-ollenti2 .decorative-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  background: #d4af7a;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.presentation-slide.format-ollenti2 .decorative-divider::before {
+  left: -15px;
+}
+
+.presentation-slide.format-ollenti2 .decorative-divider::after {
+  right: -15px;
+}
+
+/* Декоративные иконки */
+.presentation-slide.format-ollenti2 .decorative-icon {
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  margin: 0 1rem;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(212, 175, 122, 0.3));
+}
+
+.presentation-slide.format-ollenti2 .decorative-icon:hover {
+  opacity: 1;
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 8px 16px rgba(212, 175, 122, 0.5));
+}
+
+/* Декоративные акценты */
+.presentation-slide.format-ollenti2 .decorative-accent {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(212, 175, 122, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: accentPulse 4s ease-in-out infinite;
+}
+
+@keyframes accentPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Декоративные угловые элементы */
+.presentation-slide.format-ollenti2 .decorative-corner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.presentation-slide.format-ollenti2 .decorative-corner.top-left {
+  top: 2rem;
+  left: 2rem;
+  border-top: 3px solid rgba(212, 175, 122, 0.4);
+  border-left: 3px solid rgba(212, 175, 122, 0.4);
+  border-top-left-radius: 1rem;
+}
+
+.presentation-slide.format-ollenti2 .decorative-corner.top-right {
+  top: 2rem;
+  right: 2rem;
+  border-top: 3px solid rgba(212, 175, 122, 0.4);
+  border-right: 3px solid rgba(212, 175, 122, 0.4);
+  border-top-right-radius: 1rem;
+}
+
+.presentation-slide.format-ollenti2 .decorative-corner.bottom-left {
+  bottom: 2rem;
+  left: 2rem;
+  border-bottom: 3px solid rgba(212, 175, 122, 0.4);
+  border-left: 3px solid rgba(212, 175, 122, 0.4);
+  border-bottom-left-radius: 1rem;
+}
+
+.presentation-slide.format-ollenti2 .decorative-corner.bottom-right {
+  bottom: 2rem;
+  right: 2rem;
+  border-bottom: 3px solid rgba(212, 175, 122, 0.4);
+  border-right: 3px solid rgba(212, 175, 122, 0.4);
+  border-bottom-right-radius: 1rem;
+}
+
+/* Декоративные частицы */
+.presentation-slide.format-ollenti2 .decorative-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #d4af7a;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+  animation: particleFloat 6s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 1;
+  }
+}
+
+/* Декоративные фоновые паттерны */
+.presentation-slide.format-ollenti2 .decorative-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.05;
+  background-image: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="%23d4af7a"/></svg>');
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Адаптивность для A3 формата с плавным масштабированием */
+@media (max-width: 1680px) {
+  .presentation-slides-container {
+    transform: scale(0.9) translateZ(0);
+    transition: transform 0.3s ease;
+  }
+}
+
+@media (max-width: 1440px) {
+  .presentation-slides-container {
+    transform: scale(0.8) translateZ(0);
+    transition: transform 0.3s ease;
+  }
+}
+
+@media (max-width: 1280px) {
+  .presentation-slides-container {
+    transform: scale(0.7) translateZ(0);
+    transition: transform 0.3s ease;
+  }
+}
+
+@media (max-width: 1024px) {
+  .presentation-slides-container {
+    transform: scale(0.6) translateZ(0);
+    transition: transform 0.3s ease;
+  }
+
+  .presentation-slide {
+    padding: 4rem 5rem !important;
+  }
+
+  .presentation-slide-title,
+  .presentation-slide h2 {
+    font-size: var(--slide-title-font-size, 4em) !important;
+  }
+
+  .slide-content {
+    font-size: var(--slide-content-font-size, 1.8em) !important;
+  }
+}
+
+/* Оптимизация производительности */
+.presentation-viewer * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Плавная прокрутка для навигации */
+.presentation-viewer {
+  scroll-behavior: smooth;
+}
+
+/* Оптимизация для GPU ускорения */
+.presentation-slide.format-ollenti2,
+.presentation-slide.format-ollenti2 * {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Улучшенные тени для глубины */
+.presentation-slide.format-ollenti2 {
+  box-shadow:
+    inset 0 0 100px rgba(212, 175, 122, 0.05),
+    0 0 200px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   СТИЛИ ДЛЯ РЕДАКТОРА (ПРЕВЬЮ)
+   ============================================ */
+
+.slide-preview-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 0.75rem;
+  border-width: 2px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  --preview-bg-color: #ffffff;
+  --preview-text-color: #000000;
+  background-color: var(--preview-bg-color);
+  color: var(--preview-text-color);
+}
+
+.slide-preview-container.has-gradient {
+  background-color: transparent;
+  background-image: var(--preview-bg-gradient);
+}
+
+.slide-preview-title {
+  --preview-title-font-size: 2.5em;
+  --preview-title-color: var(--preview-text-color);
+  --preview-title-align: center;
+  font-size: var(--preview-title-font-size);
+  color: var(--preview-title-color);
+  text-align: var(--preview-title-align);
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.slide-preview-content {
+  --preview-content-font-size: 1.1em;
+  --preview-content-color: var(--preview-text-color);
+  --preview-content-align: left;
+  --preview-line-height: 1.6;
+  font-size: var(--preview-content-font-size);
+  color: var(--preview-content-color);
+  text-align: var(--preview-content-align);
+  line-height: var(--preview-line-height);
+}
+
+/* Site Studio admin editor: CSS variables set via refs (no inline style attr) */
+.color-scheme-preview {
+  background-color: var(--scheme-bg-color, #ffffff);
+  color: var(--scheme-text-color, #000000);
+}
+
+.color-swatch {
+  background-color: var(--swatch-color, transparent);
+}
+
+.gradient-preview {
+  background-image: var(--gradient-value);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.slide-thumbnail {
+  background-color: var(--thumbnail-bg-color, #ffffff);
+}
+
+.slide-thumbnail.has-gradient {
+  background-color: transparent;
+  background-image: var(--thumbnail-bg-gradient);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.slide-thumbnail-text {
+  color: var(--thumbnail-text-color, #000000);
+}
+
+.presentation-card-animation {
+  animation-delay: var(--animation-delay, 0ms);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .presentation-slide {
+    padding: 2rem;
+  }
+
+  .presentation-slide-title,
+  .presentation-slide h2 {
+    font-size: 2em !important;
+  }
+
+  .slide-content {
+    font-size: 1.2em !important;
+    max-width: 95%;
+  }
+
+  .nav-button {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+
+  .nav-info {
+    font-size: 1rem;
+    padding: 0.4rem 1rem;
+  }
+}

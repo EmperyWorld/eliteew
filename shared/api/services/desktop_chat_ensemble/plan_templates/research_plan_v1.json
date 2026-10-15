@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "id": "research_plan_v1",
+  "version": 3,
+  "title": "План исследования",
+  "description": "Research question, гипотезы, метод, выборка, скрипт, анализ и критерии решения. При ростере 4–6 — market-entry, behavioral и capital gate.",
+  "artifact_type": "research_plan",
+  "required_context": [
+    "decision_to_make",
+    "target_audience",
+    "hypotheses",
+    "constraints"
+  ],
+  "quality_rubric": [
+    "Свяжи исследование с решением, которое команда примет после него.",
+    "Не обещай статистическую значимость и точные N без метода, бюджета и сроков.",
+    "Разделяй исследовательские вопросы, гипотезы, метод и критерии решения.",
+    "Укажи этику, согласие, запись, анонимизацию и ограничения выборки."
+  ],
+  "output_sections": [
+    "Research focus",
+    "Method and sample",
+    "Analysis and decision criteria",
+    "Market-entry unknowns",
+    "Behavioral probes",
+    "Capital go/no-go"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "rp1",
+      "title": "Решение, вопросы и гипотезы",
+      "instruction_for_model": "Начни с решения, ради которого проводится исследование: что команда сможет выбрать/изменить после результата. Затем дай 1–3 research questions и гипотезы. Для каждой гипотезы укажи, какой сигнал её подтвердит или опровергнет. Если решение или аудитория не заданы, явно пометь missing inputs. Без `##`.",
+      "required_slots": {
+        "research": 3,
+        "rigor": 3,
+        "product": 2
+      },
+      "scope_fence": "Только decision context, research questions, hypotheses and success signals. Не писать метод, выборку и сроки.",
+      "output_format": [
+        "Decision to make",
+        "Research question",
+        "Hypothesis",
+        "Signal"
+      ]
+    },
+    {
+      "step_id": "rp2",
+      "title": "Метод, выборка и скрипт",
+      "instruction_for_model": "Выбери метод под вопрос: интервью, survey, usability, diary, log analysis или mixed method. Опиши критерии выборки, диапазон респондентов без ложной точности, скрининг и 5–7 вопросов интервью/опроса. Укажи ограничения: время, бюджет, NDA, bias. Этика: согласие, запись, анонимизация. Без `##`.",
+      "required_slots": {
+        "research": 3,
+        "rigor": 3,
+        "behavioral": 2,
+        "legal_edge": 2
+      },
+      "scope_fence": "Только метод, выборка, screener/interview guide and ethics. Не писать артефакты и timeline подробно.",
+      "output_format": [
+        "Method",
+        "Sample criteria",
+        "Screener",
+        "Interview guide",
+        "Ethics"
+      ]
+    },
+    {
+      "step_id": "rp3",
+      "title": "Анализ, артефакты и критерии решения",
+      "instruction_for_model": "Опиши, как анализировать данные: кодирование тем, frequency only where valid, evidence table, confidence level. Укажи deliverables: insight brief, clips/quotes, opportunity map, recommendation memo. Дай черновой timeline по этапам и criteria for decision. Не обещай статистическую значимость без метода и размера выборки. Без `##`.",
+      "required_slots": {
+        "research": 3,
+        "rigor": 3,
+        "product": 2,
+        "operations": 2
+      },
+      "scope_fence": "Только analysis plan, deliverables, timeline and decision criteria. Не возвращаться к методологии подробно.",
+      "output_format": [
+        "Analysis plan",
+        "Deliverables",
+        "Timeline",
+        "Decision criteria",
+        "Risks"
+      ]
+    },
+    {
+      "step_id": "rp4",
+      "title": "Market-entry and expansion unknowns",
+      "min_roster": 4,
+      "instruction_for_model": "Добавь слой неизвестных про вход в рынок/экспансию: гео, сегмент, партнёры — только как research unknowns, без выдуманных цифр. Без `##`, без имён героев.",
+      "required_slots": {
+        "research": 3,
+        "growth": 2
+      },
+      "scope_fence": "Только market-entry unknowns.",
+      "output_format": [
+        "Unknown",
+        "Why it blocks decision",
+        "How to probe"
+      ]
+    },
+    {
+      "step_id": "rp5",
+      "title": "Behavioral probes",
+      "min_roster": 5,
+      "instruction_for_model": "Добавь behavioral probes: adoption barriers, trust, resistance — как вопросы/сигналы, не как NLP-методичку. Без `##`, без имён героев.",
+      "required_slots": {
+        "behavioral": 3,
+        "research": 2
+      },
+      "scope_fence": "Только behavioral probes.",
+      "output_format": [
+        "Barrier",
+        "Probe question",
+        "Signal"
+      ]
+    },
+    {
+      "step_id": "rp6",
+      "title": "Capital go/no-go criteria",
+      "min_roster": 6,
+      "instruction_for_model": "Свяжи исследование с capital go/no-go: какие результаты оправдывают продолжение инвестиций, какие — остановку. Без выдуманных сумм. Без `##`, без имён героев.",
+      "required_slots": {
+        "finance": 3,
+        "rigor": 3,
+        "engineering": 2
+      },
+      "scope_fence": "Только capital go/no-go.",
+      "output_format": [
+        "Go signal",
+        "No-go signal",
+        "Data still needed"
+      ]
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Фокус",
+      "step_ids": [
+        "rp1"
+      ]
+    },
+    {
+      "heading": "Методология",
+      "step_ids": [
+        "rp2"
+      ]
+    },
+    {
+      "heading": "Результат",
+      "step_ids": [
+        "rp3"
+      ]
+    },
+    {
+      "heading": "Market-entry unknowns",
+      "step_ids": [
+        "rp4"
+      ]
+    },
+    {
+      "heading": "Behavioral probes",
+      "step_ids": [
+        "rp5"
+      ]
+    },
+    {
+      "heading": "Capital go/no-go",
+      "step_ids": [
+        "rp6"
+      ]
+    }
+  ]
+}

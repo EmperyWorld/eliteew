@@ -1,0 +1,9 @@
+# Optional: only if you must bind Docker to 0.0.0.0:53 and hit "address already in use".
+# Install: sudo cp resolved-dnsstublistener-no.conf.example /etc/systemd/resolved.conf.d/zz-stack12-dns.conf
+# Then: sudo systemctl restart systemd-resolved
+#
+# After this, stub 127.0.0.53:53 is off — configure global/upstream DNS in resolved.conf or resolv.conf
+# as needed. Split DNS for ~eliteew.ru on this host: see INTERNAL-SITES-ACCESS.md (Host Resolver).
+
+[Resolve]
+DNSStubListener=no

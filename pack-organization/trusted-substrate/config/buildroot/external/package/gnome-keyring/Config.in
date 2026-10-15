@@ -1,0 +1,26 @@
+config BR2_PACKAGE_GNOME_KEYRING
+	bool "gnome-keyring"
+	depends on BR2_USE_WCHAR # libglib2
+	depends on BR2_TOOLCHAIN_HAS_THREADS # libglib2
+	depends on BR2_USE_MMU # libglib2
+	depends on !BR2_STATIC_LIBS # p11-kit / gcr
+	depends on BR2_PACKAGE_LIBGPG_ERROR_ARCH_SUPPORTS # libgcrypt
+	select BR2_PACKAGE_DBUS
+	select BR2_PACKAGE_GCR
+	select BR2_PACKAGE_LIBGCRYPT
+	select BR2_PACKAGE_LIBGLIB2
+	select BR2_PACKAGE_LIBCAP_NG
+	select BR2_PACKAGE_P11_KIT
+	help
+	  GNOME Keyring daemon — org.freedesktop.secrets provider for
+	  EliteEW Desktop Client device_request_prepare (Rust keyring
+	  sync-secret-service). Built without PAM/systemd for appliance
+	  autologin; unlocked via eliteew-ts-secrets-up on the session bus.
+
+	  https://gitlab.gnome.org/GNOME/gnome-keyring
+
+comment "gnome-keyring needs a toolchain w/ wchar, threads, dynamic library"
+	depends on BR2_PACKAGE_LIBGPG_ERROR_ARCH_SUPPORTS
+	depends on BR2_USE_MMU
+	depends on !BR2_USE_WCHAR || !BR2_TOOLCHAIN_HAS_THREADS || \
+		BR2_STATIC_LIBS

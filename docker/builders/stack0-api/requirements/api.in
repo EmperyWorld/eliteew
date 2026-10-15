@@ -1,0 +1,39 @@
+# FastAPI runtime image — HTTP/WebSocket tier (CPU-only; no CUDA PyTorch in this venv).
+-r base.in
+
+# ASGI / realtime / rate limits.
+uvicorn[standard]>=0.52.0
+python-socketio>=5.16.4
+python-engineio>=4.13.5
+websockets>=14.1
+slowapi>=0.1.9
+fastapi-limiter>=0.1.6
+
+# Search/vector clients (aligned with stack1 Elasticsearch 9.x).
+elasticsearch>=9.4.0
+qdrant-client>=1.18.0
+
+# Documents and media (API may run inline converters when queues are disabled).
+aiofiles>=24.1.0
+python-magic>=0.4.27
+Pillow>=11.0.0
+PyMuPDF>=1.26.6
+python-docx>=1.1.2
+openpyxl>=3.1.5
+python-pptx>=1.0.2
+markdown>=3.7
+beautifulsoup4>=4.12.3
+lxml>=5.3.0
+html2text>=2024.2.26
+pytesseract>=0.3.13
+reportlab>=4.2.5
+
+# Integrations (no Selenium / Playwright in API image — browser render on queue-worker sidecar).
+APScheduler>=3.10.4
+feedparser>=6.0.11
+soundfile>=0.12.1
+markdown-it-py>=3.0.0
+mdit-py-plugins>=0.4.2
+
+# MCP Host (official Model Context Protocol Python SDK — MIT).
+mcp>=1.9.0

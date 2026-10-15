@@ -1,0 +1,24 @@
+# EliteEW product app manifest (SoT for enablement / KNOWN generation)
+id: calendar
+title: Calendar
+edition_default:
+  cloud: true
+  onprem: true
+  client: true
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: CalendarApp
+    icon: app-calendar
+  api:
+    prefixes:
+      - /api/v1/desktop/calendar
+  jobs:
+    queues: []
+client:
+  offline_capable: partial
+  remote_tools_allowlist: []

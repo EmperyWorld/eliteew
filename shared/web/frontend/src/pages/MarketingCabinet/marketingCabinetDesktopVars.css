@@ -1,0 +1,125 @@
+/**
+ * Marketing Cabinet: accent + shell tokens as plain CSS variables so TSX can use
+ * Tailwind v4 `*-(--var)` utilities without `rgb(var(--desktop-accent-rgb))` or `color-mix(...)` in class strings.
+ * Scoped to the cabinet shell; inherits `--desktop-accent-rgb` from the desktop chrome.
+ */
+[data-marketing-cabinet-shell] {
+	--mc-accent: rgb(var(--desktop-accent-rgb));
+	--mc-accent-05: rgb(var(--desktop-accent-rgb) / 0.05);
+	--mc-accent-06: rgb(var(--desktop-accent-rgb) / 0.06);
+	--mc-accent-08: rgb(var(--desktop-accent-rgb) / 0.08);
+	--mc-accent-10: rgb(var(--desktop-accent-rgb) / 0.1);
+	--mc-accent-12: rgb(var(--desktop-accent-rgb) / 0.12);
+	--mc-accent-18: rgb(var(--desktop-accent-rgb) / 0.18);
+	--mc-accent-22: rgb(var(--desktop-accent-rgb) / 0.22);
+	--mc-accent-25: rgb(var(--desktop-accent-rgb) / 0.25);
+	--mc-accent-28: rgb(var(--desktop-accent-rgb) / 0.28);
+	--mc-accent-30: rgb(var(--desktop-accent-rgb) / 0.3);
+	--mc-accent-35: rgb(var(--desktop-accent-rgb) / 0.35);
+	--mc-accent-40: rgb(var(--desktop-accent-rgb) / 0.4);
+	--mc-accent-45: rgb(var(--desktop-accent-rgb) / 0.45);
+	--mc-accent-50: rgb(var(--desktop-accent-rgb) / 0.5);
+	--mc-accent-55: rgb(var(--desktop-accent-rgb) / 0.55);
+	--mc-accent-60: rgb(var(--desktop-accent-rgb) / 0.6);
+	--mc-accent-70: rgb(var(--desktop-accent-rgb) / 0.7);
+	--mc-accent-75: rgb(var(--desktop-accent-rgb) / 0.75);
+	--mc-accent-85: rgb(var(--desktop-accent-rgb) / 0.85);
+	--mc-accent-88: rgb(var(--desktop-accent-rgb) / 0.88);
+	--mc-accent-90: rgb(var(--desktop-accent-rgb) / 0.9);
+	--mc-section-panel-shadow: var(--desktop-shadow-soft),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+	--mc-nav-rail-inset: inset -1px 0 0 rgba(255, 255, 255, 0.04);
+	/* Focus & motion: optional aliases for consistent cabinet chrome (Tailwind `*-(--var)`). */
+	--mc-focus-ring-color: rgb(var(--desktop-accent-rgb) / 0.45);
+	--mc-focus-ring-color-strong: rgb(var(--desktop-accent-rgb) / 0.55);
+	--mc-border-accent-soft: rgb(var(--desktop-accent-rgb) / 0.2);
+	--mc-glow-accent-soft: 0 0 0 1px rgb(var(--desktop-accent-rgb) / 0.12),
+		0 12px 40px rgb(var(--desktop-accent-rgb) / 0.08);
+	--mc-transition-snappy: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+	--mc-transition-panel: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+
+	/* Main column: use full width of the content area (sidebar already consumes rail). */
+	--mc-content-max-width: 100%;
+
+	/* Main pane depth — desktop RGB tokens, not raw zinc. */
+	--mc-main-bg-gradient: linear-gradient(
+		165deg,
+		rgb(var(--desktop-bg-primary-rgb) / 0.38) 0%,
+		transparent 42%
+	);
+
+	/* Read-only banner: warning tint from accent + surface (no raw amber text). */
+	--mc-readonly-banner-bg: color-mix(
+		in srgb,
+		rgb(var(--desktop-accent-rgb) / 0.14) 18%,
+		var(--desktop-surface-soft) 82%
+	);
+}
+
+/*
+ * Utilities scoped to marketing cabinet shell (imported from MarketingCabinetPage).
+ */
+[data-marketing-cabinet-shell] .mc-active-view-root {
+	width: 100%;
+	min-width: 0;
+	max-width: var(--mc-content-max-width);
+}
+
+[data-marketing-cabinet-shell] .mc-section-root {
+	width: 100%;
+	min-width: 0;
+}
+
+[data-marketing-cabinet-shell] .mc-meta-caption {
+	margin-bottom: 0.125rem;
+	font-family: 'Manrope', 'Montserrat', sans-serif;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	line-height: 1.25rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.mc-display-title {
+	font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+	letter-spacing: 0.04em;
+}
+
+.mc-body-copy {
+	font-family: 'Manrope', 'Montserrat', sans-serif;
+}
+
+/*
+ * Панель опций MarketingCabinetSelect: фон и рамка задаются классами из
+ * getDesktopShellPanelClassName (TSX). Не задавать background-color здесь —
+ * иначе перекрывается градиент glass и не меняется вид при смене пресета окон.
+ */
+[data-marketing-cabinet-shell] [data-mc-select-panel] {
+	color-scheme: dark;
+}
+
+/* RGL: resize handle must win hit-test over TileChrome body (overflow clips content only). */
+[data-marketing-cabinet-shell]
+	.mc-overview-dashboard-grid
+	.react-grid-item
+	> .react-resizable-handle {
+	z-index: 20;
+	opacity: 1;
+	width: 18px;
+	height: 18px;
+	pointer-events: auto;
+}
+
+[data-marketing-cabinet-shell]
+	.mc-overview-dashboard-grid
+	.react-grid-item
+	> .react-resizable-handle::after {
+	border-right-color: rgb(var(--desktop-text-muted-rgb, 161 161 170) / 0.85);
+	border-bottom-color: rgb(var(--desktop-text-muted-rgb, 161 161 170) / 0.85);
+}
+
+[data-marketing-cabinet-shell]
+	.mc-overview-dashboard-grid
+	.react-grid-item.react-grid-placeholder {
+	z-index: 2;
+}

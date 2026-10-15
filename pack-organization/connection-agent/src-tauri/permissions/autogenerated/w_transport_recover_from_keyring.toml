@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-w-transport-recover-from-keyring"
+description = "Enables the w_transport_recover_from_keyring command without any pre-configured scope."
+commands.allow = ["w_transport_recover_from_keyring"]
+
+[[permission]]
+identifier = "deny-w-transport-recover-from-keyring"
+description = "Denies the w_transport_recover_from_keyring command without any pre-configured scope."
+commands.deny = ["w_transport_recover_from_keyring"]

@@ -1,0 +1,11 @@
+{
+  "voice": "companion_ewa",
+  "steps": {
+    "intro": "Music Evolution. Студия песен на UGS: солист, тема, настроение — сервер собирает трек по пайплайну. Тур по форме ввода, полосе этапов и блоку результата после успешной генерации.",
+    "header": "Шапка и этапы. Название студии, выбранный солист и stepper этапов (intake → lyrics → audio → mix). Кнопка «Запустить» активна, когда обязательные поля формы заполнены и нет running job.",
+    "intake-form": "Творческий ввод. Выбор солиста/голоса, тема песни, mood и optional prompt. Поля с ошибкой validation подсвечены; autosave черновика — в localStorage до отправки.",
+    "pipeline": "Ход генерации. После launch верхняя полоса и badge в шапке показывают текущий stage и ETA. Не закрывайте окно во время active job — progress привязан к SSE/poll session.",
+    "result": "Результат. Плеер превью, waveform, actions: «Ещё раз», «Новая песня», скачать WAV/MP3, отправить в Music Player. Появляется только при status=completed.",
+    "outro": "Готово. Запустите генерацию или повторите тур. Кнопка экскурсии в шапке Music Evolution; music-evolution-guide WAV."
+  }
+}

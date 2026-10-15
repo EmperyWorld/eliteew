@@ -1,0 +1,140 @@
+{
+	"app": {
+		"name": "Document Editor V2",
+		"eyebrow": "Documents V2",
+		"description": "The new editor runs beside the legacy one. Existing documents still open in the old editor."
+	},
+	"actions": {
+		"applyAfterGuard": "Apply",
+		"exportMarkdown": "Export MD",
+		"forceSaveLocal": "Overwrite",
+		"importFile": "Import",
+		"openLegacy": "Legacy editor",
+		"save": "Save",
+		"saveDraft": "Draft",
+		"saving": "Saving…",
+		"suggestRewrite": "Ask for edit"
+	},
+	"aria": {
+		"editableSurface": "Document Editor V2 editing surface",
+		"outline": "Document outline",
+		"titleInput": "Document title"
+	},
+	"canvas": {
+		"coreMounted": "Editor mounted",
+		"documentId": "Document {{id}}",
+		"emptyDocument": "V2 document is not saved yet",
+		"fallbackNote": "Editing, saving, collaboration and import/export appear here.",
+		"placeholderTitle": "Document workspace",
+		"readOnlyShell": "Read-only",
+		"section": "Editor canvas"
+	},
+	"collaborators": {
+		"count_one": "{{count}} partner",
+		"count_other": "{{count}} partners",
+		"names": {
+			"collaborator": "Editor",
+			"owner": "Owner",
+			"viewer": "Viewer"
+		},
+		"roles": {
+			"editor": "editor",
+			"owner": "owner",
+			"reviewer": "reviewer",
+			"viewer": "viewer"
+		}
+	},
+	"core": {
+		"editable": "Editable",
+		"readOnly": "Read-only"
+	},
+	"defaults": {
+		"title": "New V2 document",
+		"untitled": "Untitled"
+	},
+	"errors": {
+		"draftSaveFailed": "Could not save draft",
+		"ewaApplyConflict": "Apply conflict: server is at v{{version}}.",
+		"ewaApplyFailed": "Could not apply suggestion",
+		"ewaSuggestionFailed": "EWA could not prepare a suggestion",
+		"exportBeforeSave": "Save or import a document before exporting.",
+		"exportFailed": "Could not export document",
+		"failedToLoad": "Could not load V2 document",
+		"importFailed": "Could not import file",
+		"saveBeforeEwa": "Save the document before asking EWA for edits.",
+		"saveConflict": "Version conflict: server is at v{{version}}. Review before overwriting.",
+		"saveFailed": "Could not save document",
+		"serverVersionAvailable": "{{message}} Server version {{version}} is available."
+	},
+	"footer": {
+		"collab": "Collaboration: preparing",
+		"draft": "Draft: server",
+		"importNotices_one": "{{count}} import notice",
+		"importNotices_other": "{{count}} import notices",
+		"words_one": "{{count}} word",
+		"words_other": "{{count}} words"
+	},
+	"header": {
+		"compactHint": "V2: new document flow; legacy editor stays available.",
+		"core": "core",
+		"shellOnly": "shell"
+	},
+	"import": {
+		"emptyTitle": "No import warnings yet",
+		"section": "Import"
+	},
+	"outline": {
+		"empty": "The outline appears after headings are added.",
+		"section": "Outline",
+		"statuses": {
+			"needs-review": "Needs review",
+			"placeholder": "Waiting for text",
+			"ready": "Ready"
+		}
+	},
+	"preview": {
+		"collaborationTitle": "Collaboration",
+		"defaultPlainText": "Start writing your V2 document…",
+		"importDetail": "Import fidelity warnings stay visible until the document is saved.",
+		"importTitle": "Import notes appear here",
+		"outlineIntro": "Document purpose",
+		"outlineModel": "Single save path",
+		"title": "New V2 document",
+		"version": "new document",
+		"writePathTitle": "Saving"
+	},
+	"saveStatus": {
+		"conflict": "Conflict",
+		"draft": "Draft",
+		"readonly": "Read-only",
+		"saving": "Saving…",
+		"synced": "Saved"
+	},
+	"status": {
+		"coreDescription": "Editor mounted: create, save and drafts use guarded V2 requests.",
+		"shellDescription": "V2 shell is open without writing to the document.",
+		"shellOnly": "V2 shell",
+		"v2Core": "V2 editor"
+	},
+	"suggestions": {
+		"empty": "EWA suggestions appear here after a request.",
+		"section": "Suggestions",
+		"status": {
+			"blocked": "blocked",
+			"needs-approval": "needs approval",
+			"queued": "queued"
+		}
+	},
+	"ewa": {
+		"defaultRewriteInstruction": "Improve clarity while preserving the author voice.",
+		"description": "EWA can discuss the document, propose an edit and wait for explicit approval before applying.",
+		"section": "EWA partner"
+	},
+	"warnings": {
+		"fidelityDetail": "The import/export flow reported a fidelity note for this document."
+	},
+	"version": {
+		"new": "new document",
+		"number": "v{{version}}"
+	}
+}

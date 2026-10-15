@@ -1,0 +1,128 @@
+# =============================================================================
+# EliteEW · stack0 workers на GPU-хосте 192.168.1.141 (LAN → punisher stack1)
+# =============================================================================
+# Не поднимать на punisher после миграции (там profile punisher-local-workers выключен).
+#
+# На .141 (из корня репо):
+#   cp docker/env_file/.env.stack0.backend.lan141.example docker/env_file/.env.stack0.backend.lan141
+#   # .env.stack0.backend — копия с punisher (секреты)
+#   bash docker/scripts/lan-workers/deploy-141.sh
+#
+# Канон: documentation/platform/docker-re_doc/LAN-WORKERS-141.md
+# =============================================================================
+
+name: stack0-workers-lan141
+
+# На punisher (воркеры рядом со stack2): DNS stack2-llama-* через ew_net_4532/2847.
+# На gpu141: те же сети не обязательны — LLM/tool-router через LAN IP в .env.stack0.backend.lan141.
+networks:
+  ew_net_2847:
+    external: true
+  ew_net_4532:
+    external: true
+
+services:
+  eliteew-api-worker-lan141:
+    image: ${STACK0_QUEUE_WORKER_IMAGE:-${STACK0_API_WORKER_IMAGE:-${STACK0_API_IMAGE}}}
+    container_name: stack0-eliteew-api-worker-lan141
+    command:
+      ["/bin/bash", "-lc", "exec /app/docker/scripts/start_queue_worker.sh"]
+    env_file:
+      - ../env_file/.env.stack0.shared
+      - ../env_file/.env.stack0.jobs
+      - ../env_file/.env.stack0.backend.lan141
+    networks:
+      - ew_net_2847
+      - ew_net_4532
+    security_opt:
+      - no-new-privileges:true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    user: "${STACK0_USER:?STACK0_USER not set}"
+    volumes:
+      - ../../shared/api:/app/api:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../logs/stack0/eliteew-api-worker-lan141:/logs:z
+    environment:
+      - TZ=Asia/Vladivostok
+      - ELITEEW_LOG_FILE=/logs/eliteew-api-worker.log
+      - ELITEEW_LOG_LEVEL=${ELITEEW_LOG_LEVEL:-INFO}
+      - PYTHONUNBUFFERED=1
+      - QUEUE_WORKER_ALLOWED_QUEUE_KEYS=${QUEUE_WORKER_GENERAL_KEYS:-ai_generation,document_processing,notifications}
+      - ENCRYPTION_ENABLED=${ENCRYPTION_ENABLED}
+      - ENCRYPTION_MASTER_KEY=${ENCRYPTION_MASTER_KEY}
+      - POSTGRES_EXTERNAL_PORT=${POSTGRES_EXTERNAL_PORT:-30000}
+      - REDIS_EXTERNAL_PORT=${REDIS_EXTERNAL_PORT:-30001}
+      - AWS_S3_ENDPOINT=http://${MINIO_HOST:-192.168.1.136}:${MINIO_EXTERNAL_PORT:-30006}
+      - CHROMADB_CONTAINER_NAME=${CHROMADB_CONTAINER_NAME:-stack1-chroma}
+      - RABBITMQ_CONTAINER_NAME=${RABBITMQ_CONTAINER_NAME:-stack1-rabbitmq}
+      - QDRANT_CONTAINER_NAME=${QDRANT_CONTAINER_NAME:-stack1-qdrant}
+      - DOCKER_NETWORK=${DOCKER_NETWORK:-ew_net_2847}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "/app/smoke/smoke_queue_worker_boot.py"]
+      interval: 60s
+      timeout: 15s
+      retries: 3
+      start_period: 120s
+
+  eliteew-celery-worker-lan141:
+    image: ${STACK0_CELERY_WORKER_IMAGE:-${STACK0_API_IMAGE}}
+    container_name: stack0-eliteew-celery-worker-lan141
+    command:
+      - python
+      - -m
+      - celery
+      - -A
+      - api.tasks.celery_app
+      - worker
+      - --loglevel=info
+      - -Q
+      - short,maintenance,broadcast,ewa_companion,ewa_agentic,ewa_agentic_step,ewa_factory,ewa_reembed
+      - --prefetch-multiplier=1
+      - --concurrency=4
+      - --hostname=worker-lan141@%h
+      - --max-tasks-per-child=100
+      - --time-limit=300
+      - --soft-time-limit=240
+    env_file:
+      - ../env_file/.env.stack0.shared
+      - ../env_file/.env.stack0.jobs
+      - ../env_file/.env.stack0.backend.lan141
+    networks:
+      - ew_net_2847
+      - ew_net_4532
+    security_opt:
+      - no-new-privileges:true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    user: "${STACK0_USER:?STACK0_USER not set}"
+    volumes:
+      - ../../shared/api:/app/api:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../logs/stack0/eliteew-celery-worker-lan141:/logs:z
+    environment:
+      - TZ=Asia/Vladivostok
+      - ELITEEW_LOG_FILE=/logs/eliteew-celery-worker.log
+      - ELITEEW_LOG_LEVEL=${ELITEEW_LOG_LEVEL:-INFO}
+      - PYTHONUNBUFFERED=1
+      - ENCRYPTION_ENABLED=${ENCRYPTION_ENABLED}
+      - ENCRYPTION_MASTER_KEY=${ENCRYPTION_MASTER_KEY}
+      - CELERY_BROKER_URL=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${CELERY_REDIS_DB}
+      - CELERY_RESULT_BACKEND=redis://:${REDIS_PASSWORD}@${REDIS_HOST}:${REDIS_PORT}/${CELERY_REDIS_DB}
+      - CELERY_WORKER_PREFETCH_MULTIPLIER=${CELERY_WORKER_PREFETCH_MULTIPLIER:-1}
+      - CELERY_REDIS_VISIBILITY_TIMEOUT=${CELERY_REDIS_VISIBILITY_TIMEOUT:-3600}
+      - AWS_S3_ENDPOINT=http://${MINIO_HOST:-192.168.1.136}:${MINIO_EXTERNAL_PORT:-30006}
+      - COMFYUI_URL=${COMFYUI_URL}
+      - GENERATED_FILES_BASE=${GENERATED_FILES_BASE}
+      - MUSIC_EVOLUTION_DEBUG_JSON_DIR=${MUSIC_EVOLUTION_DEBUG_JSON_DIR:-/app/generated_files/music_evolution_debug_json}
+    restart: unless-stopped
+    # Same policy as stack0_b.yml celery workers: process liveness, not inspect ping.
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f '[c]elery.*worker' >/dev/null || exit 1"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 120s

@@ -1,0 +1,136 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_advanced_doc_decision_email",
+  "version": 1,
+  "title_ru": "Advanced doc decision email chain",
+  "title_en": "Advanced doc decision email chain",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^advanced doc decision email$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "type": "document_import",
+      "mode": "stateful",
+      "inputs": {
+        "paperless_id": 91
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" },
+        "unified_content_id": { "type": "string" },
+        "document_id": { "type": "string" },
+        "paperless_id": { "type": "number" }
+      },
+      "title_ru": "Import",
+      "title_en": "Import"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+      "type": "pdf_parser",
+      "mode": "stateless",
+      "inputs": {
+        "unified_content_id": "{{aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1.unified_content_id}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" },
+        "extracted_text": { "type": "text" },
+        "char_count": { "type": "number" }
+      },
+      "title_ru": "Parse PDF",
+      "title_en": "Parse PDF"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+      "type": "decision",
+      "mode": "stateful",
+      "config": {
+        "condition_expression": "len({{aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2.text}}) > 50",
+        "condition": "parsed text length > 50"
+      },
+      "outputs": {
+        "result": { "type": "boolean" },
+        "branch": { "type": "string" },
+        "reply": { "type": "text" }
+      },
+      "title_ru": "Decision",
+      "title_en": "Decision"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4",
+      "type": "confirm_gate",
+      "mode": "stateful",
+      "config": {
+        "confirm_message_ru": "Отправить письмо?",
+        "confirm_message_en": "Send email?"
+      },
+      "outputs": {
+        "message": { "type": "text" },
+        "confirmed": { "type": "boolean" }
+      },
+      "title_ru": "Confirm",
+      "title_en": "Confirm"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5",
+      "type": "email_dispatcher",
+      "mode": "stateless",
+      "inputs": {
+        "to": "user@example.com",
+        "subject": "Parsed document summary",
+        "body": "{{aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2.text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "delivery_status": { "type": "string" }
+      },
+      "title_ru": "Email",
+      "title_en": "Email"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6",
+      "type": "print_log",
+      "mode": "stateful",
+      "inputs": {
+        "message": "{{aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2.text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "log_text": { "type": "text" }
+      },
+      "title_ru": "Log",
+      "title_en": "Log"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2"
+    },
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3"
+    },
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4",
+      "branch": "yes"
+    },
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa6",
+      "branch": "no"
+    },
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa4",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa5"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "advanced", "decision", "document", "email"]
+}

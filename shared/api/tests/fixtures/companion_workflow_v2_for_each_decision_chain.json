@@ -1,0 +1,95 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_for_each_decision_demo",
+  "version": 1,
+  "title_ru": "For each decision demo",
+  "title_en": "For each decision demo",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^for each decision$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "11111111-1111-4111-8111-111111111101",
+      "type": "for_each",
+      "mode": "stateful",
+      "config": {
+        "items_field": "items"
+      },
+      "inputs": {
+        "items": ["urgent", "normal", "urgent"]
+      },
+      "outputs": {
+        "count": { "type": "number" },
+        "items_processed": { "type": "number" },
+        "reply": { "type": "text" }
+      },
+      "title_ru": "For each",
+      "title_en": "For each"
+    },
+    {
+      "id": "11111111-1111-4111-8111-111111111102",
+      "type": "decision",
+      "mode": "stateful",
+      "config": {
+        "condition_expression": "{{loop.item}} == 'urgent'"
+      },
+      "outputs": {
+        "result": { "type": "boolean" },
+        "branch": { "type": "string" }
+      },
+      "title_ru": "Decision",
+      "title_en": "Decision"
+    },
+    {
+      "id": "11111111-1111-4111-8111-111111111103",
+      "type": "print_log",
+      "mode": "stateful",
+      "inputs": {
+        "message": "send {{loop.item}}"
+      },
+      "outputs": {
+        "log_text": { "type": "text" },
+        "reply": { "type": "text" }
+      },
+      "title_ru": "Send",
+      "title_en": "Send"
+    },
+    {
+      "id": "11111111-1111-4111-8111-111111111104",
+      "type": "print_log",
+      "mode": "stateful",
+      "inputs": {
+        "message": "skip {{loop.item}}"
+      },
+      "outputs": {
+        "log_text": { "type": "text" },
+        "reply": { "type": "text" }
+      },
+      "title_ru": "Skip",
+      "title_en": "Skip"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "11111111-1111-4111-8111-111111111101",
+      "target_node_id": "11111111-1111-4111-8111-111111111102",
+      "branch": "body"
+    },
+    {
+      "source_node_id": "11111111-1111-4111-8111-111111111102",
+      "target_node_id": "11111111-1111-4111-8111-111111111103",
+      "branch": "yes"
+    },
+    {
+      "source_node_id": "11111111-1111-4111-8111-111111111102",
+      "target_node_id": "11111111-1111-4111-8111-111111111104",
+      "branch": "no"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "for_each", "decision", "expression"]
+}

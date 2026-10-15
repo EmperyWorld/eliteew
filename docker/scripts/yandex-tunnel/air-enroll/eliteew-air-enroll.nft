@@ -1,0 +1,21 @@
+#!/usr/sbin/nft -f
+
+table inet eliteew_air_enroll {
+    set active_ports {
+        type inet_service
+        flags timeout
+        timeout 15m
+    }
+
+    chain prerouting {
+        type nat hook prerouting priority -105; policy accept;
+        tcp dport @active_ports redirect to :39443
+    }
+
+    chain input {
+        type filter hook input priority -5; policy accept;
+        iifname "lo" tcp dport 39443 accept
+        tcp dport 39443 ct original proto-dst @active_ports accept
+        tcp dport 39443 drop
+    }
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_decision_email_or_log",
+  "version": 1,
+  "title_ru": "Decision email or log",
+  "title_en": "Decision email or log",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^decision chain$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff1",
+      "type": "document_import",
+      "mode": "stateful",
+      "inputs": {
+        "paperless_id": 55
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" }
+      },
+      "title_ru": "Import",
+      "title_en": "Import"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff2",
+      "type": "llm_summarizer",
+      "mode": "stateless",
+      "inputs": {
+        "text": "{{ffffffff-ffff-4fff-8fff-fffffffffff1.text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "summary_text": { "type": "text" },
+        "analysis_text": { "type": "text" }
+      },
+      "title_ru": "Summarize",
+      "title_en": "Summarize"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff3",
+      "type": "decision",
+      "mode": "stateful",
+      "config": {
+        "condition_op": "length_gt",
+        "condition_field": "text",
+        "condition_value": 100,
+        "condition": "summary length > 100"
+      },
+      "inputs": {
+        "text": "{{ffffffff-ffff-4fff-8fff-fffffffffff2.summary_text}}"
+      },
+      "outputs": {
+        "result": { "type": "boolean" },
+        "branch": { "type": "string" },
+        "reply": { "type": "text" }
+      },
+      "title_ru": "Decision",
+      "title_en": "Decision"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff4",
+      "type": "confirm_gate",
+      "mode": "stateful",
+      "config": {
+        "confirm_message_ru": "Отправить письмо?",
+        "confirm_message_en": "Send email?"
+      },
+      "outputs": {
+        "message": { "type": "text" },
+        "confirmed": { "type": "boolean" }
+      },
+      "title_ru": "Confirm",
+      "title_en": "Confirm"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff5",
+      "type": "email_dispatcher",
+      "mode": "stateless",
+      "inputs": {
+        "to": "user@example.com",
+        "subject": "Summary ready",
+        "body": "{{ffffffff-ffff-4fff-8fff-fffffffffff2.summary_text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "delivery_status": { "type": "string" }
+      },
+      "title_ru": "Email",
+      "title_en": "Email"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff6",
+      "type": "print_log",
+      "mode": "stateful",
+      "inputs": {
+        "message": "{{ffffffff-ffff-4fff-8fff-fffffffffff2.summary_text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "log_text": { "type": "text" }
+      },
+      "title_ru": "Log",
+      "title_en": "Log"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff1",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff2"
+    },
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff2",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff3"
+    },
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff3",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff4",
+      "branch": "yes"
+    },
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff3",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff6",
+      "branch": "no"
+    },
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff4",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff5"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "decision", "branching"]
+}

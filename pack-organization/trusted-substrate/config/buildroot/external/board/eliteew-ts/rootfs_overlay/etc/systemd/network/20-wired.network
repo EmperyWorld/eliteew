@@ -1,0 +1,16 @@
+# Match predictable names (enp*/eno*/ens*) — stock BR2_SYSTEM_DHCP=eth0 alone
+# leaves metal laptops with carrier down / no DHCP.
+# Do not ship a 10-eliteew-ts-install-*.network with a lab static address;
+# that file wins over this one and cable DHCP never runs.
+[Match]
+Name=en*
+Type=ether
+
+[Network]
+DHCP=ipv4
+IPv6AcceptRA=no
+LLMNR=no
+MulticastDNS=no
+
+[Link]
+RequiredForOnline=yes

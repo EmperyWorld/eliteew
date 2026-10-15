@@ -1,0 +1,14 @@
+{
+	"locale": "en",
+	"voice": "xenia",
+	"voiceDescription": "Silero: xenia — expressive Ksenia (RU model; EN text may fail)",
+	"steps": {
+		"intro": "A short tour of the workflow builder. We will cover the header, action bar, node palette, canvas, and inspector. Use the buttons below or the arrow keys to move between steps.",
+		"header": "The header shows the studio badge, node and edge counts, version, and status chips. Enter the workflow name and description here. Below that you will see the ID and draft hints.",
+		"toolbar": "Save to the server, validate the graph, run it, import and export, manage drafts, and use selection tools. Guide opens the text reference; Tour opens this walkthrough.",
+		"palette": "The palette on the left lists nodes by category, search, starter templates, and your presets. Drag a node onto the canvas or click to add it.",
+		"canvas": "The canvas in the center is where you connect ports, move nodes, and multi-select. On small screens, palette and inspector toggles appear here. Fit view frames the whole graph.",
+		"inspector": "The inspector on the right shows a graph summary, validation issues that focus the canvas, plus run history and metrics.",
+		"help": "The help button opens a quick reference for the palette, hotkeys, utility nodes, and read-only mode."
+	}
+}

@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "id": "it_adr_v1",
+  "version": 1,
+  "title": "ADR — архитектурное решение",
+  "description": "Короткий Architecture Decision Record: контекст, варианты, решение, последствия и откат. Пригоден для PR/тикета.",
+  "artifact_type": "it_adr",
+  "required_context": [
+    "decision_question",
+    "system_or_module_boundary",
+    "constraints"
+  ],
+  "quality_rubric": [
+    "Есть явный вопрос решения и границы системы",
+    "≥2 реалистичных варианта с trade-offs",
+    "Выбранное решение и почему не остальные",
+    "Последствия и как откатить/проверить"
+  ],
+  "output_sections": [
+    "Контекст и варианты",
+    "Влияние на контракты",
+    "Решение и откат"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "adr1",
+      "title": "Контекст и варианты",
+      "instruction_for_model": "Сформулируй ADR-контекст: вопрос решения (1 предложение), границы модуля/системы (in/out), ограничения (время, совместимость, ownership). Дай 2–3 варианта (A/B/C) с краткими trade-offs. Не выбирай победителя. Не выдумывай сервисы и SLA. Без ##. Без self-intro.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только framing и варианты; без финального решения и без API-полей.",
+      "output_format": [
+        "Вопрос",
+        "Границы",
+        "Варианты A/B/C"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "adr2",
+      "title": "Влияние на контракты",
+      "instruction_for_model": "Для вариантов из предыдущего шага опиши влияние на HTTP/API/данные: что ломается, что совместимо, какие fail/idempotency риски. Маркируй неизвестное. Без выбора ADR-победителя. Без ##.",
+      "required_slots": {
+        "engineering": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только контрактные последствия; не пиши UI и не дублируй полный ADR-контекст.",
+      "output_format": [
+        "Контрактный impact",
+        "Совместимость",
+        "Риски fail-path"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "adr3",
+      "title": "Решение и откат",
+      "instruction_for_model": "Выбери один вариант как Decision. Status: Accepted (или Proposed, если фактов мало). Consequences: плюсы/минусы. Rollback: как откатить и чем проверить (smoke/тест). Не выдумывай метрики. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только Decision + Consequences + Rollback; не переписывай варианты целиком.",
+      "output_format": [
+        "Decision",
+        "Consequences",
+        "Rollback / verify"
+      ],
+      "min_roster": 1
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Контекст и варианты",
+      "step_ids": [
+        "adr1"
+      ]
+    },
+    {
+      "heading": "Влияние на контракты",
+      "step_ids": [
+        "adr2"
+      ]
+    },
+    {
+      "heading": "Решение и откат",
+      "step_ids": [
+        "adr3"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# ---
+# EliteEW · Empery World
+# https://empery.world
+# Author: po&T && TZBrand
+# ---
+# tty1 router: live installer vs product kiosk. Never falls through to an interactive shell
+# on the product/install surface when binaries are missing (sleep instead).
+# Do not use set -e here — any early failure must end in sleep infinity, not getty restart.
+set -u
+
+FLAG_DIR=/etc/eliteew-trusted-substrate
+COMPLETE="${FLAG_DIR}/INSTALL-COMPLETE"
+LIVE_INSTALLER="${FLAG_DIR}/live-installer"
+DISABLE_KIOSK="${FLAG_DIR}/disable-kiosk"
+
+tty_msg() {
+  printf '\r\neliteew-ts-session-router: %s\n' "$*" >/dev/tty1 2>/dev/null || true
+}
+
+if [[ -e "$DISABLE_KIOSK" ]]; then
+  # Explicit ops debug only — operator-created flag on recovery media.
+  exit 0
+fi
+
+if [[ -e "$COMPLETE" ]] || [[ ! -e "$LIVE_INSTALLER" ]]; then
+  if [[ -x /usr/local/bin/eliteew-ts-kiosk ]]; then
+    exec /usr/local/bin/eliteew-ts-kiosk
+  fi
+  tty_msg "missing kiosk binary — holding tty1"
+  sleep infinity
+fi
+
+if [[ -x /usr/local/bin/eliteew-ts-installer-session ]]; then
+  exec /usr/local/bin/eliteew-ts-installer-session
+fi
+
+tty_msg "missing installer-session — holding tty1"
+sleep infinity

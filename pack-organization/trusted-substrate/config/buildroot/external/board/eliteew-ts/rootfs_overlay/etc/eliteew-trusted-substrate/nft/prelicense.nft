@@ -1,0 +1,60 @@
+#!/usr/bin/env nft -f
+# EliteEW Trusted Substrate — pre-license egress (Buildroot rootfs_overlay SoT)
+# Default deny outbound; DNS + DHCP + NTP + portal WG UDP + portal VIP HTTP(S)
+# + Air TCP to resolved public addrs only.
+# Related: documentation/product/desktop/DESKTOP-CLIENT-AIR-ENROLL.md §7
+# Note: apply script deletes the table before load so first boot is clean.
+
+table inet eliteew_ts_prelicense {
+  set air_enroll_dst4 {
+    type ipv4_addr
+    flags timeout
+    timeout 10m
+  }
+
+  set air_enroll_dst6 {
+    type ipv6_addr
+    flags timeout
+    timeout 10m
+  }
+
+  chain input {
+    type filter hook input priority filter; policy drop;
+    ct state established,related accept
+    iif lo accept
+    # DHCP replies. A 0.0.0.0 DISCOVER often does not conntrack as
+    # established, so OFFER/ACK must be accepted on input explicitly.
+    udp sport 67 udp dport 68 accept
+    icmp type echo-request accept
+    icmpv6 type { echo-request, nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+    tcp dport 22 accept
+  }
+
+  chain forward {
+    type filter hook forward priority filter; policy drop;
+  }
+
+  chain output {
+    type filter hook output priority filter; policy drop;
+    ct state established,related accept
+    oif lo accept
+    # DNS required to refresh Air destination set and normal name resolution.
+    udp dport 53 accept
+    tcp dport 53 accept
+    # DHCP client
+    udp sport 68 udp dport 67 accept
+    # No public NTP. Wall clock is set in the installer. Do not punch udp/123.
+    # Portal WireGuard (post-Capsule bring-up)
+    udp dport 51820-51830 accept
+    # Portal VIP HTTP(S) after handshake (SPA OTA). Not the public edge VIP.
+    tcp dport { 80, 443 } ip daddr 10.88.89.1 accept
+    # Meet / Jitsi ICE: UDP-native media to the public edge VIP only.
+    # Signaling stays HTTPS to meet.eliteew.ru via the portal host-map.
+    udp dport 13400 ip daddr 93.77.165.185 accept
+    # Air enrollment: only to resolved public A/AAAA of app.eliteew.ru
+    tcp dport 62200-63200 ip daddr @air_enroll_dst4 accept
+    tcp dport 62200-63200 ip6 daddr @air_enroll_dst6 accept
+    meta l4proto ipv6-icmp accept
+    icmp type echo-request accept
+  }
+}

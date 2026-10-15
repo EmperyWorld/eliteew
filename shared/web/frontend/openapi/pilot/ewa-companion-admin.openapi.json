@@ -1,0 +1,302 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EWA companion admin (frontend pilot)",
+    "version": "1.0.0",
+    "description": "Companion admin task-run slice for frontend typing (`/api/v1/ewa/admin/companion/task-runs*`). Regenerate TS: `pnpm run openapi:pilot:ewa-companion-admin`."
+  },
+  "paths": {
+    "/api/v1/ewa/admin/companion/task-runs": {
+      "get": {
+        "tags": [
+          "EWA - Companion admin"
+        ],
+        "operationId": "ewa_companion_admin_task_runs_list",
+        "summary": "List companion task runs for operator debug panel",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200,
+              "default": 50
+            }
+          },
+          {
+            "name": "principal_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/EwaCompanionTaskRunStatus"
+            }
+          },
+          {
+            "name": "intent_kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_steps",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Companion task runs page",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EwaCompanionAdminTaskRunsResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden for non-admin principals"
+          },
+          "503": {
+            "description": "Admin feature gate is disabled"
+          }
+        }
+      }
+    },
+    "/api/v1/ewa/admin/companion/task-runs/{run_id}": {
+      "get": {
+        "tags": [
+          "EWA - Companion admin"
+        ],
+        "operationId": "ewa_companion_admin_task_run_detail",
+        "summary": "Get one companion task run",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_steps",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Companion task run detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EwaCompanionAdminTaskRun"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden for non-admin principals"
+          },
+          "404": {
+            "description": "Task run not found"
+          },
+          "503": {
+            "description": "Admin feature gate is disabled"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EwaCompanionTaskRunStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "running",
+          "awaiting_confirmation",
+          "completed",
+          "failed",
+          "cancelled"
+        ]
+      },
+      "EwaCompanionTaskStep": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "run_id": {
+            "type": "string"
+          },
+          "step_index": {
+            "type": "integer"
+          },
+          "step_kind": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "input_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "output_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "error_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "run_id",
+          "step_index",
+          "step_kind",
+          "status",
+          "title",
+          "input_payload",
+          "output_payload",
+          "error_payload"
+        ],
+        "additionalProperties": true
+      },
+      "EwaCompanionAdminTaskRun": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "principal_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "intent_kind": {
+            "type": "string"
+          },
+          "user_message": {
+            "type": "string"
+          },
+          "plan_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "confirmation_state": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "result_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "error_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "execution_mode": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EwaCompanionTaskStep"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "principal_id",
+          "status",
+          "intent_kind",
+          "user_message",
+          "plan_payload",
+          "confirmation_state",
+          "result_payload",
+          "error_payload"
+        ],
+        "additionalProperties": true
+      },
+      "EwaCompanionAdminTaskRunsResponse": {
+        "type": "object",
+        "properties": {
+          "runs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EwaCompanionAdminTaskRun"
+            }
+          }
+        },
+        "required": [
+          "runs"
+        ],
+        "additionalProperties": true
+      }
+    }
+  }
+}

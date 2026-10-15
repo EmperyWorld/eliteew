@@ -1,0 +1,24 @@
+<!--
+  EliteEW desktop-client · ops-system-wg Polkit policy (Wave 2).
+  Install under /usr/share/polkit-1/actions/ with the ops RPM only.
+  Annotates /usr/libexec/eliteew-wg-portal-helper — never retail.
+  Related: documentation/product/desktop/DESKTOP-CLIENT-SECURITY-BOUNDARIES.md
+-->
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+<policyconfig>
+  <vendor>Empery World</vendor>
+  <vendor_url>https://empery.world</vendor_url>
+  <action id="world.empery.desktop.client.wg-portal.manage">
+    <description>Manage EliteEW wg-portal client tunnel (ops)</description>
+    <message>Authentication is required to install or start the EliteEW portal WireGuard tunnel</message>
+    <defaults>
+      <allow_any>auth_admin</allow_any>
+      <allow_inactive>auth_admin</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.exec.path">/usr/libexec/eliteew-wg-portal-helper</annotate>
+    <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
+  </action>
+</policyconfig>

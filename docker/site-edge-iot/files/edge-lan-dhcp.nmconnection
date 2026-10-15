@@ -1,0 +1,14 @@
+[connection]
+id=edge-lan
+type=ethernet
+autoconnect=true
+
+[ethernet]
+
+[ipv4]
+method=auto
+may-fail=false
+
+[ipv6]
+method=auto
+may-fail=true

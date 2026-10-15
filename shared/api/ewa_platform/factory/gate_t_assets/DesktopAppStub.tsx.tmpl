@@ -1,0 +1,41 @@
+/**
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose:
+ * Desktop app stub for REPLACE_TITLE (`ReplacePascalApp`). Replace body with product UI.
+ *
+ * Invariants:
+ * - Scaffold-owned: true — replace product UI; do not paper-fix; escape ALLOW_SCAFFOLD_EDIT.
+ * - Mount via appMounts.registry + appMounts.resolve + U1 appRegistry.catalog entry.
+ * - Product enablement SoT: shared/apps/REPLACE_SNAKE_ID/app.manifest.yaml
+ *
+ * Related:
+ * - documentation/platform/ELITEEW-PRODUCT-EDITIONS-AND-APP-PLATFORM.md
+ * - documentation/platform/ELITEEW-GENEW-FACTORY-HARVEST.md
+ * - shared/apps/README.md
+ */
+
+import type { ReactElement } from 'react';
+import {
+	DesktopAppContentWrapper,
+	DesktopAppSurface,
+} from '@/pages/Desktop/components/DesktopAppChrome';
+import { DESKTOP_TYPOGRAPHY } from '@/pages/Desktop/constants';
+
+export function ReplacePascalApp(): ReactElement {
+	return (
+		<DesktopAppContentWrapper appComponent="ReplacePascalApp">
+			<DesktopAppSurface className="flex h-full flex-col gap-3 p-4">
+				<h1 className={DESKTOP_TYPOGRAPHY.windowTitle}>REPLACE_TITLE</h1>
+				<p className={DESKTOP_TYPOGRAPHY.bodyMuted}>
+					Scaffold stub — replace with product UI.
+				</p>
+			</DesktopAppSurface>
+		</DesktopAppContentWrapper>
+	);
+}
+
+export default ReplacePascalApp;

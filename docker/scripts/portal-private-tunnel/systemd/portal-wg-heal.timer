@@ -1,0 +1,14 @@
+# EliteEW · edge — check portal units every 2 minutes
+[Unit]
+Description=EliteEW Portal Private Tunnel self-heal timer
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=2min
+AccuracySec=30s
+Persistent=true
+Unit=portal-wg-heal.service
+
+[Install]
+WantedBy=timers.target

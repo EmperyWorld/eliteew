@@ -1,0 +1,70 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Soft tertiary profile card — quieter than shell launch CTA.
+ * Invariants: No gold fill competing with primary Start.
+ * Related: documentation/product/desktop/DESKTOP-TAURI-CONNECTED-CLIENT.md
+ */
+
+.profile-panel {
+  width: 100%;
+  padding: 1.15rem 1.2rem 1.25rem;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.025), transparent 48%),
+    rgba(12, 18, 28, 0.88);
+  border-color: var(--dc-border-soft);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.profile-panel h2 {
+  font-size: 1.12rem;
+  font-weight: 600;
+  margin-bottom: 0.55rem;
+}
+
+.profile-meta {
+  list-style: none;
+  margin: 0.35rem 0 0.65rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.profile-meta li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--dc-border-soft);
+  background: rgba(8, 13, 20, 0.45);
+}
+
+.profile-meta strong {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--dc-muted);
+}
+
+.profile-meta span {
+  font-size: 0.9rem;
+  color: var(--dc-fg);
+  word-break: break-word;
+}
+
+.profile-actions {
+  margin-top: 0.85rem;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.profile-actions .secondary {
+  width: 100%;
+  justify-content: center;
+}

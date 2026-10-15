@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-fofline-spa-assets-cancel"
+description = "Enables the fofline_spa_assets_cancel command without any pre-configured scope."
+commands.allow = ["fofline_spa_assets_cancel"]
+
+[[permission]]
+identifier = "deny-fofline-spa-assets-cancel"
+description = "Denies the fofline_spa_assets_cancel command without any pre-configured scope."
+commands.deny = ["fofline_spa_assets_cancel"]

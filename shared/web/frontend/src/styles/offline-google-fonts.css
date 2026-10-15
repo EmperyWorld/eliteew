@@ -1,0 +1,4 @@
+/**
+ * @fontsource bundles moved to `fontImports.ts` (imported from main.tsx) so Vite emits woff2 assets.
+ * This file is kept for grep/docs; presentation.css still references this comment.
+ */

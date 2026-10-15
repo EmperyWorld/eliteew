@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schema/amka/ewa_io_v1.json",
+  "title": "AMKA platform I/O envelopes v1",
+  "description": "Validate a single envelope via $ref to #/$defs/EwaRequestV1, EwaResponseV1, or EwaEventV1.",
+  "$defs": {
+    "EwaRequestV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "api_version",
+        "message_type",
+        "correlation_id",
+        "payload"
+      ],
+      "properties": {
+        "api_version": { "type": "string", "minLength": 1 },
+        "message_type": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Known values: start_run, signal, query_state; additional values allowed when negotiated."
+        },
+        "correlation_id": { "type": "string", "minLength": 1 },
+        "auth_context_ref": { "type": ["string", "null"] },
+        "payload": { "type": "object" },
+        "schema_ref": { "type": ["string", "null"] }
+      }
+    },
+    "EwaResponseV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "api_version",
+        "message_type",
+        "correlation_id",
+        "payload"
+      ],
+      "properties": {
+        "api_version": { "type": "string", "minLength": 1 },
+        "message_type": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Known values: result, error; additional values allowed when negotiated."
+        },
+        "correlation_id": { "type": "string", "minLength": 1 },
+        "run_id": { "type": ["string", "null"] },
+        "payload": { "type": "object" },
+        "schema_ref": { "type": ["string", "null"] }
+      }
+    },
+    "EwaEventV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "api_version",
+        "run_id",
+        "seq",
+        "stage",
+        "event_type",
+        "payload"
+      ],
+      "properties": {
+        "api_version": { "type": "string", "minLength": 1 },
+        "run_id": { "type": "string", "minLength": 1 },
+        "seq": { "type": "integer" },
+        "stage": { "type": "string", "minLength": 1 },
+        "event_type": { "type": "string", "minLength": 1 },
+        "payload": { "type": "object" },
+        "trace_ref": { "type": ["string", "null"] },
+        "correlation_id": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

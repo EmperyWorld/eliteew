@@ -1,0 +1,3 @@
+# Celery executor — same venv as API (Dockerfile copies deps-api only).
+# No separate celery-worker.lock; api.lock is the install truth.
+-r api.in

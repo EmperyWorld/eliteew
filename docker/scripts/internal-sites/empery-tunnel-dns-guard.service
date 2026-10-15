@@ -1,0 +1,14 @@
+[Unit]
+Description=EliteEW validate *.eliteew.ru tunnel-only perimeter (DNS/LAN)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+Environment=EMPERY_TUNNEL_ENV=@REPO_ROOT@/docker/env_file/.env.yandex-tunnel
+WorkingDirectory=@REPO_ROOT@
+ExecStart=/bin/bash @REPO_ROOT@/docker/scripts/internal-sites/validate-empery-tunnel-security.sh
+# Подставить реальный путь при install (configure-host-resolver-empery-tunnel.sh переписывает)
+
+[Install]
+WantedBy=multi-user.target

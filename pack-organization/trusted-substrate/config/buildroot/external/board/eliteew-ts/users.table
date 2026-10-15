@@ -1,0 +1,7 @@
+# Buildroot mkusers table — see BR manual §makeuser-syntax
+# Stable IDs are part of the seat and maintenance identity contracts.
+# Both accounts are locked. Getty autologin is limited to the kiosk account;
+# provisioned key-only SSH is limited to the maintenance account.
+# username uid group gid password home shell groups comment
+eliteew-ts 105 eliteew-ts 113 * /home/eliteew-ts /bin/bash video,render,input,seat,tty,audio EliteEW Trusted Substrate kiosk
+empiieros-maint 106 empiieros-maint 114 * /home/empiieros-maint /bin/bash - EmpiierOS key-only maintenance

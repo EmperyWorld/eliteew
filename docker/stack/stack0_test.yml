@@ -1,0 +1,93 @@
+name: stack0-tests
+# =============================================================================
+# EliteEW · stack0 test runner (immutable image, no /app/api bind-mount)
+# =============================================================================
+# Run from repo root:
+#   docker compose -f docker/stack/stack0_test.yml --env-file docker/env_file/.env.stack0.backend run --rm eliteew-api-test-runner
+# =============================================================================
+
+networks:
+  ew_net_6211:
+    external: true
+  ew_net_2847:
+    external: true
+  ew_net_9O11:
+    external: true
+  ew_net_4532:
+    external: true
+  ew_net_7198:
+    external: true
+  ew_net_3365:
+    external: true
+  ew_net_5402:
+    external: true
+
+services:
+  eliteew-api-test-runner:
+    image: ${STACK0_API_TEST_IMAGE:-eliteew-api-test:local}
+    build:
+      context: ../..
+      dockerfile: docker/builders/stack0-api/Dockerfile.test-runner
+      args:
+        BASE_IMAGE: ${STACK0_API_IMAGE:-eliteew-api:v3}
+    networks:
+      - ew_net_6211
+      - ew_net_2847
+      - ew_net_9O11
+      - ew_net_4532
+      - ew_net_7198
+      - ew_net_3365
+      - ew_net_5402
+    user: "${STACK0_USER:-1000:1000}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    security_opt:
+      - no-new-privileges:true
+    working_dir: /app/api
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - ELITEEW_LOG_LEVEL=${ELITEEW_LOG_LEVEL:-INFO}
+      - ELITEEW_PUBLIC_OPENAPI_DOCS=true
+      - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET:-test-secret}
+      # Minimal infra contract for modules that validate env at import time.
+      - DOCKER_NETWORK=${DOCKER_NETWORK:-ew_net_2847}
+      - HOST_IP=${HOST_IP:-127.0.0.1}
+      - POSTGRES_HOST=${POSTGRES_HOST:-stack1-postgres}
+      - POSTGRES_PORT=${POSTGRES_PORT:-5432}
+      - POSTGRES_EXTERNAL_PORT=${POSTGRES_EXTERNAL_PORT:-30000}
+      - POSTGRES_USER=${POSTGRES_USER:-ai_user}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-}
+      - POSTGRES_DB=${POSTGRES_DB:-ai_services}
+      - REDIS_HOST=${REDIS_HOST:-stack1-redis}
+      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_EXTERNAL_PORT=${REDIS_EXTERNAL_PORT:-30001}
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+      - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST:-stack1-elasticsearch}
+      - ELASTICSEARCH_PORT=${ELASTICSEARCH_PORT:-9200}
+      - ELASTICSEARCH_EXTERNAL_PORT=${ELASTICSEARCH_EXTERNAL_PORT:-30007}
+      - MINIO_HOST=${MINIO_HOST:-stack1-seaweedfs}
+      - MINIO_PORT=${MINIO_PORT:-8333}
+      - MINIO_EXTERNAL_PORT=${MINIO_EXTERNAL_PORT:-30006}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-}
+      - CHROMADB_CONTAINER_NAME=${CHROMADB_CONTAINER_NAME:-stack1-chroma}
+      - CHROMADB_HOST=${CHROMADB_HOST:-stack1-chroma}
+      - CHROMADB_EXTERNAL_HOST=${CHROMADB_EXTERNAL_HOST:-127.0.0.1}
+      - CHROMADB_PORT=${CHROMADB_PORT:-8000}
+      - CHROMADB_EXTERNAL_PORT=${CHROMADB_EXTERNAL_PORT:-30002}
+      - RABBITMQ_CONTAINER_NAME=${RABBITMQ_CONTAINER_NAME:-stack1-rabbitmq}
+      - RABBITMQ_HOST=${RABBITMQ_HOST:-stack1-rabbitmq}
+      - RABBITMQ_EXTERNAL_HOST=${RABBITMQ_EXTERNAL_HOST:-127.0.0.1}
+      - RABBITMQ_PORT=${RABBITMQ_PORT:-5672}
+      - RABBITMQ_EXTERNAL_PORT=${RABBITMQ_EXTERNAL_PORT:-30008}
+      - RABBITMQ_USER=${RABBITMQ_USER:-admin}
+      - RABBITMQ_VHOST=${RABBITMQ_VHOST:-/}
+      - QDRANT_CONTAINER_NAME=${QDRANT_CONTAINER_NAME:-stack1-qdrant}
+      - QDRANT_HOST=${QDRANT_HOST:-stack1-qdrant}
+      - QDRANT_EXTERNAL_HOST=${QDRANT_EXTERNAL_HOST:-127.0.0.1}
+      - QDRANT_PORT=${QDRANT_PORT:-6333}
+      - QDRANT_EXTERNAL_PORT=${QDRANT_EXTERNAL_PORT:-30003}
+    tmpfs:
+      - /tmp
+    command: ["python", "-m", "pytest", "-q"]

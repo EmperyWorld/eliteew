@@ -1,0 +1,23 @@
+# EliteEW product app manifest
+id: local_service_iframe
+title: Local Service (iframe)
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: LocalServiceIframeApp
+    icon: app-local-service
+  api:
+    prefixes:
+      - /api/v1/desktop/local-service-proxy
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

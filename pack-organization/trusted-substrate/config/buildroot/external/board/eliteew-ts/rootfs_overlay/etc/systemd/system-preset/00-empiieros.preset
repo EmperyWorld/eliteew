@@ -1,0 +1,15 @@
+# Higher priority than usr/lib/systemd/system-preset/90-systemd.preset.
+# Named disables keep BR systemctl preset-all from fighting intentional masks
+# (getty@ttyN, timesyncd, sshd, stock ask-password paths).
+# The stock global unit has no interface/config arguments. EmpiierOS starts
+# only validated empiieros-wifi@<interface>.service instances.
+disable wpa_supplicant.service
+disable getty@tty2.service
+disable getty@tty3.service
+disable getty@tty4.service
+disable getty@tty5.service
+disable getty@tty6.service
+disable systemd-timesyncd.service
+disable sshd.service
+disable systemd-ask-password-console.path
+disable systemd-ask-password-wall.path

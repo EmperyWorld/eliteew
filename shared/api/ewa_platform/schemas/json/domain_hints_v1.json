@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schema/amka/domain_hints_v1.json",
+  "title": "AMKA desktop orchestration domain hints v1",
+  "description": "Read-only hint payloads nested under orchestration event domain_hints.{documents|content}, plus optional shell_state subtree ewa_hints (partial payloads normalized server-side).",
+  "$defs": {
+    "ShellEmbeddedDocumentsWorkspaceHint": {
+      "type": "object",
+      "description": "Partial documents hint persisted under shell_state.ewa_hints.documents_workspace (normalized to DocumentsWorkspaceHintWire before domain_hints events).",
+      "additionalProperties": true
+    },
+    "ShellEmbeddedContentManagerHint": {
+      "type": "object",
+      "description": "Partial content hint under shell_state.ewa_hints.content_manager.",
+      "additionalProperties": true
+    },
+    "EwaShellHintsSubtreeV1": {
+      "type": "object",
+      "description": "Optional subtree keyed \"ewa_hints\" on EliteEW GET/PATCH /api/v1/desktop/shell-state JSON.",
+      "properties": {
+        "documents_workspace": {
+          "$ref": "#/$defs/ShellEmbeddedDocumentsWorkspaceHint"
+        },
+        "content_manager": {
+          "$ref": "#/$defs/ShellEmbeddedContentManagerHint"
+        }
+      },
+      "additionalProperties": true
+    },
+    "DocumentsWorkspaceHintWire": {
+      "type": "object",
+      "required": ["source", "open_document_count", "items"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Origin of the hint (adapter path or explicit shell_state subtree)."
+        },
+        "open_document_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "status_code": {
+          "type": "integer",
+          "description": "Optional HTTP status when source derives from shell-state fetch failure."
+        }
+      },
+      "additionalProperties": true
+    },
+    "ContentManagerHintWire": {
+      "type": "object",
+      "required": ["source", "roots"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "roots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status_code": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

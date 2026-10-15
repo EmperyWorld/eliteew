@@ -1,0 +1,17 @@
+[connection]
+id=edge-lan
+type=ethernet
+autoconnect=true
+
+[ethernet]
+
+[ipv4]
+method=manual
+# Placeholders filled by site-edge-iot-provision.sh from network.env
+address1=REPLACE_ME_ADDRESS
+gateway=REPLACE_ME_GATEWAY
+dns=REPLACE_ME_DNS
+may-fail=false
+
+[ipv6]
+method=disabled

@@ -1,0 +1,19 @@
+# Example: one Site-Image on Edge (replace IMAGE / ports per slug).
+# Prefer: bash docker/scripts/site-edge-carrier-deploy.sh (podman run).
+#
+# Usage on Edge:
+#   export IMAGE=local/site-edge/demo:latest
+#   podman-compose -f compose.site.example.yml up -d
+
+services:
+  site:
+    image: ${IMAGE:-local/site-edge/demo:latest}
+    container_name: site-edge-${SITE_SLUG:-demo}
+    ports:
+      - "${HOST_PORT:-8080}:8080"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp

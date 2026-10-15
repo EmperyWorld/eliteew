@@ -1,0 +1,23 @@
+[Desktop Entry]
+# Prefer explicit categories — empty Categories= hides poorly in GNOME grids.
+Categories=Network;Utility;
+{{#if comment}}
+Comment={{comment}}
+{{/if}}
+# Public updater + entitlement verify keys are baked into the binary/conf
+# (Root of Trust). Never inject updater pubkey via Exec — that would allow a
+# local launcher to swap the OTA trust anchor.
+# W-transport default is applied inside the binary when env is unset;
+# Exec may still force =1 for desktop-menu launches that inherit a hostile =0.
+Exec=env ELITEEW_FOFLINE_W_TRANSPORT=1 {{exec}}
+StartupWMClass={{exec}}
+# Freedesktop name installed under /usr/share/icons/hicolor/*/apps/{{icon}}.png
+# (GNOME + KDE). App-grid sizes use soft ink plate; tray/window icon stays transparent.
+Icon={{icon}}
+Name={{name}}
+Terminal=false
+Type=Application
+StartupNotify=true
+{{#if mime_type}}
+MimeType={{mime_type}}
+{{/if}}

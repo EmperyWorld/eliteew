@@ -1,0 +1,32 @@
+#!/bin/sh
+# ---
+# EliteEW · Empery World
+# https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose: Load Buildroot-overlay pre-license nftables table, then refresh Air sets.
+# Related: documentation/product/desktop/DESKTOP-CLIENT-AIR-ENROLL.md §7
+# ---
+
+set -eu
+
+NFT_SRC="${ELITEEW_TS_PRELICENSE_NFT:-/etc/eliteew-trusted-substrate/nft/prelicense.nft}"
+RESOLVE="${ELITEEW_TS_AIR_RESOLVE:-/usr/local/sbin/eliteew-ts-air-enroll-resolve}"
+
+die() {
+  printf 'eliteew-ts-prelicense-nft-apply: %s\n' "$*" >&2
+  exit 1
+}
+
+command -v nft >/dev/null 2>&1 || die "nft required"
+[ -f "${NFT_SRC}" ] || die "missing ${NFT_SRC}"
+
+nft delete table inet eliteew_ts_prelicense 2>/dev/null || true
+nft -f "${NFT_SRC}"
+printf '[STEP] prelicense_nft_loaded src=%s\n' "${NFT_SRC}" >&2
+
+if [ -x "${RESOLVE}" ]; then
+  "${RESOLVE}" || printf '[STEP] air_enroll_resolve_skip reason=resolve_failed\n' >&2
+else
+  printf '[STEP] air_enroll_resolve_skip reason=missing_binary\n' >&2
+fi

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-license-local-factory-reset-prepare"
+description = "Enables the license_local_factory_reset_prepare command without any pre-configured scope."
+commands.allow = ["license_local_factory_reset_prepare"]
+
+[[permission]]
+identifier = "deny-license-local-factory-reset-prepare"
+description = "Denies the license_local_factory_reset_prepare command without any pre-configured scope."
+commands.deny = ["license_local_factory_reset_prepare"]

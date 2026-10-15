@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empery_media_play_cd">Play</string>
+    <string name="empery_media_pause_cd">Pause</string>
+    <string name="empery_media_stop_cd">Stop</string>
+    <string name="empery_media_seek_cd">Playback position</string>
+    <string name="empery_media_now_playing">Now playing</string>
+    <string name="empery_media_error">Could not play audio</string>
+    <string name="empery_media_time_format">%1$s / %2$s</string>
+    <string name="empery_media_queue_position">%1$d / %2$d</string>
+    <string name="empery_media_retry">Retry</string>
+    <string name="empery_media_skip_back_cd">Back 10 seconds</string>
+    <string name="empery_media_skip_forward_cd">Forward 10 seconds</string>
+    <string name="empery_media_skip_previous_cd">Previous track</string>
+    <string name="empery_media_skip_next_cd">Next track</string>
+    <string name="empery_media_expand_cd">Expand player</string>
+    <string name="empery_media_shuffle_cd">Shuffle queue</string>
+    <string name="empery_media_repeat_cd">Repeat mode</string>
+    <string name="empery_media_speed_cd">Playback speed</string>
+    <string name="empery_media_queue_up_next">Up next</string>
+    <string name="empery_media_offline_ready">In app memory</string>
+    <string name="empery_media_sleep_timer_cd">Sleep timer</string>
+    <string name="empery_media_sleep_timer_off">Sleep</string>
+    <string name="empery_media_sleep_timer_minutes">%1$d min</string>
+    <string name="empery_media_sleep_timer_remaining">Sleep in %1$s</string>
+    <string name="empery_media_shuffle_on">Shuffle</string>
+    <string name="empery_media_repeat_one">Repeat track</string>
+    <string name="empery_media_repeat_all">Repeat queue</string>
+    <string name="empery_media_repeat_one_short">×1</string>
+    <string name="empery_media_repeat_all_short">∞</string>
+    <string name="empery_media_tool_shuffle">Mix</string>
+    <string name="empery_media_tool_repeat">Loop</string>
+    <string name="empery_media_dock_swipe_hint">Swipe down to close</string>
+    <string name="empery_media_favorites_tab">Favorites</string>
+    <string name="empery_media_queue_tab">Queue</string>
+    <string name="empery_media_add_favorite_cd">Add to favorites</string>
+    <string name="empery_media_remove_favorite_cd">Remove from favorites</string>
+    <string name="empery_media_favorites_empty">No favorite tracks yet. Tap the heart on the current song.</string>
+    <string name="empery_media_favorites_loading">Loading favorites…</string>
+    <string name="empery_media_idle_title">Music player</string>
+    <string name="empery_media_idle_hint">Pick a favorite track or open audio from the content library.</string>
+    <string name="empery_media_idle_favorites_empty">No favorites yet — tap the heart on audio in the library.</string>
+    <string name="empery_media_playback_tools_title">Playback settings</string>
+    <string name="empery_media_playback_list_title">Track list</string>
+    <string name="empery_media_player_face_tab">Player</string>
+    <string name="empery_media_list_face_tab">List</string>
+</resources>

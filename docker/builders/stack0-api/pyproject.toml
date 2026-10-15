@@ -1,0 +1,11 @@
+[project]
+name = "stack0-api"
+version = "0.1.0"
+description = "EliteEW stack0 backend image build context (dependency locks live under requirements/)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.14"
+dependencies = []
+
+[tool.uv]
+index-strategy = "unsafe-best-match"

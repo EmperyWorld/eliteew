@@ -1,0 +1,8 @@
+event: started
+data: {"request_id":"e2e-ugs-req-1","status":"processing"}
+
+event: progress
+data: {"request_id":"e2e-ugs-req-1","status":"processing","progress":40}
+
+event: result
+data: {"request_id":"e2e-ugs-req-1","status":"completed","result":{"text":"E2E mock UGS result"},"data":{"text":"E2E mock UGS result"}}

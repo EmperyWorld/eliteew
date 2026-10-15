@@ -1,0 +1,13 @@
+# Site Studio runtime RabbitMQ worker (Docker CLI + subprocess compose). Lightweight vs full API.
+-r base.in
+
+# queue_handlers загружает все обработчики; тяжёлые домены (ProcessorFactory / ES indexer)
+# импортятся только внутри соответствующих handle_* — не подтягиваем api.in ради этого воркера.
+
+aiofiles>=24.1.0,<25
+python-magic>=0.4.27,<0.5
+Pillow>=11.0.0
+markdown>=3.7,<4
+beautifulsoup4>=4.12.3,<5
+lxml>=5.3.0,<7
+html2text>=2024.2.26

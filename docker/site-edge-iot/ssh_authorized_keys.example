@@ -1,0 +1,3 @@
+# One SSH public key per line (ed25519/rsa). Copy to ssh_authorized_keys.local (gitignored).
+# Example (REPLACE with your real pubkey — never commit private keys):
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPlaceholderReplaceBeforeProvision siteedge@example

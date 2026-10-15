@@ -1,0 +1,3 @@
+eliteew-command-center-payload
+profile=cc-5950x-5060ti
+fedora=44

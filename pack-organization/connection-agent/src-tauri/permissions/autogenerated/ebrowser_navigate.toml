@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ebrowser-navigate"
+description = "Enables the ebrowser_navigate command without any pre-configured scope."
+commands.allow = ["ebrowser_navigate"]
+
+[[permission]]
+identifier = "deny-ebrowser-navigate"
+description = "Denies the ebrowser_navigate command without any pre-configured scope."
+commands.deny = ["ebrowser_navigate"]

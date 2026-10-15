@@ -1,0 +1,9 @@
+# EliteEW install profile — cloud hosted full surface (edition_default.cloud)
+id: cloud-full
+title: Cloud full
+edition: cloud
+mode: edition_default
+access_mode: managed
+seat_activation_required: false
+include_legacy: true
+apps: []

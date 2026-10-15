@@ -1,0 +1,234 @@
+<!-- EWASolution - Варианты состояний иконок -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <defs>
+    <!-- Градиенты для состояний -->
+    <linearGradient id="activeState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="inactiveState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#64748b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#475569;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="hoverState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4f46e5;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="focusState" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7c3aed;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Специальные эффекты -->
+    <filter id="disabledEffect" x="-50%" y="-50%" width="200%" height="200%">
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="discrete" tableValues="0.4"/>
+      </feComponentTransfer>
+    </filter>
+    
+    <filter id="glowEffect" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Кнопка Save - разные состояния -->
+  <symbol id="icon-save-default" viewBox="0 0 24 24">
+    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="#6366f1" stroke-width="2" fill="none"/>
+    <polyline points="17,21 17,13 7,13 7,21" stroke="#6366f1" stroke-width="2" fill="none"/>
+    <polyline points="7,3 7,8 15,8" stroke="#6366f1" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-save-hover" viewBox="0 0 24 24">
+    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" fill="url(#hoverState)" opacity="0.2"/>
+    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="url(#hoverState)" stroke-width="2" fill="none"/>
+    <polyline points="17,21 17,13 7,13 7,21" stroke="url(#hoverState)" stroke-width="2" fill="none"/>
+    <polyline points="7,3 7,8 15,8" stroke="url(#hoverState)" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="icon-save-active" viewBox="0 0 24 24">
+    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" fill="url(#activeState)" opacity="0.3"/>
+    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <polyline points="17,21 17,13 7,13 7,21" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <polyline points="7,3 7,8 15,8" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <circle cx="12" cy="17" r="1" fill="url(#activeState)"/>
+  </symbol>
+
+  <symbol id="icon-save-disabled" viewBox="0 0 24 24">
+    <g filter="url(#disabledEffect)">
+      <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="#6366f1" stroke-width="2" fill="none"/>
+      <polyline points="17,21 17,13 7,13 7,21" stroke="#6366f1" stroke-width="2" fill="none"/>
+      <polyline points="7,3 7,8 15,8" stroke="#6366f1" stroke-width="2" fill="none"/>
+    </g>
+  </symbol>
+
+  <!-- Кнопка Delete - разные состояния -->
+  <symbol id="icon-delete-default" viewBox="0 0 24 24">
+    <polyline points="3,6 5,6 21,6" stroke="#64748b" stroke-width="2"/>
+    <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#64748b" stroke-width="2" fill="none"/>
+    <line x1="10" y1="11" x2="10" y2="17" stroke="#64748b" stroke-width="2"/>
+    <line x1="14" y1="11" x2="14" y2="17" stroke="#64748b" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="icon-delete-hover" viewBox="0 0 24 24">
+    <g filter="url(#glowEffect)">
+      <polyline points="3,6 5,6 21,6" stroke="#ef4444" stroke-width="2"/>
+      <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="#ef4444" stroke-width="2" fill="none"/>
+      <line x1="10" y1="11" x2="10" y2="17" stroke="#ef4444" stroke-width="2"/>
+      <line x1="14" y1="11" x2="14" y2="17" stroke="#ef4444" stroke-width="2"/>
+    </g>
+  </symbol>
+
+  <symbol id="icon-delete-active" viewBox="0 0 24 24">
+    <g>
+      <polyline points="3,6 5,6 21,6" stroke="#dc2626" stroke-width="2"/>
+      <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2" fill="#ef4444" fill-opacity="0.1" stroke="#dc2626" stroke-width="2"/>
+      <line x1="10" y1="11" x2="10" y2="17" stroke="#dc2626" stroke-width="3"/>
+      <line x1="14" y1="11" x2="14" y2="17" stroke="#dc2626" stroke-width="3"/>
+    </g>
+  </symbol>
+
+  <!-- Play/Pause toggle states -->
+  <symbol id="icon-play-default" viewBox="0 0 24 24">
+    <polygon points="5,3 19,12 5,21" fill="#6366f1" opacity="0.8"/>
+  </symbol>
+
+  <symbol id="icon-play-hover" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="url(#hoverState)" opacity="0.1"/>
+    <polygon points="5,3 19,12 5,21" fill="url(#hoverState)"/>
+  </symbol>
+
+  <symbol id="icon-pause-default" viewBox="0 0 24 24">
+    <rect x="6" y="4" width="4" height="16" fill="#6366f1" opacity="0.8"/>
+    <rect x="14" y="4" width="4" height="16" fill="#6366f1" opacity="0.8"/>
+  </symbol>
+
+  <symbol id="icon-pause-hover" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="url(#hoverState)" opacity="0.1"/>
+    <rect x="6" y="4" width="4" height="16" fill="url(#hoverState)"/>
+    <rect x="14" y="4" width="4" height="16" fill="url(#hoverState)"/>
+  </symbol>
+
+  <!-- Notification Bell - with animation states -->
+  <symbol id="icon-bell-default" viewBox="0 0 24 24">
+    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#64748b" stroke-width="2" fill="none"/>
+    <path d="M13.73 21a2 2 0 01-3.46 0" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-bell-notification" viewBox="0 0 24 24">
+    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#6366f1" stroke-width="2" fill="none">
+      <animateTransform attributeName="transform" type="rotate" dur="0.5s" values="0 12 8;-10 12 8;10 12 8;0 12 8" repeatCount="3"/>
+    </path>
+    <path d="M13.73 21a2 2 0 01-3.46 0" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="18" cy="6" r="3" fill="#ef4444">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="1s" repeatCount="indefinite"/>
+    </circle>
+  </symbol>
+
+  <symbol id="icon-bell-muted" viewBox="0 0 24 24">
+    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="#64748b" stroke-width="2" fill="none" opacity="0.4"/>
+    <path d="M13.73 21a2 2 0 01-3.46 0" stroke="#64748b" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+    <line x1="1" y1="1" x2="23" y2="23" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Search states -->
+  <symbol id="icon-search-default" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8" stroke="#64748b" stroke-width="2" fill="none"/>
+    <path d="m21 21-4.35-4.35" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-search-active" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <circle cx="11" cy="11" r="8" fill="url(#activeState)" opacity="0.1"/>
+    <path d="m21 21-4.35-4.35" stroke="url(#activeState)" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-search-loading" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8" stroke="#6366f1" stroke-width="2" fill="none" stroke-dasharray="50.27" stroke-dashoffset="50.27">
+      <animate attributeName="stroke-dasharray" dur="2s" values="0 50.27;25.13 25.13;0 50.27;0 50.27" repeatCount="indefinite"/>
+      <animate attributeName="stroke-dashoffset" dur="2s" values="0;-25.13;-50.27;-50.27" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate" dur="2s" values="0 11 11;360 11 11" repeatCount="indefinite"/>
+    </circle>
+    <path d="m21 21-4.35-4.35" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Menu/Hamburger states -->
+  <symbol id="icon-menu-closed" viewBox="0 0 24 24">
+    <line x1="3" y1="6" x2="21" y2="6" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+    <line x1="3" y1="12" x2="21" y2="12" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+    <line x1="3" y1="18" x2="21" y2="18" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-menu-open" viewBox="0 0 24 24">
+    <line x1="18" y1="6" x2="6" y2="18" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+    <line x1="6" y1="6" x2="18" y2="18" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- WiFi connection states -->
+  <symbol id="icon-wifi-excellent" viewBox="0 0 24 24">
+    <path d="M1.42 9a16 16 0 0121.16 0" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <path d="M5 12.55a11 11 0 0114.08 0" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <path d="M8.53 16.11a6 6 0 016.95 0" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <circle cx="12" cy="20" r="1" fill="url(#activeState)"/>
+  </symbol>
+
+  <symbol id="icon-wifi-good" viewBox="0 0 24 24">
+    <path d="M1.42 9a16 16 0 0121.16 0" stroke="#64748b" stroke-width="2" fill="none" opacity="0.3"/>
+    <path d="M5 12.55a11 11 0 0114.08 0" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <path d="M8.53 16.11a6 6 0 016.95 0" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <circle cx="12" cy="20" r="1" fill="url(#activeState)"/>
+  </symbol>
+
+  <symbol id="icon-wifi-weak" viewBox="0 0 24 24">
+    <path d="M1.42 9a16 16 0 0121.16 0" stroke="#64748b" stroke-width="2" fill="none" opacity="0.3"/>
+    <path d="M5 12.55a11 11 0 0114.08 0" stroke="#64748b" stroke-width="2" fill="none" opacity="0.3"/>
+    <path d="M8.53 16.11a6 6 0 016.95 0" stroke="#f59e0b" stroke-width="2" fill="none"/>
+    <circle cx="12" cy="20" r="1" fill="#f59e0b"/>
+  </symbol>
+
+  <symbol id="icon-wifi-disconnected" viewBox="0 0 24 24">
+    <path d="M1.42 9a16 16 0 0121.16 0" stroke="#64748b" stroke-width="2" fill="none" opacity="0.2"/>
+    <path d="M5 12.55a11 11 0 0114.08 0" stroke="#64748b" stroke-width="2" fill="none" opacity="0.2"/>
+    <path d="M8.53 16.11a6 6 0 016.95 0" stroke="#64748b" stroke-width="2" fill="none" opacity="0.2"/>
+    <circle cx="12" cy="20" r="1" fill="#64748b" opacity="0.4"/>
+    <line x1="1" y1="1" x2="23" y2="23" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Battery states -->
+  <symbol id="icon-battery-full" viewBox="0 0 24 24">
+    <rect x="1" y="6" width="18" height="12" rx="2" ry="2" stroke="url(#activeState)" stroke-width="2" fill="none"/>
+    <rect x="3" y="8" width="14" height="8" fill="url(#activeState)" opacity="0.8"/>
+    <line x1="23" y1="13" x2="23" y2="11" stroke="url(#activeState)" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-battery-half" viewBox="0 0 24 24">
+    <rect x="1" y="6" width="18" height="12" rx="2" ry="2" stroke="#f59e0b" stroke-width="2" fill="none"/>
+    <rect x="3" y="8" width="7" height="8" fill="#f59e0b" opacity="0.8"/>
+    <line x1="23" y1="13" x2="23" y2="11" stroke="#f59e0b" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-battery-low" viewBox="0 0 24 24">
+    <rect x="1" y="6" width="18" height="12" rx="2" ry="2" stroke="#ef4444" stroke-width="2" fill="none"/>
+    <rect x="3" y="8" width="3" height="8" fill="#ef4444" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="1s" repeatCount="indefinite"/>
+    </rect>
+    <line x1="23" y1="13" x2="23" y2="11" stroke="#ef4444" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="icon-battery-charging" viewBox="0 0 24 24">
+    <rect x="1" y="6" width="18" height="12" rx="2" ry="2" stroke="#6366f1" stroke-width="2" fill="none"/>
+    <rect x="3" y="8" width="14" height="8" fill="#6366f1" opacity="0.2"/>
+    <line x1="23" y1="13" x2="23" y2="11" stroke="#6366f1" stroke-width="3" stroke-linecap="round"/>
+    <!-- Молния -->
+    <polygon points="11,9 13,9 9,15 7,15 11,9" fill="#fbbf24">
+      <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite"/>
+    </polygon>
+  </symbol>
+</svg>

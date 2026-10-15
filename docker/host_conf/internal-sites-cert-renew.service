@@ -1,0 +1,9 @@
+[Unit]
+Description=Renew internal wildcard certificate for Site Studio
+Wants=network-online.target docker.service
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=@REPO_ROOT@
+ExecStart=@REPO_ROOT@/docker/scripts/internal-sites/renew-wildcard-cert.sh

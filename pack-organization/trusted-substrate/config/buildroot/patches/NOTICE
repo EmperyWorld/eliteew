@@ -1,0 +1,6 @@
+These patches modify upstream free-software packages.
+
+Each patch stays under the license of the upstream package it changes
+(Buildroot host fixes, WebKitGTK, GStreamer, systemd, jpeg-turbo, woff2,
+libxml). Do not strip the GPL/LGPL notices from those packages when the
+image is shipped. The Linux kernel is not patched by this directory.

@@ -1,0 +1,386 @@
+[
+  {
+    "id": "alexander-world",
+    "author": "Александр Македонский",
+    "text": "Нет невозможного для того, кто попробует.",
+    "category": "leadership"
+  },
+  {
+    "id": "aristotle-habit",
+    "author": "Аристотель",
+    "text": "Мы — то, что делаем постоянно.",
+    "category": "discipline"
+  },
+  {
+    "id": "aurelius-obstacle",
+    "author": "Марк Аврелий",
+    "text": "Препятствие на пути становится путём.",
+    "category": "perseverance"
+  },
+  {
+    "id": "bagration-bold",
+    "author": "Пётр Багратион",
+    "text": "Смелость побеждает численность.",
+    "category": "strategy"
+  },
+  {
+    "id": "bismarck-possible",
+    "author": "Отто фон Бисмарк",
+    "text": "Политика — это искусство возможного.",
+    "category": "strategy"
+  },
+  {
+    "id": "buddha-mind",
+    "author": "Будда",
+    "text": "Управляй разумом — и управишь жизнью.",
+    "category": "discipline"
+  },
+  {
+    "id": "caesar-die",
+    "author": "Гай Юлий Цезарь",
+    "text": "Жребий брошен.",
+    "category": "strategy"
+  },
+  {
+    "id": "carnegie-prepare",
+    "author": "Эндрю Карнеги",
+    "text": "Успех — подготовка, встретившая возможность.",
+    "category": "discipline"
+  },
+  {
+    "id": "catherine-rule",
+    "author": "Екатерина II",
+    "text": "Власть без уважения — пустой титул.",
+    "category": "leadership"
+  },
+  {
+    "id": "catherine-spirit",
+    "author": "Екатерина II",
+    "text": "Россию держат не страхом, а верой в её силу.",
+    "category": "strategy"
+  },
+  {
+    "id": "chekhov-road",
+    "author": "Антон Чехов",
+    "text": "Человек должен верить, что дорога не кончилась.",
+    "category": "perseverance"
+  },
+  {
+    "id": "churchill-hell",
+    "author": "Уинстон Черчилль",
+    "text": "Если вы идёте сквозь ад, продолжайте идти.",
+    "category": "perseverance"
+  },
+  {
+    "id": "clausewitz-simple",
+    "author": "Карл фон Клаузевиц",
+    "text": "В войне всё просто, но простое — трудно.",
+    "category": "strategy"
+  },
+  {
+    "id": "confucius-master",
+    "author": "Конфуций",
+    "text": "Путь в тысячу ли начинается с первого шага.",
+    "category": "discipline"
+  },
+  {
+    "id": "cromwell-better",
+    "author": "Оливер Кромвель",
+    "text": "Кто перестал стремиться стать лучше, тот перестал быть хорошим.",
+    "category": "discipline"
+  },
+  {
+    "id": "curie-persist",
+    "author": "Мария Кюри",
+    "text": "В жизни нечего бояться — нужно только понимать.",
+    "category": "perseverance"
+  },
+  {
+    "id": "degaulle-goal",
+    "author": "Шарль де Голль",
+    "text": "Выбирайте цель повыше. На мелкие цели не стоит тратить жизнь.",
+    "category": "leadership"
+  },
+  {
+    "id": "drake-prepare",
+    "author": "Фрэнсис Дрейк",
+    "text": "Готовь корабль и паруса — ветер придёт.",
+    "category": "discipline"
+  },
+  {
+    "id": "edison-fail",
+    "author": "Томас Эдисон",
+    "text": "Я нашёл тысячу способов, которые не работают.",
+    "category": "perseverance"
+  },
+  {
+    "id": "elizabeth-duty",
+    "author": "Елизавета I",
+    "text": "У меня тело слабой женщины, но дух короля.",
+    "category": "leadership"
+  },
+  {
+    "id": "epictetus-control",
+    "author": "Эпиктет",
+    "text": "Не события нас тревожат, а наше отношение к ним.",
+    "category": "perseverance"
+  },
+  {
+    "id": "ermolov-self",
+    "author": "Алексей Ермолов",
+    "text": "Иногда нужно уметь приказывать самому себе.",
+    "category": "discipline"
+  },
+  {
+    "id": "frankl-choice",
+    "author": "Виктор Франкл",
+    "text": "Когда нельзя изменить ситуацию, можно изменить себя.",
+    "category": "perseverance"
+  },
+  {
+    "id": "franklin-time",
+    "author": "Бенджамин Франклин",
+    "text": "Не откладывай на завтра то, что можешь сделать сегодня.",
+    "category": "discipline"
+  },
+  {
+    "id": "gandhi-step",
+    "author": "Махатма Ганди",
+    "text": "Сначала игнорируют, потом смеются, потом боятся, потом побеждают.",
+    "category": "perseverance"
+  },
+  {
+    "id": "hannibal-road",
+    "author": "Ганнибал",
+    "text": "Мы либо найдём дорогу, либо проложим её сами.",
+    "category": "strategy"
+  },
+  {
+    "id": "kennedy-ask",
+    "author": "Джон Кеннеди",
+    "text": "Спроси, что ты можешь сделать для своей страны.",
+    "category": "leadership"
+  },
+  {
+    "id": "kutuzov-space",
+    "author": "Михаил Кутузов",
+    "text": "Время и пространство — союзники терпеливого.",
+    "category": "strategy"
+  },
+  {
+    "id": "kutuzov-wait",
+    "author": "Михаил Кутузов",
+    "text": "Чтобы победить, надо уметь терпеть и ждать.",
+    "category": "perseverance"
+  },
+  {
+    "id": "liddell-center",
+    "author": "Базил Лиддел Гарт",
+    "text": "Прямой путь — не всегда кратчайший.",
+    "category": "strategy"
+  },
+  {
+    "id": "lincoln-lead",
+    "author": "Авраам Линкольн",
+    "text": "Лучший способ предсказать будущее — создать его.",
+    "category": "leadership"
+  },
+  {
+    "id": "lincoln-rise",
+    "author": "Авраам Линкольн",
+    "text": "Падать можно. Подниматься — обязательно.",
+    "category": "perseverance"
+  },
+  {
+    "id": "lomonosov-learn",
+    "author": "Михаил Ломоносов",
+    "text": "Наука молодых украшает, а стариков питает.",
+    "category": "discipline"
+  },
+  {
+    "id": "machiavelli-fortune",
+    "author": "Никколо Макьявелли",
+    "text": "Удача любит смелых.",
+    "category": "strategy"
+  },
+  {
+    "id": "mandela-impossible",
+    "author": "Нельсон Мандела",
+    "text": "Многое кажется невозможным, пока ты этого не сделаешь.",
+    "category": "perseverance"
+  },
+  {
+    "id": "mendeleev-table",
+    "author": "Дмитрий Менделеев",
+    "text": "Наука начинается с терпения и порядка.",
+    "category": "discipline"
+  },
+  {
+    "id": "minin-unite",
+    "author": "Кузьма Минин",
+    "text": "Народ, собравшийся ради правды, непобедим.",
+    "category": "leadership"
+  },
+  {
+    "id": "montgomery-men",
+    "author": "Бернард Монтгомери",
+    "text": "Командир держится на доверии людей.",
+    "category": "leadership"
+  },
+  {
+    "id": "nakhimov-path",
+    "author": "Павел Нахимов",
+    "text": "У матроса один путь — славный.",
+    "category": "leadership"
+  },
+  {
+    "id": "napoleon-hours",
+    "author": "Наполеон Бонапарт",
+    "text": "Победить можно час, проиграть — мгновение.",
+    "category": "strategy"
+  },
+  {
+    "id": "napoleon-judged",
+    "author": "Наполеон Бонапарт",
+    "text": "Победителей не судят.",
+    "category": "strategy"
+  },
+  {
+    "id": "nesterov-no-exit",
+    "author": "Пётр Нестеров",
+    "text": "Нет безвыходного положения — есть безволие.",
+    "category": "perseverance"
+  },
+  {
+    "id": "nevsky-truth",
+    "author": "Александр Невский",
+    "text": "Не в силе Бог, а в правде.",
+    "category": "leadership"
+  },
+  {
+    "id": "patton-lead",
+    "author": "Джордж Паттон",
+    "text": "Лидерство — заставить людей верить в себя.",
+    "category": "leadership"
+  },
+  {
+    "id": "patton-plan",
+    "author": "Джордж Паттон",
+    "text": "Хороший план сейчас лучше идеального потом.",
+    "category": "strategy"
+  },
+  {
+    "id": "peter-brief",
+    "author": "Пётр I",
+    "text": "Говори кратко, проси мало, уходи бодро.",
+    "category": "discipline"
+  },
+  {
+    "id": "peter-work",
+    "author": "Пётр I",
+    "text": "Не день, потерянный без дела, а век, прожитый впустую.",
+    "category": "discipline"
+  },
+  {
+    "id": "plutarch-character",
+    "author": "Плутарх",
+    "text": "Характер — это судьба.",
+    "category": "discipline"
+  },
+  {
+    "id": "pozharsky-shield",
+    "author": "Дмитрий Пожарский",
+    "text": "Защищать отечество — честь выше жизни.",
+    "category": "leadership"
+  },
+  {
+    "id": "rommel-attack",
+    "author": "Эрвин Роммель",
+    "text": "Атака — лучшая защита.",
+    "category": "strategy"
+  },
+  {
+    "id": "roosevelt-fear",
+    "author": "Франклин Рузвельт",
+    "text": "Единственное, чего стоит бояться, — это сам страх.",
+    "category": "perseverance"
+  },
+  {
+    "id": "rumyantsev-duty",
+    "author": "Пётр Румянцев",
+    "text": "Долг командира — быть первым в опасности.",
+    "category": "leadership"
+  },
+  {
+    "id": "saltykov-order",
+    "author": "Фёдор Салтыков",
+    "text": "Порядок — половина победы.",
+    "category": "discipline"
+  },
+  {
+    "id": "seneca-fate",
+    "author": "Сенека",
+    "text": "Судьба ведёт согласного и тащит сопротивляющегося.",
+    "category": "perseverance"
+  },
+  {
+    "id": "shackleton-endurance",
+    "author": "Эрнест Шеклтон",
+    "text": "Оптимизм — это моральный долг.",
+    "category": "perseverance"
+  },
+  {
+    "id": "skobelev-speed",
+    "author": "Михаил Скобелев",
+    "text": "Быстрота — половина успеха.",
+    "category": "strategy"
+  },
+  {
+    "id": "sun-tzu-chaos",
+    "author": "Сунь-Цзы",
+    "text": "Посреди хаоса также существует возможность.",
+    "category": "strategy"
+  },
+  {
+    "id": "suvorov-soldiers",
+    "author": "Александр Суворов",
+    "text": "Солдат должен знать, зачем идёт в бой.",
+    "category": "leadership"
+  },
+  {
+    "id": "suvorov-ten",
+    "author": "Александр Суворов",
+    "text": "Возьмись за дело с душой — и превзойдёшь десятерых.",
+    "category": "discipline"
+  },
+  {
+    "id": "tchaikovsky-labor",
+    "author": "Пётр Чайковский",
+    "text": "Вдохновение приходит во время работы.",
+    "category": "discipline"
+  },
+  {
+    "id": "tolstoy-storm",
+    "author": "Лев Толстой",
+    "text": "Сильный дух выдерживает и бурю, и затишье.",
+    "category": "perseverance"
+  },
+  {
+    "id": "ushakov-enemies",
+    "author": "Фёдор Ушаков",
+    "text": "Врагов не считают, их бьют!",
+    "category": "leadership"
+  },
+  {
+    "id": "washington-example",
+    "author": "Джордж Вашингтон",
+    "text": "Пример — самый тихий и сильный учитель.",
+    "category": "leadership"
+  },
+  {
+    "id": "zhukov-spirit",
+    "author": "Георгий Жуков",
+    "text": "Там, где один пасует, сильный духом найдёт лазейку и победит.",
+    "category": "strategy"
+  }
+]

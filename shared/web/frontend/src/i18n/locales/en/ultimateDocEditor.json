@@ -1,0 +1,707 @@
+{
+	"shell": {
+		"collab": {
+			"connected": "Live: connected",
+			"disconnected": "Live: not connected",
+			"sessionLabel": "Session",
+			"participant_one": "participant",
+			"participant_other": "participants"
+		},
+		"preview": {
+			"escToClose": "Press Esc to exit preview"
+		},
+		"load": {
+			"retry": "Retry",
+			"failedTitle": "Could not load document",
+			"loadingTitle": "Loading document",
+			"loadingDesc": "Fetching content and restoring the editor."
+		},
+		"saveError": {
+			"title": "Save failed. Could not save the document."
+		},
+		"onboarding": {
+			"emptyTitle": "Start your document",
+			"emptyBody": "Type below or use the toolbar. Open the tools rail on the left for AI, import, and more.",
+			"dismiss": "Got it"
+		}
+	},
+	"destructiveConfirm": {
+		"closeTabTitle": "Close tab?",
+		"closeTabMessage": "Unsaved changes will be lost.",
+		"switchDocCollabTitle": "Switch document?",
+		"switchDocCollabMessage": "Live editing is on. Switching documents will end the session.",
+		"openOtherDocCollabTitle": "Open another document?",
+		"openOtherDocCollabMessage": "Live editing is on. Opening another document will end the session.",
+		"continue": "Continue",
+		"cancel": "Cancel",
+		"closeTab": "Close tab"
+	},
+	"statusBar": {
+		"document": "Document",
+		"words": "Words",
+		"chars": "Chars",
+		"cursor": "Cursor",
+		"cursorLineCol": "Line {{line}}, column {{column}}",
+		"saving": "Saving…",
+		"savedPrefix": "Saved:",
+		"savedJustNow": "just now",
+		"savedSeconds": "{{count}}s ago",
+		"savedMinutes": "{{count}}m ago",
+		"savedHours": "{{count}}h ago",
+		"renderModeGpu": "Render: GPU",
+		"renderModeCpu": "Render: CPU",
+		"statusPrefixSaving": "Status: saving",
+		"statusPrefixSaved": "Status: saved",
+		"statusTime": "at {{time}}"
+	},
+	"toolbar": {
+		"overflow": "More formatting tools",
+		"overflowAria": "Open menu with additional formatting tools",
+		"undoDisabled": "Nothing to undo",
+		"redoDisabled": "Nothing to redo",
+		"removeEmptyLines": "Remove empty lines (empty paragraphs and headings)",
+		"splitSelectionLines": "Split selection into lines: line breaks become paragraphs; single line → one word per row (formatting not preserved)",
+		"splitSelectionLinesDisabled": "Select text with several words or with line breaks",
+		"aria": {
+			"bar": "Formatting toolbar",
+			"closePanel": "Close dialog",
+			"close": "Close"
+		},
+		"groups": {
+			"history": "History",
+			"inline": "Inline formatting",
+			"structure": "Document structure",
+			"lists": "Lists and quotes",
+			"align": "Alignment",
+			"insert": "Insert",
+			"accent": "Accents and blocks"
+		},
+		"tools": {
+			"undo": "Undo last change (Ctrl+Z)",
+			"redo": "Redo undone change (Ctrl+Y)",
+			"bold": "Bold (Ctrl+B)",
+			"italic": "Italic (Ctrl+I)",
+			"strike": "Strikethrough",
+			"code": "Inline code (monospace)",
+			"underline": "Underline (Ctrl+U)",
+			"subscript": "Subscript",
+			"superscript": "Superscript",
+			"fontFamily": "Font family",
+			"h1": "Heading level 1 (largest)",
+			"h2": "Heading level 2",
+			"h3": "Heading level 3",
+			"h4": "Heading level 4",
+			"h5": "Heading level 5",
+			"h6": "Heading level 6",
+			"bulletList": "Bulleted list",
+			"orderedList": "Numbered list",
+			"taskList": "Task list (checkboxes)",
+			"blockquote": "Blockquote (indented)",
+			"alignLeft": "Align left",
+			"alignCenter": "Align center",
+			"alignRight": "Align right",
+			"alignJustify": "Justify",
+			"link": "Insert or edit link",
+			"image": "Insert image by URL",
+			"table": "Insert table (custom size)",
+			"codeBlock": "Code block",
+			"horizontalRule": "Horizontal rule (divider)",
+			"formula": "Insert formula (LaTeX)",
+			"textColor": "Text color",
+			"highlight": "Highlight background"
+		},
+		"popovers": {
+			"font": {
+				"title": "Font",
+				"subtitle": "For the selection or from the caret"
+			},
+			"link": {
+				"title": "Insert link",
+				"subtitle": "Add a link with readable text",
+				"urlLabel": "URL",
+				"urlPlaceholder": "https://...",
+				"textLabel": "Display text",
+				"textPlaceholder": "Link label",
+				"removeLink": "Remove link",
+				"insert": "Insert"
+			},
+			"image": {
+				"title": "Insert image",
+				"subtitle": "External URLs and data:/blob: are supported",
+				"urlLabel": "Image URL",
+				"altLabel": "Alt text",
+				"altPlaceholder": "Image description",
+				"insert": "Insert"
+			},
+			"table": {
+				"title": "Insert table",
+				"subtitle": "Choose size and options",
+				"rowsLabel": "Rows",
+				"colsLabel": "Columns",
+				"headerRow": "Include header row",
+				"insert": "Insert"
+			}
+		},
+		"errors": {
+			"invalidLinkUrl": "Enter a valid URL",
+			"invalidImageUrl": "Enter an image URL",
+			"tableInsertFailed": "Cannot insert a table at the current position"
+		}
+	},
+	"commentAnchors": {
+		"statusOpen": "Open comments",
+		"statusResolved": "Thread resolved",
+		"anchorTitle": "{{status}} ({{unresolved}}/{{total}})",
+		"promptCopyLink": "Copy the thread link:"
+	},
+	"bubbleMenu": {
+		"bold": "Bold (Ctrl+B)",
+		"boldAria": "Bold",
+		"italic": "Italic (Ctrl+I)",
+		"italicAria": "Italic",
+		"underline": "Underline",
+		"underlineAria": "Underline",
+		"textColor": "Text color",
+		"textColorAria": "Text color",
+		"highlight": "Highlight",
+		"highlightAria": "Highlight",
+		"link": "Link",
+		"linkAria": "Link"
+	},
+	"floatingMenu": {
+		"bulletList": "Bullet list",
+		"orderedListTitle": "Numbered list",
+		"orderedListLabel": "Numbering",
+		"taskList": "Tasks"
+	},
+	"gutter": {
+		"lineWrapTitle": "Line wrap",
+		"collabEditing": "{{name}} is editing"
+	},
+	"anchorQuickMenu": {
+		"title": "In-text comment",
+		"stats": "{{open}} open of {{total}}",
+		"openThread": "Open thread",
+		"replyThread": "Reply in thread",
+		"resolveThread": "Resolve thread",
+		"copyLink": "Copy link",
+		"linkCopied": "Link copied",
+		"cancel": "Cancel"
+	},
+	"formulaDialog": {
+		"title": "Insert formula",
+		"description": "Enter the LaTeX expression to insert into the document.",
+		"label": "LaTeX formula",
+		"placeholder": "E = mc^2",
+		"submit": "Insert"
+	},
+	"collabLoading": "Connecting collaborative editing…",
+	"collabYjsErrorTitle": "Could not start collaborative editing",
+	"collabYjsErrorBody": "The collaboration server is unavailable or rejected the connection. You can retry or continue with the regular editor.",
+	"collabYjsRetry": "Retry",
+	"collabYjsEditWithoutCollab": "Edit without collaboration",
+	"collabRemoteUserFallback": "Participant",
+	"collabStatus": {
+		"connecting": "Connecting to live session",
+		"syncingDoc": "Syncing document with server…",
+		"offline": "Live editing unavailable"
+	},
+	"editorPlaceholder": "Start typing in the document…",
+	"versionsDisabledTooltip": "Save the document first to use version history",
+	"loadingEditorTitle": "Loading editor",
+	"loadingEditorDesc": "Preparing the document workspace.",
+	"loadingEditorExtensions": "Loading formatting extensions, code blocks, and formulas.",
+	"store": {
+		"toastTitle": "Document editor"
+	},
+	"docAiRecovery": {
+		"bannerTitle": "Unfinished AI reply",
+		"bannerHint": "We saved a partial response. You can restore it or dismiss.",
+		"restore": "Restore draft",
+		"dismiss": "Dismiss",
+		"staleHint": "This draft may be outdated."
+	},
+	"slashCommands": {
+		"title": "Insert block",
+		"subtitle": "Type to filter · Enter to insert",
+		"emptyTitle": "No matches",
+		"emptyHint": "Try another keyword or pick a category below.",
+		"fontPresetLabels": {
+			"default": "Default",
+			"systemUi": "System UI",
+			"sans": "Sans-serif",
+			"serif": "Serif",
+			"mono": "Monospace",
+			"georgia": "Georgia"
+		},
+		"fontCommand": {
+			"namedTitle": "Font: {{label}}",
+			"defaultTitle": "Default font",
+			"namedDesc": "Family: {{label}}",
+			"defaultDesc": "Clear explicit font family"
+		},
+		"items": {
+			"heading1": {
+				"title": "Heading 1",
+				"description": "Large heading"
+			},
+			"heading2": {
+				"title": "Heading 2",
+				"description": "Medium heading"
+			},
+			"heading3": {
+				"title": "Heading 3",
+				"description": "Small heading"
+			},
+			"heading4": {
+				"title": "Heading 4",
+				"description": "Section subheading"
+			},
+			"heading5": {
+				"title": "Heading 5",
+				"description": "Minor heading"
+			},
+			"heading6": {
+				"title": "Heading 6",
+				"description": "Smallest heading level"
+			},
+			"bulletList": {
+				"title": "Bullet list",
+				"description": "Create a bulleted list"
+			},
+			"orderedList": {
+				"title": "Numbered list",
+				"description": "Create a numbered list"
+			},
+			"taskList": {
+				"title": "Task list",
+				"description": "Create a checklist"
+			},
+			"codeBlock": {
+				"title": "Code block",
+				"description": "Insert a code block"
+			},
+			"blockquote": {
+				"title": "Quote",
+				"description": "Insert a blockquote"
+			},
+			"image": {
+				"title": "Image",
+				"description": "Insert an image"
+			},
+			"table": {
+				"title": "Table",
+				"description": "Insert a table"
+			},
+			"horizontalRule": {
+				"title": "Horizontal rule",
+				"description": "Insert a divider"
+			},
+			"formula": {
+				"title": "Formula",
+				"description": "Insert a LaTeX formula"
+			},
+			"paragraph": {
+				"title": "Text",
+				"description": "Normal paragraph"
+			}
+		}
+	},
+	"colorPicker": {
+		"textTitle": "Text color",
+		"highlightTitle": "Highlight color",
+		"hint": "Pick a swatch or enter a value",
+		"close": "Close color picker",
+		"palette": "Preset colors",
+		"ariaColor": "Color {{color}}",
+		"customLabel": "Custom",
+		"pickNative": "Open system color picker",
+		"apply": "Apply",
+		"current": "Current"
+	},
+	"linkDialog": {
+		"title": "Insert link",
+		"description": "Add a URL and visible text.",
+		"urlLabel": "URL",
+		"urlPlaceholder": "https://…",
+		"textLabel": "Text",
+		"textPlaceholder": "Link text",
+		"previewLabel": "Preview",
+		"cancel": "Cancel",
+		"submit": "Insert",
+		"errors": {
+			"urlEmpty": "Enter a URL",
+			"urlProtocols": "Use http, https, or mailto links",
+			"urlInvalid": "That URL does not look valid"
+		}
+	},
+	"imageDialog": {
+		"title": "Insert image",
+		"description": "Paste a URL or upload a file.",
+		"urlLabel": "Image URL",
+		"urlPlaceholder": "https://…",
+		"altLabel": "Alt text",
+		"altPlaceholder": "Describe the image",
+		"uploadLabel": "Upload file",
+		"uploading": "Uploading…",
+		"uploadPick": "Choose file",
+		"previewAlt": "Preview",
+		"previewHint": "Preview of the selected image",
+		"cancel": "Cancel",
+		"submit": "Insert",
+		"defaultAlt": "Image",
+		"errors": {
+			"urlEmpty": "Enter an image URL or upload a file",
+			"protocols": "Use http or https URLs",
+			"urlInvalid": "That URL does not look valid",
+			"fileType": "Unsupported file type",
+			"fileSize": "File is too large",
+			"uploadFailed": "Upload failed",
+			"readFailed": "Could not read the file"
+		}
+	},
+	"textPrompt": {
+		"errorRequired": "This field is required",
+		"cancel": "Cancel"
+	},
+	"header": {
+		"statusLabel": "Status",
+		"statusSaving": "Saving…",
+		"statusUnsaved": "Not saved",
+		"statusSaved": "Saved",
+		"statusDraft": "Draft",
+		"statusNoServerRecord": "Not on server",
+		"statusDraftConflict": "Draft conflict",
+		"statusLocalDraft": "Local draft",
+		"untitled": "Untitled",
+		"statusBadgeAria": "Document status: {{state}}",
+		"viewSection": "View",
+		"viewModeLine": "Mode: {{mode}}",
+		"viewModeFormatted": "Rich text",
+		"viewModeMarkdown": "Markdown",
+		"viewModePreview": "Preview",
+		"markdownTooltipToHtml": "Back to rich text editor",
+		"markdownTooltipToMd": "Open Markdown source",
+		"markdownTooltipCollabBlocked": "Live collaboration only works in the visual editor. Disconnect first.",
+		"markdownCollabBlockedTitle": "Markdown source unavailable",
+		"markdownCollabBlockedBody": "Markdown is edited in a plain text field without the collaborative editor. Turn off live collaboration and try again.",
+		"companionSetBodyCollabBlockedTitle": "Cannot replace document during live collaboration",
+		"companionSetBodyCollabBlockedBody": "Leave the collaborative session first, then ask your Assistant again.",
+		"previewTooltipHide": "Hide preview",
+		"previewTooltipShow": "Show preview",
+		"tabs": {
+			"closeAria": "Close tab",
+			"addAria": "Add document",
+			"openOtherTitle": "Open another document",
+			"dirtySuffix": " *"
+		},
+		"localDraftRecoveryTitle": "Open local draft recovery",
+		"metrics": {
+			"version": "Version",
+			"words": "Words",
+			"chars": "Characters"
+		},
+		"cluster": {
+			"file": "File",
+			"collab": "Live"
+		},
+		"panel": {
+			"fileManager": "Open files and document list",
+			"search": "Search documents",
+			"versions": "Document versions",
+			"import": "Upload / import into editor",
+			"comments": "Comments and discussion",
+			"collabInvites": "Collaboration: invites and participants"
+		},
+		"save": {
+			"tooltip": "Save document",
+			"tooltipCollabCommit": "Commit text to database (live session)",
+			"ariaLabel": "Save document"
+		},
+		"export": {
+			"tooltip": "Export document",
+			"ariaLabel": "Export document",
+			"menuTitle": "Export document",
+			"menuSubtitle": "Choose a format",
+			"closeMenuAria": "Close export menu",
+			"formats": {
+				"pdf": {
+					"label": "PDF",
+					"description": "High quality for print and sharing"
+				},
+				"docx": {
+					"label": "Microsoft Word",
+					"description": "Editable format for office suites"
+				},
+				"xlsx": {
+					"label": "Microsoft Excel",
+					"description": "Spreadsheets and data in Excel format"
+				},
+				"html": {
+					"label": "HTML page",
+					"description": "Ready to publish on the web"
+				},
+				"txt": {
+					"label": "Plain text",
+					"description": "Simple UTF-8 text without formatting"
+				},
+				"md": {
+					"label": "Markdown",
+					"description": "Great for docs and Git"
+				}
+			}
+		},
+		"collabActions": {
+			"disconnectTooltip": "Disconnect from live editing",
+			"disconnectAria": "Disconnect",
+			"disconnect": "Disconnect",
+			"connectTooltip": "Connect to live editing",
+			"connectAria": "Connect",
+			"connect": "Connect"
+		},
+		"guide": {
+			"tooltip": "Show tips",
+			"ariaLabel": "Show tips"
+		},
+		"closeEditor": {
+			"tooltip": "Close editor",
+			"ariaLabel": "Close editor"
+		}
+	},
+	"editorContextMenu": {
+		"ariaLabel": "Document editor context menu",
+		"headerEyebrow": "Context actions",
+		"headerSubtitleSelection": "Selection",
+		"headerSubtitleCursor": "At cursor",
+		"badgeChars": "{{count}} chars",
+		"badgeNoSelection": "No selection",
+		"sectionTable": "Table",
+		"sectionLink": "Link",
+		"sectionImage": "Image",
+		"sectionHistory": "History",
+		"sectionClipboard": "Clipboard",
+		"sectionFormat": "Format",
+		"sectionHeadings": "Headings",
+		"sectionInsert": "Insert",
+		"sectionLists": "Lists",
+		"sectionAlign": "Alignment",
+		"sectionFont": "Font",
+		"sectionColor": "Color",
+		"cut": "Cut",
+		"copy": "Copy",
+		"paste": "Paste",
+		"selectAll": "Select all",
+		"undo": "Undo",
+		"redo": "Redo",
+		"bold": "Bold",
+		"italic": "Italic",
+		"underline": "Underline",
+		"strike": "Strikethrough",
+		"subscript": "Subscript",
+		"superscript": "Superscript",
+		"blockquote": "Quote",
+		"clearFormatting": "Clear formatting",
+		"heading1": "Heading 1",
+		"heading2": "Heading 2",
+		"heading3": "Heading 3",
+		"heading4": "Heading 4",
+		"heading5": "Heading 5",
+		"heading6": "Heading 6",
+		"insertLink": "Insert link",
+		"insertImage": "Insert image",
+		"insertTable": "Insert table",
+		"insertFormula": "Insert formula",
+		"horizontalRule": "Horizontal rule",
+		"bulletList": "Bulleted list",
+		"orderedList": "Numbered list",
+		"taskList": "Task list",
+		"alignLeft": "Align left",
+		"alignCenter": "Align center",
+		"alignRight": "Align right",
+		"textColor": "Text color",
+		"highlightColor": "Highlight",
+		"delete": "Delete",
+		"tableAddRowBefore": "Row above",
+		"tableAddRowAfter": "Row below",
+		"tableDeleteRow": "Delete row",
+		"tableAddColumnBefore": "Column left",
+		"tableAddColumnAfter": "Column right",
+		"tableDeleteColumn": "Delete column",
+		"tableMergeCells": "Merge cells",
+		"tableDeleteTable": "Delete table",
+		"linkCopyAddress": "Copy address",
+		"linkOpen": "Open in new tab",
+		"linkEdit": "Edit link",
+		"linkUnset": "Remove link",
+		"imageCopyAddress": "Copy image address",
+		"imageReplace": "Replace image…",
+		"imageDelete": "Delete image",
+		"clipboardTitle": "Clipboard",
+		"clipboardCopyFailed": "Could not copy to the clipboard.",
+		"clipboardPasteFailed": "Could not read the clipboard — check browser permissions.",
+		"clipboardCopyLinkFailed": "Could not copy the address.",
+		"clipboardCopyImageFailed": "Could not copy the image address."
+	},
+	"fileManager": {
+		"title": "File manager",
+		"close": "Close",
+		"closeAria": "Close file manager",
+		"createDoc": "New document",
+		"fromLibrary": "From library",
+		"fromLibraryTitle": "Open a file from your library (already uploaded)",
+		"import": "Import",
+		"importTitle": "Import a new file from disk into the library",
+		"hintLibraryVsImport": "Library — already uploaded; import — a new file from disk.",
+		"sortLabel": "Sort",
+		"sortDate": "Date",
+		"sortName": "Name",
+		"sortWords": "Words",
+		"searchPlaceholder": "Search by title or text…",
+		"loadingTitle": "Loading documents",
+		"loadingDesc": "Fetching your files and drafts.",
+		"recentSection": "Recent",
+		"allDocuments": "All documents",
+		"wordsCount": "{{count}} words",
+		"openBadge": "Open",
+		"delete": "Delete",
+		"deleteModalTitle": "Delete document",
+		"deleteModalBody": "Delete \"{{title}}\"? This action cannot be undone.",
+		"deleteDeleting": "Deleting…",
+		"deleteConfirmHint": "This cannot be undone. Confirm or cancel.",
+		"cancel": "Cancel",
+		"emptyNoDocs": "No documents yet",
+		"emptyNoMatch": "No matches",
+		"emptyNoDocsDesc": "Create a document or upload a file.",
+		"emptyNoMatchDesc": "Change the query or clear the filter.",
+		"clearSearch": "Clear search",
+		"resetFilter": "Reset filter",
+		"footerLoaded": "Loaded {{loaded}} of {{total}}",
+		"footerTotal_one": "{{count}} document",
+		"footerTotal_other": "{{count}} documents",
+		"loadMore": "Load more",
+		"loadMoreLoading": "Loading…",
+		"newDocTitle": "New document",
+		"newDocDescription": "Enter a title to add the document to the workspace.",
+		"newDocLabel": "Title",
+		"newDocPlaceholder": "e.g. Release plan",
+		"newDocSubmit": "Create",
+		"initialDocBody": "<p>Start writing…</p>",
+		"errors": {
+			"createFailed": "Could not create document",
+			"deleteFailed": "Could not delete document"
+		},
+		"selectDocAria": "Select document “{{title}}”",
+		"dateToday": "Today",
+		"dateYesterday": "Yesterday",
+		"dateDaysAgo": "{{count}}d ago",
+		"dateWeeksAgo": "{{count}}w ago",
+		"dateMonthsAgo": "{{count}}mo ago",
+		"compactMode": "Compact list",
+		"comfortableMode": "Detailed list",
+		"compactModeAria": "Compact view: more documents on screen",
+		"comfortableModeAria": "Detailed view: text preview",
+		"askAi": "AI",
+		"askAiTitle": "Ask AI about this document (list context, without opening in the editor)",
+		"contextMenu": {
+			"menuAria": "Document actions",
+			"open": "Open",
+			"askAi": "Ask AI about this document",
+			"select": "Select for batch",
+			"deselect": "Deselect",
+			"delete": "Delete"
+		}
+	},
+	"mainGrid": {
+		"markdownRibbonTitle": "Markdown source",
+		"markdownRibbonHint": "Edit markdown structure on the left; the preview on the right shows the rendered result.",
+		"markdownStatusEdited": "Modified",
+		"markdownStatusClean": "No changes",
+		"markdownFieldLabel": "Markdown source",
+		"markdownPlaceholder": "# Heading\n\nStart writing markdown…",
+		"markdownTextareaAria": "Markdown source editor",
+		"scrollToTop": "Scroll to top of document",
+		"scrollToBottom": "Scroll to bottom of document",
+		"previewTitleMarkdown": "Markdown preview",
+		"previewTitleDocument": "Document preview",
+		"previewHintMarkdown": "Shows how markdown will look after rendering.",
+		"previewHintDocument": "Updates in real time as you edit.",
+		"eastPanelLoadingTitle": "Loading panel…",
+		"eastPanelLoadingDesc": "Preparing panel content."
+	},
+	"sidebar": {
+		"ai": "AI assistant",
+		"imageGeneration": "Image generation",
+		"table": "Table",
+		"math": "Math",
+		"charts": "Charts",
+		"pdf": "PDF",
+		"ocr": "OCR",
+		"templates": "Templates",
+		"voiceDictate": "Voice input to document",
+		"voiceEmpty": "No text recognized",
+		"voiceErrorGeneric": "Recognition error",
+		"voiceTranscribing": "transcribing…",
+		"voiceStopToInsert": "press again to insert text"
+	},
+	"draftRecovery": {
+		"title": "Local draft found",
+		"badgeManualTitle": "Opened manually from status",
+		"badgeAutoTitle": "Opened automatically when a draft was detected",
+		"badgeManual": "Opened manually",
+		"badgeAuto": "Auto-detected",
+		"body": "A local version of the document was saved after unsynchronized edits. You can restore it or keep the current server version.",
+		"conflictTitle": "Conflict between tabs",
+		"conflictExternalUpdate": "Last external update: {{date}}",
+		"conflictRevision": "Revision: r{{rev}} • Source: {{session}}",
+		"documentLabel": "Document:",
+		"draftLabel": "Draft:",
+		"untitled": "Untitled",
+		"serverStats": "Server: {{words}} words / {{chars}} chars",
+		"localStats": "Local: {{words}} words / {{chars}} chars",
+		"diffFromPosition": "Diff from position {{n}}",
+		"versionsMatch": "Versions match",
+		"columnServer": "Server",
+		"columnLocalDraft": "Local draft",
+		"keepCurrent": "Keep current version",
+		"discardDraft": "Delete draft",
+		"restoreDraft": "Restore draft"
+	},
+	"editorCloseConfirm": {
+		"title": "Close without saving?",
+		"body": "There are unsaved changes. If you close the editor now, they will be lost.",
+		"documentLabel": "Document:",
+		"stay": "Stay",
+		"saving": "Saving…",
+		"saveAndClose": "Save and close",
+		"closeWithoutSaving": "Close without saving"
+	},
+	"dragDrop": {
+		"overlayTitle": "Drop files here",
+		"overlayHint": "Images and documents will be added automatically",
+		"memoryWarningTitle": "Memory warning",
+		"dismissWarningAria": "Dismiss warning",
+		"dismissWarningTitle": "Dismiss warning"
+	},
+	"lazyPanel": {
+		"loadingAria": "Loading panel",
+		"loadingLabel": "Loading panel…"
+	},
+	"quickStart": {
+		"title": "Ultimate document editor",
+		"subtitle": "This is not just a notepad — you have powerful AI tools, image generation, collaboration, and more.",
+		"bulletAi": "<bold>AI assistant</bold> — generate and edit text in the context of your document",
+		"bulletImage": "<bold>Image generation</bold> — from a prompt via your connected studio",
+		"bulletCollab": "<bold>Collaboration</bold> — real-time editing with others",
+		"bulletAdvanced": "<bold>Advanced tools</bold> — tables, math, charts, OCR",
+		"hint": "💡 All tools are grouped into categories above",
+		"tour": "Interface tour",
+		"dismiss": "Got it, thanks!"
+	},
+	"inner": {
+		"you": "You",
+		"preview": {
+			"markdownEmpty": "Markdown is empty. Start typing to see the result.",
+			"editorEmpty": "Start typing in the editor to see the content here..."
+		}
+	}
+}

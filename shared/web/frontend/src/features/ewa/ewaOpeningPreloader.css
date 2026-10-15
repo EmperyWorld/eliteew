@@ -1,0 +1,217 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://eliteew.ru
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: GPU-light opening ritual for EWA desktop app — persona sigil parade, veiled Arlika pair, parent finale.
+ * Invariants: transform/opacity only (no backdrop-filter); static under prefers-reduced-motion except brief parent fade.
+ * No shared EliteEW progress/quote panel inside EWA; the window shows companion visuals only.
+ * Related: src/features/ewa/EwaOpeningPreloader.tsx
+ */
+
+@keyframes ewa-opening-orbit {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes ewa-opening-finale-bloom {
+	0% {
+		opacity: 0.35;
+		transform: scale(0.82);
+	}
+	45% {
+		opacity: 1;
+		transform: scale(1.06);
+	}
+	100% {
+		opacity: 0.92;
+		transform: scale(1);
+	}
+}
+
+@keyframes ewa-opening-finale-ring {
+	0% {
+		opacity: 0;
+		transform: scale(0.7);
+	}
+	35% {
+		opacity: 0.85;
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.45);
+	}
+}
+
+@keyframes ewa-opening-shimmer {
+	0% {
+		opacity: 0.45;
+	}
+	50% {
+		opacity: 0.9;
+	}
+	100% {
+		opacity: 0.45;
+	}
+}
+
+.ewa-opening-preloader {
+	position: absolute;
+	inset: 0;
+	z-index: 40;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: clamp(18px, 3.5vh, 30px);
+	overflow: hidden;
+	pointer-events: none;
+	background:
+		radial-gradient(70% 55% at 50% 38%, var(--ewa-open-bg-glow) 0%, transparent 72%),
+		radial-gradient(120% 90% at 50% 100%, var(--ewa-open-bg-deep) 0%, #050508 78%);
+	transition: opacity 480ms ease-out;
+}
+
+.ewa-opening-preloader--exit {
+	opacity: 0;
+}
+
+.ewa-opening-preloader__canvas {
+	position: relative;
+	width: min(74vw, 360px);
+	height: min(74vw, 360px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 42px;
+	border: 1px solid color-mix(in srgb, var(--ewa-open-aura) 26%, transparent);
+	background:
+		radial-gradient(
+			circle at 50% 40%,
+			color-mix(in srgb, var(--ewa-open-aura) 16%, transparent) 0%,
+			transparent 62%
+		),
+		color-mix(in srgb, #050508 76%, transparent);
+	box-shadow:
+		0 24px 70px rgba(0, 0, 0, 0.42),
+		inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.ewa-opening-preloader__sigil {
+	width: 168px;
+	height: 168px;
+	transition:
+		opacity 320ms ease-out,
+		transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ewa-opening-preloader__sigil--enter {
+	opacity: 0;
+	transform: scale(0.86);
+}
+
+.ewa-opening-preloader__sigil--visible {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.ewa-opening-preloader__sigil--exit {
+	opacity: 0;
+	transform: scale(1.08);
+}
+
+.ewa-opening-preloader__arlika-veil {
+	position: relative;
+	width: 220px;
+	height: 200px;
+}
+
+.ewa-opening-preloader__arlika-ghost {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	filter: blur(11px) brightness(0.32) saturate(0.35) contrast(1.15);
+	opacity: 0.62;
+	mix-blend-mode: multiply;
+	pointer-events: none;
+}
+
+.ewa-opening-preloader__arlika-ghost--a {
+	transform: translate(-22%, -6%) rotate(-14deg) scale(0.94);
+}
+
+.ewa-opening-preloader__arlika-ghost--b {
+	transform: translate(20%, 10%) rotate(16deg) scale(0.9);
+}
+
+.ewa-opening-preloader__finale {
+	position: relative;
+	width: 240px;
+	height: 240px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.ewa-opening-preloader__finale-ring {
+	position: absolute;
+	inset: 0;
+	border-radius: 9999px;
+	border: 1px solid color-mix(in srgb, var(--ewa-open-aura) 55%, transparent);
+	box-shadow:
+		0 0 24px color-mix(in srgb, var(--ewa-open-glow) 45%, transparent),
+		inset 0 0 18px color-mix(in srgb, var(--ewa-open-aura) 25%, transparent);
+	animation: ewa-opening-finale-ring 2.4s ease-out infinite;
+}
+
+.ewa-opening-preloader__finale-ring--delay {
+	animation-delay: 0.75s;
+}
+
+.ewa-opening-preloader__finale-orbit {
+	position: absolute;
+	inset: -8%;
+	border-radius: 9999px;
+	border: 1px dashed color-mix(in srgb, var(--ewa-open-aura) 28%, transparent);
+	animation: ewa-opening-orbit 18s linear infinite;
+	opacity: 0.55;
+}
+
+.ewa-opening-preloader__finale-sigil {
+	width: 196px;
+	height: 196px;
+	animation: ewa-opening-finale-bloom 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+	filter: drop-shadow(0 0 22px var(--ewa-open-glow));
+}
+
+.ewa-opening-preloader__finale-shimmer {
+	position: absolute;
+	inset: 12%;
+	border-radius: 9999px;
+	background: radial-gradient(
+		circle at 50% 42%,
+		color-mix(in srgb, var(--ewa-open-aura) 35%, transparent) 0%,
+		transparent 68%
+	);
+	animation: ewa-opening-shimmer 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ewa-opening-preloader__finale-ring,
+	.ewa-opening-preloader__finale-orbit,
+	.ewa-opening-preloader__finale-shimmer,
+	.ewa-opening-preloader__finale-sigil {
+		animation: none !important;
+	}
+	.ewa-opening-preloader__finale-sigil {
+		opacity: 1;
+		transform: none;
+	}
+}

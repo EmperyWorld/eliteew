@@ -1,0 +1,560 @@
+#!/usr/bin/env bash
+# Purpose: Self-healing kiosk session for EliteEW Desktop Client (Tauri).
+# Runs inside agetty --autologin session on tty1 (real PAM seat).
+# Launcher + product = second window → labwc (multi-window).
+# Related: docs/PAYLOAD-TAURI.md · ELITEEW-TRUSTED-SUBSTRATE.md
+set -euo pipefail
+
+LABELS=/etc/eliteew-trusted-substrate/labels
+PAYLOAD_ROOT=/opt/eliteew-trusted-substrate/payload
+README=/opt/eliteew-trusted-substrate/README-FIRST.txt
+STABLE_BIN=EliteEW.AppImage
+RPM_BIN=/usr/bin/eliteew-desktop-client
+RESTART_DELAY_SEC="${ELITEEW_TS_APP_RESTART_SEC:-2}"
+COMPOSITOR_RESTART_SEC="${ELITEEW_TS_COMPOSITOR_RESTART_SEC:-3}"
+MAX_APP_RESTARTS="${ELITEEW_TS_MAX_APP_RESTARTS:-3}"
+MAX_COMPOSITOR_RESTARTS="${ELITEEW_TS_MAX_COMPOSITOR_RESTARTS:-3}"
+
+die() { printf 'eliteew-ts-kiosk: %s\n' "$*" >&2; exit 1; }
+
+# Installer-owned regional settings. Parse an allowlisted value instead of
+# sourcing locale.conf as shell code.
+SESSION_LANG="ru_RU.UTF-8"
+if [[ -f /etc/locale.conf && ! -L /etc/locale.conf ]]; then
+  _configured_lang="$(awk -F= '$1=="LANG" {print substr($0,6); exit}' /etc/locale.conf)"
+  case "${_configured_lang}" in
+    ru_RU.UTF-8|en_US.UTF-8) SESSION_LANG="${_configured_lang}" ;;
+  esac
+fi
+export LANG="${SESSION_LANG}"
+export LC_ALL="${SESSION_LANG}"
+printf 'eliteew-ts-kiosk: regional LANG=%s timezone=%s\n' \
+  "${SESSION_LANG}" \
+  "$(cat /etc/timezone 2>/dev/null || printf unknown)" >&2
+
+tty_msg() {
+  local line
+  for line in "$@"; do
+    printf 'eliteew-ts-kiosk: %s\n' "${line}" >&2
+    printf '\r\neliteew-ts-kiosk: %s\n' "${line}" >/dev/tty1 2>/dev/null || true
+  done
+}
+
+PROFILE=empiieros-shell
+if [[ -f "${LABELS}" ]]; then
+  printf 'eliteew-ts-kiosk: labels\n' >&2
+  cat "${LABELS}" >&2 || true
+  while IFS= read -r line || [[ -n "${line}" ]]; do
+    case "${line}" in
+      payload_profile=electron) PROFILE=electron ;;
+      payload_profile=tauri) PROFILE=tauri ;;
+      payload_profile=empiieros-shell) PROFILE=empiieros-shell ;;
+    esac
+  done <"${LABELS}"
+fi
+
+if [[ "${PROFILE}" == "empiieros-shell" ]]; then
+  MAX_APP_RESTARTS="${ELITEEW_TS_MAX_APP_RESTARTS:-12}"
+fi
+
+resolve_shell() {
+  local cand slots_current
+  if [[ "${PROFILE}" == "empiieros-shell" ]]; then
+    for cand in \
+      /usr/local/bin/empiieros-shell-gui \
+      /opt/empiieros/shell/empiieros-shell-ui; do
+      if [[ -n "${cand}" && -x "${cand}" ]]; then
+        printf '%s\n' "${cand}"
+        return 0
+      fi
+    done
+    return 1
+  fi
+  if [[ -x "${RPM_BIN}" ]]; then
+    printf '%s\n' "${RPM_BIN}"
+    return 0
+  fi
+  slots_current="${ELITEEW_TS_PAYLOAD_SLOTS:-/opt/eliteew-trusted-substrate/payload-slots}/current/${STABLE_BIN}"
+  for cand in \
+    "${slots_current}" \
+    "${PAYLOAD_ROOT}/${STABLE_BIN}" \
+    "${ELITEEW_TS_SHELL_BIN:-}"; do
+    if [[ -n "${cand}" && -x "${cand}" ]]; then
+      printf '%s\n' "${cand}"
+      return 0
+    fi
+  done
+  return 1
+}
+
+is_smoke_stub() {
+  local bin="$1"
+  [[ -f "${bin}" ]] || return 1
+  if [[ "${PROFILE:-}" == "empiieros-shell" ]]; then
+    # Sovereign WebKitGTK kiosk runner is an ~18KB native binary, not a smoke stub.
+    return 1
+  fi
+  if head -c 2 "${bin}" 2>/dev/null | grep -q '^#!'; then
+    return 0
+  fi
+  local sz
+  sz="$(wc -c <"${bin}" | tr -d ' ')"
+  [[ "${sz}" -lt 65536 ]]
+}
+
+have_xwayland() {
+  command -v Xwayland >/dev/null 2>&1
+}
+
+# True when a real GPU DRM driver is bound (not EFI simple-framebuffer alone).
+have_gpu_drm_driver() {
+  local card drv
+  for card in /sys/class/drm/card[0-9]*; do
+    [[ -e "${card}/device/driver" ]] || continue
+    drv="$(basename "$(readlink -f "${card}/device/driver" 2>/dev/null || true)")"
+    case "${drv}" in
+      amdgpu|i915|xe|nouveau|radeon|virtio-gpu|virtio_gpu) return 0 ;;
+    esac
+  done
+  return 1
+}
+
+# Default WLR: GPU/auto when DRM GPU present; pixman only as software fallback.
+# Explicit ELITEEW_TS_WLR_RENDERER or pre-set WLR_RENDERER wins (ops override).
+choose_wlr_renderer() {
+  export WLR_RENDERER_ALLOW_SOFTWARE=1
+  if [[ -n "${ELITEEW_TS_WLR_RENDERER:-}" ]]; then
+    export WLR_RENDERER="${ELITEEW_TS_WLR_RENDERER}"
+    printf '[STEP] eliteew-ts-kiosk: WLR_RENDERER=%s (ELITEEW_TS_WLR_RENDERER)\n' "${WLR_RENDERER}" >&2
+    return
+  fi
+  if [[ -n "${WLR_RENDERER:-}" ]]; then
+    printf '[STEP] eliteew-ts-kiosk: WLR_RENDERER=%s (pre-set)\n' "${WLR_RENDERER}" >&2
+    return
+  fi
+  if have_gpu_drm_driver; then
+    unset WLR_RENDERER 2>/dev/null || true
+    printf '[STEP] eliteew-ts-kiosk: WLR_RENDERER=auto (GPU DRM present)\n' >&2
+    return
+  fi
+  export WLR_RENDERER=pixman
+  printf '[STEP] eliteew-ts-kiosk: WLR_RENDERER=pixman (no GPU DRM driver)\n' >&2
+}
+
+# Sticky WebKit software path from prior pixman/crash boots — clear when GPU is back.
+clear_webkit_sticky_if_gpu() {
+  local share="${XDG_DATA_HOME:-${HOME}/.local/share}/world.empery.desktop.client"
+  have_gpu_drm_driver || return 0
+  [[ -d "${share}" ]] || return 0
+  local f
+  for f in webkit_graphics_compositing_off webkit_unclean_strikes; do
+    if [[ -f "${share}/${f}" ]]; then
+      rm -f "${share}/${f}" || true
+      printf '[STEP] eliteew-ts-kiosk: cleared %s (GPU DRM present)\n' "${f}" >&2
+    fi
+  done
+}
+
+# EN/RU toggle via xkbcommon (Alt+Shift) for labwc + Wayland clients.
+apply_xkb_layouts() {
+  export XKB_DEFAULT_LAYOUT="${XKB_DEFAULT_LAYOUT:-us,ru}"
+  export XKB_DEFAULT_OPTIONS="${XKB_DEFAULT_OPTIONS:-grp:alt_shift_toggle,grp_led:scroll}"
+  printf '[STEP] eliteew-ts-kiosk: XKB layout=%s options=%s\n' \
+    "${XKB_DEFAULT_LAYOUT}" "${XKB_DEFAULT_OPTIONS}" >&2
+}
+
+write_labwc_config() {
+  local cfg="${XDG_CONFIG_HOME}/labwc"
+  local bin="$1"
+  local xw_enable=yes
+  mkdir -p "${cfg}"
+  if ! have_xwayland; then
+    xw_enable=no
+    tty_msg "WARN: Xwayland binary missing — labwc xwayland disabled (install xorg-x11-server-Xwayland)"
+  fi
+  # Kiosk: shell windows fullscreen (no SSD). Do NOT ToggleFullscreen every
+  # toplevel — parented EBrowser/Meet stages share app_id and would become
+  # separate output-filling windows (title EBrowser / EliteEW Video).
+  # Tauri Close/Alt-F4 still kills the real argv — `pkill -x eliteew-desktop-client`
+  # never matches (Linux comm max 15 chars). Kill + pkill -f for one respawn.
+  # EmpiierOS face must not die on Alt+F4: consume the chord with a no-op.
+  local global_rules=""
+  local shell_rules=""
+  local keyboard_a_f4=""
+  local mouse_close=""
+  local app_limit_cmd=""
+  local app_limit_msg=""
+  local healthy_reset_sec=0
+  if [ "${PROFILE:-}" = "empiieros-shell" ]; then
+    # GTK owns kiosk/windowed transitions. Forced Maximize here fights
+    # shell.window_mode and F11 after the first map.
+    shell_rules=""
+    keyboard_a_f4='    <keybind key="A-F4">
+      <action name="Execute" command="true"/>
+    </keybind>'
+    mouse_close='    <context name="Close">
+      <mousebind button="Left" action="Click">
+        <action name="Execute" command="true"/>
+      </mousebind>
+    </context>'
+    app_limit_cmd='sleep 15'
+    app_limit_msg='cooling 15s then retry'
+    healthy_reset_sec=30
+  else
+    global_rules='    <windowRule identifier="*">
+      <action name="SetDecorations" decorations="none"/>
+    </windowRule>'
+    shell_rules='    <windowRule title="Рабочий стол EliteEW">
+      <action name="ToggleFullscreen"/>
+    </windowRule>
+    <windowRule title="EliteEW">
+      <action name="ToggleFullscreen"/>
+    </windowRule>
+    <windowRule title="EliteEW FoFline">
+      <action name="ToggleFullscreen"/>
+    </windowRule>'
+    keyboard_a_f4="    <keybind key=\"A-F4\">
+      <action name=\"Execute\" command=\"pkill -f ${bin}\"/>
+    </keybind>"
+    mouse_close="    <context name=\"Close\">
+      <mousebind button=\"Left\" action=\"Click\">
+        <action name=\"Kill\"/>
+        <action name=\"Execute\" command=\"pkill -f ${bin}\"/>
+      </mousebind>
+    </context>"
+    app_limit_cmd='exec sleep infinity'
+    app_limit_msg='holding session'
+    healthy_reset_sec=0
+  fi
+
+  cat >"${cfg}/rc.xml" <<EOF
+<?xml version="1.0"?>
+<labwc_config>
+  <core><gap>0</gap></core>
+  <focus><followMouse>no</followMouse></focus>
+  <windowSwitcher><show>no</show></windowSwitcher>
+  <xwayland><enable>${xw_enable}</enable></xwayland>
+  <windowRules>
+${global_rules}
+${shell_rules}
+  </windowRules>
+  <keyboard>
+${keyboard_a_f4}
+  </keyboard>
+  <mouse>
+    <default/>
+${mouse_close}
+  </mouse>
+</labwc_config>
+EOF
+  # Default root menu includes Reconfigure — strip it (no casual multiply vector).
+  cat >"${cfg}/menu.xml" <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="EliteEW">
+  </menu>
+</openbox_menu>
+EOF
+  # labwc also loads XKB from environment file (complements process env).
+  cat >"${cfg}/environment" <<EOF
+XKB_DEFAULT_LAYOUT=${XKB_DEFAULT_LAYOUT:-us,ru}
+XKB_DEFAULT_OPTIONS=${XKB_DEFAULT_OPTIONS:-grp:alt_shift_toggle,grp_led:scroll}
+LABWC_UPDATE_ACTIVATION_ENV=0
+NO_AT_BRIDGE=1
+GTK_A11Y=none
+AT_SPI_BUS=unix:path=/tmp/empiieros-no-at-spi
+GNOME_ACCESSIBILITY=0
+EOF
+  # EmpiierOS getty session has no systemd --user and must not activate
+  # stock session services (org.a11y.Bus, systemd1=/bin/false, keyring).
+  mkdir -p "${XDG_CONFIG_HOME}/empiieros"
+  cat >"${XDG_CONFIG_HOME}/empiieros/kiosk-session-bus.conf" <<'EOF'
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <type>session</type>
+  <keep_umask/>
+  <listen>unix:tmpdir=/tmp</listen>
+  <auth>EXTERNAL</auth>
+  <policy context="default">
+    <allow send_destination="*" eavesdrop="true"/>
+    <allow eavesdrop="true"/>
+    <allow own="*"/>
+  </policy>
+</busconfig>
+EOF
+  cat >"${cfg}/autostart" <<EOF
+#!/bin/sh
+# Log so F2 can diagnose silent Tauri/WebKit exits.
+# flock: labwc restart must not leave a second forever-loop (orphan multiply).
+APP_LOG="\${XDG_RUNTIME_DIR:-/tmp}/eliteew-ts-app.log"
+LOCK="\${XDG_RUNTIME_DIR:-/tmp}/eliteew-ts-app.lock"
+
+# empiieros-runtime is owned exclusively by empiieros-runtime.service.
+
+if [ "${PROFILE:-}" = "empiieros-shell" ]; then
+  export GDK_BACKEND="\${GDK_BACKEND:-wayland,x11}"
+else
+  export GDK_BACKEND="\${GDK_BACKEND:-x11}"
+fi
+export LABWC_UPDATE_ACTIVATION_ENV=0
+export NO_AT_BRIDGE=1
+export GTK_A11Y=none
+export AT_SPI_BUS=unix:path=/tmp/empiieros-no-at-spi
+export GNOME_ACCESSIBILITY=0
+# x11 (XWayland under labwc): parented WebviewWindow stages (EBrowser/Meet) need
+# gtk move_; Wayland compositor ignores toplevel position → stage sticks at top.
+export WEBKIT_DISABLE_COMPOSITING_MODE="\${WEBKIT_DISABLE_COMPOSITING_MODE:-0}"
+# Meet WebProcess inherits these. File is truncated each autostart.
+: >/tmp/empiieros-meet-gst.log
+export GST_DEBUG_NO_COLOR=1
+export GST_DEBUG=2,webrtcbin:5,webkitwebrtc*:6,GST_ELEMENT_FACTORY:4,dtls*:5
+export GST_DEBUG_FILE=/tmp/empiieros-meet-gst.log
+# Native GTK file chooser: portal often hides *.ecap (octet-stream) behind extension filters.
+export GTK_USE_PORTAL="\${GTK_USE_PORTAL:-0}"
+BIN="${bin}"
+# Import root is \$HOME/EliteEW/Import — must be set for device_request_prepare.
+export HOME="\${HOME:-/home/eliteew-ts}"
+export USER="\${USER:-eliteew-ts}"
+export XDG_CONFIG_HOME="\${XDG_CONFIG_HOME:-\$HOME/.config}"
+export XDG_DATA_HOME="\${XDG_DATA_HOME:-\$HOME/.local/share}"
+export XDG_CACHE_HOME="\${XDG_CACHE_HOME:-\$HOME/.cache}"
+mkdir -p "\$HOME/EliteEW/Import" "\$HOME/EliteEW/Export" "\$XDG_CONFIG_HOME" "\$XDG_DATA_HOME" "\$XDG_CACHE_HOME" 2>/dev/null || true
+
+run_app_loop() {
+  echo "=== eliteew-ts-app \$(date -Is) bin=\${BIN} HOME=\${HOME} WAYLAND_DISPLAY=\${WAYLAND_DISPLAY:-} DBUS=\${DBUS_SESSION_BUS_ADDRESS:-} ==="
+  attempts=0
+  while :; do
+    attempts=\$((attempts + 1))
+    if [ "\${attempts}" -gt ${MAX_APP_RESTARTS} ]; then
+      echo "eliteew-ts-kiosk: app restart limit reached — ${app_limit_msg}"
+      ${app_limit_cmd}
+      attempts=0
+      continue
+    fi
+    echo "eliteew-ts-kiosk: starting \${BIN}"
+    started=\$(date +%s)
+    mark="\$(wc -l < "\${APP_LOG}" 2>/dev/null || echo 0)"
+    # Line-buffered so UI/IPC errors appear in the log without process exit.
+    if command -v stdbuf >/dev/null 2>&1; then
+      stdbuf -oL -eL "\${BIN}" >>"\${APP_LOG}" 2>&1 &
+    else
+      "\${BIN}" >>"\${APP_LOG}" 2>&1 &
+    fi
+    pid=\$!
+    # Watchdog: Tauri quit can destroy windows then hang before app.exit (revoke/network).
+    (
+      saw_quit=0
+      while kill -0 "\${pid}" 2>/dev/null; do
+        sleep 2
+        if tail -n +"\$((mark + 1))" "\${APP_LOG}" 2>/dev/null | grep -q "tray_quit begin"; then
+          saw_quit=1
+        fi
+        if [ "\${saw_quit}" -eq 1 ]; then
+          i=0
+          while [ "\${i}" -lt 8 ]; do
+            kill -0 "\${pid}" 2>/dev/null || exit 0
+            if tail -n +"\$((mark + 1))" "\${APP_LOG}" 2>/dev/null | grep -q "tray_quit app_exit"; then
+              exit 0
+            fi
+            i=\$((i + 1))
+            sleep 2
+          done
+          if kill -0 "\${pid}" 2>/dev/null; then
+            echo "eliteew-ts-kiosk: watchdog — quit hung, kill -9 \${pid}"
+            kill -9 "\${pid}" 2>/dev/null || true
+          fi
+          exit 0
+        fi
+      done
+    ) &
+    wait "\${pid}" || echo "eliteew-ts-kiosk: app exit=\$?"
+    if [ ${healthy_reset_sec} -gt 0 ]; then
+      lived=\$(( \$(date +%s) - started ))
+      if [ "\${lived}" -ge ${healthy_reset_sec} ]; then
+        attempts=0
+      fi
+    fi
+    echo "eliteew-ts-kiosk: app exited — restart in ${RESTART_DELAY_SEC}s"
+    sleep ${RESTART_DELAY_SEC}
+  done
+}
+
+if command -v flock >/dev/null 2>&1; then
+  exec 9>"\${LOCK}"
+  if ! flock -n 9; then
+    echo "eliteew-ts-kiosk: app loop lock held — skip duplicate autostart"
+    exit 0
+  fi
+  # Foreground: this autostart process IS the single loop (no orphaned & children).
+  run_app_loop >>"\${APP_LOG}" 2>&1
+else
+  echo "eliteew-ts-kiosk: WARN flock missing — app loop without lock" >>"\${APP_LOG}"
+  run_app_loop >>"\${APP_LOG}" 2>&1
+fi
+EOF
+  chmod 0755 "${cfg}/autostart"
+}
+
+# Reap orphaned labwc autostart loops + clients left after prior compositor exits
+# (PPID 1). Otherwise N loops × N clients bypass Tauri single-instance (new dbus).
+reap_stale_kiosk_apps() {
+  pkill -f '/\.config/labwc/autostart' 2>/dev/null || true
+  # Prefer the resolved payload path; also clear the RPM name used on metal.
+  pkill -f "${BIN:-${RPM_BIN}}" 2>/dev/null || true
+  pkill -f "${RPM_BIN}" 2>/dev/null || true
+  sleep 0.4
+}
+
+# Visible boot breadcrumb — never silent black VT while we start.
+tty_msg "starting Trusted Substrate kiosk (profile probe…)"
+
+BIN="$(resolve_shell)" || {
+  tty_msg \
+    "required ${PROFILE} shell is missing" \
+    "EmpiierOS profile never falls back to the Tauri payload" \
+    "see ${README}" \
+    "holding tty1 — not exiting (avoids getty black-loop)"
+  # Keep the diagnostic session stable instead of consuming the bounded getty
+  # restart budget while the required payload is absent.
+  while true; do
+    sleep 120
+    tty_msg "still waiting for the required ${PROFILE} payload…"
+  done
+}
+
+tty_msg "profile=${PROFILE} bin=${BIN}"
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
+_runtime_uid="$(id -u)"
+# Buildroot has no logind — /run/user/$UID may be unwritable; fall back to /tmp.
+if [[ -z "${XDG_RUNTIME_DIR:-}" ]]; then
+  if mkdir -p "/run/user/${_runtime_uid}" 2>/dev/null; then
+    XDG_RUNTIME_DIR="/run/user/${_runtime_uid}"
+  else
+    XDG_RUNTIME_DIR="/tmp/runtime-${_runtime_uid}"
+    mkdir -p "${XDG_RUNTIME_DIR}"
+  fi
+else
+  mkdir -p "${XDG_RUNTIME_DIR}" 2>/dev/null || {
+    XDG_RUNTIME_DIR="/tmp/runtime-${_runtime_uid}"
+    mkdir -p "${XDG_RUNTIME_DIR}"
+  }
+fi
+export XDG_RUNTIME_DIR
+mkdir -p "${XDG_CONFIG_HOME}"
+chmod 700 "${XDG_RUNTIME_DIR}" 2>/dev/null || true
+
+# Prefer real seat backends when present; else leave unset (BR2 SEATD_BUILTIN).
+# Builtin cannot open /dev/tty* as non-root — wait briefly for seatd socket.
+if [[ -z "${LIBSEAT_BACKEND:-}" ]]; then
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
+    if [[ -S /run/systemd/seats/seat0 ]]; then
+      export LIBSEAT_BACKEND=logind
+      break
+    fi
+    if [[ -S /run/seatd.sock ]]; then
+      export LIBSEAT_BACKEND=seatd
+      break
+    fi
+    sleep 0.5
+  done
+fi
+choose_wlr_renderer
+apply_xkb_layouts
+clear_webkit_sticky_if_gpu
+
+if is_smoke_stub "${BIN}"; then
+  tty_msg \
+    "smoke stub binary — not Tauri Desktop Client" \
+    "pin elite-ew-desktop-client RPM and rebuild ISO" \
+    "logs: journal on maintenance SSH when provisioned"
+  exec sleep infinity
+fi
+
+if [[ -n "${WAYLAND_DISPLAY:-}" || -n "${DISPLAY:-}" ]]; then
+  _app_attempt=0
+  while :; do
+    _app_attempt=$((_app_attempt + 1))
+    if [[ "${_app_attempt}" -gt "${MAX_APP_RESTARTS}" ]]; then
+      if [[ "${PROFILE}" == "empiieros-shell" ]]; then
+        tty_msg "app restart limit reached — cooling 15s then retry"
+        sleep 15
+        _app_attempt=0
+        continue
+      fi
+      tty_msg "app restart limit reached — holding session"
+      exec sleep infinity
+    fi
+    "${BIN}" || true
+    sleep "${RESTART_DELAY_SEC}"
+  done
+fi
+
+if command -v labwc >/dev/null 2>&1; then
+  write_labwc_config "${BIN}"
+  export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-labwc:wlroots}"
+  # Getty/dbus-run-session has no systemd --user. labwc otherwise runs
+  # import-environment → session org.freedesktop.systemd1 is Exec=/bin/false
+  # → "Failed to import environment ... status 1" on tty1.
+  export LABWC_UPDATE_ACTIVATION_ENV=0
+  # GTK3/WebKit otherwise activates org.a11y.Bus (at-spi) on the session bus.
+  export NO_AT_BRIDGE=1
+  export GTK_A11Y=none
+  export AT_SPI_BUS=unix:path=/tmp/empiieros-no-at-spi
+  export GNOME_ACCESSIBILITY=0
+  # Never bare-exec: if labwc dies, keep the login session so getty does not start-limit-hit.
+  # dbus-run-session: agetty login often has no session bus — WebKit needs it.
+  # The sovereign Runtime does not share trust with the kiosk user's keyring.
+  # Only the legacy Tauri profile starts its historical Secret Service helper.
+  run_labwc() {
+    reap_stale_kiosk_apps
+    if command -v dbus-run-session >/dev/null 2>&1; then
+      if [[ "${PROFILE}" == "empiieros-shell" ]]; then
+        app_log="${XDG_RUNTIME_DIR:-/tmp}/eliteew-ts-app.log"
+        bus_conf="${XDG_CONFIG_HOME}/empiieros/kiosk-session-bus.conf"
+        dbus-run-session --config-file="${bus_conf}" -- labwc >>"${app_log}" 2>&1
+      else
+        dbus-run-session -- /bin/bash -c '
+          if [[ -x /usr/local/bin/eliteew-ts-secrets-up ]]; then
+            /usr/local/bin/eliteew-ts-secrets-up || true
+          fi
+          exec labwc
+        '
+      fi
+    else
+      tty_msg "WARN: dbus-run-session missing — starting labwc without session bus"
+      if [[ "${PROFILE}" != "empiieros-shell" \
+        && -x /usr/local/bin/eliteew-ts-secrets-up ]]; then
+        /usr/local/bin/eliteew-ts-secrets-up || true
+      fi
+      labwc
+    fi
+  }
+  _compositor_attempt=0
+  while [[ "${_compositor_attempt}" -lt "${MAX_COMPOSITOR_RESTARTS}" ]]; do
+    _compositor_attempt=$((_compositor_attempt + 1))
+    tty_msg "starting labwc (xwayland=$(have_xwayland && echo yes || echo no) dbus=$(command -v dbus-run-session >/dev/null && echo yes || echo no))"
+    run_labwc || true
+    tty_msg "labwc exited — retry in ${COMPOSITOR_RESTART_SEC}s (log: \$XDG_RUNTIME_DIR/eliteew-ts-app.log)"
+    sleep "${COMPOSITOR_RESTART_SEC}"
+  done
+  tty_msg "labwc restart limit reached — holding tty1; inspect journal when reachable"
+  exec sleep infinity
+fi
+
+if command -v cage >/dev/null 2>&1; then
+  tty_msg "WARN: labwc missing — cage may not show launcher+product second window"
+  _cage_attempt=0
+  while [[ "${_cage_attempt}" -lt "${MAX_COMPOSITOR_RESTARTS}" ]]; do
+    _cage_attempt=$((_cage_attempt + 1))
+    cage -- "${BIN}" || true
+    sleep "${RESTART_DELAY_SEC}"
+  done
+  tty_msg "cage restart limit reached — holding tty1"
+  exec sleep infinity
+fi
+
+tty_msg "no Wayland compositor (labwc/cage)" "maintenance SSH when provisioned"
+sleep 30
+die "labwc required for Tauri kiosk"

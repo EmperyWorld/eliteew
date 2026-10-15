@@ -1,0 +1,30 @@
+# syntax=docker/dockerfile:1.7
+############################
+# EliteEW stack0 API test runner
+# Build context: monorepo root (shared/tools + shared/api + EliteEW slices)
+############################
+
+ARG BASE_IMAGE=eliteew-api:v3
+FROM ${BASE_IMAGE} AS test-runner
+
+WORKDIR /app
+
+# Base runtime image intentionally ships without pip/pytest.
+# Bootstrap pip in the image venv and install pytest tooling for containerized test runs.
+RUN /opt/venv/bin/python -m ensurepip \
+    && /opt/venv/bin/python -m pip install --no-cache-dir --upgrade pip \
+    && /opt/venv/bin/python -m pip install --no-cache-dir "pytest>=9,<10" "pytest-asyncio>=1.3,<2"
+
+# Copy repository slices required by API tests into immutable runtime image
+# (no bind mount required when running pytest).
+COPY shared/api /app/api
+COPY host/kernel-offline /app/shared
+COPY shared/assistant_desktop_link_components.json /app/shared/assistant_desktop_link_components.json
+COPY shared/tools /app/shared_tools
+COPY shared/web/frontend /app/web/frontend
+COPY host/comfyui /app/comfyui
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONPATH=/app
+
+CMD ["python", "-m", "pytest", "-q"]

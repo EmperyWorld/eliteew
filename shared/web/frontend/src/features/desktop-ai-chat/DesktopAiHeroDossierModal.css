@@ -1,0 +1,10 @@
+/* Surface + text tokens (avoid JSX inline styles for tooling) */
+.desktop-ai-hero-dossier-dialog {
+	background: linear-gradient(
+		165deg,
+		color-mix(in srgb, var(--glass-bg-strong) 88%, #2a1810) 0%,
+		color-mix(in srgb, #0e0c0a 92%, transparent) 55%,
+		#060504 100%
+	);
+	color: var(--desktop-text-primary);
+}

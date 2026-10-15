@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "description": "Render-count and stream hook perf baseline for Desktop AI Chat WS1-E guardrails.",
+  "streamHookRenderBaseline": 2,
+  "maxRendersPer10Tokens": 3,
+  "ttftP50Ms": 120,
+  "ttftP95Ms": 350,
+  "streamDurationP95Ms": 8000
+}

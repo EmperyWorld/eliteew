@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "benchmark": "cursor_move_parse_socket_event",
+  "iterations": 1000,
+  "max_ms_per_1000_validations": 120.0,
+  "ci_slack_ratio": 1.1,
+  "notes": "Measured via parse_socket_event(CursorMoveEvent, valid_payload). Update with AIS_UPDATE_BASELINE=1."
+}

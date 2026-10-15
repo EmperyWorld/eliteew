@@ -1,0 +1,6080 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/product-desktop)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/product-desktop/news": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "List Published News",
+        "operationId": "list_published_news_api_v1_product_desktop_news_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 512
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            }
+          },
+          {
+            "name": "pinned_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Pinned Only"
+            }
+          },
+          {
+            "name": "unread_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Unread Only"
+            }
+          },
+          {
+            "name": "starred_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Starred Only"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(newest|oldest)$",
+              "default": "newest",
+              "title": "Sort"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyNewsPostListPageOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/news/counts": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get News Counts",
+        "description": "Aggregate EWDesk feed counts for toolbar badge and in-app filters.",
+        "operationId": "get_news_counts_api_v1_product_desktop_news_counts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EwDeskNewsCountsOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/news/my-state": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get News My State",
+        "operationId": "get_news_my_state_api_v1_product_desktop_news_my_state_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EwDeskNewsUserStateOut"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Patch News My State",
+        "operationId": "patch_news_my_state_api_v1_product_desktop_news_my_state_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EwDeskNewsUserStatePatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EwDeskNewsUserStateOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/news/{post_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get Published News",
+        "operationId": "get_published_news_api_v1_product_desktop_news__post_id__get",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Post Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyNewsPostOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/news-linked-image/{content_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Stream News Linked Image",
+        "description": "Stream bytes for an image linked to *published* EWDesk news.\n\nLets any authenticated user load the hero image even when the underlying\nunified_content row is not otherwise visible to them (news acts as curation).",
+        "operationId": "stream_news_linked_image_api_v1_product_desktop_news_linked_image__content_id__get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/news-linked-video/{content_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Stream News Linked Video",
+        "description": "Stream video bytes for *published* EWDesk news that reference this content.",
+        "operationId": "stream_news_linked_video_api_v1_product_desktop_news_linked_video__content_id__get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/news-linked-audio/{content_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Stream News Linked Audio",
+        "description": "Stream audio bytes for *published* EWDesk news that reference this content.",
+        "operationId": "stream_news_linked_audio_api_v1_product_desktop_news_linked_audio__content_id__get",
+        "parameters": [
+          {
+            "name": "content_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Content Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/news": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin List News",
+        "operationId": "admin_list_news_api_v1_product_desktop_admin_news_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CompanyNewsPostAdminOut"
+                  },
+                  "type": "array",
+                  "title": "Response Admin List News Api V1 Product Desktop Admin News Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Create News",
+        "operationId": "admin_create_news_api_v1_product_desktop_admin_news_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNewsCreateBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyNewsPostAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/news/{post_id}": {
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Update News",
+        "operationId": "admin_update_news_api_v1_product_desktop_admin_news__post_id__patch",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Post Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanyNewsUpdateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyNewsPostAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Delete News",
+        "operationId": "admin_delete_news_api_v1_product_desktop_admin_news__post_id__delete",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Post Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/news/polish-body": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Polish News Body",
+        "description": "Rewrite draft news into polished Markdown via UGS (same stack as document editor AI).\nAdmin-only.",
+        "operationId": "admin_polish_news_body_api_v1_product_desktop_admin_news_polish_body_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EwDeskNewsPolishBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EwDeskNewsPolishOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/feedback/summary": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get Feedback Summary",
+        "operationId": "get_feedback_summary_api_v1_product_desktop_feedback_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackSummaryOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/feedback/tickets": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Create Feedback Ticket",
+        "operationId": "create_feedback_ticket_api_v1_product_desktop_feedback_tickets_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackTicketCreateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackTicketOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "List My Feedback",
+        "operationId": "list_my_feedback_api_v1_product_desktop_feedback_tickets_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kind"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackTicketListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/feedback/tickets": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin List Feedback",
+        "operationId": "admin_list_feedback_api_v1_product_desktop_admin_feedback_tickets_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kind"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "include_closed",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Closed"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 500,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackTicketAdminListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/feedback/tickets/{ticket_id}": {
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Patch Feedback",
+        "operationId": "admin_patch_feedback_api_v1_product_desktop_admin_feedback_tickets__ticket_id__patch",
+        "parameters": [
+          {
+            "name": "ticket_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Ticket Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackTicketAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/feedback/tickets/{ticket_id}/close": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Close Feedback",
+        "operationId": "admin_close_feedback_api_v1_product_desktop_admin_feedback_tickets__ticket_id__close_post",
+        "parameters": [
+          {
+            "name": "ticket_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Ticket Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackCloseBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackTicketAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/surveys/summary": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get Survey Summary",
+        "operationId": "get_survey_summary_api_v1_product_desktop_surveys_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveySummaryOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/surveys": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "List User Surveys",
+        "operationId": "list_user_surveys_api_v1_product_desktop_surveys_get",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(all|available|completed)$",
+              "default": "all",
+              "title": "Filter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyUserListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/surveys/{survey_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get User Survey",
+        "operationId": "get_user_survey_api_v1_product_desktop_surveys__survey_id__get",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyUserDetailOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/surveys/{survey_id}/responses": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Submit Survey Response",
+        "operationId": "submit_survey_response_api_v1_product_desktop_surveys__survey_id__responses_post",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveySubmitBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveySubmitOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/surveys/{survey_id}/responses/me": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Get My Survey Response",
+        "operationId": "get_my_survey_response_api_v1_product_desktop_surveys__survey_id__responses_me_get",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyResponseUserOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin List Surveys",
+        "operationId": "admin_list_surveys_api_v1_product_desktop_admin_surveys_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyListAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Create Survey",
+        "operationId": "admin_create_survey_api_v1_product_desktop_admin_surveys_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyCreateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/ai/draft": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Survey Ai Draft",
+        "operationId": "admin_survey_ai_draft_api_v1_product_desktop_admin_surveys_ai_draft_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyAiDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAiDraftOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Get Survey",
+        "operationId": "admin_get_survey_api_v1_product_desktop_admin_surveys__survey_id__get",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Patch Survey",
+        "operationId": "admin_patch_survey_api_v1_product_desktop_admin_surveys__survey_id__patch",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/questions": {
+      "put": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Replace Questions",
+        "operationId": "admin_replace_questions_api_v1_product_desktop_admin_surveys__survey_id__questions_put",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SurveyQuestionIn"
+                },
+                "title": "Questions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/audience": {
+      "put": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Replace Audience",
+        "operationId": "admin_replace_audience_api_v1_product_desktop_admin_surveys__survey_id__audience_put",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyAudienceBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/preview-audience": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Preview Audience",
+        "operationId": "admin_preview_audience_api_v1_product_desktop_admin_surveys__survey_id__preview_audience_post",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudiencePreviewOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/publish": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Publish Survey",
+        "operationId": "admin_publish_survey_api_v1_product_desktop_admin_surveys__survey_id__publish_post",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/archive": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Archive Survey",
+        "operationId": "admin_archive_survey_api_v1_product_desktop_admin_surveys__survey_id__archive_post",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyAdminOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/gaf-notify": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Queue Survey Gaf Notify",
+        "operationId": "admin_queue_survey_gaf_notify_api_v1_product_desktop_admin_surveys__survey_id__gaf_notify_post",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(undelivered|incomplete)$",
+              "default": "undelivered",
+              "title": "Mode"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyGafNotifyQueuedOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/results/summary": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Results Summary",
+        "operationId": "admin_results_summary_api_v1_product_desktop_admin_surveys__survey_id__results_summary_get",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyResultsSummaryOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/surveys/{survey_id}/results/responses": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin List Responses",
+        "operationId": "admin_list_responses_api_v1_product_desktop_admin_surveys__survey_id__results_responses_get",
+        "parameters": [
+          {
+            "name": "survey_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Survey Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0,
+              "title": "Offset"
+            }
+          },
+          {
+            "name": "submitted_from",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Submitted From"
+            }
+          },
+          {
+            "name": "submitted_to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Submitted To"
+            }
+          },
+          {
+            "name": "submitted_sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string",
+              "default": "desc",
+              "title": "Submitted Sort"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyResponseAdminListOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/assistant/faq": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "List Assistant Faq Public",
+        "operationId": "list_assistant_faq_public_api_v1_product_desktop_assistant_faq_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AssistantFaqEntryOut"
+                  },
+                  "type": "array",
+                  "title": "Response List Assistant Faq Public Api V1 Product Desktop Assistant Faq Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/assistant/messages": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "List Assistant Messages",
+        "operationId": "list_assistant_messages_api_v1_product_desktop_assistant_messages_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 80,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssistantChatMessageOut"
+                  },
+                  "title": "Response List Assistant Messages Api V1 Product Desktop Assistant Messages Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Clear Assistant Messages",
+        "operationId": "clear_assistant_messages_api_v1_product_desktop_assistant_messages_delete",
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/assistant/chat": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Assistant Chat",
+        "operationId": "assistant_chat_api_v1_product_desktop_assistant_chat_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantChatBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantChatMessageOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/assistant/chat/stream": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Assistant Chat Stream",
+        "description": "SSE: token chunks + final persisted assistant message. Keep-alive every ~2s (POST-API).",
+        "operationId": "assistant_chat_stream_api_v1_product_desktop_assistant_chat_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantChatBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/settings": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Get Assistant Settings",
+        "operationId": "admin_get_assistant_settings_api_v1_product_desktop_admin_assistant_settings_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantSettingsOut"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Patch Assistant Settings",
+        "operationId": "admin_patch_assistant_settings_api_v1_product_desktop_admin_assistant_settings_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantSettingsPatchBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantSettingsOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/preview": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Preview Assistant Prompt",
+        "description": "Собрать промпт справочника без вызова LLM (FAQ/RAG/бюджеты для оператора).",
+        "operationId": "admin_preview_assistant_prompt_api_v1_product_desktop_admin_assistant_preview_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantPreviewBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantPreviewOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/faq": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin List Faq",
+        "operationId": "admin_list_faq_api_v1_product_desktop_admin_assistant_faq_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AssistantFaqEntryOut"
+                  },
+                  "type": "array",
+                  "title": "Response Admin List Faq Api V1 Product Desktop Admin Assistant Faq Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Create Faq",
+        "operationId": "admin_create_faq_api_v1_product_desktop_admin_assistant_faq_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantFaqCreateBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantFaqEntryOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/faq/{faq_id}": {
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Update Faq",
+        "operationId": "admin_update_faq_api_v1_product_desktop_admin_assistant_faq__faq_id__patch",
+        "parameters": [
+          {
+            "name": "faq_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Faq Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantFaqUpdateBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantFaqEntryOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Delete Faq",
+        "operationId": "admin_delete_faq_api_v1_product_desktop_admin_assistant_faq__faq_id__delete",
+        "parameters": [
+          {
+            "name": "faq_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Faq Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/summary": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Kb Summary",
+        "description": "Сводка по статусам документов KB для панели админки.",
+        "operationId": "admin_kb_summary_api_v1_product_desktop_admin_assistant_kb_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbSummaryOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/sync-handbook": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Sync Handbook Kb",
+        "description": "Синхронизация kb-*.md из documentation/product/handbook-kb-articles.",
+        "operationId": "admin_sync_handbook_kb_api_v1_product_desktop_admin_assistant_kb_sync_handbook_post",
+        "parameters": [
+          {
+            "name": "dry_run",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Dry Run"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 500,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbSyncHandbookOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin List Kb Documents",
+        "operationId": "admin_list_kb_documents_api_v1_product_desktop_admin_assistant_kb_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AssistantKbDocumentOut"
+                  },
+                  "type": "array",
+                  "title": "Response Admin List Kb Documents Api V1 Product Desktop Admin Assistant Kb Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Create Kb Document",
+        "operationId": "admin_create_kb_document_api_v1_product_desktop_admin_assistant_kb_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantKbCreateBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbDocumentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/upload-limits": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Kb Upload Limits",
+        "operationId": "admin_kb_upload_limits_api_v1_product_desktop_admin_assistant_kb_upload_limits_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbUploadLimitsOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/{doc_id}": {
+      "get": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Get Kb Document",
+        "operationId": "admin_get_kb_document_api_v1_product_desktop_admin_assistant_kb__doc_id__get",
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Doc Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbDocumentDetailOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Patch Kb Document",
+        "operationId": "admin_patch_kb_document_api_v1_product_desktop_admin_assistant_kb__doc_id__patch",
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Doc Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantKbPatchBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbDocumentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Delete Kb Document",
+        "operationId": "admin_delete_kb_document_api_v1_product_desktop_admin_assistant_kb__doc_id__delete",
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Doc Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/upload": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Upload Kb Document",
+        "operationId": "admin_upload_kb_document_api_v1_product_desktop_admin_assistant_kb_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_admin_upload_kb_document_api_v1_product_desktop_admin_assistant_kb_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbDocumentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/uploads": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Upload Kb Documents Bulk",
+        "operationId": "admin_upload_kb_documents_bulk_api_v1_product_desktop_admin_assistant_kb_uploads_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_admin_upload_kb_documents_bulk_api_v1_product_desktop_admin_assistant_kb_uploads_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbBulkUploadOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/{doc_id}/reindex": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Reindex Kb Document",
+        "operationId": "admin_reindex_kb_document_api_v1_product_desktop_admin_assistant_kb__doc_id__reindex_post",
+        "parameters": [
+          {
+            "name": "doc_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Doc Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbDocumentOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/purge": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Purge Kb Documents And Rag",
+        "description": "Удаляет все строки assistant_kb_documents и сбрасывает коллекцию Qdrant product_assistant_kb.",
+        "operationId": "admin_purge_kb_documents_and_rag_api_v1_product_desktop_admin_assistant_kb_purge_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssistantKbPurgeBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbPurgeOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/product-desktop/admin/assistant/kb/reindex-all": {
+      "post": {
+        "tags": [
+          "Desktop - Product (EWDesk, feedback, assistant)",
+          "product-desktop",
+          "product-desktop"
+        ],
+        "summary": "Admin Reindex All Kb Documents",
+        "operationId": "admin_reindex_all_kb_documents_api_v1_product_desktop_admin_assistant_kb_reindex_all_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssistantKbReindexAllOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CompanyNewsPostListPageOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CompanyNewsPostListItemOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "CompanyNewsPostListPageOut"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "EwDeskNewsCountsOut": {
+        "properties": {
+          "unread_count": {
+            "type": "integer",
+            "title": "Unread Count"
+          },
+          "starred_count": {
+            "type": "integer",
+            "title": "Starred Count"
+          },
+          "pinned_count": {
+            "type": "integer",
+            "title": "Pinned Count"
+          },
+          "total_published": {
+            "type": "integer",
+            "title": "Total Published"
+          },
+          "latest_published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Published At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "unread_count",
+          "starred_count",
+          "pinned_count",
+          "total_published"
+        ],
+        "title": "EwDeskNewsCountsOut"
+      },
+      "EwDeskNewsUserStateOut": {
+        "properties": {
+          "read_post_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Read Post Ids"
+          },
+          "starred_post_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Starred Post Ids"
+          },
+          "last_seen_published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen Published At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "read_post_ids",
+          "starred_post_ids"
+        ],
+        "title": "EwDeskNewsUserStateOut"
+      },
+      "EwDeskNewsUserStatePatch": {
+        "properties": {
+          "read_post_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Read Post Ids"
+          },
+          "starred_post_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Starred Post Ids"
+          },
+          "mark_read_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mark Read Ids"
+          },
+          "mark_unread_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mark Unread Ids"
+          },
+          "last_seen_published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Seen Published At"
+          }
+        },
+        "type": "object",
+        "title": "EwDeskNewsUserStatePatch"
+      },
+      "CompanyNewsPostOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Pinned"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "image_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Content Id"
+          },
+          "video_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Content Id"
+          },
+          "audio_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Content Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "body",
+          "pinned",
+          "published_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CompanyNewsPostOut"
+      },
+      "CompanyNewsPostAdminOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Pinned"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "image_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Content Id"
+          },
+          "video_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Content Id"
+          },
+          "audio_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Content Id"
+          },
+          "is_published": {
+            "type": "boolean",
+            "title": "Is Published"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "body",
+          "pinned",
+          "published_at",
+          "created_at",
+          "updated_at",
+          "is_published"
+        ],
+        "title": "CompanyNewsPostAdminOut"
+      },
+      "CompanyNewsCreateBody": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Body"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Pinned",
+            "default": false
+          },
+          "is_published": {
+            "type": "boolean",
+            "title": "Is Published",
+            "default": false
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "image_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Content Id"
+          },
+          "video_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Content Id"
+          },
+          "audio_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Content Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "body"
+        ],
+        "title": "CompanyNewsCreateBody"
+      },
+      "CompanyNewsUpdateBody": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          },
+          "pinned": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pinned"
+          },
+          "is_published": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Published"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2048
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "image_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Content Id"
+          },
+          "video_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Content Id"
+          },
+          "audio_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Content Id"
+          }
+        },
+        "type": "object",
+        "title": "CompanyNewsUpdateBody"
+      },
+      "EwDeskNewsPolishBody": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 48000,
+            "minLength": 1,
+            "title": "Body"
+          }
+        },
+        "type": "object",
+        "required": [
+          "body"
+        ],
+        "title": "EwDeskNewsPolishBody",
+        "description": "Draft for AI rewrite (admin)."
+      },
+      "EwDeskNewsPolishOut": {
+        "properties": {
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "type": "object",
+        "required": [
+          "body"
+        ],
+        "title": "EwDeskNewsPolishOut"
+      },
+      "FeedbackSummaryOut": {
+        "properties": {
+          "is_trusted": {
+            "type": "boolean",
+            "title": "Is Trusted"
+          },
+          "wish_count": {
+            "type": "integer",
+            "title": "Wish Count",
+            "description": "Число активных (незакрытых) обращений kind=wish для лимита"
+          },
+          "wish_limit": {
+            "type": "integer",
+            "title": "Wish Limit"
+          },
+          "bug_count": {
+            "type": "integer",
+            "title": "Bug Count",
+            "description": "Число активных (незакрытых) обращений kind=bug для лимита"
+          },
+          "bug_limit": {
+            "type": "integer",
+            "title": "Bug Limit"
+          },
+          "team_recognition_total": {
+            "type": "number",
+            "title": "Team Recognition Total",
+            "description": "Сумма внутренних отметок за закрытые обращения (reward_credits), не валюта"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_trusted",
+          "wish_count",
+          "wish_limit",
+          "bug_count",
+          "bug_limit",
+          "team_recognition_total"
+        ],
+        "title": "FeedbackSummaryOut",
+        "description": "Сводка для UI: лимиты по типам и сумма «признания» (не денежное)."
+      },
+      "FeedbackTicketCreateBody": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "title": "Kind",
+            "description": "wish or bug"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 20000,
+            "minLength": 1,
+            "title": "Body"
+          },
+          "client_meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Meta",
+            "description": "Optional client context (build, UA) for triage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "body"
+        ],
+        "title": "FeedbackTicketCreateBody"
+      },
+      "FeedbackTicketOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "admin_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Notes"
+          },
+          "reward_credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reward Credits"
+          },
+          "closed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "client_meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Meta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "body",
+          "status",
+          "admin_notes",
+          "reward_credits",
+          "closed_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "FeedbackTicketOut"
+      },
+      "FeedbackTicketListOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/FeedbackTicketOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "FeedbackTicketListOut"
+      },
+      "FeedbackTicketAdminListOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/FeedbackTicketAdminOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "FeedbackTicketAdminListOut"
+      },
+      "FeedbackPatchBody": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "admin_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Notes"
+          }
+        },
+        "type": "object",
+        "title": "FeedbackPatchBody"
+      },
+      "FeedbackTicketAdminOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "admin_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Notes"
+          },
+          "reward_credits": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reward Credits"
+          },
+          "closed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closed At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "client_meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Meta"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "submitter": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FeedbackSubmitterOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "body",
+          "status",
+          "admin_notes",
+          "reward_credits",
+          "closed_at",
+          "created_at",
+          "updated_at",
+          "user_id"
+        ],
+        "title": "FeedbackTicketAdminOut"
+      },
+      "FeedbackCloseBody": {
+        "properties": {
+          "reward_credits": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reward Credits"
+          },
+          "admin_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Notes"
+          }
+        },
+        "type": "object",
+        "title": "FeedbackCloseBody"
+      },
+      "SurveySummaryOut": {
+        "properties": {
+          "available_count": {
+            "type": "integer",
+            "title": "Available Count"
+          },
+          "completed_count": {
+            "type": "integer",
+            "title": "Completed Count"
+          },
+          "total_reward_ugs": {
+            "type": "number",
+            "title": "Total Reward Ugs"
+          },
+          "total_reward_ew": {
+            "type": "integer",
+            "title": "Total Reward Ew"
+          },
+          "total_reward_coins": {
+            "type": "integer",
+            "title": "Total Reward Coins"
+          }
+        },
+        "type": "object",
+        "required": [
+          "available_count",
+          "completed_count",
+          "total_reward_ugs",
+          "total_reward_ew",
+          "total_reward_coins"
+        ],
+        "title": "SurveySummaryOut"
+      },
+      "SurveyUserListOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyUserListItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "SurveyUserListOut"
+      },
+      "SurveyUserDetailOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description_user": {
+            "type": "string",
+            "title": "Description User"
+          },
+          "reward": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          },
+          "closes_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closes At"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyQuestionOut"
+            },
+            "type": "array",
+            "title": "Questions"
+          },
+          "completed": {
+            "type": "boolean",
+            "title": "Completed"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description_user",
+          "reward",
+          "closes_at",
+          "questions",
+          "completed"
+        ],
+        "title": "SurveyUserDetailOut"
+      },
+      "SurveySubmitBody": {
+        "properties": {
+          "answers": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Answers"
+          },
+          "client_meta": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Meta"
+          }
+        },
+        "type": "object",
+        "title": "SurveySubmitBody"
+      },
+      "SurveySubmitOut": {
+        "properties": {
+          "response_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Response Id"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "reward_granted": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          }
+        },
+        "type": "object",
+        "required": [
+          "response_id",
+          "submitted_at",
+          "reward_granted"
+        ],
+        "title": "SurveySubmitOut"
+      },
+      "SurveyResponseUserOut": {
+        "properties": {
+          "survey_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Survey Id"
+          },
+          "answers": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Answers"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          },
+          "reward_granted": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SurveyRewardSpec"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "survey_id",
+          "answers",
+          "submitted_at",
+          "reward_granted"
+        ],
+        "title": "SurveyResponseUserOut"
+      },
+      "SurveyListAdminOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyAdminOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "SurveyListAdminOut"
+      },
+      "SurveyCreateBody": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "description_user": {
+            "type": "string",
+            "maxLength": 8000,
+            "title": "Description User",
+            "default": ""
+          },
+          "description_admin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description Admin"
+          },
+          "audience_mode": {
+            "type": "string",
+            "title": "Audience Mode",
+            "default": "groups_or_users"
+          },
+          "reward": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          },
+          "gaf_notify_body_template": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gaf Notify Body Template"
+          },
+          "closes_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closes At"
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "SurveyCreateBody"
+      },
+      "SurveyAdminOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description_user": {
+            "type": "string",
+            "title": "Description User"
+          },
+          "description_admin": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description Admin"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "audience_mode": {
+            "type": "string",
+            "title": "Audience Mode"
+          },
+          "reward": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          },
+          "gaf_notify_body_template": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gaf Notify Body Template"
+          },
+          "closes_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closes At"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "access_group_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Access Group Ids"
+          },
+          "user_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "User Ids"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyQuestionOut"
+            },
+            "type": "array",
+            "title": "Questions"
+          },
+          "question_count": {
+            "type": "integer",
+            "title": "Question Count",
+            "default": 0
+          },
+          "eligible_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eligible Count"
+          },
+          "completed_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description_user",
+          "description_admin",
+          "status",
+          "audience_mode",
+          "reward",
+          "gaf_notify_body_template",
+          "closes_at",
+          "published_at",
+          "sort_order",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "SurveyAdminOut"
+      },
+      "SurveyAiDraftRequest": {
+        "properties": {
+          "brief": {
+            "type": "string",
+            "maxLength": 20000,
+            "minLength": 10,
+            "title": "Brief"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "create",
+              "refine"
+            ],
+            "title": "Mode",
+            "default": "create"
+          },
+          "draft": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SurveyAiDraftIn"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "supplement": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplement"
+          }
+        },
+        "type": "object",
+        "required": [
+          "brief"
+        ],
+        "title": "SurveyAiDraftRequest"
+      },
+      "SurveyAiDraftOut": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "description_user": {
+            "type": "string",
+            "maxLength": 8000,
+            "title": "Description User",
+            "default": ""
+          },
+          "description_admin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description Admin"
+          },
+          "gaf_notify_body_template": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gaf Notify Body Template"
+          },
+          "reward": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyQuestionIn"
+            },
+            "type": "array",
+            "title": "Questions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "SurveyAiDraftOut"
+      },
+      "SurveyPatchBody": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "description_user": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description User"
+          },
+          "description_admin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description Admin"
+          },
+          "audience_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audience Mode"
+          },
+          "reward": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SurveyRewardSpec"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "gaf_notify_body_template": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gaf Notify Body Template"
+          },
+          "closes_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closes At"
+          },
+          "sort_order": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sort Order"
+          }
+        },
+        "type": "object",
+        "title": "SurveyPatchBody"
+      },
+      "SurveyQuestionIn": {
+        "properties": {
+          "question_key": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Question Key"
+          },
+          "question_type": {
+            "type": "string",
+            "title": "Question Type"
+          },
+          "prompt": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Prompt"
+          },
+          "help_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Help Text"
+          },
+          "required": {
+            "type": "boolean",
+            "title": "Required",
+            "default": true
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order",
+            "default": 0
+          },
+          "options_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Options Json"
+          },
+          "validation_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Validation Json"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_key",
+          "question_type",
+          "prompt"
+        ],
+        "title": "SurveyQuestionIn"
+      },
+      "SurveyAudienceBody": {
+        "properties": {
+          "audience_mode": {
+            "type": "string",
+            "title": "Audience Mode",
+            "default": "groups_or_users"
+          },
+          "access_group_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "Access Group Ids"
+          },
+          "user_ids": {
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "type": "array",
+            "title": "User Ids"
+          }
+        },
+        "type": "object",
+        "title": "SurveyAudienceBody"
+      },
+      "AudiencePreviewOut": {
+        "properties": {
+          "eligible_count": {
+            "type": "integer",
+            "title": "Eligible Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "eligible_count"
+        ],
+        "title": "AudiencePreviewOut"
+      },
+      "SurveyGafNotifyQueuedOut": {
+        "properties": {
+          "queued": {
+            "type": "boolean",
+            "title": "Queued"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "queued",
+          "mode"
+        ],
+        "title": "SurveyGafNotifyQueuedOut"
+      },
+      "SurveyResultsSummaryOut": {
+        "properties": {
+          "survey_id": {
+            "type": "string",
+            "title": "Survey Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "eligible_users": {
+            "type": "integer",
+            "title": "Eligible Users"
+          },
+          "completed_count": {
+            "type": "integer",
+            "title": "Completed Count"
+          },
+          "completion_rate": {
+            "type": "number",
+            "title": "Completion Rate"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyResultsQuestionSummaryOut"
+            },
+            "type": "array",
+            "title": "Questions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "survey_id",
+          "title",
+          "status",
+          "eligible_users",
+          "completed_count",
+          "completion_rate",
+          "questions"
+        ],
+        "title": "SurveyResultsSummaryOut"
+      },
+      "SurveyResponseAdminListOut": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyResponseAdminOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "SurveyResponseAdminListOut"
+      },
+      "AssistantFaqEntryOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "question",
+          "answer",
+          "sort_order"
+        ],
+        "title": "AssistantFaqEntryOut"
+      },
+      "AssistantChatMessageOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "content",
+          "created_at"
+        ],
+        "title": "AssistantChatMessageOut"
+      },
+      "AssistantChatBody": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "maxLength": 32000,
+            "minLength": 1,
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "AssistantChatBody"
+      },
+      "AssistantSettingsOut": {
+        "properties": {
+          "llama_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llama Model"
+          },
+          "extra_system_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extra System Prompt"
+          },
+          "rag_top_k": {
+            "type": "integer",
+            "title": "Rag Top K"
+          },
+          "rag_enabled": {
+            "type": "boolean",
+            "title": "Rag Enabled"
+          }
+        },
+        "type": "object",
+        "required": [
+          "llama_model",
+          "extra_system_prompt",
+          "rag_top_k",
+          "rag_enabled"
+        ],
+        "title": "AssistantSettingsOut"
+      },
+      "AssistantSettingsPatchBody": {
+        "properties": {
+          "llama_model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Llama Model"
+          },
+          "extra_system_prompt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Extra System Prompt"
+          },
+          "rag_top_k": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 32,
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rag Top K"
+          },
+          "rag_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rag Enabled"
+          }
+        },
+        "type": "object",
+        "title": "AssistantSettingsPatchBody"
+      },
+      "AssistantPreviewBody": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Message"
+          },
+          "include_my_history": {
+            "type": "boolean",
+            "title": "Include My History",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "AssistantPreviewBody"
+      },
+      "AssistantPreviewOut": {
+        "properties": {
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "rag_enabled": {
+            "type": "boolean",
+            "title": "Rag Enabled"
+          },
+          "rag_source_labels": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Rag Source Labels"
+          },
+          "faq_chars": {
+            "type": "integer",
+            "title": "Faq Chars"
+          },
+          "rag_chars": {
+            "type": "integer",
+            "title": "Rag Chars"
+          },
+          "history_chars": {
+            "type": "integer",
+            "title": "History Chars"
+          },
+          "prompt_chars": {
+            "type": "integer",
+            "title": "Prompt Chars"
+          },
+          "prompt_preview": {
+            "type": "string",
+            "title": "Prompt Preview"
+          },
+          "prompt_full": {
+            "type": "string",
+            "title": "Prompt Full"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model",
+          "rag_enabled",
+          "rag_source_labels",
+          "faq_chars",
+          "rag_chars",
+          "history_chars",
+          "prompt_chars",
+          "prompt_preview",
+          "prompt_full"
+        ],
+        "title": "AssistantPreviewOut"
+      },
+      "AssistantFaqCreateBody": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Question"
+          },
+          "answer": {
+            "type": "string",
+            "maxLength": 20000,
+            "minLength": 1,
+            "title": "Answer"
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "question",
+          "answer"
+        ],
+        "title": "AssistantFaqCreateBody"
+      },
+      "AssistantFaqUpdateBody": {
+        "properties": {
+          "question": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Question"
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Answer"
+          },
+          "sort_order": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sort Order"
+          }
+        },
+        "type": "object",
+        "title": "AssistantFaqUpdateBody"
+      },
+      "AssistantKbSummaryOut": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "indexed": {
+            "type": "integer",
+            "title": "Indexed"
+          },
+          "indexing": {
+            "type": "integer",
+            "title": "Indexing"
+          },
+          "error": {
+            "type": "integer",
+            "title": "Error"
+          },
+          "total_chunks": {
+            "type": "integer",
+            "title": "Total Chunks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "indexed",
+          "indexing",
+          "error",
+          "total_chunks"
+        ],
+        "title": "AssistantKbSummaryOut"
+      },
+      "AssistantKbSyncHandbookOut": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "files": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Files"
+          },
+          "ok": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ok"
+          },
+          "fail": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fail"
+          },
+          "dry_run": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dry Run"
+          },
+          "handbook_dir": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handbook Dir"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "AssistantKbSyncHandbookOut"
+      },
+      "AssistantKbDocumentOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "chunk_count": {
+            "type": "integer",
+            "title": "Chunk Count"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "source_filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Filename"
+          },
+          "source_mime": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Mime"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "status",
+          "chunk_count",
+          "last_error",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "AssistantKbDocumentOut"
+      },
+      "AssistantKbCreateBody": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Body"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "body"
+        ],
+        "title": "AssistantKbCreateBody"
+      },
+      "AssistantKbUploadLimitsOut": {
+        "properties": {
+          "max_files": {
+            "type": "integer",
+            "title": "Max Files"
+          },
+          "max_bytes_per_file": {
+            "type": "integer",
+            "title": "Max Bytes Per File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "max_files",
+          "max_bytes_per_file"
+        ],
+        "title": "AssistantKbUploadLimitsOut"
+      },
+      "AssistantKbDocumentDetailOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "chunk_count": {
+            "type": "integer",
+            "title": "Chunk Count"
+          },
+          "last_error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Error"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "source_filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Filename"
+          },
+          "source_mime": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Mime"
+          },
+          "body": {
+            "type": "string",
+            "title": "Body"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "status",
+          "chunk_count",
+          "last_error",
+          "created_at",
+          "updated_at",
+          "body"
+        ],
+        "title": "AssistantKbDocumentDetailOut"
+      },
+      "AssistantKbPatchBody": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "body": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body"
+          }
+        },
+        "type": "object",
+        "title": "AssistantKbPatchBody"
+      },
+      "Body_admin_upload_kb_document_api_v1_product_desktop_admin_assistant_kb_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_admin_upload_kb_document_api_v1_product_desktop_admin_assistant_kb_upload_post"
+      },
+      "Body_admin_upload_kb_documents_bulk_api_v1_product_desktop_admin_assistant_kb_uploads_post": {
+        "properties": {
+          "files": {
+            "items": {
+              "type": "string",
+              "contentMediaType": "application/octet-stream"
+            },
+            "type": "array",
+            "title": "Files"
+          }
+        },
+        "type": "object",
+        "required": [
+          "files"
+        ],
+        "title": "Body_admin_upload_kb_documents_bulk_api_v1_product_desktop_admin_assistant_kb_uploads_post"
+      },
+      "AssistantKbBulkUploadOut": {
+        "properties": {
+          "ok": {
+            "items": {
+              "$ref": "#/components/schemas/AssistantKbDocumentOut"
+            },
+            "type": "array",
+            "title": "Ok"
+          },
+          "failed": {
+            "items": {
+              "$ref": "#/components/schemas/AssistantKbUploadFailureItem"
+            },
+            "type": "array",
+            "title": "Failed"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok",
+          "failed"
+        ],
+        "title": "AssistantKbBulkUploadOut"
+      },
+      "AssistantKbPurgeBody": {
+        "properties": {
+          "confirm": {
+            "type": "string",
+            "const": "purge",
+            "title": "Confirm"
+          }
+        },
+        "type": "object",
+        "required": [
+          "confirm"
+        ],
+        "title": "AssistantKbPurgeBody"
+      },
+      "AssistantKbPurgeOut": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "removed_documents": {
+            "type": "string",
+            "title": "Removed Documents"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "message",
+          "removed_documents"
+        ],
+        "title": "AssistantKbPurgeOut"
+      },
+      "AssistantKbReindexAllOut": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "AssistantKbReindexAllOut"
+      },
+      "CompanyNewsPostListItemOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "body_excerpt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body Excerpt"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Pinned"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Url"
+          },
+          "image_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image Content Id"
+          },
+          "video_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Video Content Id"
+          },
+          "audio_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Content Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "pinned",
+          "published_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CompanyNewsPostListItemOut",
+        "description": "Feed list item without full body (excerpt only for client search)."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "FeedbackSubmitterOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name"
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "username",
+          "email"
+        ],
+        "title": "FeedbackSubmitterOut",
+        "description": "Кто отправил обращение (для админ-очереди)."
+      },
+      "SurveyUserListItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description_user": {
+            "type": "string",
+            "title": "Description User"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "reward": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          },
+          "closes_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Closes At"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "question_count": {
+            "type": "integer",
+            "title": "Question Count"
+          },
+          "completed": {
+            "type": "boolean",
+            "title": "Completed"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "reward_granted": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SurveyRewardSpec"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description_user",
+          "status",
+          "reward",
+          "closes_at",
+          "published_at",
+          "question_count",
+          "completed",
+          "completed_at"
+        ],
+        "title": "SurveyUserListItem"
+      },
+      "SurveyRewardSpec": {
+        "properties": {
+          "ugs_credits": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Ugs Credits",
+            "default": 0
+          },
+          "ew_balance": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Ew Balance",
+            "default": 0
+          },
+          "web_search_coins": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Web Search Coins",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "SurveyRewardSpec"
+      },
+      "SurveyQuestionOut": {
+        "properties": {
+          "question_key": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Question Key"
+          },
+          "question_type": {
+            "type": "string",
+            "title": "Question Type"
+          },
+          "prompt": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Prompt"
+          },
+          "help_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Help Text"
+          },
+          "required": {
+            "type": "boolean",
+            "title": "Required",
+            "default": true
+          },
+          "sort_order": {
+            "type": "integer",
+            "title": "Sort Order",
+            "default": 0
+          },
+          "options_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Options Json"
+          },
+          "validation_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Validation Json"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_key",
+          "question_type",
+          "prompt",
+          "id"
+        ],
+        "title": "SurveyQuestionOut"
+      },
+      "SurveyAiDraftIn": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "description_user": {
+            "type": "string",
+            "maxLength": 8000,
+            "title": "Description User",
+            "default": ""
+          },
+          "description_admin": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 8000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description Admin"
+          },
+          "gaf_notify_body_template": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gaf Notify Body Template"
+          },
+          "reward": {
+            "$ref": "#/components/schemas/SurveyRewardSpec"
+          },
+          "questions": {
+            "items": {
+              "$ref": "#/components/schemas/SurveyQuestionIn"
+            },
+            "type": "array",
+            "title": "Questions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "title": "SurveyAiDraftIn"
+      },
+      "SurveyResultsQuestionSummaryOut": {
+        "properties": {
+          "question_key": {
+            "type": "string",
+            "title": "Question Key"
+          },
+          "question_type": {
+            "type": "string",
+            "title": "Question Type"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "response_count": {
+            "type": "integer",
+            "title": "Response Count"
+          },
+          "distribution": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distribution"
+          },
+          "average": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Average"
+          },
+          "samples": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Samples"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question_key",
+          "question_type",
+          "prompt",
+          "response_count"
+        ],
+        "title": "SurveyResultsQuestionSummaryOut"
+      },
+      "SurveyResponseAdminOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "answers_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Answers Json"
+          },
+          "reward_granted_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reward Granted Json"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Submitted At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "answers_json",
+          "reward_granted_json",
+          "submitted_at"
+        ],
+        "title": "SurveyResponseAdminOut"
+      },
+      "AssistantKbUploadFailureItem": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filename",
+          "detail"
+        ],
+        "title": "AssistantKbUploadFailureItem"
+      }
+    }
+  }
+}

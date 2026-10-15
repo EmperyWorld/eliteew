@@ -1,0 +1,56 @@
+# =============================================================================
+# EliteEW · stack12 — internal DNS (CoreDNS для *.sites.eliteew.ru и overrides)
+# =============================================================================
+# Запуск: docker compose -f docker/stack/stack12.yml --env-file docker/env_file/.env.stack12 up -d
+#
+# Corefile и зоны: docker/scripts/internal-sites/coredns/. WireGuard из compose удалён — см. INTERNAL-DNS.md.
+# Healthcheck в образе без shell: проверка `coredns -plugins` (см. healthcheck в сервисе).
+# =============================================================================
+name: stack12
+
+services:
+  internal-dns:
+    image: coredns/coredns:1.12.1
+    container_name: ${STACK12_DNS_CONTAINER_NAME}
+    user: "0:0"
+    environment:
+      TZ: Asia/Vladivostok
+    command: -conf /etc/coredns/Corefile
+    ports:
+      # Rootless Podman: для host портов <1024 требуется соответствующий sysctl.
+      # Можно задать INTERNAL_DNS_HOST_PORT=8053 для безопасного user-space bind.
+      - "${INTERNAL_DNS_BIND_ADDRESS}:${INTERNAL_DNS_HOST_PORT:-53}:53/tcp"
+      - "${INTERNAL_DNS_BIND_ADDRESS}:${INTERNAL_DNS_HOST_PORT:-53}:53/udp"
+    volumes:
+      - ../../docker/scripts/internal-sites/coredns/Corefile:/etc/coredns/Corefile:ro,z
+      - ../../docker/scripts/internal-sites/coredns/sites.eliteew.ru.db:/zones/sites.eliteew.ru.db:ro,z
+      - ../../docker/scripts/internal-sites/coredns/internal-overrides.hosts:/zones/internal-overrides.hosts:ro,z
+      - ../../docker/scripts/internal-sites/coredns/sites.eliteew.ru.vpn.db:/zones/sites.eliteew.ru.vpn.db:ro,z
+      - ../../docker/scripts/internal-sites/coredns/vpn-overrides.hosts:/zones/vpn-overrides.hosts:ro,z
+    networks:
+      stack12-internal:
+        ipv4_address: ${STACK12_DNS_CONTAINER_IP}
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - "stack=12"
+      - "service=internal-dns"
+      - "environment=internal"
+    healthcheck:
+      # Образ без shell/HTTP-клиента; проверяем, что бинарь и плагины инициализируются (не замена dig).
+      test: ["CMD", "/coredns", "-plugins"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+networks:
+  stack12-internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${STACK12_DOCKER_SUBNET}

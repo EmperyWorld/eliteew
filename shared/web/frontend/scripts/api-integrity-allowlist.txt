@@ -1,0 +1,6 @@
+# API integrity — REST exceptions only (non-SSE)
+# Cleared 2026-08-06 (post-R6 follow-up): Wave7 canvasMapping Pattern A removed
+# via field coerce in parseDefinitionV2 — no residual REST A/D.
+# SSE Pattern C lives in api-integrity-allowlist-sse.txt — not here.
+# Format: src/relative/path.ts:LINE:PATTERN
+# PR rule: do not add lines without documentation/api/API-INTEGRITY-BACKLOG.md note.

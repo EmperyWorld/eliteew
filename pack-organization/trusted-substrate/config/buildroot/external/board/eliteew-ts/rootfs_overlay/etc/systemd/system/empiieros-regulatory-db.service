@@ -1,0 +1,34 @@
+[Unit]
+Description=Reload the signed wireless regulatory database
+After=local-fs.target
+Before=empiieros-wifi-restore.service
+ConditionPathExists=/lib/firmware/regulatory.db
+ConditionPathExists=/lib/firmware/regulatory.db.p7s
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/iw reg reload
+User=root
+Group=root
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectClock=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+SystemCallArchitectures=native
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+CapabilityBoundingSet=CAP_NET_ADMIN
+AmbientCapabilities=CAP_NET_ADMIN
+
+[Install]
+WantedBy=multi-user.target

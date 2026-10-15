@@ -1,0 +1,22 @@
+[Unit]
+Description=EmpiierOS allowlisted display brightness
+Documentation=file:///opt/empiieros/docs/RUNTIME.md
+RefuseManualStart=false
+ConditionPathExists=/usr/local/sbin/empiieros-display-brightness
+ConditionPathExists=/run/empiieros/display-brightness.request
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/empiieros-display-brightness
+User=root
+Group=root
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+# This unit must write /sys/class/backlight. Do not set ProtectKernelTunables.

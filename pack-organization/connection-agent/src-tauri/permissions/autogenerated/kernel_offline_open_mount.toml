@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-kernel-offline-open-mount"
+description = "Enables the kernel_offline_open_mount command without any pre-configured scope."
+commands.allow = ["kernel_offline_open_mount"]
+
+[[permission]]
+identifier = "deny-kernel-offline-open-mount"
+description = "Denies the kernel_offline_open_mount command without any pre-configured scope."
+commands.deny = ["kernel_offline_open_mount"]

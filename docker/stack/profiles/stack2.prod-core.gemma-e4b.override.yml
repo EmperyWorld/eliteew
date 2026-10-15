@@ -1,0 +1,54 @@
+# =============================================================================
+# EliteEW · stack2 · prod-core · Gemma4 E4B vision (mmproj, меньше VRAM)
+# =============================================================================
+# Активация: docker/scripts/eliteew-llama-chat-model.sh e4b
+# Контекст: не задавать -c выше n_ctx_train GGUF (E4B ≈ 131072); см. LLM-CHAT-MODEL-CHANGE-CHEATSHEET.md
+# =============================================================================
+
+services:
+  llama-chat:
+    user: "0:0"
+    command: !override
+      - -m
+      - /models/gemma-4-E4B-it-UD-Q8_K_XL.gguf
+      - --mmproj
+      - /models/mmproj-BF16.gguf
+      - --image-max-tokens
+      - "512"
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8080"
+      - --cache-ram
+      - "2048"
+      - --parallel
+      - "1"
+      - -ngl
+      - "999"
+      - -ncmoe
+      - "0"
+      - --flash-attn
+      - "on"
+      - --cache-type-k
+      - "f16"
+      - --cache-type-v
+      - "f16"
+      - -b
+      - "512"
+      - -ub
+      - "512"
+      - --reasoning
+      - "off"
+      - --temp
+      - "0.7"
+      - --top-p
+      - "0.8"
+      - --top-k
+      - "20"
+      - --min-p
+      - "0.0"
+      - --presence-penalty
+      - "0.0"
+      - --repeat-penalty
+      - "1.0"
+      - --metrics

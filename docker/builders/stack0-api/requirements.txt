@@ -1,0 +1,3 @@
+# Active Docker install entrypoint for the full API image.
+# Service-specific image targets use files under ./requirements/.
+-r requirements/api.in

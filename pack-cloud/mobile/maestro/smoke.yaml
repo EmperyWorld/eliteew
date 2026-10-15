@@ -1,0 +1,29 @@
+# MobileAndroid Maestro smoke — operator/device lane (not default CI JVM gate).
+# Prereq: prodDebug/prodRelease installed, test account, perimeter if required.
+# Run: maestro test pack-cloud/mobile/maestro/smoke.yaml
+#
+# W2 device lane: cold start → tab shell → Profile → Updates (OTA panel when visible).
+appId: world.empery.mobile
+---
+- launchApp
+- assertVisible: "Empery"
+- tapOn:
+    text: ".*Лента.*|.*Feed.*"
+- assertVisible:
+    text: ".*Лента.*|.*Empery.*|.*новост.*|.*пост.*"
+    optional: true
+- tapOn:
+    text: ".*Чат.*|.*Chat.*"
+- tapOn:
+    text: ".*Друзья.*|.*Friends.*"
+- tapOn:
+    text: ".*UGS.*|.*Генерац.*"
+- tapOn:
+    text: ".*Профиль.*|.*Profile.*"
+- tapOn:
+    text: ".*Обновлен.*|.*Update.*"
+    optional: true
+- assertVisible:
+    text: ".*верси.*|.*Обновлен.*|.*OTA.*|.*EliteEW Mobile.*"
+    optional: true
+- stopApp

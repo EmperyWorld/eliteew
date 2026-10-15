@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- EliteEW Capsule v3 — so xdg-desktop-portal / GIO do not treat *.ecap as anonymous octet-stream only. -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/vnd.eliteew.capsule">
+    <comment>EliteEW access capsule</comment>
+    <comment xml:lang="ru">Файл доступа EliteEW</comment>
+    <glob pattern="*.ecap"/>
+    <glob pattern="*.ECAP"/>
+  </mime-type>
+</mime-info>

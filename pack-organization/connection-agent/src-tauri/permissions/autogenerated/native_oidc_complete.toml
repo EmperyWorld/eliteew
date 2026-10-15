@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-native-oidc-complete"
+description = "Enables the native_oidc_complete command without any pre-configured scope."
+commands.allow = ["native_oidc_complete"]
+
+[[permission]]
+identifier = "deny-native-oidc-complete"
+description = "Denies the native_oidc_complete command without any pre-configured scope."
+commands.deny = ["native_oidc_complete"]

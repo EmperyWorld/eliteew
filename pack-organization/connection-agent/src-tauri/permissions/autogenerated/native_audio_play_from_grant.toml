@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-native-audio-play-from-grant"
+description = "Enables the native_audio_play_from_grant command without any pre-configured scope."
+commands.allow = ["native_audio_play_from_grant"]
+
+[[permission]]
+identifier = "deny-native-audio-play-from-grant"
+description = "Denies the native_audio_play_from_grant command without any pre-configured scope."
+commands.deny = ["native_audio_play_from_grant"]

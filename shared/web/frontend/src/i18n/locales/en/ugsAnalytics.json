@@ -1,0 +1,41 @@
+{
+  "title": "UGS analytics",
+  "subtitle": "24-hour summary: volume, success by type, and recent errors for your account.",
+  "loading": "Loading analytics…",
+  "error": "Could not load UGS analytics.",
+  "retry": "Retry",
+  "windowLabel": "Window: 24 hours",
+  "empty": {
+    "title": "No data for this period",
+    "description": "Run generations in UGS Hub — metrics appear after the first runs."
+  },
+  "kpi": {
+    "total": "Total",
+    "successful": "Successful",
+    "failed": "Failed",
+    "cancelled": "Cancelled",
+    "successRate": "Success rate",
+    "avgDuration": "Avg time"
+  },
+  "charts": {
+    "byTypeTitle": "By generation type",
+    "byTypeSubtitle": "Successful vs failed runs",
+    "successful": "Successful",
+    "failed": "Failed",
+    "errorsTitle": "Error classes",
+    "errorsSubtitle": "Distribution over 24h"
+  },
+  "table": {
+    "title": "Type breakdown",
+    "type": "Type",
+    "total": "Total",
+    "successful": "OK",
+    "failed": "Fail",
+    "successRate": "Success rate"
+  },
+  "recentErrors": {
+    "title": "Recent errors",
+    "more": "Showing first {{shown}} of {{total}}",
+    "empty": "No errors recorded in the last 24h."
+  }
+}

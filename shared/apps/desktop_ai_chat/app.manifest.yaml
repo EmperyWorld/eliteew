@@ -1,0 +1,26 @@
+# EliteEW product app manifest — Assistant (ensemble chat)
+# Distinct from `assistant` (FAQ + RAG → AssistantApp).
+id: desktop_ai_chat
+title: Experts
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+  - llm
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: DesktopAiChatApp
+    icon: app-desktop-ai-chat
+  api:
+    prefixes:
+      - /api/v1/desktop/ai-chat
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

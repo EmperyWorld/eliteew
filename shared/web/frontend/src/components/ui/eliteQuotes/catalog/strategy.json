@@ -1,0 +1,98 @@
+[
+  {
+    "id": "hannibal-road",
+    "author": "Ганнибал",
+    "text": "Мы либо найдём дорогу, либо проложим её сами.",
+    "category": "strategy"
+  },
+  {
+    "id": "caesar-die",
+    "author": "Гай Юлий Цезарь",
+    "text": "Жребий брошен.",
+    "category": "strategy"
+  },
+  {
+    "id": "sun-tzu-chaos",
+    "author": "Сунь-Цзы",
+    "text": "Посреди хаоса также существует возможность.",
+    "category": "strategy"
+  },
+  {
+    "id": "zhukov-spirit",
+    "author": "Георгий Жуков",
+    "text": "Там, где один пасует, сильный духом найдёт лазейку и победит.",
+    "category": "strategy"
+  },
+  {
+    "id": "napoleon-judged",
+    "author": "Наполеон Бонапарт",
+    "text": "Победителей не судят.",
+    "category": "strategy"
+  },
+  {
+    "id": "napoleon-hours",
+    "author": "Наполеон Бонапарт",
+    "text": "Победить можно час, проиграть — мгновение.",
+    "category": "strategy"
+  },
+  {
+    "id": "bismarck-possible",
+    "author": "Отто фон Бисмарк",
+    "text": "Политика — это искусство возможного.",
+    "category": "strategy"
+  },
+  {
+    "id": "patton-plan",
+    "author": "Джордж Паттон",
+    "text": "Хороший план сейчас лучше идеального потом.",
+    "category": "strategy"
+  },
+  {
+    "id": "clausewitz-simple",
+    "author": "Карл фон Клаузевиц",
+    "text": "В войне всё просто, но простое — трудно.",
+    "category": "strategy"
+  },
+  {
+    "id": "skobelev-speed",
+    "author": "Михаил Скобелев",
+    "text": "Быстрота — половина успеха.",
+    "category": "strategy"
+  },
+  {
+    "id": "bagration-bold",
+    "author": "Пётр Багратион",
+    "text": "Смелость побеждает численность.",
+    "category": "strategy"
+  },
+  {
+    "id": "catherine-spirit",
+    "author": "Екатерина II",
+    "text": "Россию держат не страхом, а верой в её силу.",
+    "category": "strategy"
+  },
+  {
+    "id": "machiavelli-fortune",
+    "author": "Никколо Макьявелли",
+    "text": "Удача любит смелых.",
+    "category": "strategy"
+  },
+  {
+    "id": "liddell-center",
+    "author": "Базил Лиддел Гарт",
+    "text": "Прямой путь — не всегда кратчайший.",
+    "category": "strategy"
+  },
+  {
+    "id": "rommel-attack",
+    "author": "Эрвин Роммель",
+    "text": "Атака — лучшая защита.",
+    "category": "strategy"
+  },
+  {
+    "id": "kutuzov-space",
+    "author": "Михаил Кутузов",
+    "text": "Время и пространство — союзники терпеливого.",
+    "category": "strategy"
+  }
+]

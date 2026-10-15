@@ -1,0 +1,146 @@
+{
+	"app": {
+		"name": "Редактор документов V2",
+		"eyebrow": "Документы V2",
+		"description": "Новый редактор рядом со старым. Старые документы по-прежнему открываются в прежнем редакторе."
+	},
+	"actions": {
+		"applyAfterGuard": "Применить",
+		"exportMarkdown": "Экспорт MD",
+		"forceSaveLocal": "Сохранить поверх",
+		"importFile": "Импорт",
+		"openLegacy": "Старый редактор",
+		"save": "Сохранить",
+		"saveDraft": "Черновик",
+		"saving": "Сохраняю…",
+		"suggestRewrite": "Попросить правку"
+	},
+	"aria": {
+		"editableSurface": "Область редактирования документа V2",
+		"outline": "Структура документа",
+		"titleInput": "Название документа"
+	},
+	"canvas": {
+		"coreMounted": "Редактор подключён",
+		"documentId": "Документ {{id}}",
+		"emptyDocument": "Документ V2 ещё не сохранён",
+		"fallbackNote": "Здесь появятся редактирование, сохранение, совместная работа и импорт/экспорт.",
+		"placeholderTitle": "Рабочая область документа",
+		"readOnlyShell": "Только просмотр",
+		"section": "Полотно редактора"
+	},
+	"collaborators": {
+		"count_one": "{{count}} участник",
+		"count_few": "{{count}} участника",
+		"count_many": "{{count}} участников",
+		"count_other": "{{count}} участника",
+		"names": {
+			"collaborator": "Редактор",
+			"owner": "Владелец",
+			"viewer": "Наблюдатель"
+		},
+		"roles": {
+			"editor": "редактор",
+			"owner": "владелец",
+			"reviewer": "рецензент",
+			"viewer": "просмотр"
+		}
+	},
+	"core": {
+		"editable": "Можно редактировать",
+		"readOnly": "Только чтение"
+	},
+	"defaults": {
+		"title": "Новый документ V2",
+		"untitled": "Без названия"
+	},
+	"errors": {
+		"draftSaveFailed": "Не удалось сохранить черновик",
+		"ewaApplyConflict": "Конфликт применения: на сервере версия {{version}}.",
+		"ewaApplyFailed": "Не удалось применить предложение",
+		"ewaSuggestionFailed": "ЕВА не смогла подготовить предложение",
+		"exportBeforeSave": "Сначала сохраните или импортируйте документ.",
+		"exportFailed": "Не удалось экспортировать документ",
+		"failedToLoad": "Не удалось загрузить документ V2",
+		"importFailed": "Не удалось импортировать файл",
+		"saveBeforeEwa": "Сначала сохраните документ, потом просите ЕВА о правках.",
+		"saveConflict": "Конфликт версий: на сервере версия {{version}}. Проверьте перед перезаписью.",
+		"saveFailed": "Не удалось сохранить документ",
+		"serverVersionAvailable": "{{message}} На сервере доступна версия {{version}}."
+	},
+	"footer": {
+		"collab": "Совместная работа: готовится",
+		"draft": "Черновик: серверный",
+		"importNotices_one": "{{count}} предупреждение",
+		"importNotices_few": "{{count}} предупреждения",
+		"importNotices_many": "{{count}} предупреждений",
+		"importNotices_other": "{{count}} предупреждения",
+		"words_one": "{{count}} слово",
+		"words_few": "{{count}} слова",
+		"words_many": "{{count}} слов",
+		"words_other": "{{count}} слова"
+	},
+	"header": {
+		"compactHint": "V2: новый документный контур, старый редактор доступен отдельно.",
+		"core": "ядро",
+		"shellOnly": "каркас"
+	},
+	"import": {
+		"emptyTitle": "Предупреждений импорта пока нет",
+		"section": "Импорт"
+	},
+	"outline": {
+		"empty": "Структура появится после заголовков в документе.",
+		"section": "Структура",
+		"statuses": {
+			"needs-review": "Нужно проверить",
+			"placeholder": "Ожидает текста",
+			"ready": "Готово"
+		}
+	},
+	"preview": {
+		"collaborationTitle": "Совместная работа",
+		"defaultPlainText": "Начните писать документ V2…",
+		"importDetail": "Предупреждения о точности импорта останутся видимыми до сохранения документа.",
+		"importTitle": "Здесь появятся замечания импорта",
+		"outlineIntro": "Цель документа",
+		"outlineModel": "Единый путь сохранения",
+		"title": "Новый документ V2",
+		"version": "новый документ",
+		"writePathTitle": "Сохранение"
+	},
+	"saveStatus": {
+		"conflict": "Конфликт",
+		"draft": "Черновик",
+		"readonly": "Только чтение",
+		"saving": "Сохранение…",
+		"synced": "Сохранено"
+	},
+	"status": {
+		"coreDescription": "Редактор подключён: создание, сохранение и черновики идут через безопасные V2-запросы.",
+		"shellDescription": "Каркас V2 открыт без записи в документ.",
+		"shellOnly": "Каркас V2",
+		"v2Core": "Редактор V2"
+	},
+	"suggestions": {
+		"empty": "Предложения ЕВА появятся здесь после запроса.",
+		"section": "Предложения",
+		"status": {
+			"blocked": "заблокировано",
+			"needs-approval": "на проверке",
+			"queued": "в очереди"
+		}
+	},
+	"ewa": {
+		"defaultRewriteInstruction": "Улучши ясность текста, сохранив авторский голос.",
+		"description": "ЕВА может обсудить документ, предложить правку и дождётся явного подтверждения перед применением.",
+		"section": "ЕВА рядом"
+	},
+	"warnings": {
+		"fidelityDetail": "Контур импорта/экспорта сообщил замечание о точности для этого документа."
+	},
+	"version": {
+		"new": "новый документ",
+		"number": "v{{version}}"
+	}
+}

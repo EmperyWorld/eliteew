@@ -1,0 +1,14 @@
+/* ChartsDiagramsPanel Component Styles */
+
+.color-palette-button {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s;
+  background: var(--palette-color, transparent);
+}
+
+.color-palette-button:hover {
+  transform: scale(1.05);
+}

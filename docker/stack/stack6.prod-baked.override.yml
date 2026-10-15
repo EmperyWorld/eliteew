@@ -1,0 +1,21 @@
+# ---
+# EliteEW · Empery World · https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose: Prod-core override for baked Keycloak 26.7.1 + binding SPI.
+# Invariants:
+# - Image comes from command-center bake (STACK6_KEYCLOAK_IMAGE); no build on .111.
+# - Optimized start matches kc.sh build in the Containerfile (db/health/metrics/xa=false).
+# Related:
+# - docker/scripts/eeprodstack6.sh
+# - documentation/platform/docker-re_doc/KEYCLOAK-ELITEEW.md
+# ---
+services:
+  keycloak:
+    image: ${STACK6_KEYCLOAK_IMAGE:?STACK6_KEYCLOAK_IMAGE not set}
+    pull_policy: never
+    command: ["start", "--optimized"]
+    environment:
+      # Binding SPI is same-host service traffic. Keep it off the public edge/hairpin path;
+      # the dedicated SPI token and API route guard remain mandatory.
+      ELITEEW_BINDING_API_BASE_URL: ${ELITEEW_BINDING_INTERNAL_API_BASE_URL:-http://eliteew-api-prod:8000/api/v1/desktop-client}

@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# ---
+# EliteEW · Empery World · https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose:
+#   Full-screen kiosk launcher: cage + Chromium against local SPA (nginx :80)
+#   and portal WireGuard edge for API / Keycloak.
+# Invariants:
+#   - Never use Chromium --app=… (blocks navigation to auth.eliteew.ru).
+#   - Discovery: same-origin /auth-proxy via local nginx; login UI: https://auth.eliteew.ru.
+#   - host-resolver-rules MUST map auth/app → portal edge (default 10.88.89.1).
+# Related:
+#   - kiosk-nginx.conf.example
+#   - documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md §Kiosk
+# ---
+#
+# Install on kiosk:
+#   sudo install -m 0755 kiosk-chromium-cage.sh.example /usr/local/bin/eliteew-kiosk
+#   eliteew-kiosk
+#
+# Optional env:
+#   ELITEEW_KIOSK_URL=http://127.0.0.1/
+#   ELITEEW_PORTAL_EDGE_IP=10.88.89.1
+#   ELITEEW_CHROMIUM=/usr/bin/chromium-browser
+#   ELITEEW_KIOSK_SKIP_PREFLIGHT=1
+
+set -euo pipefail
+
+ELITEEW_KIOSK_URL="${ELITEEW_KIOSK_URL:-http://127.0.0.1/}"
+ELITEEW_PORTAL_EDGE_IP="${ELITEEW_PORTAL_EDGE_IP:-10.88.89.1}"
+ELITEEW_KIOSK_SKIP_PREFLIGHT="${ELITEEW_KIOSK_SKIP_PREFLIGHT:-0}"
+
+resolve_chromium() {
+	if [[ -n "${ELITEEW_CHROMIUM:-}" && -x "${ELITEEW_CHROMIUM}" ]]; then
+		printf '%s\n' "${ELITEEW_CHROMIUM}"
+		return 0
+	fi
+	local cand
+	for cand in \
+		/usr/bin/chromium-browser \
+		/usr/bin/chromium \
+		/usr/bin/google-chrome-stable \
+		/usr/bin/google-chrome; do
+		if [[ -x "${cand}" ]]; then
+			printf '%s\n' "${cand}"
+			return 0
+		fi
+	done
+	return 1
+}
+
+die() {
+	printf 'eliteew-kiosk: %s\n' "$*" >&2
+	exit 1
+}
+
+need_cmd() {
+	command -v "$1" >/dev/null 2>&1 || die "missing command: $1"
+}
+
+preflight() {
+	need_cmd cage
+	need_cmd curl
+
+	if ! resolve_chromium >/dev/null; then
+		die "Chromium/Chrome binary not found (set ELITEEW_CHROMIUM)"
+	fi
+
+	if ! ip -br link show wg-portal >/dev/null 2>&1; then
+		die "wg-portal interface not up — start portal WireGuard first"
+	fi
+
+	if ! curl -fsS --max-time 5 "${ELITEEW_KIOSK_URL%/}/api/health" >/dev/null; then
+		die "local SPA/API proxy failed: curl ${ELITEEW_KIOSK_URL%/}/api/health (is nginx up?)"
+	fi
+
+	if ! curl -fsS --max-time 8 \
+		--resolve "auth.eliteew.ru:443:${ELITEEW_PORTAL_EDGE_IP}" \
+		"https://auth.eliteew.ru/realms/empery/.well-known/openid-configuration" \
+		| head -c 64 >/dev/null; then
+		die "Keycloak via portal failed (auth.eliteew.ru → ${ELITEEW_PORTAL_EDGE_IP})"
+	fi
+}
+
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+if [[ ! -d "${XDG_RUNTIME_DIR}" ]]; then
+	die "XDG_RUNTIME_DIR missing: ${XDG_RUNTIME_DIR}"
+fi
+
+if [[ "${ELITEEW_KIOSK_SKIP_PREFLIGHT}" != "1" ]]; then
+	preflight
+fi
+
+CHROMIUM_BIN="$(resolve_chromium)" || die "Chromium binary not found"
+HOST_RESOLVER_RULES="MAP auth.eliteew.ru ${ELITEEW_PORTAL_EDGE_IP},MAP app.eliteew.ru ${ELITEEW_PORTAL_EDGE_IP}"
+
+# Intentionally NO --app=… — that traps navigation inside the SPA origin
+# and prevents Keycloak login (CSS/cookies need real https://auth.eliteew.ru).
+exec cage -- "${CHROMIUM_BIN}" \
+	--kiosk \
+	--no-first-run \
+	--disable-session-crashed-bubble \
+	--check-for-update-interval=31536000 \
+	--password-store=basic \
+	--host-resolver-rules="${HOST_RESOLVER_RULES}" \
+	"${ELITEEW_KIOSK_URL}"

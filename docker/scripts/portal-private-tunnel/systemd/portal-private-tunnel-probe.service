@@ -1,0 +1,14 @@
+# EliteEW · Portal Private Tunnel — command-center probe oneshot
+# Install (user unit): see install-probe-timer.sh
+[Unit]
+Description=EliteEW Portal Private Tunnel edge probe (read-only SSH)
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/powered_by_emperyworld
+ExecStart=/usr/bin/bash %h/powered_by_emperyworld/docker/scripts/portal-private-tunnel/portalctl probe
+# DEGRADED (exit 2) is informational — do not mark unit failed for stale handshake alone
+SuccessExitStatus=0 2
+Nice=10

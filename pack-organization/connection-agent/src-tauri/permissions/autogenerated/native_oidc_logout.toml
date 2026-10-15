@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-native-oidc-logout"
+description = "Enables the native_oidc_logout command without any pre-configured scope."
+commands.allow = ["native_oidc_logout"]
+
+[[permission]]
+identifier = "deny-native-oidc-logout"
+description = "Denies the native_oidc_logout command without any pre-configured scope."
+commands.deny = ["native_oidc_logout"]

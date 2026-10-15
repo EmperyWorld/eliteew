@@ -1,0 +1,29 @@
+{
+  "_comment": "Hand-maintained until each app has shared/apps/<id>/app.manifest.yaml. Manifest app_component values must NOT appear here. KNOWN = manifests ∪ this set. Phase 1c migration waves stopped after medium apps — remaining are heavy / legacy-hidden; migrate when touching the module.",
+  "app_components": [
+    "ContentManagerPro",
+    "AudioTranscriptionPro",
+    "UGS",
+    "UGSHubApp",
+    "EWRP",
+    "StudioGU",
+    "Presentations",
+    "PresentationsArchive",
+    "VoiceStudio",
+    "DocEditor",
+    "DocEditorV2",
+    "ComfyUI",
+    "ImageStudio",
+    "VideoStudio",
+    "VideoCallApp",
+    "VoiceCommand",
+    "GAFChatApp",
+    "MusicGenerator",
+    "MusicForgeApp",
+    "MusicEvolutionApp",
+    "UserProfile",
+    "MarketingCabinet",
+    "KirsClientSite",
+    "EwaApp"
+  ]
+}

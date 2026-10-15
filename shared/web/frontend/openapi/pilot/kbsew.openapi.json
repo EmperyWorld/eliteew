@@ -1,0 +1,1270 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/kbsew)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/kbsew/drivers": {
+      "get": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Drivers",
+        "operationId": "proxy_kbsew_drivers",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewDriversOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/ready": {
+      "get": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Ready",
+        "description": "Proxy KBSEW readiness. Service exposes root GET /ready (ops/liveness sibling of /health).",
+        "operationId": "proxy_kbsew_ready",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewReadyOut"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels": {
+      "get": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrels List",
+        "operationId": "proxy_kbsew_barrels_list",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/KbsewBarrelOut"
+                  },
+                  "type": "array",
+                  "title": "Response Proxy Kbsew Barrels List"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrels Create",
+        "operationId": "proxy_kbsew_barrels_create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KbsewBarrelCreateIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewBarrelOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}": {
+      "delete": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrel Delete",
+        "operationId": "proxy_kbsew_barrel_delete",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}/enabled": {
+      "patch": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrel Enabled",
+        "operationId": "proxy_kbsew_barrel_enabled",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewBarrelOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}/ingest": {
+      "post": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrel Ingest",
+        "operationId": "proxy_kbsew_barrel_ingest",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KbsewIngestIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewIngestOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}/ingest/upload": {
+      "post": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrel Ingest Upload",
+        "description": "Multipart upload — raw proxy; success body matches KbsewIngestOut when 2xx.",
+        "operationId": "proxy_kbsew_barrel_ingest_upload",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Queued ingest job (mirrors KbsewIngestOut)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewIngestOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}/status": {
+      "get": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrel Status",
+        "operationId": "proxy_kbsew_barrel_status",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewBarrelStatusOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}/reindex": {
+      "post": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Barrel Reindex",
+        "operationId": "proxy_kbsew_barrel_reindex",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewForceReindexBarrelOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/barrels/{barrel_id}/assets/{asset_id}/reindex": {
+      "post": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Proxy Asset Reindex",
+        "operationId": "proxy_kbsew_asset_reindex",
+        "parameters": [
+          {
+            "name": "barrel_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Barrel Id"
+            }
+          },
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Asset Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KbsewForceReindexAssetOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/kbsew/search": {
+      "post": {
+        "tags": [
+          "KBSEW Gateway"
+        ],
+        "summary": "Admin Kbsew Search",
+        "operationId": "admin_kbsew_search",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminKbsewSearchBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminKbsewSearchOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "KbsewDriversOut": {
+        "properties": {
+          "driver_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Driver Types"
+          }
+        },
+        "type": "object",
+        "required": [
+          "driver_types"
+        ],
+        "title": "KbsewDriversOut",
+        "description": "Driver catalog — mirrors KBSEW DriverInfoResponse."
+      },
+      "KbsewReadyOut": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "service": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service"
+          },
+          "ready": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ready"
+          },
+          "degraded": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Degraded"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "checks": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checks"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metrics"
+          },
+          "active_jobs": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Jobs"
+          },
+          "ingest_success_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingest Success Total"
+          },
+          "ingest_failure_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ingest Failure Total"
+          }
+        },
+        "type": "object",
+        "title": "KbsewReadyOut",
+        "description": "Gateway ready probe payload.\n\nCore fields match KBSEW collect_readiness(); optional metrics/detail fields\nare accepted when present for FE Overview degrade (absent → n/a)."
+      },
+      "KbsewBarrelOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "driver_type": {
+            "type": "string",
+            "title": "Driver Type"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "qdrant_collection": {
+            "type": "string",
+            "title": "Qdrant Collection"
+          },
+          "asset_count": {
+            "type": "integer",
+            "title": "Asset Count",
+            "default": 0
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "revision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision"
+          },
+          "active_revision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Revision Id"
+          },
+          "revision_indexed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision Indexed At"
+          },
+          "revision_chunk_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision Chunk Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "driver_type",
+          "enabled",
+          "qdrant_collection",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "KbsewBarrelOut",
+        "description": "Barrel row — mirrors KBSEW BarrelResponse."
+      },
+      "KbsewBarrelCreateIn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "driver_type": {
+            "type": "string",
+            "maxLength": 64,
+            "title": "Driver Type",
+            "default": "pdf"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "KbsewBarrelCreateIn",
+        "description": "Create barrel body — mirrors KBSEW BarrelCreateRequest."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "KbsewIngestIn": {
+        "properties": {
+          "source_url": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Source Url"
+          },
+          "driver_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Driver Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_url"
+        ],
+        "title": "KbsewIngestIn",
+        "description": "URL ingest body — mirrors KBSEW IngestRequest (source_url as string on gateway)."
+      },
+      "KbsewIngestOut": {
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Job Id"
+          },
+          "asset_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Asset Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "job_id",
+          "asset_id",
+          "status"
+        ],
+        "title": "KbsewIngestOut",
+        "description": "Ingest / upload enqueue result — mirrors KBSEW IngestResponse."
+      },
+      "KbsewBarrelStatusOut": {
+        "properties": {
+          "barrel_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Barrel Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "driver_type": {
+            "type": "string",
+            "title": "Driver Type"
+          },
+          "asset_count": {
+            "type": "integer",
+            "title": "Asset Count"
+          },
+          "assets_by_status": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Assets By Status"
+          },
+          "active_jobs": {
+            "items": {
+              "$ref": "#/components/schemas/KbsewIngestJobOut"
+            },
+            "type": "array",
+            "title": "Active Jobs"
+          },
+          "completed_jobs": {
+            "items": {
+              "$ref": "#/components/schemas/KbsewIngestJobOut"
+            },
+            "type": "array",
+            "title": "Completed Jobs"
+          },
+          "qdrant_collection": {
+            "type": "string",
+            "title": "Qdrant Collection"
+          },
+          "revision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision"
+          },
+          "active_revision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Revision Id"
+          },
+          "revision_indexed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision Indexed At"
+          },
+          "revision_chunk_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revision Chunk Count"
+          },
+          "pipeline_fresh": {
+            "type": "boolean",
+            "title": "Pipeline Fresh",
+            "default": true
+          },
+          "stale_asset_count": {
+            "type": "integer",
+            "title": "Stale Asset Count",
+            "default": 0
+          },
+          "required_pipeline_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Pipeline Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "barrel_id",
+          "name",
+          "enabled",
+          "driver_type",
+          "asset_count",
+          "assets_by_status",
+          "active_jobs",
+          "qdrant_collection"
+        ],
+        "title": "KbsewBarrelStatusOut",
+        "description": "Barrel status — mirrors KBSEW BarrelStatusResponse."
+      },
+      "KbsewForceReindexBarrelOut": {
+        "properties": {
+          "barrel_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Barrel Id"
+          },
+          "queued": {
+            "type": "integer",
+            "title": "Queued"
+          },
+          "skipped_active": {
+            "type": "integer",
+            "title": "Skipped Active"
+          },
+          "failed": {
+            "type": "integer",
+            "title": "Failed"
+          },
+          "jobs": {
+            "items": {
+              "$ref": "#/components/schemas/KbsewForceReindexAssetOut"
+            },
+            "type": "array",
+            "title": "Jobs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "barrel_id",
+          "queued",
+          "skipped_active",
+          "failed"
+        ],
+        "title": "KbsewForceReindexBarrelOut",
+        "description": "Barrel-wide force-reindex — mirrors KBSEW ForceReindexBarrelResponse."
+      },
+      "KbsewForceReindexAssetOut": {
+        "properties": {
+          "job_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Job Id"
+          },
+          "asset_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Asset Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "queued": {
+            "type": "boolean",
+            "title": "Queued",
+            "default": true
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "asset_id",
+          "status"
+        ],
+        "title": "KbsewForceReindexAssetOut",
+        "description": "Single-asset force-reindex — mirrors KBSEW ForceReindexAssetResponse."
+      },
+      "AdminKbsewSearchBody": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Query"
+          },
+          "barrel_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Barrel Id"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 20,
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "apply_admin_settings": {
+            "type": "boolean",
+            "title": "Apply Admin Settings",
+            "default": true
+          },
+          "retrieval_mode": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "dense",
+                  "hybrid"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retrieval Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query",
+          "barrel_id"
+        ],
+        "title": "AdminKbsewSearchBody",
+        "description": "Admin Test-search request (stack0 gateway; may apply desktop AI-chat settings)."
+      },
+      "AdminKbsewSearchOut": {
+        "properties": {
+          "barrel_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Barrel Id"
+          },
+          "chunks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Chunks"
+          }
+        },
+        "type": "object",
+        "required": [
+          "barrel_id"
+        ],
+        "title": "AdminKbsewSearchOut",
+        "description": "Admin search result — barrel_id + string chunks (retrieval / passthrough)."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "KbsewIngestJobOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "asset_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Asset Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "progress_pct": {
+            "type": "integer",
+            "title": "Progress Pct",
+            "default": 0
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "trace_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trace Id"
+          },
+          "driver_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Driver Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "KbsewIngestJobOut",
+        "description": "Job row in barrel status — mirrors KBSEW IngestJobStatusItem."
+      }
+    }
+  }
+}

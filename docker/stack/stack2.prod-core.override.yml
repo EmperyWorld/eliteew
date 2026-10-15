@@ -1,0 +1,60 @@
+# =============================================================================
+# EliteEW · stack2 · prod-core · Gemma4 MoE 26B (interactive Phase 1)
+# =============================================================================
+# podman-compose не подставляет ${VAR} в command — значения явные.
+# Активация: docker/scripts/eliteew-llama-chat-model.sh 26b
+#
+# Redesign target (LLM-MEMORY-RUNTIME-REDESIGN-DECISION.md Phase 1):
+#   -c 81920 with --parallel 2 → ~40960 n_ctx per slot; KV q8_0 on single 3090.
+#   (llama-server splits -c across slots when kv_unified=false.)
+# =============================================================================
+
+services:
+  llama-chat:
+    user: "0:0"
+    # CUDA 13.3 / driver 610: concurrent-stream graph opt (single-GPU). Safe default on 3090 chat.
+    environment:
+      - GGML_CUDA_GRAPH_OPT=1
+    command: !override
+      - -m
+      - /models/gemma-4-26B.gguf
+      - --no-mmproj
+      - --host
+      - "0.0.0.0"
+      - --port
+      - "8080"
+      - -c
+      - "81920"
+      - --cache-ram
+      - "2048"
+      - --parallel
+      - "2"
+      - -ngl
+      - "999"
+      - -ncmoe
+      - "0"
+      - --flash-attn
+      - "on"
+      - --cache-type-k
+      - "q8_0"
+      - --cache-type-v
+      - "q8_0"
+      - -b
+      - "512"
+      - -ub
+      - "512"
+      - --reasoning
+      - "off"
+      - --temp
+      - "0.7"
+      - --top-p
+      - "0.8"
+      - --top-k
+      - "20"
+      - --min-p
+      - "0.0"
+      - --presence-penalty
+      - "0.0"
+      - --repeat-penalty
+      - "1.0"
+      - --metrics

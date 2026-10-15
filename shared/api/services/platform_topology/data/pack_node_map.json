@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "default_nodes": [
+    "stack0_api"
+  ],
+  "packs": {
+    "music_forge": [
+      "stack0_api",
+      "stack0_celery_companion",
+      "comfyui"
+    ],
+    "ewa_companion": [
+      "stack0_api",
+      "stack_ewa_postgres",
+      "stack0_celery_companion"
+    ],
+    "image_studio": [
+      "stack0_api",
+      "comfyui"
+    ],
+    "video_studio": [
+      "stack0_api",
+      "comfyui"
+    ],
+    "site_studio": [
+      "stack0_api",
+      "stack12_dns"
+    ],
+    "doc_editor": [
+      "stack0_api",
+      "stack4_ocr",
+      "stack1_seaweedfs"
+    ],
+    "ops_dashboard": [
+      "stack0_api",
+      "stack0_frontend"
+    ],
+    "task_board": [
+      "stack0_api",
+      "stack0_frontend"
+    ],
+    "notifications": [
+      "stack0_api",
+      "stack0_frontend"
+    ],
+    "project_about": [
+      "stack0_api",
+      "stack0_frontend"
+    ],
+    "desktop_shell_kernel": [
+      "stack0_api",
+      "stack0_frontend"
+    ],
+    "service_factory": [
+      "stack0_api"
+    ],
+    "verify_gates": [
+      "stack0_api"
+    ],
+    "kbsew": [
+      "kbsew",
+      "stack0_api",
+      "gpu141_embed"
+    ]
+  }
+}

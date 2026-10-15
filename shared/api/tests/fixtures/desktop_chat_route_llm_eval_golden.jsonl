@@ -1,0 +1,8 @@
+{"id": "doc-high-conf", "mock_response": {"intent": "document", "confidence": 0.91}, "expect_blueprint": true, "expect_intent_substr": "document", "tags": ["document"]}
+{"id": "chat-high-conf", "mock_response": {"intent": "chat", "confidence": 0.88}, "expect_blueprint": false, "expect_intent_substr": "chat", "tags": ["chat"]}
+{"id": "doc-low-conf", "mock_response": {"intent": "document", "confidence": 0.25}, "expect_blueprint": false, "expect_intent_substr": "document", "tags": ["confidence"]}
+{"id": "artifact-alias", "mock_response": {"intent": "artifact", "confidence": 0.8}, "expect_blueprint": true, "expect_intent_substr": "artifact", "tags": ["alias"]}
+{"id": "ambiguous-intent", "mock_response": {"intent": "maybe", "confidence": 0.95}, "expect_blueprint": false, "expect_intent_substr": "maybe", "tags": ["gray"]}
+{"id": "unparsed-empty", "mock_response": null, "expect_blueprint": false, "expect_intent_substr": "unparsed", "tags": ["error"]}
+{"id": "llm-sidecar-error", "mock_error": "timeout", "expect_blueprint": false, "expect_intent_substr": "llm_error", "tags": ["error"]}
+{"id": "custom-min-confidence", "mock_response": {"intent": "document", "confidence": 0.55}, "defaults": {"ensemble_route_llm_min_confidence": 0.6}, "expect_blueprint": false, "expect_intent_substr": "document", "tags": ["defaults"]}

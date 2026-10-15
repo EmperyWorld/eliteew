@@ -1,0 +1,20 @@
+{
+  "v": 1,
+  "payload": {
+    "apps": [
+      "NotificationsApp",
+      "ProjectAboutApp",
+      "ClipboardManager",
+      "MusicPlayer"
+    ],
+    "device_id": null,
+    "edition": "client",
+    "exp": 1893456000,
+    "iat": 1700000000,
+    "issuer": "eliteew-ops",
+    "license_id": "11111111-1111-1111-1111-111111111111",
+    "machine_fingerprint": null,
+    "profile_id": "client-offline-ai"
+  },
+  "sig": "a1d4041cf8e35c1c0b2f08d11d2bc3a3c88d6f29b690be95365be73c70855d8ade723103efe30bf5dcc6fbd2426e93d236a3b6551be2f7ed28c583ddc46a2606"
+}

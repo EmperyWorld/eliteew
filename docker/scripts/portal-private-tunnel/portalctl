@@ -1,0 +1,616 @@
+#!/usr/bin/env bash
+# ---
+# EliteEW · Empery World · https://empery.world · Author: po&T && TZBrand
+# ---
+# Purpose: Operator CLI for Portal Private Tunnel (command-center control plane).
+# Invariants:
+# - Wraps docker/scripts/portal-private-tunnel/* only; never touches wg-mobile / Meet scripts.
+# - list/render/deploy are idempotent; deploy skips edge mutate when conf hash matches.
+# - probe is read-only; drift compares normalized peer sets + DNS checksum (not raw WG files).
+# - peer add/revoke mutate manifest + audit.log; revoke deploys by default.
+# Related:
+# - documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+# ---
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck source=lib.sh
+source "$SCRIPT_DIR/lib.sh"
+# shellcheck source=../yandex-tunnel/_ssh_defaults.sh
+source "$SCRIPT_DIR/../yandex-tunnel/_ssh_defaults.sh"
+
+ROOT="$(portal_private_tunnel_repo_root "$SCRIPT_DIR")"
+eliteew_yandex_source_env "$ROOT" 2>/dev/null || true
+portal_private_tunnel_source_env "$ROOT"
+
+usage() {
+	cat <<EOF
+Usage: bash $0 <command> [args]
+
+Commands:
+  list                         Show peers from peers.manifest.json
+  peer list                    Alias of list
+  peer add <slug> [--ip IP] [--required] [--deploy]
+  peer revoke <slug> [--no-deploy]
+  handoff <slug>               Print path to peer .conf (secrets stay local)
+  render [slug]                Render edge + peer + dnsmasq desired confs
+  deploy [--dry-run]           Idempotent deploy to edge
+  probe                        Read-only edge health → health/health_latest.json
+  drift                        Desired vs actual (normalized WG peers + DNS checksum)
+  metrics                      Scrape edge loopback exporter → metrics/latest.{prom,json}
+  notify-drift                 Drift check → notify only (never deploy)
+  notify-stale                 Required peer stale handshake → Fedora operator notify
+  status                       Aggregate health/metrics/notify + CC timers (read-only)
+  doctor [--quick]             Full ops check (isolation+probe+metrics+drift+status)
+
+Design locks: iface=wg-portal port=51823; no wg-mobile / Meet changes.
+Audit: docker/data/portal-private-tunnel/audit.log (+ logger -t portalctl)
+EOF
+}
+
+die() {
+	echo "FAIL: $*" >&2
+	exit 1
+}
+
+cmd_list() {
+	portal_private_tunnel_require_jq
+	portal_private_tunnel_ensure_manifest "$ROOT" "$SCRIPT_DIR" "$(portal_private_tunnel_keys_dir "$ROOT")"
+	local manifest
+	manifest="$(portal_private_tunnel_manifest_path "$ROOT")"
+	echo "manifest: $manifest"
+	jq -r '
+		["SLUG","IP","STATUS","REQUIRED","PUBLIC_KEY"],
+		(.peers[] | [
+			.slug,
+			.assigned_ip,
+			.status,
+			(.required|tostring),
+			(if (.public_key|length) > 12 then .public_key[0:12] + "…" else .public_key end)
+		])
+		| @tsv
+	' "$manifest" | column -t -s $'\t'
+}
+
+cmd_render() {
+	bash "$SCRIPT_DIR/render-configs.sh" "$@"
+}
+
+remote_edge_hash() {
+	local admin_user="$1"
+	local vm_ip="$2"
+	local admin_key="$3"
+	local iface="$4"
+	ssh -o BatchMode=yes -o ConnectTimeout=12 -o StrictHostKeyChecking=accept-new -o IdentitiesOnly=yes \
+		-i "$admin_key" -l "$admin_user" "$vm_ip" \
+		"sudo sha256sum /etc/wireguard/${iface}.conf 2>/dev/null | awk '{print \$1}'" || true
+}
+
+units_active_remote() {
+	local admin_user="$1"
+	local vm_ip="$2"
+	local admin_key="$3"
+	local iface="$4"
+	ssh -o BatchMode=yes -o ConnectTimeout=12 -o StrictHostKeyChecking=accept-new -o IdentitiesOnly=yes \
+		-i "$admin_key" -l "$admin_user" "$vm_ip" \
+		"systemctl is-active wg-quick@${iface}.service dnsmasq-portal.service" 2>/dev/null || true
+}
+
+cmd_deploy() {
+	local dry_run=0
+	if [[ "${1:-}" == "--dry-run" ]]; then
+		dry_run=1
+	elif [[ -n "${1:-}" ]]; then
+		die "unknown deploy arg: $1 (only --dry-run)"
+	fi
+
+	local iface port edge_ip
+	iface="${PORTAL_PRIVATE_TUNNEL_INTERFACE:-wg-portal}"
+	port="${PORTAL_PRIVATE_TUNNEL_PORT:-51823}"
+	edge_ip="${PORTAL_PRIVATE_TUNNEL_EDGE_IP:-10.88.89.1}"
+	portal_private_tunnel_assert_isolation_ids "$iface" "$port" "$edge_ip"
+
+	cmd_render
+
+	local data edge_conf local_hash
+	data="$(portal_private_tunnel_data_dir "$ROOT")"
+	edge_conf="$data/edge-${iface}.conf"
+	[[ -f "$edge_conf" ]] || die "missing edge conf after render: $edge_conf"
+	local_hash="$(sha256sum "$edge_conf" | awk '{print $1}')"
+
+	local vm_ip admin_user admin_key
+	vm_ip="${YANDEX_VM_IP:-93.77.165.185}"
+	admin_user="${YANDEX_VM_ADMIN_USER:-eliteew-edge}"
+	admin_key="$(eliteew_resolve_admin_private "$ROOT" "$admin_user")" || die "SSH admin key not found"
+
+	local remote_hash units
+	remote_hash="$(remote_edge_hash "$admin_user" "$vm_ip" "$admin_key" "$iface")"
+	units="$(units_active_remote "$admin_user" "$vm_ip" "$admin_key" "$iface")"
+
+	echo "local_sha256=${local_hash}"
+	echo "remote_sha256=${remote_hash:-<missing>}"
+	echo "remote_units:"
+	echo "$units"
+
+	local wg_state dns_state
+	wg_state="$(printf '%s\n' "$units" | sed -n '1p')"
+	dns_state="$(printf '%s\n' "$units" | sed -n '2p')"
+	if [[ -n "$remote_hash" && "$remote_hash" == "$local_hash" && "$wg_state" == "active" && "$dns_state" == "active" ]]; then
+		echo "OK: deploy skipped (idempotent) — edge conf hash matches and units active"
+		portal_private_tunnel_audit "$ROOT" "deploy_skip" "local_sha256=${local_hash}"
+		if [[ "$dry_run" -eq 1 ]]; then
+			echo "dry-run: would not call deploy-edge.sh"
+		fi
+		return 0
+	fi
+	if [[ -n "$remote_hash" && "$remote_hash" == "$local_hash" ]]; then
+		echo "NOTE: hash matches but units not both active (wg=${wg_state:-?} dns=${dns_state:-?}) — will run deploy-edge.sh"
+	fi
+
+	if [[ "$dry_run" -eq 1 ]]; then
+		echo "dry-run: would run deploy-edge.sh (hash differ or units down)"
+		portal_private_tunnel_audit "$ROOT" "deploy_dry_run" "local_sha256=${local_hash} remote_sha256=${remote_hash:-missing}"
+		return 0
+	fi
+
+	bash "$SCRIPT_DIR/deploy-edge.sh"
+	portal_private_tunnel_audit "$ROOT" "deploy" "local_sha256=${local_hash} remote_was=${remote_hash:-missing}"
+}
+
+cmd_probe() {
+	local rc=0
+	bash "$SCRIPT_DIR/probe-edge.sh" || rc=$?
+	if [[ "$rc" -eq 1 ]]; then
+		portal_private_tunnel_audit "$ROOT" "probe_fail" "exit=1"
+	elif [[ "$rc" -eq 2 ]]; then
+		portal_private_tunnel_audit "$ROOT" "probe_degraded" "exit=2"
+	fi
+	return "$rc"
+}
+
+cmd_metrics() {
+	bash "$SCRIPT_DIR/scrape-metrics.sh"
+}
+
+cmd_notify_drift() {
+	bash "$SCRIPT_DIR/notify-drift.sh"
+}
+
+cmd_notify_stale() {
+	bash "$SCRIPT_DIR/notify-stale-peers.sh"
+}
+
+cmd_status() {
+	local data health metrics drift_n stale_n audit
+	data="$(portal_private_tunnel_data_dir "$ROOT")"
+	health="$data/health/health_latest.json"
+	metrics="$data/metrics/latest.json"
+	drift_n="$data/notify/drift_latest.txt"
+	stale_n="$data/notify/required_peers_stale.txt"
+	audit="$data/audit.log"
+
+	echo "=== portalctl status (read-only) ==="
+	echo "repo=$ROOT"
+	echo "data=$data"
+
+	if [[ -f "$health" ]]; then
+		jq -r '"health: status=" + .status + " ts=" + .timestamp + " edge=" + .edge_host' "$health" 2>/dev/null || echo "health: (unreadable)"
+		jq -r '
+			"  services=" + (.checks.services.status // "?")
+			+ " dns=" + (.checks.dns.status // "?")
+			+ " https=" + (.checks.https.status // "?")
+			+ " sg=" + (.checks.security_group.status // "?")
+		' "$health" 2>/dev/null || true
+	else
+		echo "health: missing (run: portalctl probe)"
+	fi
+
+	if [[ -f "$metrics" ]]; then
+		jq -r '"metrics: status=" + .status + " exporter_up=" + (.exporter_up|tostring) + " peers=" + (.peer_count|tostring) + " ts=" + .timestamp' "$metrics" 2>/dev/null || echo "metrics: (unreadable)"
+		jq -r 'if (.alerts|length)>0 then "  alerts=" + (.alerts|join(",")) else "  alerts=(none)" end' "$metrics" 2>/dev/null || true
+	else
+		echo "metrics: missing (run: portalctl metrics)"
+	fi
+
+	if [[ -f "$drift_n" ]]; then
+		echo "notify_drift: $(head -1 "$drift_n")"
+	else
+		echo "notify_drift: missing (run: portalctl notify-drift)"
+	fi
+	if [[ -f "$stale_n" ]]; then
+		echo "notify_stale: $(head -1 "$stale_n")"
+	else
+		echo "notify_stale: missing (run: portalctl notify-stale)"
+	fi
+
+	echo "--- CC user timers ---"
+	local t
+	for t in portal-private-tunnel-probe portal-private-tunnel-metrics portal-private-tunnel-drift portal-private-tunnel-stale; do
+		if systemctl --user is-enabled "${t}.timer" >/dev/null 2>&1; then
+			echo "  ${t}.timer: $(systemctl --user is-active "${t}.timer" 2>/dev/null || echo unknown) (enabled)"
+		else
+			echo "  ${t}.timer: not-enabled"
+		fi
+	done
+
+	if [[ -f "$audit" ]]; then
+		echo "--- audit (last 5) ---"
+		tail -n 5 "$audit"
+	else
+		echo "audit: missing"
+	fi
+
+	# Overall exit: DOWN if health/metrics DOWN, else DEGRADED if either degraded/stale, else 0
+	local hstat=missing mstat=missing
+	[[ -f "$health" ]] && hstat="$(jq -r '.status' "$health" 2>/dev/null || echo missing)"
+	[[ -f "$metrics" ]] && mstat="$(jq -r '.status' "$metrics" 2>/dev/null || echo missing)"
+	if [[ "$hstat" == "DOWN" || "$mstat" == "DOWN" ]]; then
+		echo "overall=DOWN"
+		return 1
+	fi
+	if [[ "$hstat" == "DEGRADED" || "$mstat" == "DEGRADED" ]] || grep -q 'status=STALE' <<<"$(head -1 "$stale_n" 2>/dev/null || true)"; then
+		echo "overall=DEGRADED"
+		return 2
+	fi
+	echo "overall=UP"
+	return 0
+}
+
+cmd_doctor() {
+	local quick=0
+	if [[ "${1:-}" == "--quick" ]]; then
+		quick=1
+	elif [[ -n "${1:-}" ]]; then
+		die "unknown doctor arg: $1 (only --quick)"
+	fi
+
+	local worst=0
+	run_step() {
+		local name="$1"
+		shift
+		echo ""
+		echo "### doctor: ${name}"
+		local rc=0
+		set +e
+		"$@"
+		rc=$?
+		set -e
+		echo "### doctor: ${name} exit=${rc}"
+		if [[ "$rc" -eq 1 ]]; then
+			worst=1
+		elif [[ "$rc" -eq 2 && "$worst" -ne 1 ]]; then
+			worst=2
+		elif [[ "$rc" -ne 0 && "$worst" -eq 0 ]]; then
+			worst="$rc"
+		fi
+	}
+
+	if [[ "$quick" -eq 0 ]]; then
+		run_step isolation bash "$SCRIPT_DIR/test-isolation.sh"
+	else
+		echo "### doctor: isolation skipped (--quick)"
+	fi
+	run_step probe cmd_probe
+	run_step metrics cmd_metrics
+	run_step drift cmd_drift
+	run_step status cmd_status
+
+	echo ""
+	echo "### doctor: summary worst_exit=${worst}"
+	if [[ "$worst" -eq 0 ]]; then
+		echo "OK: doctor clean"
+	elif [[ "$worst" -eq 2 ]]; then
+		echo "WARN: doctor DEGRADED (infra may be OK; check required peer / laptop WG)"
+	else
+		echo "FAIL: doctor found hard failures"
+	fi
+	return "$worst"
+}
+
+cmd_drift() {
+	local iface port edge_ip
+	iface="${PORTAL_PRIVATE_TUNNEL_INTERFACE:-wg-portal}"
+	port="${PORTAL_PRIVATE_TUNNEL_PORT:-51823}"
+	edge_ip="${PORTAL_PRIVATE_TUNNEL_EDGE_IP:-10.88.89.1}"
+	portal_private_tunnel_assert_isolation_ids "$iface" "$port" "$edge_ip"
+
+	cmd_render
+
+	local data edge_conf dns_conf
+	data="$(portal_private_tunnel_data_dir "$ROOT")"
+	edge_conf="$data/edge-${iface}.conf"
+	dns_conf="$data/dnsmasq-portal.conf"
+	[[ -f "$edge_conf" ]] || die "missing local edge conf: $edge_conf"
+	[[ -f "$dns_conf" ]] || die "missing local dnsmasq conf: $dns_conf"
+
+	local vm_ip admin_user admin_key
+	vm_ip="${YANDEX_VM_IP:-93.77.165.185}"
+	admin_user="${YANDEX_VM_ADMIN_USER:-eliteew-edge}"
+	admin_key="$(eliteew_resolve_admin_private "$ROOT" "$admin_user")" || die "SSH admin key not found"
+
+	local remote_edge remote_dns local_peers remote_peers
+	remote_edge="$(mktemp)"
+	remote_dns="$(mktemp)"
+	local_peers="$(mktemp)"
+	remote_peers="$(mktemp)"
+	_drift_cleanup() {
+		rm -f "${remote_edge:-}" "${remote_dns:-}" "${local_peers:-}" "${remote_peers:-}"
+	}
+
+	if ! ssh -o BatchMode=yes -o ConnectTimeout=12 -o StrictHostKeyChecking=accept-new -o IdentitiesOnly=yes \
+		-i "$admin_key" -l "$admin_user" "$vm_ip" \
+		"sudo cat /etc/wireguard/${iface}.conf" >"$remote_edge" 2>/dev/null; then
+		_drift_cleanup
+		portal_private_tunnel_audit "$ROOT" "drift_fail" "reason=ssh_wg_conf"
+		die "SSH failed fetching /etc/wireguard/${iface}.conf"
+	fi
+	if ! ssh -o BatchMode=yes -o ConnectTimeout=12 -o StrictHostKeyChecking=accept-new -o IdentitiesOnly=yes \
+		-i "$admin_key" -l "$admin_user" "$vm_ip" \
+		"sudo cat /etc/dnsmasq-portal.conf" >"$remote_dns" 2>/dev/null; then
+		_drift_cleanup
+		portal_private_tunnel_audit "$ROOT" "drift_fail" "reason=ssh_dns_conf"
+		die "SSH failed fetching /etc/dnsmasq-portal.conf"
+	fi
+
+	portal_private_tunnel_normalize_wg_peers "$edge_conf" >"$local_peers"
+	portal_private_tunnel_normalize_wg_peers "$remote_edge" >"$remote_peers"
+
+	local drift=0
+	echo "drift: desired(local render) vs actual(edge ${admin_user}@${vm_ip})"
+
+	local manifest
+	manifest="$(portal_private_tunnel_manifest_path "$ROOT")"
+
+	slug_for_pubkey() {
+		local pk="$1"
+		jq -r --arg pk "$pk" '.peers[] | select(.public_key == $pk) | .slug' "$manifest" 2>/dev/null | head -1
+	}
+
+	ai_for_pubkey() {
+		local file="$1"
+		local pk="$2"
+		awk -v p="$pk" '$1 == p { $1 = ""; sub(/^ /, ""); print; exit }' "$file"
+	}
+
+	while read -r line; do
+		[[ -n "$line" ]] || continue
+		local pk ai rem_ai slug
+		pk="${line%% *}"
+		ai="${line#* }"
+		slug="$(slug_for_pubkey "$pk")"
+		slug="${slug:-unknown}"
+		rem_ai="$(ai_for_pubkey "$remote_peers" "$pk")"
+		if [[ -z "$rem_ai" ]]; then
+			echo "[DRIFT] Peer ${slug}: missing on edge (Public Key ${pk:0:12}…)"
+			drift=1
+		elif [[ "$rem_ai" != "$ai" ]]; then
+			echo "[DRIFT] Peer ${slug}: AllowedIPs mismatch (local=${ai} remote=${rem_ai})"
+			drift=1
+		fi
+	done <"$local_peers"
+
+	while read -r line; do
+		[[ -n "$line" ]] || continue
+		local pk ai loc_ai slug
+		pk="${line%% *}"
+		ai="${line#* }"
+		loc_ai="$(ai_for_pubkey "$local_peers" "$pk")"
+		if [[ -z "$loc_ai" ]]; then
+			slug="$(slug_for_pubkey "$pk")"
+			slug="${slug:-unknown}"
+			echo "[DRIFT] Peer ${slug}: present on edge but not in desired render (PublicKey=${pk:0:12}… AllowedIPs=${ai})"
+			drift=1
+		fi
+	done <"$remote_peers"
+
+	local local_dns_hash remote_dns_hash
+	local_dns_hash="$(sha256sum "$dns_conf" | awk '{print $1}')"
+	remote_dns_hash="$(sha256sum "$remote_dns" | awk '{print $1}')"
+	if [[ "$local_dns_hash" != "$remote_dns_hash" ]]; then
+		echo "[DRIFT] DNS Config changed (local_sha256=${local_dns_hash} remote_sha256=${remote_dns_hash})"
+		drift=1
+	fi
+
+	if [[ "$drift" -eq 0 ]]; then
+		echo "OK: no drift (WG peer sets + DNS checksum match)"
+		_drift_cleanup
+		return 0
+	fi
+	echo "FAIL: configuration drift detected"
+	portal_private_tunnel_audit "$ROOT" "drift_fail" "wg_or_dns_mismatch=1"
+	_drift_cleanup
+	return 1
+}
+
+cmd_handoff() {
+	local slug
+	slug="$(portal_private_tunnel_peer_slug "${1:-}")"
+	[[ -n "$slug" ]] || die "usage: portalctl handoff <slug>"
+	local data conf
+	data="$(portal_private_tunnel_data_dir "$ROOT")"
+	conf="$data/peers/${slug}.conf"
+	[[ -f "$conf" ]] || die "missing peer conf (run peer add / render first): $conf"
+	echo "handoff_path=${conf}"
+	echo "NOTE: file contains PrivateKey — copy out-of-band; do not commit or paste into chat."
+}
+
+cmd_peer_add() {
+	local slug=""
+	local ip=""
+	local required=false
+	local do_deploy=0
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		--ip)
+			ip="${2:-}"
+			[[ -n "$ip" ]] || die "--ip requires value"
+			shift 2
+			;;
+		--required)
+			required=true
+			shift
+			;;
+		--deploy)
+			do_deploy=1
+			shift
+			;;
+		-*)
+			die "unknown peer add flag: $1"
+			;;
+		*)
+			if [[ -z "$slug" ]]; then
+				slug="$(portal_private_tunnel_peer_slug "$1")"
+				shift
+			else
+				die "unexpected arg: $1"
+			fi
+			;;
+		esac
+	done
+	[[ -n "$slug" ]] || die "usage: portalctl peer add <slug> [--ip 10.88.89.x] [--required] [--deploy]"
+
+	portal_private_tunnel_require_jq
+	portal_private_tunnel_ensure_manifest "$ROOT" "$SCRIPT_DIR" "$(portal_private_tunnel_keys_dir "$ROOT")"
+	local manifest
+	manifest="$(portal_private_tunnel_manifest_path "$ROOT")"
+
+	if jq -e --arg s "$slug" '.peers[] | select(.slug == $s)' "$manifest" >/dev/null; then
+		die "peer slug already exists in manifest: $slug (revoke or choose another slug)"
+	fi
+
+	if [[ -z "$ip" ]]; then
+		ip="$(portal_private_tunnel_next_peer_ip "$manifest")"
+	fi
+	portal_private_tunnel_assert_peer_ip "$ip" || die "invalid peer IP"
+	if jq -e --arg ip "$ip" '.peers[] | select(.assigned_ip == $ip)' "$manifest" >/dev/null; then
+		die "assigned_ip already in use: $ip"
+	fi
+
+	local created tmp
+	created="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+	tmp="$(mktemp)"
+	jq --arg slug "$slug" --arg ip "$ip" --arg created "$created" --argjson required "$required" \
+		'.peers += [{
+			slug: $slug,
+			assigned_ip: $ip,
+			public_key: "",
+			status: "active",
+			required: $required,
+			created_at: $created,
+			revoked_at: null
+		}]' "$manifest" >"$tmp"
+	install -m 600 "$tmp" "$manifest"
+	rm -f "$tmp"
+
+	cmd_render
+	portal_private_tunnel_audit "$ROOT" "peer_add" "slug=${slug} ip=${ip} required=${required}"
+	echo "OK: peer added slug=${slug} ip=${ip}"
+	cmd_handoff "$slug"
+	if [[ "$do_deploy" -eq 1 ]]; then
+		cmd_deploy
+	else
+		echo "NOTE: edge not updated yet — run: portalctl deploy"
+	fi
+}
+
+cmd_peer_revoke() {
+	local slug=""
+	local do_deploy=1
+	while [[ $# -gt 0 ]]; do
+		case "$1" in
+		--no-deploy)
+			do_deploy=0
+			shift
+			;;
+		-*)
+			die "unknown peer revoke flag: $1"
+			;;
+		*)
+			if [[ -z "$slug" ]]; then
+				slug="$(portal_private_tunnel_peer_slug "$1")"
+				shift
+			else
+				die "unexpected arg: $1"
+			fi
+			;;
+		esac
+	done
+	[[ -n "$slug" ]] || die "usage: portalctl peer revoke <slug> [--no-deploy]"
+
+	portal_private_tunnel_require_jq
+	portal_private_tunnel_ensure_manifest "$ROOT" "$SCRIPT_DIR" "$(portal_private_tunnel_keys_dir "$ROOT")"
+	local manifest
+	manifest="$(portal_private_tunnel_manifest_path "$ROOT")"
+
+	if ! jq -e --arg s "$slug" '.peers[] | select(.slug == $s)' "$manifest" >/dev/null; then
+		die "peer slug not found: $slug"
+	fi
+
+	local status
+	status="$(jq -r --arg s "$slug" '.peers[] | select(.slug == $s) | .status' "$manifest")"
+	if [[ "$status" == "revoked" ]]; then
+		echo "OK: peer already revoked: $slug"
+		portal_private_tunnel_audit "$ROOT" "peer_revoke_idempotent" "slug=${slug}"
+	else
+		local revoked tmp
+		revoked="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+		tmp="$(mktemp)"
+		jq --arg s "$slug" --arg revoked "$revoked" \
+			'(.peers[] | select(.slug == $s) | .status) = "revoked"
+			| (.peers[] | select(.slug == $s) | .revoked_at) = $revoked
+			| (.peers[] | select(.slug == $s) | .required) = false' \
+			"$manifest" >"$tmp"
+		install -m 600 "$tmp" "$manifest"
+		rm -f "$tmp"
+		portal_private_tunnel_audit "$ROOT" "peer_revoke" "slug=${slug} revoked_at=${revoked}"
+		echo "OK: peer revoked in manifest: $slug"
+	fi
+
+	cmd_render
+	if [[ "$do_deploy" -eq 1 ]]; then
+		cmd_deploy
+		echo "OK: edge deploy after revoke (peer removed from wg-portal)"
+	else
+		echo "NOTE: --no-deploy set; edge still has peer until: portalctl deploy"
+	fi
+}
+
+cmd_peer() {
+	local sub="${1:-}"
+	shift || true
+	case "$sub" in
+	list | "") cmd_list ;;
+	add) cmd_peer_add "$@" ;;
+	revoke) cmd_peer_revoke "$@" ;;
+	*)
+		usage
+		die "unknown peer subcommand: ${sub:-<empty>} (list|add|revoke)"
+		;;
+	esac
+}
+
+main() {
+	local cmd="${1:-}"
+	shift || true
+	case "$cmd" in
+	list) cmd_list ;;
+	peer) cmd_peer "$@" ;;
+	handoff) cmd_handoff "$@" ;;
+	render) cmd_render "$@" ;;
+	deploy) cmd_deploy "$@" ;;
+	probe) cmd_probe ;;
+	drift) cmd_drift ;;
+	metrics) cmd_metrics ;;
+	notify-drift) cmd_notify_drift ;;
+	notify-stale) cmd_notify_stale ;;
+	status) cmd_status ;;
+	doctor) cmd_doctor "$@" ;;
+	-h | --help | help | "") usage ;;
+	*)
+		usage
+		die "unknown command: $cmd"
+		;;
+	esac
+}
+
+main "$@"

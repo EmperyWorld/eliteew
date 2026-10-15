@@ -1,0 +1,65 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Air enrollment code panel on Activation.
+ * Related: DESKTOP-CLIENT-AIR-ENROLL.md §6
+ */
+
+.air-enroll {
+	width: 100%;
+	max-width: 36rem;
+	margin: 0 auto;
+	padding: 0 var(--dc-shell-pad);
+}
+
+.air-enroll-form {
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+}
+
+.air-enroll-label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: var(--dc-fg);
+}
+
+.air-enroll-input {
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0.7rem 0.85rem;
+	border: 1px solid var(--dc-border, rgba(255, 255, 255, 0.14));
+	border-radius: 0.45rem;
+	background: var(--dc-input-bg, rgba(0, 0, 0, 0.25));
+	color: var(--dc-fg);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.95rem;
+	letter-spacing: 0.04em;
+}
+
+.air-enroll-input:focus {
+	outline: 2px solid var(--dc-accent, #6ea8fe);
+	outline-offset: 1px;
+}
+
+.air-enroll-hint {
+	margin: 0;
+	color: var(--dc-muted);
+	font-size: 0.9rem;
+	line-height: 1.4;
+}
+
+.air-enroll-actions {
+	display: flex;
+	gap: 0.5rem;
+	margin-top: 0.25rem;
+}
+
+.air-enroll-status {
+	margin: 0.65rem 0 0;
+	color: var(--dc-muted);
+	font-size: 0.9rem;
+}

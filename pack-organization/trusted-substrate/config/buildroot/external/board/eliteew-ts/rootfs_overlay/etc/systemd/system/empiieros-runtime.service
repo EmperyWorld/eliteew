@@ -1,0 +1,63 @@
+[Unit]
+Description=EmpiierOS privileged runtime
+Documentation=file:///opt/empiieros/docs/RUNTIME.md
+After=local-fs.target systemd-networkd.service
+Wants=systemd-networkd.service
+Before=getty@tty1.service
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=root
+Group=root
+UMask=0077
+RuntimeDirectory=empiieros
+RuntimeDirectoryMode=0700
+StateDirectory=empiieros-runtime
+StateDirectoryMode=0751
+Environment=EMPIIEROS_RUNTIME_SOCKET=/run/empiieros/runtime.sock
+Environment=EMPIIEROS_RUNTIME_STATE_DIR=/var/lib/empiieros-runtime
+Environment=EMPIIEROS_ALLOWED_BRIDGE_UID=0
+Environment=EMPIIEROS_ALLOWED_BRIDGE_EXE=/usr/lib/systemd/systemd-socket-proxyd
+ExecStart=/usr/local/bin/empiieros-runtime
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=tmpfs
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectClock=true
+ProtectProc=invisible
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+SystemCallArchitectures=native
+SystemCallFilter=~@debug
+SystemCallErrorNumber=EPERM
+IPAddressDeny=any
+# A root-owned systemd socket proxy is the only accepted backend peer. The
+# Runtime therefore verifies a same-UID executable and needs no ptrace power.
+CapabilityBoundingSet=CAP_NET_ADMIN
+AmbientCapabilities=CAP_NET_ADMIN
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+ReadWritePaths=/etc/systemd/network /etc/wpa_supplicant
+# ProtectSystem=strict remounts `/` read-only in the Runtime namespace.
+# Host mount state is taken from pid 1, not from that sandbox view.
+# ProtectHome=tmpfs hides /home contents. Bind only files that exist:
+# a missing BindReadOnlyPaths source fails the unit at NAMESPACE.
+# Identity then stats these paths without reading key bytes.
+BindReadOnlyPaths=/proc/1/mounts:/run/empiieros/host-mounts
+BindReadOnlyPaths=/home/eliteew-ts/.ssh/authorized_keys
+
+[Install]
+WantedBy=multi-user.target

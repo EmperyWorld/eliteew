@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-w-transport-proxy-url-cmd"
+description = "Enables the w_transport_proxy_url_cmd command without any pre-configured scope."
+commands.allow = ["w_transport_proxy_url_cmd"]
+
+[[permission]]
+identifier = "deny-w-transport-proxy-url-cmd"
+description = "Denies the w_transport_proxy_url_cmd command without any pre-configured scope."
+commands.deny = ["w_transport_proxy_url_cmd"]

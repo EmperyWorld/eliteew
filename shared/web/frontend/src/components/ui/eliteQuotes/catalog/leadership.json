@@ -1,0 +1,98 @@
+[
+  {
+    "id": "ushakov-enemies",
+    "author": "Фёдор Ушаков",
+    "text": "Врагов не считают, их бьют!",
+    "category": "leadership"
+  },
+  {
+    "id": "nakhimov-path",
+    "author": "Павел Нахимов",
+    "text": "У матроса один путь — славный.",
+    "category": "leadership"
+  },
+  {
+    "id": "nevsky-truth",
+    "author": "Александр Невский",
+    "text": "Не в силе Бог, а в правде.",
+    "category": "leadership"
+  },
+  {
+    "id": "degaulle-goal",
+    "author": "Шарль де Голль",
+    "text": "Выбирайте цель повыше. На мелкие цели не стоит тратить жизнь.",
+    "category": "leadership"
+  },
+  {
+    "id": "suvorov-soldiers",
+    "author": "Александр Суворов",
+    "text": "Солдат должен знать, зачем идёт в бой.",
+    "category": "leadership"
+  },
+  {
+    "id": "rumyantsev-duty",
+    "author": "Пётр Румянцев",
+    "text": "Долг командира — быть первым в опасности.",
+    "category": "leadership"
+  },
+  {
+    "id": "minin-unite",
+    "author": "Кузьма Минин",
+    "text": "Народ, собравшийся ради правды, непобедим.",
+    "category": "leadership"
+  },
+  {
+    "id": "pozharsky-shield",
+    "author": "Дмитрий Пожарский",
+    "text": "Защищать отечество — честь выше жизни.",
+    "category": "leadership"
+  },
+  {
+    "id": "washington-example",
+    "author": "Джордж Вашингтон",
+    "text": "Пример — самый тихий и сильный учитель.",
+    "category": "leadership"
+  },
+  {
+    "id": "lincoln-lead",
+    "author": "Авраам Линкольн",
+    "text": "Лучший способ предсказать будущее — создать его.",
+    "category": "leadership"
+  },
+  {
+    "id": "kennedy-ask",
+    "author": "Джон Кеннеди",
+    "text": "Спроси, что ты можешь сделать для своей страны.",
+    "category": "leadership"
+  },
+  {
+    "id": "elizabeth-duty",
+    "author": "Елизавета I",
+    "text": "У меня тело слабой женщины, но дух короля.",
+    "category": "leadership"
+  },
+  {
+    "id": "catherine-rule",
+    "author": "Екатерина II",
+    "text": "Власть без уважения — пустой титул.",
+    "category": "leadership"
+  },
+  {
+    "id": "montgomery-men",
+    "author": "Бернард Монтгомери",
+    "text": "Командир держится на доверии людей.",
+    "category": "leadership"
+  },
+  {
+    "id": "patton-lead",
+    "author": "Джордж Паттон",
+    "text": "Лидерство — заставить людей верить в себя.",
+    "category": "leadership"
+  },
+  {
+    "id": "alexander-world",
+    "author": "Александр Македонский",
+    "text": "Нет невозможного для того, кто попробует.",
+    "category": "leadership"
+  }
+]

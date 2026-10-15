@@ -1,0 +1,358 @@
+/*
+ * EliteEW Keycloak login theme.
+ * Purpose: premium green-branded Keycloak 26 login surface without touching upstream form templates.
+ * Security: no external assets, no custom scripts, no login.ftl overrides, CSS + i18n messages only.
+ */
+
+:root {
+  --eliteew-auth-bg: #020a08;
+  --eliteew-auth-bg-soft: #041410;
+  --eliteew-auth-panel: rgba(6, 24, 18, 0.84);
+  --eliteew-auth-panel-strong: rgba(2, 10, 8, 0.94);
+  --eliteew-auth-border: rgba(167, 243, 208, 0.14);
+  --eliteew-auth-border-strong: rgba(52, 211, 153, 0.34);
+  --eliteew-auth-text: #ecfdf5;
+  --eliteew-auth-text-soft: #bbf7d0;
+  --eliteew-auth-text-muted: #86efac;
+  --eliteew-auth-accent: #34d399;
+  --eliteew-auth-accent-strong: #10b981;
+  --eliteew-auth-accent-deep: #059669;
+  --eliteew-auth-highlight: #6ee7b7;
+  --eliteew-auth-success: #34d399;
+  --eliteew-auth-danger: #fb7185;
+  --eliteew-auth-radius: 1.75rem;
+  --eliteew-auth-shadow: 0 34px 90px rgba(2, 10, 8, 0.62);
+}
+
+.login-pf body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--eliteew-auth-text);
+  color-scheme: dark;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(52, 211, 153, 0.2), transparent 30rem),
+    radial-gradient(circle at 84% 10%, rgba(16, 185, 129, 0.14), transparent 28rem),
+    radial-gradient(circle at 58% 100%, rgba(5, 150, 105, 0.18), transparent 34rem),
+    linear-gradient(145deg, var(--eliteew-auth-bg) 0%, var(--eliteew-auth-bg-soft) 46%, #071912 100%);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.login-pf-page {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(1rem, 4vw, 3rem);
+  overflow: hidden;
+}
+
+.login-pf-page::before,
+.login-pf-page::after {
+  position: fixed;
+  z-index: 0;
+  width: 26rem;
+  height: 26rem;
+  pointer-events: none;
+  content: "";
+  border-radius: 999px;
+  filter: blur(24px);
+  opacity: 0.4;
+}
+
+.login-pf-page::before {
+  right: -8rem;
+  top: -8rem;
+  background: rgba(52, 211, 153, 0.22);
+}
+
+.login-pf-page::after {
+  bottom: -10rem;
+  left: -8rem;
+  background: rgba(16, 185, 129, 0.16);
+}
+
+.pf-v5-c-login,
+.pf-v5-c-login__container {
+  position: relative;
+  z-index: 1;
+}
+
+.pf-v5-c-login__container {
+  width: min(100%, 70rem);
+  min-height: calc(100vh - clamp(2rem, 8vw, 6rem));
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+#kc-header,
+.pf-v5-c-login__header {
+  color: var(--eliteew-auth-text);
+}
+
+#kc-header-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+#kc-header-wrapper::before {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  content: "EW";
+  color: var(--eliteew-auth-text);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(110, 231, 183, 0.42);
+  border-radius: 1.1rem;
+  background:
+    linear-gradient(135deg, rgba(52, 211, 153, 0.34), rgba(16, 185, 129, 0.16)),
+    rgba(6, 24, 18, 0.78);
+  box-shadow: 0 18px 48px rgba(5, 150, 105, 0.28);
+}
+
+#kc-header-wrapper::after {
+  content: "EliteEW";
+  color: var(--eliteew-auth-text);
+  font-size: clamp(1.85rem, 5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-shadow: 0 20px 60px rgba(52, 211, 153, 0.18);
+}
+
+.pf-v5-c-login__main {
+  position: relative;
+  overflow: hidden;
+  color: var(--eliteew-auth-text);
+  border: 1px solid var(--eliteew-auth-border);
+  border-radius: var(--eliteew-auth-radius);
+  background:
+    linear-gradient(180deg, rgba(167, 243, 208, 0.08), transparent 36%),
+    var(--eliteew-auth-panel);
+  box-shadow: var(--eliteew-auth-shadow), inset 0 1px 0 rgba(167, 243, 208, 0.08);
+  backdrop-filter: blur(22px);
+}
+
+.pf-v5-c-login__main::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.22rem;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    var(--eliteew-auth-accent-deep),
+    var(--eliteew-auth-accent),
+    var(--eliteew-auth-highlight)
+  );
+}
+
+.pf-v5-c-login__main-header,
+.pf-v5-c-login__main-body,
+.pf-v5-c-login__main-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.pf-v5-c-login__main-header {
+  padding-block-start: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.pf-v5-c-login__main-title,
+#kc-page-title {
+  color: var(--eliteew-auth-text);
+  font-size: clamp(1.35rem, 2.6vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.pf-v5-c-form__label-text,
+.pf-v5-c-check__label,
+#kc-form-options,
+#kc-form-options a,
+.pf-v5-c-login__main-footer,
+.pf-v5-c-login__main-footer a {
+  color: var(--eliteew-auth-text-soft);
+}
+
+a,
+.pf-v5-c-login__main a {
+  color: var(--eliteew-auth-highlight);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+a:hover,
+.pf-v5-c-login__main a:hover {
+  color: #a7f3d0;
+}
+
+.pf-v5-c-form-control,
+.pf-v5-c-form-control input,
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  color: var(--eliteew-auth-text);
+  border-color: rgba(110, 231, 183, 0.22);
+  background-color: rgba(2, 10, 8, 0.62);
+  box-shadow: inset 0 1px 0 rgba(167, 243, 208, 0.05);
+}
+
+.pf-v5-c-form-control:focus-within,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border-color: var(--eliteew-auth-accent);
+  box-shadow:
+    0 0 0 3px rgba(52, 211, 153, 0.2),
+    inset 0 1px 0 rgba(167, 243, 208, 0.08);
+}
+
+.pf-v5-c-form-control input::placeholder,
+input::placeholder {
+  color: rgba(187, 247, 208, 0.52);
+}
+
+.pf-v5-c-button.pf-m-primary,
+#kc-login {
+  min-height: 2.9rem;
+  color: #022c22;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    var(--eliteew-auth-accent-strong) 0%,
+    var(--eliteew-auth-accent) 56%,
+    var(--eliteew-auth-highlight) 100%
+  );
+  box-shadow: 0 18px 42px rgba(5, 150, 105, 0.32);
+  font-weight: 760;
+  letter-spacing: -0.01em;
+}
+
+.pf-v5-c-button.pf-m-primary:hover,
+#kc-login:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 20px 56px rgba(16, 185, 129, 0.34);
+}
+
+.pf-v5-c-button.pf-m-primary:active,
+#kc-login:active {
+  transform: translateY(1px);
+}
+
+.pf-v5-c-button.pf-m-control,
+.pf-v5-c-button.pf-m-secondary,
+#kc-social-providers .pf-v5-c-button {
+  color: var(--eliteew-auth-text);
+  border-color: rgba(110, 231, 183, 0.2);
+  border-radius: 999px;
+  background: rgba(6, 24, 18, 0.72);
+}
+
+.pf-v5-c-button.pf-m-control:hover,
+.pf-v5-c-button.pf-m-secondary:hover,
+#kc-social-providers .pf-v5-c-button:hover {
+  border-color: var(--eliteew-auth-border-strong);
+  background: rgba(10, 38, 28, 0.84);
+}
+
+.pf-v5-c-divider,
+.pf-v5-c-divider::before,
+.pf-v5-c-divider::after {
+  border-color: rgba(110, 231, 183, 0.18);
+}
+
+.pf-v5-c-alert {
+  color: var(--eliteew-auth-text);
+  border-color: rgba(167, 243, 208, 0.12);
+  border-radius: 1rem;
+  background: rgba(6, 24, 18, 0.86);
+}
+
+.pf-v5-c-alert.pf-m-danger,
+.pf-v5-c-alert.pf-m-error {
+  border-color: rgba(251, 113, 133, 0.38);
+  background: rgba(127, 29, 29, 0.24);
+}
+
+.pf-v5-c-alert.pf-m-success {
+  border-color: rgba(52, 211, 153, 0.36);
+  background: rgba(6, 78, 59, 0.28);
+}
+
+.pf-v5-c-alert__title {
+  color: var(--eliteew-auth-text);
+}
+
+.eliteew-login-footer {
+  margin-top: 1rem;
+  padding: 0.75rem 0.25rem 0;
+  color: var(--eliteew-auth-text-muted);
+  border: 0;
+  border-top: 1px solid rgba(110, 231, 183, 0.14);
+  border-radius: 0;
+  background: transparent;
+}
+
+.eliteew-login-footer__primary {
+  margin: 0;
+  color: var(--eliteew-auth-text-muted);
+  font-size: 0.76rem;
+  font-weight: 500;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.eliteew-login-footer__secondary {
+  margin: 0.55rem 0 0;
+  color: var(--eliteew-auth-text-muted);
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: center;
+  opacity: 0.92;
+}
+
+*:focus-visible {
+  outline: 3px solid rgba(52, 211, 153, 0.42);
+  outline-offset: 3px;
+}
+
+@media (max-width: 48rem) {
+  .login-pf-page {
+    padding: 1rem;
+  }
+
+  .pf-v5-c-login__container {
+    min-height: calc(100vh - 2rem);
+  }
+
+  #kc-header-wrapper::after {
+    font-size: 1.95rem;
+  }
+
+  .pf-v5-c-login__main {
+    border-radius: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

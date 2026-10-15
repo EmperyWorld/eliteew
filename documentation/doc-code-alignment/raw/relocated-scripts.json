@@ -1,0 +1,74 @@
+[
+  {
+    "cited_as": "scripts/selftest-installer.sh",
+    "status": "relocated",
+    "found_at": [
+      "pack-organization/trusted-substrate/scripts/selftest-installer.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/lint-api-integrity.sh",
+    "status": "relocated",
+    "found_at": [
+      "shared/web/frontend/scripts/lint-api-integrity.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/export_openapi_docker.sh",
+    "status": "relocated",
+    "found_at": [
+      "shared/api/scripts/export_openapi_docker.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/recompile-locks.sh",
+    "status": "relocated",
+    "found_at": [
+      "docker/builders/stack0-api/scripts/recompile-locks.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/selftest-air-enroll-egress.sh",
+    "status": "relocated",
+    "found_at": [
+      "pack-organization/trusted-substrate/scripts/selftest-air-enroll-egress.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/build-iso.sh",
+    "status": "relocated",
+    "found_at": [
+      "pack-organization/command-center-image/scripts/build-iso.sh",
+      "pack-organization/kiosk-fedora-iso/scripts/build-iso.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/prepare-payload.sh",
+    "status": "relocated",
+    "found_at": [
+      "pack-organization/command-center-image/scripts/prepare-payload.sh",
+      "pack-organization/kiosk-fedora-iso/scripts/prepare-payload.sh"
+    ]
+  },
+  {
+    "cited_as": "scripts/check-bundle-budget.mjs",
+    "status": "relocated",
+    "found_at": [
+      "shared/web/frontend/scripts/check-bundle-budget.mjs"
+    ]
+  },
+  {
+    "cited_as": "scripts/start_all.sh",
+    "status": "relocated",
+    "found_at": [
+      "docker/builders/stack0-api/scripts/start_all.sh"
+    ]
+  },
+  {
+    "cited_as": "docker/scripts/start_all.sh",
+    "status": "relocated",
+    "found_at": [
+      "docker/builders/stack0-api/scripts/start_all.sh"
+    ]
+  }
+]

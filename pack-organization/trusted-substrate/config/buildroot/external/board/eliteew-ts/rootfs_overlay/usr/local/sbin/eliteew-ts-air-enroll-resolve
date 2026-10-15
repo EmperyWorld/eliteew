@@ -1,0 +1,136 @@
+#!/bin/sh
+# ---
+# EliteEW · Empery World
+# https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose:
+# Resolve exact Air product host and refresh nftables destination sets (global unicast only).
+# Invariants:
+# - Host is baked: app.eliteew.ru only (no caller override).
+# - Reject loopback, private, link-local, multicast, unspecified before set update.
+# - Empty safe set on total resolve failure (fail closed for Air TCP).
+# Related:
+# - documentation/product/desktop/DESKTOP-CLIENT-AIR-ENROLL.md §7
+# ---
+
+set -eu
+
+HOST="app.eliteew.ru"
+STATE_DIR="${ELITEEW_TS_AIR_STATE_DIR:-/run/eliteew-ts}"
+ADDR_FILE="${STATE_DIR}/air-enroll-addrs.txt"
+NFT_TABLE="inet eliteew_ts_prelicense"
+
+log() {
+  printf '[STEP] air_enroll_resolve %s\n' "$*" >&2
+}
+
+is_global_ipv4() {
+  # shellcheck disable=SC2086
+  set -- $(printf '%s' "$1" | tr '.' ' ')
+  [ "$#" -eq 4 ] || return 1
+  a=$1; b=$2; c=$3; d=$4
+  case "$a$b$c$d" in
+    *[!0-9]*) return 1 ;;
+  esac
+  [ "$a" -le 255 ] && [ "$b" -le 255 ] && [ "$c" -le 255 ] && [ "$d" -le 255 ] || return 1
+  # unspecified / loopback / RFC1918 / link-local / CGNAT / multicast+reserved
+  [ "$a" -eq 0 ] && return 1
+  [ "$a" -eq 127 ] && return 1
+  [ "$a" -eq 10 ] && return 1
+  [ "$a" -eq 192 ] && [ "$b" -eq 168 ] && return 1
+  [ "$a" -eq 169 ] && [ "$b" -eq 254 ] && return 1
+  [ "$a" -eq 100 ] && [ "$b" -ge 64 ] && [ "$b" -le 127 ] && return 1
+  [ "$a" -eq 172 ] && [ "$b" -ge 16 ] && [ "$b" -le 31 ] && return 1
+  [ "$a" -ge 224 ] && return 1
+  return 0
+}
+
+is_global_ipv6() {
+  addr=$(printf '%s' "$1" | tr 'A-F' 'a-f')
+  case "$addr" in
+    ::|::1|0:0:0:0:0:0:0:0|0:0:0:0:0:0:0:1) return 1 ;;
+    fe[89ab]*) return 1 ;; # link-local fe80::/10
+    f[cd]*) return 1 ;; # unique local fc00::/7
+    ff*) return 1 ;; # multicast
+    *) return 0 ;;
+  esac
+}
+
+classify_addr() {
+  addr=$1
+  case "$addr" in
+    *:*)
+      if is_global_ipv6 "$addr"; then
+        printf '6 %s\n' "$addr"
+      else
+        log "reject_non_global_v6 addr=${addr}"
+      fi
+      ;;
+    *)
+      if is_global_ipv4 "$addr"; then
+        printf '4 %s\n' "$addr"
+      else
+        log "reject_non_global_v4 addr=${addr}"
+      fi
+      ;;
+  esac
+}
+
+mkdir -p "${STATE_DIR}"
+
+if ! command -v getent >/dev/null 2>&1; then
+  log "skip reason=getent_missing"
+  exit 1
+fi
+
+# Collect unique answers for the exact baked host.
+RAW=$(getent ahosts "${HOST}" 2>/dev/null | awk '{print $1}' | sort -u || true)
+
+TMP=$(mktemp)
+trap 'rm -f "${TMP}"' EXIT
+
+printf '%s\n' "${RAW}" | while IFS= read -r addr; do
+  [ -n "${addr}" ] || continue
+  classify_addr "${addr}"
+done >"${TMP}"
+
+V4=$(awk '$1=="4"{print $2}' "${TMP}" | sort -u)
+V6=$(awk '$1=="6"{print $2}' "${TMP}" | sort -u)
+
+{
+  printf '# eliteew-ts air-enroll destinations for %s\n' "${HOST}"
+  printf '%s\n' "${V4}"
+  printf '%s\n' "${V6}"
+} >"${ADDR_FILE}.tmp"
+mv -f "${ADDR_FILE}.tmp" "${ADDR_FILE}"
+
+if ! command -v nft >/dev/null 2>&1; then
+  log "addrs_written nft_skip reason=nft_missing"
+  exit 0
+fi
+
+if ! nft list table ${NFT_TABLE} >/dev/null 2>&1; then
+  log "addrs_written nft_skip reason=table_missing"
+  exit 0
+fi
+
+# Replace set elements atomically via flush + add.
+nft flush set ${NFT_TABLE} air_enroll_dst4 2>/dev/null || true
+nft flush set ${NFT_TABLE} air_enroll_dst6 2>/dev/null || true
+
+count=0
+for ip in ${V4}; do
+  nft add element ${NFT_TABLE} air_enroll_dst4 "{ ${ip} }"
+  count=$((count + 1))
+done
+for ip in ${V6}; do
+  nft add element ${NFT_TABLE} air_enroll_dst6 "{ ${ip} }"
+  count=$((count + 1))
+done
+
+if [ "${count}" -eq 0 ]; then
+  log "ok count=0 fail_closed_air_tcp"
+else
+  log "ok count=${count}"
+fi

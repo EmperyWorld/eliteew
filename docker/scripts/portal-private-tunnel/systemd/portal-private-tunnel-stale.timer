@@ -1,0 +1,13 @@
+[Unit]
+Description=EliteEW Portal Private Tunnel stale-peer notify timer
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=10min
+AccuracySec=1min
+Persistent=true
+Unit=portal-private-tunnel-stale.service
+
+[Install]
+WantedBy=timers.target

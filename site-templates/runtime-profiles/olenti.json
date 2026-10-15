@@ -1,0 +1,15 @@
+{
+  "profile_id": "olenti-v1",
+  "site_settings": {
+    "siteTitle": "{brand}",
+    "siteDescription": "{brand} - витрина: {topic}",
+    "contactEmail": "{admin_email}"
+  },
+  "blocks": [
+    { "page": "home", "section": "hero", "key": "headline_1", "value": "{brand}" },
+    { "page": "home", "section": "hero", "key": "lead", "value": "Готовая витрина для направления «{topic}»: понятный оффер, каталог и быстрый путь к заявке." },
+    { "page": "home", "section": "hero", "key": "cta_shop", "value": "Смотреть предложения" },
+    { "page": "home", "section": "about_preview", "key": "title", "value": "О проекте {brand}" },
+    { "page": "home", "section": "value_block", "key": "badge", "value": "Почему это удобно" }
+  ]
+}

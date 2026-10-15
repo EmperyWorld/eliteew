@@ -1,0 +1,24 @@
+# ============================================================================
+# Silero TTS Service - Python Dependencies
+# ============================================================================
+
+# FastAPI для API сервера
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+
+# PyTorch уже установлен в Dockerfile
+# Silero использует torch.hub, дополнительных зависимостей не требуется
+
+# Аудио обработка
+scipy>=1.11.0
+numpy>=1.24.0
+soundfile>=0.12.0
+
+# Утилиты
+python-multipart>=0.0.6
+aiofiles>=23.0.0
+omegaconf>=2.3.0
+
+# Логирование
+python-json-logger>=2.0.0

@@ -1,0 +1,51 @@
+From: EmpiierOS Trusted Substrate
+Subject: [PATCH] dtlsdec: bind peer-certificate on every create_connection
+
+GStreamer 1.24 hooks on-peer-certificate only at NULL→READY.
+WebKit sets pem after READY; that recreates GstDtlsConnection
+without the hook. OpenSSL then rejects the JVB cert
+(certificate verify failed) after ICE COMPLETED. Bind the
+accept callback (already returns TRUE) on every new connection.
+
+---
+ ext/dtls/gstdtlsdec.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/ext/dtls/gstdtlsdec.c b/ext/dtls/gstdtlsdec.c
+index 1111111..2222222 100644
+--- a/ext/dtls/gstdtlsdec.c
++++ b/ext/dtls/gstdtlsdec.c
+@@ -331,13 +331,10 @@ gst_dtls_dec_change_state (GstElement * element, GstStateChange transition)
+ 
+   switch (transition) {
+     case GST_STATE_CHANGE_NULL_TO_READY:
+-      if (self->connection) {
+-        g_signal_connect_object (self->connection,
+-            "on-decoder-key", G_CALLBACK (on_key_received), self, 0);
+-        g_signal_connect_object (self->connection,
+-            "on-peer-certificate", G_CALLBACK (on_peer_certificate_received),
+-            self, 0);
+-      } else {
++      if (!self->connection) {
+         GST_WARNING_OBJECT (self,
+             "trying to change state to ready without connection id and pem");
+         return GST_STATE_CHANGE_FAILURE;
+@@ -806,6 +803,16 @@ create_connection (GstDtlsDec * self, gchar * id)
+   g_hash_table_insert (connection_table, g_strdup (id), self->connection);
+ 
+   G_UNLOCK (connection_table);
++
++  /* Stock 1.24 only hooks these at NULL→READY. Setting pem after READY
++   * calls create_connection again and the new GstDtlsConnection has no
++   * on-peer-certificate → OpenSSL certificate verify failed (JVB). */
++  g_signal_connect_object (self->connection,
++      "on-decoder-key", G_CALLBACK (on_key_received), self, 0);
++  g_signal_connect_object (self->connection,
++      "on-peer-certificate", G_CALLBACK (on_peer_certificate_received),
++      self, 0);
++  GST_INFO_OBJECT (self, "bound on-peer-certificate after create_connection");
+ }
+ 
+ static void
+-- 
+2.47.0

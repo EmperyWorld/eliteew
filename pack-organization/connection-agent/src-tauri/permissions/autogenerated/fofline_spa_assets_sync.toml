@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-fofline-spa-assets-sync"
+description = "Enables the fofline_spa_assets_sync command without any pre-configured scope."
+commands.allow = ["fofline_spa_assets_sync"]
+
+[[permission]]
+identifier = "deny-fofline-spa-assets-sync"
+description = "Denies the fofline_spa_assets_sync command without any pre-configured scope."
+commands.deny = ["fofline_spa_assets_sync"]

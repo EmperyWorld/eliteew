@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-notifications-add"
+description = "Enables the notifications_add command without any pre-configured scope."
+commands.allow = ["notifications_add"]
+
+[[permission]]
+identifier = "deny-notifications-add"
+description = "Denies the notifications_add command without any pre-configured scope."
+commands.deny = ["notifications_add"]

@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_dag_cycle_demo",
+  "version": 1,
+  "title_ru": "Cycle demo",
+  "title_en": "Cycle demo",
+  "enabled": false,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^dag cycle demo$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1",
+      "type": "prompt_gen",
+      "inputs": {
+        "prompt": "{{bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2.reply}}"
+      },
+      "outputs": {
+        "reply": {
+          "type": "text"
+        }
+      }
+    },
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2",
+      "type": "prompt_gen",
+      "inputs": {
+        "prompt": "{{bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1.reply}}"
+      },
+      "outputs": {
+        "reply": {
+          "type": "text"
+        }
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1",
+      "target_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2"
+    },
+    {
+      "source_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2",
+      "target_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1"
+    }
+  ],
+  "execution_mode": "sync"
+}

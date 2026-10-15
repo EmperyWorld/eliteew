@@ -1,0 +1,118 @@
+{
+  "include": [
+    "shared/api",
+    "KBSEW/api",
+    "KBSEW/tests"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.mypy_cache",
+    "**/.ruff_cache",
+    "**/node_modules",
+    "**/.venv",
+    "**/venv",
+    "KBSEW/**/migrations"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.14",
+  "pythonPlatform": "Linux",
+  "executionEnvironments": [
+    {
+      "root": "KBSEW",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        "KBSEW",
+        "/tmp/kbsew-test-deps",
+        ".venv/lib/python3.14/site-packages",
+        ".venv/lib64/python3.14/site-packages"
+      ],
+      "reportUnusedFunction": "none"
+    },
+    {
+      "root": "shared/api/routers",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        "shared/api",
+        "shared",
+        "shared/tools",
+        "shared/api/core",
+        "shared/api/services",
+        "shared/api/routers",
+        "shared/api/repositories",
+        "shared/api/models",
+        "shared/api/schemas",
+        "shared/api/elite_chat",
+        "shared/api/middleware",
+        "shared/api/monitoring",
+        "shared/api/utils",
+        "shared/api/tasks",
+        "shared/api/scrapers",
+        ".venv/lib/python3.14/site-packages",
+        ".venv/lib64/python3.14/site-packages"
+      ],
+      "reportUnusedFunction": "none"
+    },
+    {
+      "root": "shared/api/ewa_platform/companion/orchestration/tools",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        "shared/api",
+        "shared",
+        "shared/tools",
+        "shared/api/core",
+        "shared/api/services",
+        "shared/api/routers",
+        "shared/api/repositories",
+        "shared/api/models",
+        "shared/api/schemas",
+        "shared/api/elite_chat",
+        "shared/api/middleware",
+        "shared/api/monitoring",
+        "shared/api/utils",
+        "shared/api/tasks",
+        "shared/api/scrapers",
+        ".venv/lib/python3.14/site-packages",
+        ".venv/lib64/python3.14/site-packages"
+      ],
+      "reportUnusedFunction": "none"
+    },
+    {
+      "root": "shared/api",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        "shared/api",
+        "shared",
+        "shared/tools",
+        "shared/api/core",
+        "shared/api/services",
+        "shared/api/routers",
+        "shared/api/repositories",
+        "shared/api/models",
+        "shared/api/schemas",
+        "shared/api/elite_chat",
+        "shared/api/middleware",
+        "shared/api/monitoring",
+        "shared/api/utils",
+        "shared/api/tasks",
+        "shared/api/scrapers",
+        ".venv/lib/python3.14/site-packages",
+        ".venv/lib64/python3.14/site-packages"
+      ]
+    }
+  ],
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "none",
+  "reportMissingTypeStubs": "none",
+  "reportUnusedImport": "warning",
+  "reportUnusedClass": "warning",
+  "reportUnusedFunction": "warning",
+  "reportUnusedVariable": "warning",
+  "reportGeneralTypeIssues": "none",
+  "reportArgumentType": "none"
+}

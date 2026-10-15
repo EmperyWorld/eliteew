@@ -1,0 +1,38 @@
+{
+  "chat_rag_chunks": 0,
+  "chat_rag_requested": 12,
+  "chat_rag_cap": 8,
+  "chat_rag_quality": {
+    "chunks": 0,
+    "scored": 0,
+    "unique_content_ids": 0
+  },
+  "project_vault_chunks": 0,
+  "project_vault_requested": false,
+  "project_vault_cap": 0,
+  "project_vault_max_per_content_id": 2,
+  "project_vault_quality": {
+    "chunks": 0,
+    "scored": 0,
+    "unique_content_ids": 0
+  },
+  "context_policy_applied": false,
+  "kbsew_prefetch_applied": false,
+  "kbsew_prefetch_status": "disabled",
+  "kbsew_prefetch_barrels_ok": 0,
+  "kbsew_prefetch_barrels_stale": 0,
+  "kbsew_prefetch_barrels_failed": 0,
+  "kbsew_prefetch_barrels_empty": 0,
+  "memory_cell_chunks": 0,
+  "memory_cell_requested": false,
+  "memory_cell_cap": 0,
+  "memory_cell_id": null,
+  "memory_cell_quality": {
+    "chunks": 0,
+    "scored": 0,
+    "unique_content_ids": 0
+  },
+  "chat_attachment_chunks": 0,
+  "chat_memory_hits": 0,
+  "history_messages_used": 0
+}

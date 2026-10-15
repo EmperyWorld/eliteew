@@ -1,0 +1,23 @@
+{
+	"productName": "EliteEW FoFline",
+	"mainBinaryName": "eliteew-fofline",
+	"identifier": "world.empery.fofline",
+	"plugins": {
+		"updater": {
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDkzQjYwNUI3MzZDNUNEODMKUldTRHpjVTJ0d1cya3h5TmNmV29NYjhTMTJEZVEwTmJaZVh4eWRvb3BtaTUwVko2MnpibGxwOTkK",
+			"endpoints": [
+				"https://app.eliteew.ru/fofline-updates/latest.json"
+			]
+		},
+		"eliteew-desktop-client": {
+			"product_id": "world.empery.fofline",
+			"channel": "fofline",
+			"package_id": "elite-ew-fo-fline",
+			"package_type": "rpm",
+			"metadata_key_id": "fofline-meta-1",
+			"metadata_pubkey_hex": "d757086ddf665032e4b14711d268d3744d76cd0cd30c23bf459dd5a0caef889a",
+			"artifact_key_id": "fofline-artifact-1",
+			"denylist_pubkey_hex": "ed30206ca47f2e1362e265ac599d0390de3b91716f1a3afc7469715595f7e1ca"
+		}
+	}
+}

@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily renewal check for internal wildcard certificate
+
+[Timer]
+OnCalendar=*-*-* 03:17:00
+RandomizedDelaySec=20m
+Persistent=true
+Unit=internal-sites-cert-renew.service
+
+[Install]
+WantedBy=timers.target

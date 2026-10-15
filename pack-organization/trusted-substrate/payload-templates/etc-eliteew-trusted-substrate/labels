@@ -1,0 +1,7 @@
+os_trust=pilot
+payload_trust=bootstrap-electron
+payload_profile=electron
+sku=trusted-substrate
+wave=W1
+substrate_edition=client
+note=Fedora Server pilot carrier — not from-source Done (S2 requires W3/W4)

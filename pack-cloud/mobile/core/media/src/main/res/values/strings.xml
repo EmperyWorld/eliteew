@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empery_media_play_cd">Воспроизвести</string>
+    <string name="empery_media_pause_cd">Пауза</string>
+    <string name="empery_media_stop_cd">Остановить</string>
+    <string name="empery_media_seek_cd">Позиция воспроизведения</string>
+    <string name="empery_media_now_playing">Сейчас играет</string>
+    <string name="empery_media_error">Не удалось воспроизвести аудио</string>
+    <string name="empery_media_time_format">%1$s / %2$s</string>
+    <string name="empery_media_queue_position">%1$d / %2$d</string>
+    <string name="empery_media_retry">Повторить</string>
+    <string name="empery_media_skip_back_cd">Назад на 10 секунд</string>
+    <string name="empery_media_skip_forward_cd">Вперёд на 10 секунд</string>
+    <string name="empery_media_skip_previous_cd">Предыдущий трек</string>
+    <string name="empery_media_skip_next_cd">Следующий трек</string>
+    <string name="empery_media_expand_cd">Развернуть плеер</string>
+    <string name="empery_media_shuffle_cd">Перемешать очередь</string>
+    <string name="empery_media_repeat_cd">Повтор воспроизведения</string>
+    <string name="empery_media_speed_cd">Скорость воспроизведения</string>
+    <string name="empery_media_queue_up_next">Далее в очереди</string>
+    <string name="empery_media_offline_ready">В памяти приложения</string>
+    <string name="empery_media_sleep_timer_cd">Таймер сна</string>
+    <string name="empery_media_sleep_timer_off">Сон</string>
+    <string name="empery_media_sleep_timer_minutes">%1$d мин</string>
+    <string name="empery_media_sleep_timer_remaining">Сон через %1$s</string>
+    <string name="empery_media_shuffle_on">Перемешать</string>
+    <string name="empery_media_repeat_one">Повтор трека</string>
+    <string name="empery_media_repeat_all">Повтор очереди</string>
+    <string name="empery_media_repeat_one_short">×1</string>
+    <string name="empery_media_repeat_all_short">∞</string>
+    <string name="empery_media_tool_shuffle">Микс</string>
+    <string name="empery_media_tool_repeat">Повтор</string>
+    <string name="empery_media_dock_swipe_hint">Смахните вниз, чтобы закрыть</string>
+    <string name="empery_media_favorites_tab">Любимые</string>
+    <string name="empery_media_queue_tab">Очередь</string>
+    <string name="empery_media_add_favorite_cd">Добавить в любимые</string>
+    <string name="empery_media_remove_favorite_cd">Убрать из любимых</string>
+    <string name="empery_media_favorites_empty">Пока нет любимых треков. Нажмите сердечко у текущей песни.</string>
+    <string name="empery_media_favorites_loading">Загрузка любимых…</string>
+    <string name="empery_media_idle_title">Музыкальный плеер</string>
+    <string name="empery_media_idle_hint">Выберите трек из любимых или откройте аудио в библиотеке контента.</string>
+    <string name="empery_media_idle_favorites_empty">Любимых треков пока нет — отметьте сердечком аудио в библиотеке.</string>
+    <string name="empery_media_playback_tools_title">Настройки воспроизведения</string>
+    <string name="empery_media_playback_list_title">Список треков</string>
+    <string name="empery_media_player_face_tab">Плеер</string>
+    <string name="empery_media_list_face_tab">Список</string>
+</resources>

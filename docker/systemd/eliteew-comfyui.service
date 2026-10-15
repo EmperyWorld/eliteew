@@ -1,0 +1,18 @@
+[Unit]
+Description=EliteEW command-center ComfyUI
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h/powered_by_emperyworld
+Environment=REPO_ROOT=%h/powered_by_emperyworld
+Environment=ELITEEW_CONTAINER_RUNTIME=podman
+Environment=PODMAN_COMPOSE_PROVIDER=podman-compose
+ExecStart=%h/powered_by_emperyworld/docker/scripts/start-comfyui-clean.sh
+ExecStop=/usr/bin/podman stop comfyui
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

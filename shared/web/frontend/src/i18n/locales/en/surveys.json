@@ -1,0 +1,363 @@
+{
+	"appTitle": "Surveys",
+	"loading": "Loading…",
+	"hero": {
+		"title": "Share your opinion",
+		"body": "Complete assigned surveys once and receive recognition: UGS credits, EW balance, or web search coins — not cash.",
+		"stats": "{{available}} available · {{completed}} completed",
+		"kpi": {
+			"available": "Available",
+			"completed": "Completed",
+			"earned": "Earned",
+			"earnedSummary": "UGS {{ugs}} · EW {{ew}} · coins {{coins}}"
+		}
+	},
+	"sections": {
+		"available": "Available",
+		"history": "History"
+	},
+	"empty": {
+		"available": "No surveys are assigned to you right now.",
+		"availableHint": "When a new survey arrives, it will appear here — you can complete it once.",
+		"history": "You have not completed any surveys yet.",
+		"historyHint": "After you submit, your answers are kept here in read-only mode.",
+		"historySearch": "No matching surveys in history.",
+		"historySearchHint": "Try a different search term or clear the filter.",
+		"allCaughtUpTitle": "You're all caught up",
+		"allCaughtUpHint": "No new surveys right now. Your completed responses stay in History below."
+	},
+	"list": {
+		"start": "Start",
+		"viewAnswers": "View answers",
+		"questionCount": "{{count}} questions",
+		"meta": "{{count}} questions · ~{{minutes}} min",
+		"closesAt": "Closes {{date}}",
+		"completedAt": "Completed {{date}}"
+	},
+	"history": {
+		"readOnlyHint": "Your answers are saved — they cannot be changed.",
+		"search": "Search history",
+		"searchPlaceholder": "Filter by title or description",
+		"sortNewest": "Newest first",
+		"sortOldest": "Oldest first",
+		"sortNewestAria": "Sort history: newest first",
+		"sortOldestAria": "Sort history: oldest first",
+		"filtersActiveHint": "History filters are active.",
+		"resetFilters": "Reset filters",
+		"resetFiltersAria": "Clear history search and sort"
+	},
+	"errors": {
+		"loadFailed": "Could not load surveys. Check your connection and try again.",
+		"surveyLoadFailed": "Could not open this survey.",
+		"retry": "Retry"
+	},
+	"badges": {
+		"ugs": "+{{count}} UGS",
+		"ew": "+{{count}} EW",
+		"coins": "+{{count}} search coins"
+	},
+	"runner": {
+		"yes": "Yes",
+		"no": "No",
+		"next": "Next",
+		"back": "Back",
+		"cancel": "Cancel",
+		"review": "Review",
+		"edit": "Edit answers",
+		"submit": "Submit",
+		"submitting": "Submitting…",
+		"submitFailed": "Could not submit the survey. Try again.",
+		"reviewTitle": "Review your answers",
+		"reviewHint": "Make sure everything looks right, then submit — answers cannot be edited afterward.",
+		"stepOf": "Question {{current}} of {{total}}",
+		"stepReview": "Review",
+		"rewardPreview": "Completion reward",
+		"durationEstimate": "About {{minutes}} min",
+		"stepsRemaining": "{{count}} questions left",
+		"stepsRemaining_one": "{{count}} question left",
+		"reviewPhaseHint": "Final step — review your answers before submitting.",
+		"trustNote": "You can edit answers on the review step; not after submit.",
+		"requiredMark": "Required",
+		"multiHint": "You may select more than one option.",
+		"charCount": "{{current}} / {{max}}",
+		"answeredCount": "{{answered}} of {{total}} answered",
+		"primaryHintRequired": "Choose or enter an answer to continue.",
+		"successBodyNamed": "Survey “{{title}}” complete — {{count}} answers saved. Rewards applied per survey settings.",
+		"exitConfirm": {
+			"title": "Leave this survey?",
+			"body": "You already have {{count}} answers.",
+			"sessionNote": "Progress in this tab is kept until you submit or choose to start fresh.",
+			"stay": "Keep going",
+			"leave": "Leave"
+		},
+		"resumeBannerAria": "Resume in-progress survey",
+		"resumeBannerBody": "You have an in-progress survey in this tab.",
+		"resumeAtQuestion": "Continue from question {{current}}",
+		"resumeAtReview": "Continue at the review step",
+		"resumeContinue": "Continue",
+		"resumeStartFresh": "Start over",
+		"introStart": "Start survey",
+		"introQuestionCount": "{{count}} questions",
+		"introQuestionCount_one": "{{count}} question",
+		"reviewIncompleteSummary": "{{count}} questions still need an answer",
+		"reviewIncompleteSummary_one": "{{count}} question still needs an answer",
+		"reviewMissingAnswer": "No answer yet",
+		"keyboardHintMore": "Keyboard tip",
+		"textPlaceholder": "Your answer…",
+		"keyboardHint": "Press Enter to continue when a choice is selected.",
+		"keyboardHintExtended": "Press Enter to continue. For choices, press 1–9 (0 for the 10th option). On scale questions, use arrow keys when a chip or slider is focused.",
+		"stepDotsAria": "Survey progress steps",
+		"stepDot": "Go to question {{index}}",
+		"reviewEditHint": "Tap to edit this answer",
+		"scaleHint": "Choose a value from {{min}} to {{max}}.",
+		"npsHint": "Rate from {{min}} to {{max}}.",
+		"npsEndpointMin": "Not at all likely ({{min}})",
+		"npsEndpointMax": "Extremely likely ({{max}})",
+		"npsLabel": {
+			"detractor": "Unlikely to recommend",
+			"passive": "Neutral",
+			"promoter": "Likely to recommend"
+		},
+		"answerEmpty": "—",
+		"answerScale": "{{value}} of {{max}}",
+		"successTitle": "Thank you!",
+		"successBody": "Your answers were saved. Rewards were applied according to the survey settings.",
+		"backToList": "Back to surveys",
+		"rewardUgs": "UGS credits: +{{count}}",
+		"rewardEw": "EW balance: +{{count}}",
+		"rewardCoins": "Search coins: +{{count}}",
+		"errors": {
+			"required": "This question is required.",
+			"invalid": "Check your answer and try again.",
+			"tooLong": "Your answer is too long — shorten it and try again."
+		}
+	},
+	"admin": {
+		"loading": "Loading…",
+		"loadError": "Could not load surveys.",
+		"resultsError": "Could not load results.",
+		"resultsEmpty": "No responses yet — charts appear after the first completion.",
+		"responseCount": "{{count}} responses",
+		"noChart": "Not enough data for a chart.",
+		"defaultTitle": "New survey",
+		"created": "Draft survey created.",
+		"saved": "Survey saved.",
+		"audienceSaved": "Audience saved.",
+		"published": "Survey published.",
+		"archived": "Survey archived.",
+		"noSurveySelected": "Select a survey first.",
+		"selectSurvey": "Select a survey from the catalog or create a new draft.",
+		"createSurvey": "New draft",
+		"duplicateDraft": "Duplicate as draft",
+		"duplicateSuffix": "(copy)",
+		"duplicated": "Draft duplicated — review before publish.",
+		"catalogOpen": "Open",
+		"catalogClosesAt": "Closes {{date}}",
+		"closesAt": "Close date (optional)",
+		"closesAtHint": "Leave empty for no deadline. Users see this date on survey cards.",
+		"closesAtSet": "Users will see deadline: {{date}}",
+		"publishedToolbar": {
+			"heading": "Published survey controls",
+			"hint": "Extend or clear the user-facing deadline, queue GAF notifications, or archive when the campaign ends.",
+			"currentDeadline": "Current deadline: {{date}}",
+			"saveDeadline": "Save deadline",
+			"clearDeadline": "Clear deadline",
+			"deadlineSaved": "Deadline updated."
+		},
+		"refresh": "Refresh",
+		"allStatuses": "All statuses",
+		"tabsAria": "Survey admin sections",
+		"tabs": {
+			"catalog": "Catalog",
+			"aiCreate": "AI create",
+			"editor": "Editor",
+			"audience": "Audience",
+			"results": "Results"
+		},
+		"aiCreate": {
+			"tabButton": "Create with AI",
+			"heading": "Create survey with AI",
+			"hint": "Describe the topic, goals, and audience in plain language. Stack2 LLM returns a structured draft you can edit before saving.",
+			"brief": "Your brief",
+			"briefPlaceholder": "Example: Post-release satisfaction survey for desktop users who tried Survey Hub. Ask about clarity, speed, and one open improvement idea. No rewards.",
+			"generate": "Generate draft",
+			"generating": "Generating…",
+			"generated": "AI draft ready — review and adjust below.",
+			"draftHeading": "Draft preview (editable)",
+			"refineHeading": "Ask AI to refine",
+			"refineHint": "Add more context or corrections; AI updates the draft while keeping your manual edits where possible.",
+			"refinePlaceholder": "Example: Add an NPS question and a yes/no about GAF notifications.",
+			"refine": "Refine with AI",
+			"refining": "Refining…",
+			"refined": "Draft updated.",
+			"create": "Create survey draft",
+			"creating": "Creating…",
+			"created": "Survey draft created."
+		},
+		"status": {
+			"draft": "Draft",
+			"published": "Published",
+			"archived": "Archived"
+		},
+		"title": "Title",
+		"descriptionUser": "Description for users",
+		"reward": {
+			"ugs": "UGS credits",
+			"ew": "EW balance",
+			"coins": "Web search coins"
+		},
+		"questions": "Questions",
+		"addQuestion": "Add question",
+		"questionKey": "Key",
+		"prompt": "Question text",
+		"choices": "Choices (comma-separated)",
+		"required": "Required",
+		"removeQuestion": "Remove",
+		"saveEditor": "Save draft",
+		"continueToAudience": "Continue to audience",
+		"catalogSearch": "Search catalog",
+		"catalogSearchPlaceholder": "Title or description",
+		"catalogStatusFilter": "Filter by status",
+		"catalogSearchEmpty": "No surveys match your search.",
+		"catalogSearchEmptyHint": "Clear the search or switch the status filter.",
+		"catalogKpi": {
+			"total": "Total surveys"
+		},
+		"audienceSearchGroups": "Search groups",
+		"audienceSearchUsers": "Search users by name or email",
+		"audienceSearchEmpty": "No matches — try another search.",
+		"audienceMode": "Audience mode",
+		"audienceModes": {
+			"groups_only": "Groups only",
+			"users_only": "Users only",
+			"groups_or_users": "Groups or users",
+			"groups_and_users": "Groups and users"
+		},
+		"questionTypes": {
+			"single_choice": "Single choice",
+			"multi_choice": "Multiple choice",
+			"scale": "Scale",
+			"yes_no": "Yes / No",
+			"text_short": "Short text",
+			"text_long": "Long text",
+			"nps": "NPS (0–10)"
+		},
+		"accessGroups": "Access groups",
+		"users": "Specific users",
+		"saveAudience": "Save audience",
+		"previewAudience": "Preview eligible count",
+		"previewCount": "Eligible users: {{count}}",
+		"publish": "Publish",
+		"archive": "Archive",
+		"publishGuard": {
+			"notDraft": "Only draft surveys can be edited.",
+			"noQuestions": "Add at least one question before publish.",
+			"noAudience": "Assign at least one group or user before publish."
+		},
+		"catalogEmpty": "No surveys yet. Create a draft to get started.",
+		"catalogEmptyHint": "Start with AI from a brief or create an empty draft manually.",
+		"catalogNoDescription": "No user-facing description yet.",
+		"catalogMeta": "{{questions}} questions · {{audience}} audience targets · {{completed}} responses",
+		"workflow": {
+			"label": "Survey workflow",
+			"aria": "Editor, audience, and results steps",
+			"steps": {
+				"editor": "Editor",
+				"audience": "Audience",
+				"results": "Results"
+			},
+			"publishedMeta": "{{count}} responses collected — open Results for charts and export.",
+			"draftMeta": "{{questions}} questions · {{ready}}/{{total}} publish checks",
+			"draftEligible": "~{{count}} eligible (preview)",
+			"completionRate": "{{rate}}% completion"
+		},
+		"draftBar": {
+			"aria": "Draft publish actions",
+			"readiness": "{{ready}}/{{total}} ready",
+			"readyHint": "Core publish gates passed — review preview, then publish.",
+			"preview": "Preview as user"
+		},
+		"userPreview": {
+			"label": "User preview",
+			"banner": "Admin preview — answers are not saved.",
+			"close": "Close preview"
+		},
+		"questionNumber": "Question {{number}}",
+		"scaleRangeHint": "Scale uses values 1–5 (saved automatically).",
+		"npsRangeHint": "NPS uses values 0–10 (saved automatically).",
+		"validation": {
+			"summary": "Fix highlighted questions before saving.",
+			"title": "Survey title is required.",
+			"key": "Each question needs a unique key.",
+			"prompt": "Question text cannot be empty.",
+			"choices": "Add at least one choice (comma-separated).",
+			"duplicateKey": "Question keys must be unique."
+		},
+		"dragHint": "Drag questions by the handle to change order.",
+		"dragQuestion": "Drag to reorder question",
+		"exportCsv": "Export CSV",
+		"exporting": "Exporting…",
+		"exportDone": "Exported {{count}} responses",
+		"resultsKpi": {
+			"heading": "Completion overview",
+			"hint": "Eligible audience vs submitted responses for this survey.",
+			"eligible": "Eligible users",
+			"completed": "Completed",
+			"rate": "Completion rate"
+		},
+		"responsesDateFilter": {
+			"from": "From date",
+			"to": "To date",
+			"apply": "Apply filter",
+			"clear": "Clear",
+			"invalidRange": "Start date must be on or before end date."
+		},
+		"gafNotifyBody": "GAF announcement message",
+		"gafNotifyBodyPlaceholder": "Leave empty to use the default system message on publish.",
+		"gafNotifyBodyHint": "Sent via GAF when the survey is published and on manual resend. Max 2000 characters.",
+		"gafPreview": {
+			"heading": "GAF preview",
+			"usingDefault": "Empty template — server default message will be sent.",
+			"usingCustom": "Custom message preview.",
+			"badge": "Survey announcement",
+			"fallbackTitle": "Survey",
+			"ctaHint": "Users will see an Open surveys button in GAF chat."
+		},
+		"resultsViews": {
+			"charts": "Charts",
+			"responses": "Responses"
+		},
+		"responsesTable": {
+			"user": "User",
+			"submitted": "Submitted",
+			"page": "Page {{page}} of {{pages}} · {{total}} total",
+			"prev": "Previous",
+			"next": "Next",
+			"sortNewest": "Newest first",
+			"sortOldest": "Oldest first"
+		},
+		"responsesTableError": "Could not load response rows.",
+		"gafActions": {
+			"heading": "GAF notifications",
+			"hint": "Queue system chat messages for eligible users. Tasks run in the background.",
+			"undelivered": "Send to users who missed the announcement",
+			"remind": "Remind users who have not completed"
+		},
+		"gafQueuedUndelivered": "GAF delivery queued for users without a prior announcement.",
+		"gafQueuedRemind": "Reminder queued for users who have not completed the survey.",
+		"checklist": {
+			"heading": "Ready to publish?",
+			"ready": "All required steps are complete — you can publish.",
+			"notReady": "Complete the items below before publishing.",
+			"title": "Survey title is set",
+			"questions": "{{count}} question(s) in draft",
+			"audience": "Audience assigned",
+			"audienceDetail": "{{groups}} group(s) · {{users}} user(s)",
+			"preview": "Eligible users: {{count}}",
+			"previewPending": "Run audience preview to see reach",
+			"previewZero": "No eligible users with current audience — adjust groups or mode.",
+			"reward": "Reward configured",
+			"rewardOptional": "Optional — you can publish without rewards."
+		}
+	}
+}

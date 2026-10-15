@@ -1,0 +1,18 @@
+[Unit]
+Description=EmpiierOS apply installer wall clock once
+Documentation=file:///opt/empiieros/docs/RUNTIME.md
+DefaultDependencies=yes
+After=local-fs.target
+Before=empiieros-runtime.service
+ConditionPathExists=/etc/empiieros/install-wall-clock
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/empiieros-apply-install-clock
+User=root
+Group=root
+RemainAfterExit=yes
+# This unit writes the operator clock. Do not set ProtectClock.
+
+[Install]
+WantedBy=multi-user.target

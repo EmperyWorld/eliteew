@@ -1,0 +1,52 @@
+# =============================================================================
+# EmpiierOS · stack-empiieros-ota — RO + tmpfs capsule edge (not Mobile OTA)
+# =============================================================================
+# Invariants:
+# - read_only root; capsule tree ONLY on tmpfs (/srv/empiieros-ota).
+# - NO host bind of capsule content (unlike stack-mobile-release).
+# - Restart → empty tmpfs → fail-closed until CP re-pushes signed capsule.
+# - Loopback only: 127.0.0.1:29181
+#
+# Start:
+#   bash docker/scripts/prod-core-empiieros-ota-start.sh
+# =============================================================================
+name: stack-empiieros-ota
+
+networks:
+  ew_net_6211:
+    external: true
+
+services:
+  empiieros-ota:
+    build:
+      context: ./empiieros-ota
+      dockerfile: Dockerfile
+    image: localhost/eliteew-empiieros-ota:e2
+    container_name: stack-empiieros-ota
+    networks:
+      - ew_net_6211
+    ports:
+      - "${EMPIERO_OS_OTA_BIND:-127.0.0.1:29181}:80"
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+      - /var/cache/nginx:size=16m,mode=0755
+      - /var/run:size=8m,mode=0755
+      - /srv/empiieros-ota:size=512m,mode=0755
+    # Config is baked into the image — no host bind for nginx.conf or capsules.
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - stack=empiieros-ota
+      - service=empiieros-capsule-ota
+      - empiieros.ota.posture=ro-tmpfs-cp-only
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/health | grep -q ok"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-capsule-import-pick-file"
+description = "Enables the capsule_import_pick_file command without any pre-configured scope."
+commands.allow = ["capsule_import_pick_file"]
+
+[[permission]]
+identifier = "deny-capsule-import-pick-file"
+description = "Denies the capsule_import_pick_file command without any pre-configured scope."
+commands.deny = ["capsule_import_pick_file"]

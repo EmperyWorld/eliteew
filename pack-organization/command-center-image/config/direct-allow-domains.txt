@@ -1,0 +1,13 @@
+# Direct internet (no VPN) in mode 4 — one FQDN per line. Edit for your ops needs.
+# Examples (uncomment/add):
+# forgejo host, fedora mirrors, ifconfig.me for checks
+130.193.43.111
+mirrors.fedoraproject.org
+download.fedoraproject.org
+proxy01.fedoraproject.org
+mirrors.rpmfusion.org
+download1.rpmfusion.org
+copr.fedorainfracloud.org
+github.com
+raw.githubusercontent.com
+ifconfig.me

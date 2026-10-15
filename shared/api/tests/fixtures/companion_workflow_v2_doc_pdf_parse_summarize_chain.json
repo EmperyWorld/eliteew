@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_doc_pdf_parse_summarize_chain_demo",
+  "version": 1,
+  "title_ru": "Document PDF parse summarize chain",
+  "title_en": "Document PDF parse summarize chain",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^doc pdf parse summarize chain$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff1",
+      "type": "document_import",
+      "mode": "stateful",
+      "inputs": {
+        "paperless_id": 55
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" },
+        "unified_content_id": { "type": "string" },
+        "document_id": { "type": "string" },
+        "paperless_id": { "type": "number" }
+      },
+      "title_ru": "Import",
+      "title_en": "Import"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff2",
+      "type": "pdf_parser",
+      "mode": "stateless",
+      "inputs": {
+        "unified_content_id": "{{ffffffff-ffff-4fff-8fff-fffffffffff1.unified_content_id}}",
+        "paperless_id": "{{ffffffff-ffff-4fff-8fff-fffffffffff1.paperless_id}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" },
+        "extracted_text": { "type": "text" },
+        "filename": { "type": "string" },
+        "mime_type": { "type": "string" },
+        "char_count": { "type": "number" }
+      },
+      "title_ru": "Parse PDF",
+      "title_en": "Parse PDF"
+    },
+    {
+      "id": "ffffffff-ffff-4fff-8fff-fffffffffff3",
+      "type": "llm_summarizer",
+      "mode": "stateless",
+      "inputs": {
+        "text": "{{ffffffff-ffff-4fff-8fff-fffffffffff2.text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "summary_text": { "type": "text" },
+        "analysis_text": { "type": "text" }
+      },
+      "title_ru": "Summarize",
+      "title_en": "Summarize"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff1",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff2"
+    },
+    {
+      "source_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff2",
+      "target_node_id": "ffffffff-ffff-4fff-8fff-fffffffffff3"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "document", "pdf", "summarize"]
+}

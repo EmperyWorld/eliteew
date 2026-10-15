@@ -1,0 +1,40 @@
+# Cursor: workspace shared/web/frontend only.
+# Monorepo canon: ../../../.cursorignore
+# Do not ignore the whole public/ directory (last-match would kill SVG/mp4 exceptions).
+# Binary globs first, then ! exceptions, then ewa/* + !arly (must be last among media).
+
+node_modules/
+dist/
+dist-build/
+dist-ssr/
+.cache/
+.parcel-cache/
+coverage/
+*.lcov
+.tsc-bundles/
+test-results/
+playwright-report/
+playwright/.cache/
+build/
+.next/
+out/
+src/generated/appBuildId.ts
+public/meta.json
+public/audio/
+public/desktop-wallpapers/
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.mp4
+*.mp3
+*.wav
+*.webp
+!public/*.svg
+!src/assets/*.svg
+!src/**/*.svg
+!src/**/*.png
+public/ewa/*
+!public/ewa/arly_transform.mp4
+!src/generated/

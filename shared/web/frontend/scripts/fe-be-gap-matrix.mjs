@@ -1,0 +1,271 @@
+#!/usr/bin/env node
+/**
+ * Compares FE API path inventory snapshot with canonical OpenAPI export paths.
+ * Usage:
+ *   node scripts/fe-be-gap-matrix.mjs
+ *   node scripts/fe-be-gap-matrix.mjs --write
+ *     → documentation/api/FE-BE-GAP-MATRIX.md
+ *   node scripts/fe-be-gap-matrix.mjs --strict --write
+ *     Compare only exact path keys (legacy; more false "gaps" for baseURL mounts).
+ *   node scripts/fe-be-gap-matrix.mjs --full --write
+ * Noise filters: scripts/fe-be-gap-matrix.ignore.json
+ * Manual triage appended from: documentation/api/FE-BE-GAP-MATRIX.manual.md
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+/** Monorepo root (`powered_by_emperyworld/`), same as `api-inventory.mjs`. */
+const REPO_ROOT = path.resolve(__dirname, '..', '..', '..', '..');
+const SNAPSHOT = path.join(
+	REPO_ROOT,
+	'documentation',
+	'api',
+	'fe-be-api-inventory.snapshot.md'
+);
+const OPENAPI_EXPORT = path.join(
+	REPO_ROOT,
+	'documentation',
+	'api',
+	'eliteew-openapi-export.json'
+);
+const DEFAULT_OUT = path.join(
+	REPO_ROOT,
+	'documentation',
+	'api',
+	'FE-BE-GAP-MATRIX.md'
+);
+const IGNORE_FILE = path.join(__dirname, 'fe-be-gap-matrix.ignore.json');
+const MANUAL_TRIAGE = path.join(
+	REPO_ROOT,
+	'documentation',
+	'api',
+	'FE-BE-GAP-MATRIX.manual.md'
+);
+
+function loadIgnoreRules() {
+	if (!fs.existsSync(IGNORE_FILE)) {
+		return {
+			excludePathPrefixes: [],
+			excludePathExact: [],
+			excludePathSuffixes: [],
+			excludeIfContains: [],
+			excludeIfRegex: [],
+		};
+	}
+	const raw = JSON.parse(fs.readFileSync(IGNORE_FILE, 'utf8'));
+	return {
+		excludePathPrefixes: raw.excludePathPrefixes ?? [],
+		excludePathExact: raw.excludePathExact ?? [],
+		excludePathSuffixes: raw.excludePathSuffixes ?? [],
+		excludeIfContains: raw.excludeIfContains ?? [],
+		excludeIfRegex: (raw.excludeIfRegex ?? []).map(
+			(s) => new RegExp(s, 'u')
+		),
+	};
+}
+
+/**
+ * @param {string} p
+ * @param {ReturnType<typeof loadIgnoreRules>} rules
+ */
+function isNoiseInventoryPath(p, rules) {
+	if (rules.excludePathExact.includes(p)) return true;
+	for (const pre of rules.excludePathPrefixes) {
+		if (p === pre || p.startsWith(`${pre}/`)) return true;
+	}
+	for (const suf of rules.excludePathSuffixes) {
+		if (suf && p.endsWith(suf) && p.length > suf.length + 4) return true;
+	}
+	for (const sub of rules.excludeIfContains) {
+		if (sub && p.includes(sub)) return true;
+	}
+	for (const re of rules.excludeIfRegex) {
+		if (re.test(p)) return true;
+	}
+	return false;
+}
+
+/**
+ * Strip query/hash; inventory sometimes includes `?limit=…`.
+ * @param {string} p
+ */
+function stripQueryAndHash(p) {
+	const q = p.indexOf('?');
+	const h = p.indexOf('#');
+	let end = p.length;
+	if (q !== -1) end = Math.min(end, q);
+	if (h !== -1) end = Math.min(end, h);
+	return end < p.length ? p.slice(0, end) : p;
+}
+
+/** @param {string} p */
+function normalizeInventoryPath(p) {
+	let s = p.trim();
+	s = stripQueryAndHash(s);
+	if (s.includes('...')) return null;
+	if (s.length < 6) return null;
+	if (!s.startsWith('/api')) return null;
+	return s;
+}
+
+function collectInventoryPaths() {
+	const text = fs.readFileSync(SNAPSHOT, 'utf8');
+	const set = new Set();
+	const lineRe = /^- `(\/api[^`]*)`/gm;
+	let m;
+	while ((m = lineRe.exec(text)) !== null) {
+		const n = normalizeInventoryPath(m[1]);
+		if (n) set.add(n);
+	}
+	return set;
+}
+
+function collectOpenApiPaths() {
+	const raw = fs.readFileSync(OPENAPI_EXPORT, 'utf8');
+	const spec = JSON.parse(raw);
+	const paths = spec.paths && typeof spec.paths === 'object' ? spec.paths : {};
+	return new Set(Object.keys(paths));
+}
+
+/**
+ * @param {string} p
+ * @param {string[]} apiList sorted keys
+ */
+function hasOpenApiDescendant(p, apiList) {
+	const prefix = `${p}/`;
+	for (const k of apiList) {
+		if (k.startsWith(prefix)) return true;
+	}
+	return false;
+}
+
+function main() {
+	const strict = process.argv.includes('--strict');
+	const rules = loadIgnoreRules();
+	const inv = collectInventoryPaths();
+	const api = collectOpenApiPaths();
+	const apiList = [...api].sort();
+
+	/** Inventory strings with no exact key in OpenAPI */
+	const invNotExact = [...inv].filter((p) => !api.has(p)).sort();
+
+	const invOnlyNoise = invNotExact.filter((p) => isNoiseInventoryPath(p, rules));
+	const invCandidates = invNotExact.filter((p) => !isNoiseInventoryPath(p, rules));
+
+	/** Mount: no exact key but at least one OpenAPI path under p/ */
+	let mountPrefix = [];
+	let actionable = [];
+	if (strict) {
+		actionable = [...invCandidates];
+	} else {
+		for (const p of invCandidates) {
+			if (hasOpenApiDescendant(p, apiList)) {
+				mountPrefix.push(p);
+			} else {
+				actionable.push(p);
+			}
+		}
+	}
+
+	const apiOnly = [...api].filter((p) => !inv.has(p)).sort();
+
+	const lines = [
+		'# FE/BE gap matrix (inventory vs OpenAPI export)',
+		'',
+		'Auto-generated by `pnpm run api:gap-matrix` (do not hand-edit above the manual triage section).',
+		'',
+		strict
+			? '_This run used `--strict` (exact path keys only; mount prefixes count as gaps)._'
+			: '_Default: mount prefixes (e.g. `/api/v1/profile` with only `/api/v1/profile/me` in OpenAPI) are listed separately, not as actionable gaps._',
+		'',
+		'| Metric | Count |',
+		'|--------|-------|',
+		`| Distinct \`/api*\` paths in inventory snapshot | ${inv.size} |`,
+		`| Paths in \`eliteew-openapi-export.json\` | ${api.size} |`,
+		`| In inventory with **no exact** OpenAPI path key | ${invNotExact.length} |`,
+		`| … classified as noise (ignore rules) | ${invOnlyNoise.length} |`,
+		`| … **mount prefix** only (covered by longer OpenAPI paths) | ${mountPrefix.length} |`,
+		`| … **actionable** gaps (no exact key, no descendant route) | ${actionable.length} |`,
+		`| In OpenAPI **not** in inventory (uncalled or scanner gaps) | ${apiOnly.length} |`,
+		'',
+		'Noise filtering uses `shared/web/frontend/scripts/fe-be-gap-matrix.ignore.json`.',
+		'',
+		'## Inventory paths missing from OpenAPI export (actionable)',
+		'',
+		actionable.length
+			? actionable.map((p) => `- \`${p}\``).join('\n')
+			: '_None — no inventory path is both unmatched and without a descendant route in OpenAPI (under default mode)._',
+		'',
+	];
+
+	if (!strict) {
+		lines.push(
+			'## Inventory mount prefixes covered by OpenAPI (no exact key)',
+			'',
+			'Typical for `baseURL` + relative calls: the scanner sees `/api/v1/profile` but OpenAPI only lists `/api/v1/profile/me`, etc.',
+			'',
+			mountPrefix.length
+				? mountPrefix.map((p) => `- \`${p}\``).join('\n')
+				: '_None._',
+			''
+		);
+	}
+
+	lines.push(
+		'## Excluded from gap lists (noise / templates)',
+		'',
+		invOnlyNoise.length
+			? invOnlyNoise.map((p) => `- \`${p}\``).join('\n')
+			: '_None._',
+		'',
+		'## OpenAPI paths not appearing in inventory',
+		'',
+		'Expected for admin-only routes, unused legacy, or calls via baseURL fragments not caught by the scanner.',
+		''
+	);
+
+	const MAX_LIST = 200;
+	if (apiOnly.length <= MAX_LIST) {
+		lines.push(
+			apiOnly.length
+				? apiOnly.map((p) => `- \`${p}\``).join('\n')
+				: '_None._'
+		);
+	} else {
+		lines.push(`_First ${MAX_LIST} of ${apiOnly.length} (full list: \`node scripts/fe-be-gap-matrix.mjs --full --write\`):_`, '');
+		lines.push(apiOnly.slice(0, MAX_LIST).map((p) => `- \`${p}\``).join('\n'));
+	}
+
+	lines.push('', '## Next domain (marketing and others)', '');
+	lines.push(
+		'Pilot slices live under `shared/web/frontend/openapi/pilot/`. Extend slices from FE inventory + contract tests; conditional GET only where the backend sends ETag.'
+	);
+
+	let md = lines.join('\n');
+
+	const full = process.argv.includes('--full');
+	if (full && apiOnly.length > MAX_LIST) {
+		md +=
+			'\n\n## Full OpenAPI-only list\n\n' +
+			apiOnly.map((p) => `- \`${p}\``).join('\n');
+	}
+
+	if (fs.existsSync(MANUAL_TRIAGE)) {
+		md +=
+			'\n\n---\n\n' +
+			fs.readFileSync(MANUAL_TRIAGE, 'utf8').trimEnd() +
+			'\n';
+	}
+
+	if (process.argv.includes('--write')) {
+		fs.mkdirSync(path.dirname(DEFAULT_OUT), { recursive: true });
+		fs.writeFileSync(DEFAULT_OUT, md, 'utf8');
+		console.log('Wrote', DEFAULT_OUT);
+	} else {
+		console.log(md);
+	}
+}
+
+main();

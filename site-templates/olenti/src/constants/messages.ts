@@ -1,0 +1,16 @@
+export const MESSAGES = {
+  PRODUCT_ADDED_TO_CART: 'Товар добавлен в корзину',
+  PRODUCT_REMOVED_FROM_CART: 'Товар удален из корзины',
+  CART_CLEARED: 'Корзина очищена',
+  ORDER_PLACED: 'Заказ успешно оформлен',
+  CONSULTATION_BOOKED: 'Консультация забронирована',
+  MASTERCLASS_BOOKED: 'Мастер-класс забронирован',
+  LOGIN_SUCCESS: 'Вход выполнен успешно',
+  LOGOUT_SUCCESS: 'Выход выполнен успешно',
+  REGISTRATION_SUCCESS: 'Регистрация выполнена успешно',
+  ERROR_GENERIC: 'Произошла ошибка. Попробуйте позже.',
+  ERROR_NETWORK: 'Ошибка сети. Проверьте подключение.',
+  ERROR_UNAUTHORIZED: 'Необходима авторизация',
+  ERROR_FORBIDDEN: 'Доступ запрещен',
+  ERROR_NOT_FOUND: 'Ресурс не найден',
+} as const

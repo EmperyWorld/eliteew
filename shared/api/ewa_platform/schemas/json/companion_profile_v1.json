@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/ewa/companion_profile_v1.json",
+  "title": "EWA companion profile wire (HTTP GET/PATCH subset)",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "principal_id": { "type": "string", "minLength": 1 },
+    "schema_version": { "type": "string" },
+    "seed_persona_id": {
+      "type": "string",
+      "enum": ["parent", "mela", "zera", "kora", "tala", "feni"]
+    },
+    "baseline": { "type": "object" },
+    "learned_preferences": { "type": "object" },
+    "style_parameters": { "type": "object" },
+    "companion_revision": { "type": "integer", "minimum": 1 },
+    "updated_at": { "type": ["string", "null"] }
+  },
+  "required": [
+    "principal_id",
+    "schema_version",
+    "seed_persona_id",
+    "baseline",
+    "learned_preferences",
+    "style_parameters",
+    "companion_revision",
+    "updated_at"
+  ]
+}

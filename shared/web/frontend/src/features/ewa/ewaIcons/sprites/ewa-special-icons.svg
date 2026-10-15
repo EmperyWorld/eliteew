@@ -1,0 +1,308 @@
+<!-- EWASolution - Специальные иконки для уникальных функций -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <defs>
+    <!-- Специальные градиенты для EWA Solution -->
+    <linearGradient id="ewaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="aiCoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#f7931e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffd23f;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#16213e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f3460;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Эффекты для EWA иконок -->
+    <filter id="neuralGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <filter id="aiPulse" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- EWA Brain Core / Ядро AI мозга EWA -->
+  <symbol id="icon-ewa-brain" viewBox="0 0 24 24">
+    <g filter="url(#neuralGlow)">
+      <!-- Центральное ядро -->
+      <circle cx="12" cy="12" r="6" fill="url(#ewaGradient)" opacity="0.8"/>
+      
+      <!-- Нейронные связи -->
+      <g stroke="url(#aiCoreGradient)" stroke-width="2" fill="none" opacity="0.7">
+        <path d="M6 8 Q4 6 8 4 Q12 6 10 8" stroke-linecap="round">
+          <animate attributeName="stroke-dasharray" values="0,20;10,10;0,20" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M18 16 Q20 18 16 20 Q12 18 14 16" stroke-linecap="round">
+          <animate attributeName="stroke-dasharray" values="0,20;10,10;0,20" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M8 18 Q6 20 4 16 Q6 12 8 14" stroke-linecap="round">
+          <animate attributeName="stroke-dasharray" values="0,20;10,10;0,20" dur="2.8s" repeatCount="indefinite"/>
+        </path>
+        <path d="M16 6 Q18 4 20 8 Q18 12 16 10" stroke-linecap="round">
+          <animate attributeName="stroke-dasharray" values="0,20;10,10;0,20" dur="3.2s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      
+      <!-- Узлы -->
+      <g fill="url(#aiCoreGradient)">
+        <circle cx="8" cy="6" r="1.5">
+          <animate attributeName="r" values="1.5;2.5;1.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="16" cy="18" r="1.5">
+          <animate attributeName="r" values="1.5;2.5;1.5" dur="2.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="6" cy="16" r="1.5">
+          <animate attributeName="r" values="1.5;2.5;1.5" dur="1.8s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="18" cy="8" r="1.5">
+          <animate attributeName="r" values="1.5;2.5;1.5" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      
+      <!-- Центральный AI -->
+      <text x="12" y="16" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="white" opacity="0.9">AI</text>
+    </g>
+  </symbol>
+
+  <!-- EWA Dashboard / Дашборд EWA -->
+  <symbol id="icon-ewa-dashboard" viewBox="0 0 24 24">
+    <rect x="3" y="3" width="18" height="18" rx="3" fill="url(#neuralGradient)" opacity="0.3"/>
+    <g stroke="url(#ewaGradient)" stroke-width="2" fill="none">
+      <rect x="3" y="3" width="18" height="18" rx="3"/>
+      <path d="M3 9h18M9 3v18"/>
+    </g>
+    <!-- Индикаторы -->
+    <g fill="url(#aiCoreGradient)">
+      <circle cx="6" cy="6" r="1">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="15" cy="6" r="1">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="18" cy="6" r="1">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <!-- График -->
+    <path d="M12 18 L15 15 L17 16 L20 13" stroke="url(#ewaGradient)" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </symbol>
+
+  <!-- EWA Analytics / Аналитика EWA -->
+  <symbol id="icon-ewa-analytics" viewBox="0 0 24 24">
+    <g filter="url(#aiPulse)">
+      <!-- Графики -->
+      <g stroke="url(#ewaGradient)" stroke-width="2" fill="none">
+        <path d="M3 20 L7 14 L12 17 L17 8 L21 12">
+          <animate attributeName="stroke-dasharray" values="0,50;25,25;50,0;0,50" dur="4s" repeatCount="indefinite"/>
+        </path>
+      </g>
+      <!-- Столбцы -->
+      <g fill="url(#aiCoreGradient)" opacity="0.7">
+        <rect x="5" y="16" width="2" height="4">
+          <animate attributeName="height" values="4;6;4" dur="2s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="9" y="14" width="2" height="6">
+          <animate attributeName="height" values="6;8;6" dur="2.5s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="13" y="18" width="2" height="2">
+          <animate attributeName="height" values="2;5;2" dur="1.8s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="17" y="15" width="2" height="5">
+          <animate attributeName="height" values="5;7;5" dur="2.2s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- EWA Plugin System / Система плагинов EWA -->
+  <symbol id="icon-ewa-plugins" viewBox="0 0 24 24">
+    <g>
+      <!-- Центральный хаб -->
+      <circle cx="12" cy="12" r="4" fill="url(#ewaGradient)" opacity="0.8"/>
+      
+      <!-- Плагины как модули -->
+      <g fill="url(#aiCoreGradient)">
+        <rect x="3" y="3" width="4" height="4" rx="1">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" begin="0s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="17" y="3" width="4" height="4" rx="1">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="3" y="17" width="4" height="4" rx="1">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" begin="1s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="17" y="17" width="4" height="4" rx="1">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+      
+      <!-- Соединения -->
+      <g stroke="url(#ewaGradient)" stroke-width="1" opacity="0.5">
+        <path d="M7 5 L10 10"/>
+        <path d="M17 7 L14 10"/>
+        <path d="M7 19 L10 14"/>
+        <path d="M17 19 L14 14"/>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- EWA Perplexity / Perplexity интеграция -->
+  <symbol id="icon-ewa-perplexity" viewBox="0 0 24 24">
+    <g filter="url(#neuralGlow)">
+      <!-- Поисковое кольцо -->
+      <circle cx="12" cy="12" r="8" stroke="url(#ewaGradient)" stroke-width="2" fill="none" opacity="0.6"/>
+      
+      <!-- Динамические точки поиска -->
+      <g fill="url(#aiCoreGradient)">
+        <circle cx="12" cy="4" r="1.5">
+          <animateTransform attributeName="transform" type="rotate" dur="4s" values="0 12 12;360 12 12" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="18.93" cy="8" r="1.5">
+          <animateTransform attributeName="transform" type="rotate" dur="4s" values="45 12 12;405 12 12" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="18.93" cy="16" r="1.5">
+          <animateTransform attributeName="transform" type="rotate" dur="4s" values="90 12 12;450 12 12" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="5.07" cy="16" r="1.5">
+          <animateTransform attributeName="transform" type="rotate" dur="4s" values="270 12 12;630 12 12" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.4s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      
+      <!-- Центральный поисковик -->
+      <circle cx="12" cy="12" r="3" fill="url(#ewaGradient)" opacity="0.8"/>
+      <text x="12" y="15" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" font-weight="bold" fill="white">WEB</text>
+    </g>
+  </symbol>
+
+  <!-- EWA Llama / Локальный AI -->
+  <symbol id="icon-ewa-llama" viewBox="0 0 24 24">
+    <g>
+      <!-- Локальный сервер -->
+      <rect x="6" y="4" width="12" height="16" rx="2" fill="url(#neuralGradient)" opacity="0.8"/>
+      <rect x="6" y="4" width="12" height="16" rx="2" stroke="url(#ewaGradient)" stroke-width="2" fill="none"/>
+      
+      <!-- Индикаторы активности -->
+      <g fill="url(#aiCoreGradient)">
+        <circle cx="9" cy="8" r="1">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="12" cy="8" r="1">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="15" cy="8" r="1">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      
+      <!-- Процессинг линии -->
+      <g stroke="url(#ewaGradient)" stroke-width="1" opacity="0.6">
+        <path d="M8 12 L16 12">
+          <animate attributeName="stroke-dasharray" values="0,8;4,4;8,0" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M8 14 L16 14">
+          <animate attributeName="stroke-dasharray" values="0,8;4,4;8,0" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M8 16 L16 16">
+          <animate attributeName="stroke-dasharray" values="0,8;4,4;8,0" dur="1.8s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- EWA Android / Android интеграция -->
+  <symbol id="icon-ewa-android" viewBox="0 0 24 24">
+    <g filter="url(#aiPulse)">
+      <!-- Android фигура -->
+      <path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h2v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zM20.5 8c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zM15.53 2.16l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 1.23 12.95 1 12 1c-.96 0-1.85.23-2.64.63L7.88.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.3 1.3C6.97 3.26 6 5.01 6 7h12c0-1.99-.97-3.74-2.47-4.84zM10 5H9V4h1v1zM15 5h-1V4h1v1z" 
+            fill="url(#ewaGradient)" opacity="0.8"/>
+      
+      <!-- EWA соединение -->
+      <g stroke="url(#aiCoreGradient)" stroke-width="1.5" fill="none" opacity="0.7">
+        <path d="M12 2 Q8 0 4 4">
+          <animate attributeName="stroke-dasharray" values="0,20;10,10;20,0" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <path d="M12 2 Q16 0 20 4">
+          <animate attributeName="stroke-dasharray" values="0,20;10,10;20,0" dur="2.5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- EWA Smart Home / Умный дом -->
+  <symbol id="icon-ewa-smarthome" viewBox="0 0 24 24">
+    <g>
+      <!-- Дом -->
+      <path d="M12 3l8 6v11a1 1 0 01-1 1H5a1 1 0 01-1-1V9l8-6z" fill="url(#neuralGradient)" opacity="0.6"/>
+      <path d="M12 3l8 6v11a1 1 0 01-1 1H5a1 1 0 01-1-1V9l8-6z" stroke="url(#ewaGradient)" stroke-width="2" fill="none"/>
+      
+      <!-- Умные устройства -->
+      <g fill="url(#aiCoreGradient)">
+        <!-- Окна с подсветкой -->
+        <rect x="8" y="12" width="2" height="2" rx="0.5">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="14" y="12" width="2" height="2" rx="0.5">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="2.5s" repeatCount="indefinite"/>
+        </rect>
+        <rect x="11" y="16" width="2" height="3" rx="0.5">
+          <animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+      
+      <!-- Wi-Fi сигналы -->
+      <g stroke="url(#ewaGradient)" stroke-width="1" fill="none" opacity="0.5">
+        <path d="M8 8 Q12 4 16 8" stroke-linecap="round">
+          <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M9 9 Q12 6 15 9" stroke-linecap="round">
+          <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+    </g>
+  </symbol>
+
+  <!-- EWA Security / Безопасность EWA -->
+  <symbol id="icon-ewa-security" viewBox="0 0 24 24">
+    <g filter="url(#neuralGlow)">
+      <!-- Щит -->
+      <path d="M12 2L4 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4z" fill="url(#ewaGradient)" opacity="0.3"/>
+      <path d="M12 2L4 6v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-8-4z" stroke="url(#ewaGradient)" stroke-width="2" fill="none"/>
+      
+      <!-- Защитные слои -->
+      <g stroke="url(#aiCoreGradient)" stroke-width="1" fill="none" opacity="0.6">
+        <ellipse cx="12" cy="10" rx="5" ry="4">
+          <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="12" cy="10" rx="3" ry="2.5">
+          <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      
+      <!-- Центральный замок -->
+      <circle cx="12" cy="10" r="2" fill="url(#aiCoreGradient)">
+        <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </symbol>
+</svg>

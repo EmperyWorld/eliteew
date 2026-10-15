@@ -1,0 +1,118 @@
+{
+	"_meta": {
+		"wave5Scope": "Wave 5 foundation only: admin shell (route guard, layout, sidebar, header, login) plus Products and Content page aria-labels. Remaining CMS pages (~89) stay on legacy inline copy until a follow-up wave."
+	},
+	"shell": {
+		"routeGuard": {
+			"checkingAccess": "Checking access…"
+		},
+		"layout": {
+			"defaultSiteTitle": "Template Site",
+			"proBadge": "Pro"
+		},
+		"login": {
+			"wrongPassword": "Incorrect password",
+			"authError": "Sign-in failed",
+			"adminSuffix": "Admin",
+			"tagline": "Dedicated site management workspace",
+			"packageBadge": "Plan",
+			"supportBadge": "Support",
+			"usernameAria": "Username",
+			"passwordPlaceholder": "Enter password",
+			"submitLoading": "Signing in…",
+			"submit": "Open admin panel",
+			"backToSite": "Back to site",
+			"footerAccess": "Admin access"
+		},
+		"globalSearch": {
+			"placeholder": "Search products, orders, bookings…",
+			"searching": "Searching…",
+			"empty": "No results for “{{query}}”",
+			"clearAria": "Clear search",
+			"resultsLabel": "Search results",
+			"sectionProducts": "Products",
+			"sectionOrders": "Orders",
+			"sectionBookings": "Bookings",
+			"bookingFallback": "Booking"
+		},
+		"header": {
+			"openMenu": "Open menu",
+			"themeToggle": "Toggle admin theme",
+			"themeLight": "Light",
+			"themeDark": "Dark",
+			"themeSystem": "System",
+			"themeSite": "Match site",
+			"themePickAria": "Use {{label}} theme",
+			"notifications": "Notifications",
+			"notificationsHeading": "Notifications",
+			"notificationsWithCount": "Notifications, {{count}} new",
+			"notificationsClose": "Close notifications",
+			"notificationsLoading": "Loading…",
+			"notificationsEmpty": "No new notifications",
+			"notificationsNew_one": "{{count}} new notification",
+			"notificationsNew_few": "{{count}} new notifications",
+			"notificationsNew_many": "{{count}} new notifications",
+			"notificationsNew_other": "{{count}} new notifications",
+			"allBookings": "All bookings",
+			"greetingMorning": "Good morning",
+			"greetingAfternoon": "Good afternoon",
+			"greetingEvening": "Good evening",
+			"avatarTitleEmbedded": "Admin — Administrator",
+			"roleAdministrator": "Administrator",
+			"displayNameShort": "Admin"
+		},
+		"nav": {
+			"groups": {
+				"overview": "Overview",
+				"sales": "Sales",
+				"catalog": "Catalog",
+				"content": "Content",
+				"system": "System"
+			},
+			"items": {
+				"dashboard": "Dashboard",
+				"orders": "Orders",
+				"bookings": "Bookings",
+				"schedule": "Schedule",
+				"products": "Products",
+				"consultations": "Consultations",
+				"masterclasses": "Masterclasses",
+				"gallery": "Gallery",
+				"contentPage": "Content",
+				"presentations": "Presentations",
+				"customization": "Customization",
+				"settings": "Settings",
+				"config": "Configuration"
+			}
+		},
+		"sidebar": {
+			"adminPanel": "Admin",
+			"packageBadge": "Plan",
+			"supportBadge": "Support",
+			"expandNav": "Expand navigation",
+			"collapseNav": "Collapse navigation",
+			"expandSidebar": "Expand sidebar",
+			"collapseSidebar": "Collapse sidebar",
+			"closeMenu": "Close menu",
+			"closeOverlay": "Close menu",
+			"openSite": "Open site",
+			"logout": "Sign out"
+		}
+	},
+	"products": {
+		"a11y": {
+			"searchProducts": "Search products",
+			"filterCollection": "Filter by collection",
+			"filterStock": "Filter by stock status",
+			"sort": "Sort products",
+			"gridView": "Grid view",
+			"listView": "List view",
+			"selectAll": "Select all"
+		}
+	},
+	"content": {
+		"a11y": {
+			"pageTab": "Page: {{name}}"
+		}
+	}
+}

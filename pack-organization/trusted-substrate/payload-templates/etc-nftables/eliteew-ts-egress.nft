@@ -1,0 +1,39 @@
+#!/usr/bin/env nft -f
+# EliteEW Trusted Substrate — egress sketch (W2 pilot)
+# Opt-in only via apply-egress-sketch.sh. Not applied by default at kickstart.
+# Kinship: portal WG iface wg-portal. Adjust DNS IPs to site policy.
+
+flush ruleset
+
+table inet eliteew_ts_filter {
+  chain input {
+    type filter hook input priority filter; policy drop;
+    ct state established,related accept
+    iif lo accept
+    icmp type echo-request accept
+    icmpv6 type { echo-request, nd-neighbor-solicit, nd-router-advert, nd-neighbor-advert } accept
+    tcp dport 22 accept
+    # WireGuard listen (if server-mode ever used) — clients usually outbound-only
+  }
+
+  chain forward {
+    type filter hook forward priority filter; policy drop;
+  }
+
+  chain output {
+    type filter hook output priority filter; policy drop;
+    ct state established,related accept
+    oif lo accept
+    # DNS (site-specific — override before production)
+    udp dport 53 accept
+    tcp dport 53 accept
+    # DHCP client
+    udp sport 68 udp dport 67 accept
+    # NTP (systemd-timesyncd)
+    udp dport 123 accept
+    # WireGuard to portal edge (UDP) — destination ports commonly 51820–51830
+    udp dport 51820-51830 accept
+    meta l4proto ipv6-icmp accept
+    icmp type echo-request accept
+  }
+}

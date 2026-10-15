@@ -1,0 +1,32 @@
+{
+  "schema": "eliteew.desktop-client.release-state.v1",
+  "updated": "2026-09-13",
+  "tree_semver": "0.5.37",
+  "notes": "TREE 0.5.37 pending OTA publish; live public still 0.5.36 until rsync.",
+  "channels": {
+    "connected": {
+      "linux-x86_64-rpm": {
+        "status": "lag",
+        "semver": "0.5.36",
+        "reason": "pending_0.5.37_rpm_publish"
+      },
+      "windows-x86_64": {
+        "status": "lag",
+        "semver": "0.4.61",
+        "reason": "nsis_major_only_policy"
+      }
+    },
+    "fofline": {
+      "linux-x86_64-rpm": {
+        "status": "lag",
+        "semver": "0.5.36",
+        "reason": "pending_0.5.37_rpm_publish"
+      },
+      "windows-x86_64": {
+        "status": "lag",
+        "semver": "0.4.61",
+        "reason": "nsis_major_only_policy"
+      }
+    }
+  }
+}

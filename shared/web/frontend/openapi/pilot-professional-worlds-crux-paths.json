@@ -1,0 +1,24 @@
+{
+  "description": "Critical Professional Worlds pilot paths (bootstrap + CRM mesh + waves 14–24 REST/SSE). Used by professionalWorldsPilot.contract.test.ts after openapi:refresh-pilots.",
+  "paths": [
+    "/api/v1/professional-worlds/me/snapshot",
+    "/api/v1/professional-worlds/me/profile",
+    "/api/v1/professional-worlds/me/vertical-activations/{vertical_slug}",
+    "/api/v1/professional-worlds/deals/backfill-property-links",
+    "/api/v1/professional-worlds/realtor/communication-logs",
+    "/api/v1/professional-worlds/realtor/objection-replies",
+    "/api/v1/professional-worlds/realtor/properties/{property_id}/publication-channels",
+    "/api/v1/professional-worlds/realtor/properties/intake/parse/stream",
+    "/api/v1/professional-worlds/realtor/properties/intake/commit",
+    "/api/v1/professional-worlds/realtor/properties/{property_id}/media/enhance/batches",
+    "/api/v1/professional-worlds/realtor/marketing-campaigns",
+    "/api/v1/professional-worlds/realtor/tasks",
+    "/api/v1/professional-worlds/realtor/showings",
+    "/api/v1/professional-worlds/learning/courses",
+    "/api/v1/professional-worlds/me/brand-visual-kit",
+    "/api/v1/professional-worlds/media/albums",
+    "/api/v1/professional-worlds/cross-app/drafts",
+    "/api/v1/professional-worlds/cross-app/drafts/{link_id}/report",
+    "/api/v1/professional-worlds/playbooks/{vertical_slug}/{playbook_key}/stream"
+  ]
+}

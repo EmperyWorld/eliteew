@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "measured_at": "2026-09-30",
+  "policy": "fail if current LOC > baseline; allow shrink or equal",
+  "exclude": [
+    {
+      "path": "shared/web/frontend/src/components/WorkflowBuilder.tsx",
+      "reason": "Retired FE shell \u2014 file absent from active src/; do not re-add to growth guard without operator task"
+    }
+  ],
+  "files": {
+    "shared/api/ewa_platform/agentic/kernel/loop.py": 346,
+    "shared/api/ewa_platform/agentic/jobs/step_executor.py": 1089,
+    "shared/web/frontend/src/services/keycloak.ts": 84,
+    "shared/web/frontend/src/services/keycloakAuthOidcFacade.ts": 724,
+    "shared/web/frontend/src/pages/Desktop/utils/desktopVisualSystem.tsx": 75,
+    "shared/api/ewa_platform/settings/catalog_entries.py": 4250,
+    "shared/api/routers/music_generator.py": 812,
+    "shared/api/routers/music_generator_generate.py": 942,
+    "shared/web/frontend/src/components/EWRP/EWRPGeneratorMain.tsx": 486
+  }
+}

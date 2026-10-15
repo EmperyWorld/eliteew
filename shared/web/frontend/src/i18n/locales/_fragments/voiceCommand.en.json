@@ -1,0 +1,223 @@
+{
+	"title": "Voice Command Center",
+	"subtitle": "Control by voice",
+	"embeddedLocalOnlyChip": "Device-only history",
+	"actions": {
+		"close": "Close",
+		"clearFeed": "Clear message feed",
+		"commandHistory": "Command journal",
+		"commandAudit": "Command audit",
+		"voiceSettings": "Voice settings",
+		"serviceStatusAria": "Voice services status",
+		"muteResponses": "Mute spoken responses",
+		"unmuteResponses": "Unmute spoken responses",
+		"startRecording": "Start recording",
+		"stopRecording": "Stop recording"
+	},
+	"services": {
+		"stt": "Speech recognition",
+		"sttTitle": "Speech-to-text service readiness",
+		"llm": "Intent model",
+		"llmTitle": "Language model readiness for command routing",
+		"tts": "Spoken responses",
+		"ttsTitle": "Text-to-speech service readiness"
+	},
+	"settings": {
+		"language": "Language",
+		"languageRu": "Russian",
+		"languageEn": "English",
+		"languageAuto": "Auto",
+		"ttsVoice": "TTS voice",
+		"soundFeedback": "Speak responses aloud",
+		"websocketMode": "WebSocket mode (lower latency)",
+		"pushToTalk": "Push-to-talk (Space: hold to record)"
+	},
+	"macros": {
+		"title": "Macros",
+		"add": "+ Add macro",
+		"running": "…",
+		"localOnlyCaption": "Macros are saved only on this device",
+		"defaultWorkplaceName": "Prepare workspace"
+	},
+	"commands": {
+		"title": "Available commands",
+		"sayPrefix": "Say:"
+	},
+	"feed": {
+		"emptyTitle": "Ready to listen",
+		"emptyDescription": "Tap the microphone — try “Open chat”, “Next window”, “Open search”, or “What time is it”",
+		"listening": "Speak…",
+		"processing": "Processing…",
+		"tapToRecord": "Tap to record",
+		"recordingEmpty": "Recording is empty. Tap the microphone and speak longer.",
+		"recordingTooShort": "Recording is too short. Speak for at least 1–2 seconds.",
+		"commandCancelled": "Command cancelled",
+		"undone": "Undone: {{transcript}}",
+		"audioPlayFailed": "Could not play audio",
+		"micDenied": "Microphone access denied"
+	},
+	"disambiguation": {
+		"openApp": "What should I open?",
+		"generic": "Clarify the command",
+		"cancel": "Cancel"
+	},
+	"history": {
+		"title": "Command journal",
+		"subtitle": "Last {{count}} commands on this device",
+		"empty": "No completed commands yet",
+		"clearJournal": "Clear journal",
+		"clearJournalConfirm": "Clear the command journal on this device? Replay list will be empty.",
+		"saveFailed": "Could not save on this device",
+		"replay": "Replay",
+		"undo": "Undo",
+		"copyPhrase": "Copy phrase",
+		"copyEntryId": "Copy entry id",
+		"copyResponse": "Copy response",
+		"status": {
+			"success": "Done",
+			"error": "Error",
+			"cancelled": "Cancelled"
+		}
+	},
+	"audit": {
+		"title": "Command audit",
+		"subtitle": "Server log for support — not your device journal",
+		"loading": "Loading…",
+		"loadingAria": "Loading command audit",
+		"emptyTitle": "No entries yet",
+		"emptyDescription": "Commands you run will appear here for support diagnostics."
+	},
+	"confirm": {
+		"executeTitle": "Run command?",
+		"executeBody": "Run: “{{transcript}}”?",
+		"cancel": "Cancel",
+		"confirm": "Run",
+		"clearJournalTitle": "Clear command journal?",
+		"clearJournalBody": "This removes replay history on this device. The message feed and server audit are not affected.",
+		"clearJournalConfirm": "Clear journal"
+	},
+	"guide": {
+		"skip": "Skip tour",
+		"back": "Back",
+		"next": "Next",
+		"finish": "Finish tour",
+		"audioOnAria": "Guide voice on",
+		"audioOffAria": "Guide voice off",
+		"steps": {
+			"intro": {
+				"title": "Voice Command Center",
+				"body": "Control the desktop by voice: apps, windows, spoken replies, search. Six short highlights — use arrows, dots, or Home and End."
+			},
+			"toolbar": {
+				"title": "Status and settings",
+				"body": "Badges show speech recognition, routing, and spoken-response readiness. Audit keeps a server log for support; the gear opens language, voice, WebSocket, and Space-bar behavior."
+			},
+			"embedded-bar": {
+				"title": "Help here",
+				"body": "In the Studio GU Command tab there is no separate header — the tour button is in the top-right of this strip, like other screens."
+			},
+			"shortcuts": {
+				"title": "Macros and commands",
+				"body": "Macros are your multi-step scenarios; they stay on this device. Expand Available commands to see phrases that match reliably."
+			},
+			"messages": {
+				"title": "Conversation",
+				"body": "Your requests, replies, and command results appear here. For a timestamped replay list, use the clock icon in the bottom bar."
+			},
+			"controls": {
+				"title": "Recording",
+				"body": "Center — start and stop recording. Left — mute spoken replies; right — command journal and clear feed. Space hold/toggle is in settings."
+			}
+		}
+	},
+	"addMacro": {
+		"namePlaceholder": "Macro name",
+		"pickCommands": "Pick 2–5 commands in order:",
+		"save": "Save",
+		"cancel": "Cancel"
+	},
+	"bubble": {
+		"user": "User message",
+		"command": "Command message",
+		"system": "System message",
+		"assistant": "Assistant reply",
+		"commandLabel": "Command"
+	},
+	"gatewayErrors": {
+		"generic": "Voice processing error",
+		"server500": "Server error (500). Check API logs for speech recognition or cache issues.",
+		"badRequest400": "The server rejected the request. Check that the recording is not empty and the microphone is enabled.",
+		"transcriptionFailed": "Transcription failed ({{status}})"
+	},
+	"responses": {
+		"open_gaf_chat": "Opening GAF Chat",
+		"open_content": "Opening File manager",
+		"open_ugs_analytics": "Opening UGS analytics",
+		"open_presentations": "Opening EWRP presentations",
+		"open_doc_editor": "Opening Doc Editor",
+		"open_image_studio": "Opening Image Studio",
+		"open_video_studio": "Opening Video Studio",
+		"open_music_player": "Opening music player",
+		"open_music_generator": "Opening song generator",
+		"open_clipboard": "Opening clipboard",
+		"open_app_store": "Opening App Store",
+		"open_site_studio": "Opening Site Studio",
+		"open_social_hub": "Opening Connections",
+		"open_marketing_cabinet": "Opening marketing cabinet",
+		"open_studio_gu": "Opening Studio GU",
+		"create_folder": "Creating folder “{{name}}”",
+		"create_folder_default": "Creating a new folder",
+		"minimize_all": "Minimizing all windows",
+		"show_desktop": "Showing desktop",
+		"close_window": "Closing window",
+		"time_morning": "Good morning! It's {{time}}",
+		"time_afternoon": "Good afternoon! It's {{time}}",
+		"time_evening": "Good evening! It's {{time}}",
+		"date": "Today is {{date}}",
+		"help": "I can open apps, switch windows (“next window”), open desktop search (“open search”), toggle spoken replies, minimize everything, and work with folders. Try “open marketing”, “mute sound”, or “what time is it”.",
+		"clear_feed": "Message feed cleared",
+		"thanks": "Happy to help! Ask anytime.",
+		"greeting_morning": "Good morning! I'm your Assistant. How can I help?",
+		"greeting_afternoon": "Good afternoon! I'm your Assistant. How can I help?",
+		"greeting_evening": "Good evening! I'm your Assistant. How can I help?",
+		"focus_next_window": "Switching to the next window",
+		"focus_previous_window": "Switching to the previous window",
+		"open_command_palette": "Opening search and commands",
+		"voice_sound_mute": "Spoken replies muted",
+		"voice_sound_unmute": "Spoken replies enabled",
+		"unknown_command": "I didn't quite understand. Say “help” to see what I can do."
+	},
+	"catalog": {
+		"open_gaf_chat": "Open GAF Chat",
+		"open_content": "Open File manager",
+		"open_ugs_analytics": "Open UGS analytics",
+		"open_presentations": "Open EWRP presentations",
+		"open_doc_editor": "Open Doc Editor",
+		"open_image_studio": "Open Image Studio",
+		"open_video_studio": "Open Video Studio",
+		"open_music_player": "Open music player",
+		"open_music_generator": "Open song generator",
+		"open_clipboard": "Open clipboard",
+		"open_app_store": "Open App Store",
+		"open_site_studio": "Open Site Studio",
+		"open_social_hub": "Open Connections",
+		"open_marketing_cabinet": "Open marketing cabinet",
+		"open_studio_gu": "Open Studio GU",
+		"focus_next_window": "Focus next window",
+		"focus_previous_window": "Focus previous window",
+		"open_command_palette": "Open search and commands",
+		"voice_sound_mute": "Mute spoken replies",
+		"voice_sound_unmute": "Unmute spoken replies",
+		"voice_sound_toggle": "Toggle spoken replies",
+		"create_folder": "Create folder",
+		"minimize_all": "Minimize all windows",
+		"show_desktop": "Show desktop",
+		"close_window": "Close window",
+		"time": "Current time",
+		"date": "Today's date",
+		"help": "Help",
+		"clear_history": "Clear message feed",
+		"thanks": "Thanks",
+		"greeting": "Greeting"
+	}
+}

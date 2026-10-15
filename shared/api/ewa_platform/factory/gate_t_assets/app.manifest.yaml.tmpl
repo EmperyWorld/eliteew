@@ -1,0 +1,22 @@
+# EliteEW product app manifest template — copy to shared/apps/<id>/app.manifest.yaml
+id: REPLACE_SNAKE_ID
+title: REPLACE Human Title
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: ReplacePascalApp
+    icon: app-replace-id
+  api:
+    prefixes: []
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

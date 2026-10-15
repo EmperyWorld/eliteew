@@ -1,0 +1,19 @@
+[Unit]
+Description=EliteEW managed stacks autostart (Podman)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h/powered_by_emperyworld
+Environment=REPO_ROOT=%h/powered_by_emperyworld
+Environment=ELITEEW_CONTAINER_RUNTIME=podman
+Environment=PODMAN_COMPOSE_PROVIDER=podman-compose
+Environment=INTERNAL_DNS_HOST_PORT=8053
+Environment=ELITEEW_PROD_CORE_LOCAL=1
+ExecStart=%h/powered_by_emperyworld/docker/scripts/podman-autostart-prod-core.sh
+TimeoutStartSec=1800
+
+[Install]
+WantedBy=default.target

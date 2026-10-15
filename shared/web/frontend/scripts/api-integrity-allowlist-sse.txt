@@ -1,0 +1,6 @@
+# API integrity — P2 SSE allowlist only (dirty typing Pattern C)
+# Cleared 2026-08-06 (post-R6 follow-up): companion Zod uses .strip() /
+# .catchall(z.unknown()) instead of .passthrough() — gate Pattern C empty.
+# Do not add REST A/D hits here — those fail closed by default (REST-strict).
+# Format: src/relative/path.ts:LINE:PATTERN
+# Living backlog: documentation/api/API-INTEGRITY-BACKLOG.md

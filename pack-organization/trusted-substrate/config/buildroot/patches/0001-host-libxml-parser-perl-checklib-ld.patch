@@ -1,0 +1,29 @@
+--- a/package/libxml-parser-perl/libxml-parser-perl.mk
++++ b/package/libxml-parser-perl/libxml-parser-perl.mk
+@@ -12,13 +12,12 @@
+ LIBXML_PARSER_PERL_LICENSE_FILES = README
+ LIBXML_PARSER_PERL_RUN_PERL = `which perl`
+ 
+-HOST_LIBXML_PARSER_PERL_CONFIGURE_OPTS = \
+-	$(HOST_CONFIGURE_OPTS) \
+-	LD="$(HOSTCC)"
+-
++# Fedora system perl Config.ccflags include redhat-annobin specs. Devel::CheckLib
++# ignores CC= and searches PATH for Config{cc} ("gcc"); EliteEW HOSTCC is first on
++# PATH and lacks gcc-annobin → false "expat missing". Prepend /usr/bin for probe.
+ define HOST_LIBXML_PARSER_PERL_CONFIGURE_CMDS
+ 	(cd $(@D) ; \
+-		$(HOST_LIBXML_PARSER_PERL_CONFIGURE_OPTS) \
++		PATH="/usr/bin:/bin:$${PATH}" \
+ 			$(LIBXML_PARSER_PERL_RUN_PERL) Makefile.PL \
+ 			PREFIX=$(HOST_DIR) \
+ 			EXPATLIBPATH=$(HOST_DIR)/lib \
+@@ -30,7 +29,7 @@
+ endef
+ 
+ define HOST_LIBXML_PARSER_PERL_BUILD_CMDS
+-	$(HOST_MAKE_ENV) $(MAKE) $(HOST_LIBXML_PARSER_PERL_CONFIGURE_OPTS) -C $(@D)
++	$(HOST_MAKE_ENV) PATH="/usr/bin:/bin:$${PATH}" $(MAKE) -C $(@D)
+ endef
+ 
+ define HOST_LIBXML_PARSER_PERL_INSTALL_CMDS

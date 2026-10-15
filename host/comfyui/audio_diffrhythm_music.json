@@ -1,0 +1,44 @@
+{
+  "1": {
+    "inputs": {
+      "lyrics": "[00:00.00]Verse 1\n[00:15.00]Chorus\n[00:30.00]Verse 2\n[00:45.00]Outro"
+    },
+    "class_type": "MultiLineLyricsDR",
+    "_meta": {
+      "title": "Lyrics"
+    }
+  },
+  "2": {
+    "inputs": {
+      "lyrics_or_edit_lyrics": [
+        "1",
+        0
+      ],
+      "model": "cfm_model.pt",
+      "style_prompt": "Melodic pop, emotional, clear vocals, modern production.",
+      "steps": 50,
+      "cfg": 4,
+      "seed": 0,
+      "quality_or_speed": "speed",
+      "edit": false
+    },
+    "class_type": "DiffRhythmRun",
+    "_meta": {
+      "title": "DiffRhythm Run"
+    }
+  },
+  "3": {
+    "inputs": {
+      "filename_prefix": "audio/ComfyUI_DiffRhythm",
+      "quality": "320k",
+      "audio": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "SaveAudioMP3",
+    "_meta": {
+      "title": "Save MP3"
+    }
+  }
+}

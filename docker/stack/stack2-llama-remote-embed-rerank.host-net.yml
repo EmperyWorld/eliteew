@@ -1,0 +1,143 @@
+# =============================================================================
+# EliteEW · gpu141 host-network variant (Debian / broken bridge DNAT)
+# =============================================================================
+# Use when rootful podman bridge publish accepts TCP but never returns HTTP
+# (inside-container /health OK, host :8081 hangs). Dedicated inference host
+# does not need bridge isolation.
+#
+# podman compose -f stack2-llama-remote-embed-rerank.host-net.yml \
+#   --env-file .env.llama-remote up -d --force-recreate
+# =============================================================================
+name: llama-remote-embed-rerank
+
+services:
+  llama-embed:
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    container_name: llama-remote-embed
+    network_mode: host
+    devices:
+      - "nvidia.com/gpu=all"
+    environment:
+      - TZ=${TZ:-Asia/Vladivostok}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+    mem_limit: ${LLAMA_EMBED_MEM_LIMIT:-8G}
+    volumes:
+      - ${LLAMA_REMOTE_MODELS_PATH:-/home/owned/models/llama}:/models:ro,z
+    command:
+      - "-m"
+      - "/models/${LLAMA_EMBED_FILE}"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "${LLAMA_EMBED_HOST_PORT:-8081}"
+      - "--embedding"
+      - "--pooling"
+      - "last"
+      - "-c"
+      - "${LLAMA_EMBED_CTX:-4096}"
+      - "-ub"
+      - "${LLAMA_EMBED_UBATCH:-2048}"
+      - "-ngl"
+      - "${LLAMA_EMBED_NGL:-999}"
+      - "--parallel"
+      - "${LLAMA_EMBED_PARALLEL:-1}"
+    # always: survive host reboot / shutdown signals (unlike unless-stopped)
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -sf --connect-timeout 4 http://127.0.0.1:${LLAMA_EMBED_HOST_PORT:-8081}/health >/dev/null",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+  llama-rerank:
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    container_name: llama-remote-rerank
+    network_mode: host
+    devices:
+      - "nvidia.com/gpu=all"
+    environment:
+      - TZ=${TZ:-Asia/Vladivostok}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+    mem_limit: ${LLAMA_RERANK_MEM_LIMIT:-16G}
+    volumes:
+      - ${LLAMA_REMOTE_MODELS_PATH:-/home/owned/models/llama}:/models:ro,z
+    command:
+      - "-m"
+      - "/models/${LLAMA_RERANK_FILE}"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "${LLAMA_RERANK_HOST_PORT:-8082}"
+      - "--reranking"
+      - "-c"
+      - "${LLAMA_RERANK_CTX:-8192}"
+      - "-ub"
+      - "${LLAMA_RERANK_UBATCH:-2048}"
+      - "-ngl"
+      - "${LLAMA_RERANK_NGL:-999}"
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -sf --connect-timeout 4 http://127.0.0.1:${LLAMA_RERANK_HOST_PORT:-8082}/health >/dev/null",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  llama-tool-router:
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    container_name: llama-remote-tool-router
+    network_mode: host
+    devices:
+      - "nvidia.com/gpu=all"
+    environment:
+      - TZ=${TZ:-Asia/Vladivostok}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+    mem_limit: ${LLAMA_TOOL_ROUTER_MEM_LIMIT:-8G}
+    volumes:
+      - ${LLAMA_REMOTE_MODELS_PATH:-/home/owned/models/llama}:/models:ro,z
+    command:
+      - "-m"
+      - "/models/${LLAMA_TOOL_ROUTER_FILE}"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "${LLAMA_TOOL_ROUTER_HOST_PORT:-8083}"
+      - "-c"
+      - "${LLAMA_TOOL_ROUTER_CTX:-8192}"
+      - "--parallel"
+      - "${LLAMA_TOOL_ROUTER_PARALLEL:-1}"
+      - "-ngl"
+      - "${LLAMA_TOOL_ROUTER_NGL:-0}"
+      - "--jinja"
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -sf --connect-timeout 4 http://127.0.0.1:${LLAMA_TOOL_ROUTER_HOST_PORT:-8083}/health >/dev/null",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s

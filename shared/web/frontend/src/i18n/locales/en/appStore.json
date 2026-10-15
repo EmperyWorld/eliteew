@@ -1,0 +1,644 @@
+{
+	"billing": {
+		"free": "Free",
+		"trialThen": "Trial {{days}} d., then {{price}} EW/mo",
+		"monthly": "{{price}} EW/mo"
+	},
+	"install": {
+		"ctaFree": "Install",
+		"ctaTrial": "Install ({{days}} d. trial)",
+		"ctaPaid": "Install ({{price}} EW)"
+	},
+	"categories": {
+		"communication": "Communication",
+		"productivity": "Productivity",
+		"widgets": "Widgets",
+		"developer": "Development",
+		"home": "Home & voice",
+		"system": "System"
+	},
+	"desktopExpansion": {
+		"workspaceBadge": "In workspaces: {{count}}",
+		"collectionBadge": "In collections: {{count}}",
+		"detailTitle": "Desktop usage",
+		"detailWorkspaces": "Workspaces: {{names}}",
+		"detailCollections": "Collections: {{names}}",
+		"shortcutOnDesktopBadge": "Shortcut on desktop"
+	},
+	"appsCount_one": "{{count}} app",
+	"appsCount_other": "{{count}} apps",
+	"loading": {
+		"catalog": "Loading catalog…",
+		"appDetail": "Loading…",
+		"appDetailDesc": "Fetching app details from the catalog."
+	},
+	"noDescription": "No description",
+	"installed": "Installed",
+	"notInstalled": "Not installed",
+	"system": "Admin",
+	"factory": "Preinstalled",
+	"uninstallBlocked": {
+		"store": "The App Store cannot be removed",
+		"systemApp": "Admin apps cannot be removed",
+		"factoryApp": "Preinstalled apps cannot be removed",
+		"factoryExplain": "This app cannot be removed: it is part of the default bundle and is installed automatically for your environment."
+	},
+	"waitOtherOp": "Wait for the current install or remove to finish",
+	"inProgress": "Working…",
+	"inProgressInstall": "Installing…",
+	"inProgressUninstall": "Removing…",
+	"uninstall": "Remove",
+	"installVerb": "Install",
+	"openApp": "Open",
+	"error": {
+		"installFailed": "Could not complete the action",
+		"loadApp": "Could not load app",
+		"maintenanceInstall": "This app is temporarily unavailable for installation.",
+		"insufficientEw": "Not enough EW for this app — top up your balance and try again.",
+		"accessDenied": "You do not have access to this app.",
+		"appNotFound": "This app is no longer in the catalog.",
+		"appDeprecated": "This app is no longer available for installation.",
+		"authRequired": "Sign in again to install apps.",
+		"network": "Could not reach the server. Check your connection and try again.",
+		"serverError": "The service is temporarily unavailable. Try again later.",
+		"catalogLoad": "Could not load the catalog. Try again.",
+		"catalogRetry": "Retry loading catalog"
+	},
+	"retry": "Retry",
+	"search": {
+		"placeholder": "Search by name or description…",
+		"label": "Filter catalog",
+		"clear": "Clear search",
+		"resultsCount": "{{count}} found",
+		"showingCount": "{{shown}} of {{total}}",
+		"shortcutHint": "/ to search"
+	},
+	"featured": {
+		"title": "New",
+		"subtitle": "Recently added catalog apps",
+		"listAria": "New in catalog"
+	},
+	"recent": {
+		"title": "Recently viewed",
+		"subtitle": "Recently opened apps",
+		"listAria": "Recently viewed apps"
+	},
+	"installStatus": {
+		"installing": "Installing “{{name}}”…",
+		"uninstalling": "Removing “{{name}}”…"
+	},
+	"categoryJump": {
+		"label": "Jump to category",
+		"aria": "Quick jump to catalog sections"
+	},
+	"shortcuts": {
+		"aria": "Keyboard shortcuts",
+		"title": "Keys",
+		"search": "Focus search",
+		"clearSearch": "Clear search",
+		"closeModal": "Clear search or close store"
+	},
+	"filter": {
+		"label": "Show",
+		"all": "All",
+		"installed": "Installed",
+		"available": "Not installed"
+	},
+	"filters": {
+		"chipsAria": "Active filters",
+		"chipSearch": "Search: {{query}}",
+		"chipCategory": "Category: {{name}}",
+		"chipViewInstalled": "Installed only",
+		"chipViewAvailable": "Not installed only",
+		"chipSortName": "Sort: name",
+		"chipSortPrice": "Sort: price",
+		"removeChip": "Remove filter {{label}}"
+	},
+	"related": {
+		"title": "More in this category",
+		"subtitle": "Related apps",
+		"listAria": "Similar apps"
+	},
+	"sort": {
+		"label": "Sort",
+		"catalog": "Catalog default",
+		"name": "Name",
+		"price": "Price (EW)"
+	},
+	"empty": {
+		"title": "No apps found",
+		"filteredDesc": "Nothing in this category. Show all apps or pick another category.",
+		"noAppsDesc": "The catalog has no apps matching the criteria.",
+		"noMatchFilters": "Nothing matches your search and filters. Change the query or reset filters.",
+		"allApps": "All apps",
+		"resetFilters": "Reset filters",
+		"tryCategories": "Try other categories"
+	},
+	"nav": {
+		"aria": "Store categories",
+		"pickCategory": "Pick a catalog category",
+		"label": "Navigation",
+		"categories": "Categories",
+		"summary": "Summary",
+		"all": "All"
+	},
+	"summary": {
+		"installed": "Installed",
+		"available": "Available",
+		"inCatalog": "In catalog"
+	},
+	"dialog": {
+		"title": "App Store",
+		"loadingSubtitle": "Loading catalog…",
+		"subtitle": "Install desktop apps",
+		"hint": "Pick a category in the sidebar. Press / to focus search. Escape closes the window when no install or remove is in progress.",
+		"aria": "App Store"
+	},
+	"premium": {
+		"eyebrow": "App Store",
+		"title": "Premium apps in your desktop style",
+		"subtitle": "Apps inherit workspace theme and accent",
+		"metricInstalled": "Installed",
+		"metricAvailable": "Available",
+		"metricCategories": "Categories",
+		"searchCta": "Find an app",
+		"browseCta": "Browse categories"
+	},
+	"fullScreen": "Full screen",
+	"close": "Close",
+	"badge": "EliteEW Store",
+	"balanceBanner": "Balance {{balance}} EW — paid apps charge EW on install.",
+	"wallet": {
+		"heroLabel": "Balance for installs",
+		"heroHint": "Paid apps charge EW when you install them",
+		"balanceLabel": "Available",
+		"loading": "Loading EW balance…",
+		"lowBalanceHint": "Low EW balance — check before installing paid apps"
+	},
+	"pageHeader": {
+		"subtitle": "Desktop apps — {{count}} in catalog"
+	},
+	"scrollToTop": {
+		"label": "Back to top",
+		"aria": "Scroll catalog to top"
+	},
+	"mobile": {
+		"catalogBarAria": "Current catalog view",
+		"resetFilters": "Reset",
+		"focusSearch": "Focus search"
+	},
+	"mainList": "App catalog list",
+	"card": {
+		"detailsHint": "Click for details",
+		"openDetails": "Details",
+		"ariaInstalled": "Installed",
+		"ariaNotInstalled": "Not installed",
+		"newBadge": "New",
+		"windowsBadgeSingle": "1 window",
+		"windowsBadgeMultiple": "Up to {{count}} windows"
+	},
+	"maintenance": {
+		"badge": "Maintenance",
+		"cannotInstall": "Installation is temporarily unavailable."
+	},
+	"description": {
+		"more": "More",
+		"less": "Less",
+		"none": "No description provided.",
+		"section": "Description"
+	},
+	"detail": {
+		"back": "Back to list",
+		"backAria": "Back to app list. Escape.",
+		"copyLink": "Copy link",
+		"copyLinkAria": "Copy link to this app in the store",
+		"linkCopied": "Link copied",
+		"copyLinkFailed": "Could not copy link",
+		"notFound": "App not found or access denied.",
+		"category": "Category",
+		"component": "Component",
+		"sortOrder": "Catalog order",
+		"id": "ID",
+		"accessGroup": "Access group",
+		"ewMonthly": "Subscription (EW / mo.)",
+		"trial": "Trial period",
+		"trialDaysValue": "{{count}} d.",
+		"status": "Status",
+		"tags": "Tags",
+		"windowsBehavior": "Windows",
+		"windowsPolicySingle": "Single window: opening the app again focuses the existing window.",
+		"windowsPolicyMultiple": "Up to {{count}} windows at once.",
+		"minWindowSize": "Minimum window size on the desktop: {{w}}×{{h}} px.",
+		"technicalSummary": "Technical details",
+		"technicalHint": "For support and administration",
+		"billingSummary": "Subscription and billing",
+		"billingHint": "Price and trial period",
+		"onDesktop": "On desktop",
+		"systemApp": "Admin app",
+		"factoryApp": "Preinstalled app",
+		"toastInstalled": "App installed",
+		"toastRemoved": "App removed",
+		"cannotInstallHint": "Not enough EW or trial unavailable",
+		"breadcrumbAria": "App Store navigation",
+		"breadcrumbStore": "Store",
+		"quickFacts": {
+			"tariff": "Pricing",
+			"windows": "Windows",
+			"status": "Status"
+		}
+	},
+	"folder": {
+		"title": "New folder",
+		"editIconTitle": "Folder icon",
+		"defaultName": "New folder",
+		"nameLabel": "Name",
+		"namePlaceholder": "Folder name",
+		"iconLabel": "Icon",
+		"saveIcon": "Save",
+		"cancel": "Cancel",
+		"create": "Create",
+		"nameHint": "Avoid these characters in the name: less than, greater than, colon, quotes, slash, backslash, pipe, question mark, asterisk.",
+		"errorEmpty": "Enter a folder name.",
+		"errorInvalid": "Name cannot contain: {{chars}}",
+		"errorTooLong": "Name is too long (max {{max}} characters).",
+		"icons": {
+			"star": "Star",
+			"heart": "Heart",
+			"bookmark": "Bookmark",
+			"briefcase": "Briefcase",
+			"tag": "Tag",
+			"archive": "Archive",
+			"chart": "Chart",
+			"code": "Code",
+			"lightbulb": "Idea",
+			"gift": "Gift",
+			"camera": "Camera",
+			"key": "Key",
+			"flag": "Flag",
+			"puzzle": "Puzzle",
+			"book": "Book",
+			"sparkles": "Sparkles"
+		}
+	},
+	"admin": {
+		"formError": "Could not save: {{message}}",
+		"preview": {
+			"title": "Card preview",
+			"hint": "This is how the card will look in the store.",
+			"cardAria": "Catalog card preview",
+			"placeholderName": "App name"
+		},
+		"deleteCatalogAppTitle": "Remove from catalog?",
+		"deleteCatalogAppBody": "Remove “{{name}}” from the catalog? This cannot be undone.",
+		"bulkDeleteCatalogTitle": "Remove selected apps?",
+		"bulkDeleteCatalogBody": "{{count}} catalog entries will be removed. Continue?",
+		"deleteGroupTitle": "Delete access group?",
+		"deleteGroupBody": "Delete group “{{name}}”? App catalog links to this group may be cleared.",
+		"deleteModalDismissAria": "Close without deleting",
+		"deleteModalCancel": "Cancel",
+		"deleteModalConfirm": "Delete",
+		"shell": {
+			"backAria": "Back",
+			"pageTitle": "App Store — Admin",
+			"pageSubtitle": "Catalog, access groups, and balances",
+			"navAria": "App Store admin sections",
+			"mainAria": "Selected section content",
+			"tabs": {
+				"catalog": "Catalog",
+				"groups": "Access groups",
+				"storefront": "Storefront",
+				"maintenance": "App status"
+			}
+		},
+		"common": {
+			"yes": "Yes",
+			"no": "No",
+			"save": "Save",
+			"cancel": "Cancel",
+			"create": "Create",
+			"saving": "Saving…",
+			"edit": "Edit",
+			"delete": "Delete",
+			"selectAll": "Select all",
+			"selectApp": "Select {{name}}",
+			"badge": "badge",
+			"windowsUntil": "up to {{count}}",
+			"name": "Name",
+			"description": "Description",
+			"actions": "Actions",
+			"category": "Category",
+			"newBadge": "New",
+			"showUntil": "Show until",
+			"selected": "selected",
+			"bulkActionsHint": "Use checkboxes for bulk actions"
+		},
+		"toast": {
+			"storefront": "Storefront",
+			"maintenance": "Maintenance",
+			"catalog": "Catalog",
+			"groups": "Access groups",
+			"saved": "Saved",
+			"deletedOne": "App removed",
+			"deletedBulk": "Selected apps removed",
+			"groupAssigned": "Access group assigned to selected apps",
+			"added": "App added",
+			"updated": "Changes saved",
+			"noChanges": "No changes to save",
+			"groupDeleted": "Group deleted",
+			"groupCreated": "Group created"
+		},
+		"storefront": {
+			"emptyTitle": "No apps in catalog",
+			"emptyDesc": "Add apps on the «Catalog» tab.",
+			"intro": "Mark new items and how long the «New» badge shows in the store. Card order is set by sort_order on the «Catalog» tab.",
+			"iconCol": "Icon",
+			"newUntilAria": "Show «New» badge until"
+		},
+		"maintenance": {
+			"emptyTitle": "No apps in catalog",
+			"emptyDesc": "Add apps on the «Catalog» tab.",
+			"intro": "When enabled, users only see a maintenance screen with the texts below.",
+			"mode": "Maintenance mode",
+			"title": "Title",
+			"eta": "Estimated timeline",
+			"reason": "Reason",
+			"reasonAria": "Reason",
+			"expectedOutcome": "Expected outcome after work",
+			"expectedOutcomeAria": "Expected outcome after work"
+		},
+		"catalog": {
+			"loading": "Loading catalog",
+			"srTitle": "App catalog",
+			"emptyTitle": "Catalog is empty",
+			"emptyDesc": "Add an app with the button above or via DB migrations.",
+			"addApp": "Add app",
+			"assignGroup": "Assign group",
+			"deleteSelected": "Delete selected",
+			"colIcon": "Icon",
+			"badgeNew": "New",
+			"badgeMaintenance": "Maintenance",
+			"colName": "Name",
+			"colCategory": "Category",
+			"colSystem": "Admin",
+			"colFactory": "Factory",
+			"colEwMonth": "EW / mo.",
+			"colTrialDays": "Trial (days)",
+			"colWindows": "Windows",
+			"colGroups": "Access groups",
+			"notFound": "App not found",
+			"editTitle": "Edit: {{appId}}",
+			"createTitle": "New catalog app"
+		},
+		"bulkGroup": {
+			"title": "Assign access group",
+			"body": "Assign exactly one access group to selected apps, or remove restriction (public). To assign multiple groups, edit each app in the catalog.",
+			"singleGroup": "One group (bulk)",
+			"noRestriction": "— No restriction (all groups)",
+			"apply": "Apply"
+		},
+		"groups": {
+			"loading": "Loading access groups",
+			"title": "Access groups",
+			"addGroup": "Add group",
+			"emptyTitle": "No groups yet",
+			"emptyDesc": "Create a group with the button above to restrict catalog app access.",
+			"notFound": "Group not found",
+			"createTitle": "New access group",
+			"editTitle": "Edit group"
+		},
+		"form": {
+			"appComponentHint": "Use a component from the supported Desktop registry.",
+			"appComponentHintEdit": "The backend accepts only components from the supported Desktop registry.",
+			"allowMultipleWindows": "Allow multiple windows",
+			"maxWindowInstances": "Max. window count",
+			"factoryHint": "Factory: preinstalled for everyone who can see the app; removal is blocked. Free only (0 EW), no trial; incompatible with «Admin».",
+			"ewMonthlyPriceCreate": "Subscription price (EW per month, 0 = free in catalog)",
+			"ewMonthlyPriceEdit": "Subscription price (EW per month)",
+			"trialDaysCreate": "Trial period (days, 0 = no trial)",
+			"trialDaysEdit": "Trial period (days)",
+			"storefrontUrlsHint": "Storefront: image URLs (HTTPS). External CDNs may require CSP_IMG_EXTRA in the frontend image.",
+			"storefrontUrlsHintEdit": "Storefront: image URLs (HTTPS). External CDNs — see CSP_IMG_EXTRA in the frontend image.",
+			"iconUrl1x": "Icon (URL, 1×)",
+			"iconUrl2x": "Icon (URL, 2×)",
+			"previewUrl": "Card preview (URL)",
+			"previewUrl2x": "Card preview (URL, 2×)",
+			"accessGroupsHintCreate": "Nothing selected — the app is available to all groups (same as «no group» before).",
+			"accessGroupsHintEdit": "Empty list — the app is available to all groups."
+		}
+	},
+	"page": {
+		"backAria": "Back to desktop",
+		"manageCatalog": "Manage catalog",
+		"catalogLoadError": "Could not load the catalog. Try refreshing the page.",
+		"reload": "Refresh"
+	},
+	"toast": {
+		"errorTitle": "App Store",
+		"appNameSubtitle": "\"{{name}}\""
+	},
+	"launch": {
+		"appNotInstalled": "App \"{{name}}\" is not installed",
+		"installViaStore": "Install \"{{name}}\" from the App Store.",
+		"unknownApp": "Unknown app"
+	},
+	"window": {
+		"openFullPage": "Open full page",
+		"openFullPageAria": "Open the store as a full page in this tab"
+	},
+	"viewStack": {
+		"catalogAria": "App store catalog",
+		"detailAria": "App details: {{name}}"
+	},
+	"busyHint": "Wait for the current install or remove to finish.",
+	"guide": {
+		"badge": "Tour",
+		"kbdHint": "Navigate with arrow keys, Home, End; press Escape to close.",
+		"progressAria": "Step {{current}} of {{total}}",
+		"closeDimAria": "Close tour hint",
+		"closeAria": "Close",
+		"audioToggleAria": "Toggle tour narration",
+		"audioToggleTitle": "Step audio (files in public/audio/app-store-guide)",
+		"back": "Back",
+		"skip": "Skip",
+		"next": "Next",
+		"finish": "Finish tour",
+		"launchAria": "App Store guided tour",
+		"launchTitle": "In-depth App Store tour",
+		"steps": {
+			"intro": {
+				"title": "App Store",
+				"body": "Install desktop apps from catalog. Catalog step clears selected card."
+			},
+			"catalog": {
+				"title": "Catalog",
+				"body": "App cards with install/open. Detail overlay on click."
+			},
+			"sidebar": {
+				"title": "Sidebar",
+				"body": "Search, price filter, sort, categories. Busy hint during install."
+			},
+			"outro": {
+				"title": "Done",
+				"body": "Install or close tour. Toast offers Open after install."
+			}
+		}
+	},
+	"defaultApps": {
+		"app-store": {
+			"name": "App Store",
+			"description": "Browse the catalog, install what you need, and remove apps you no longer use — without leaving the desktop."
+		},
+		"desktop-shell-settings": {
+			"name": "Desktop settings",
+			"description": "Tune theme, wallpaper, icons, window chrome, and performance so the desktop feels like yours."
+		},
+		"app-content": {
+			"name": "File manager",
+			"description": "Browse your library, find files by name, and open documents and media without hunting across folders."
+		},
+		"app-ugs": {
+			"name": "UGS Studio",
+			"description": "Create and steer image work in the studio dashboard. Follow jobs and history in UGS Hub."
+		},
+		"app-ugs-hub": {
+			"name": "UGS Hub",
+			"description": "See active jobs, past runs, and the generation queue in one quiet place."
+		},
+		"app-ewrp": {
+			"name": "Presentations",
+			"description": "Build a presentation from a landing story: refine copy, pick visuals, export PDF for the meeting or the room that joins later."
+		},
+		"app-studio-gu": {
+			"name": "Voice Studio",
+			"description": "Talk by voice, run the command center, use live voice, and turn recordings into text — in one studio window."
+		},
+		"app-docs": {
+			"name": "Document editor",
+			"description": "Shape documents with headings, lists, and tables, and write with colleagues without losing the thread across versions."
+		},
+		"app-doc-editor-v2": {
+			"name": "Document Editor V2",
+			"description": "Collaborate on documents with the Assistant beside you, plus import and export when you need to move work in or out."
+		},
+		"app-image-studio": {
+			"name": "Image Studio",
+			"description": "Describe the image you want, or refine an existing frame with a short instruction — stay in one studio from request to result."
+		},
+		"app-video-studio": {
+			"name": "Video Studio",
+			"description": "Turn a still into a short motion clip without jumping between tools."
+		},
+		"app-social-hub": {
+			"name": "Connections",
+			"description": "Friend requests, contacts, circles, privacy, and the phone companion — one door into your social layer."
+		},
+		"app-gaf-chat": {
+			"name": "Messenger",
+			"description": "Private one-to-one chats with friends: messages, history, unread cues, and open-from-notification — without group noise."
+		},
+		"app-video-call": {
+			"name": "Video call",
+			"description": "Start an internal video call with another person on the service — camera and mic when you need them."
+		},
+		"app-desktop-ai-chat": {
+			"name": "Experts",
+			"description": "Talk with an expert who remembers the thread and attachments. Optionally pin a project workspace, tools, and voice so focus stays in one place."
+		},
+		"app-music-forge": {
+			"name": "Song studio",
+			"description": "Describe the song you imagine — the studio shapes lyrics, style, and a playable track without scattering drafts."
+		},
+		"app-music-player": {
+			"name": "Music player",
+			"description": "Play audio from your Music library and nearby folders — play, pause, and seek without hunting for the file."
+		},
+		"app-notifications": {
+			"name": "Notification center",
+			"description": "One hub for notification history, filters, and sound preferences across messengers and studios."
+		},
+		"app-calendar": {
+			"name": "Calendar",
+			"description": "Keep personal events in a month or week view — your calendar, not the Assistant plan."
+		},
+		"app-widget-shelf": {
+			"name": "Notes & tasks",
+			"description": "Notes and task lists that stay on your desktop when you need a quick capture."
+		},
+		"app-dashboard-favorites": {
+			"name": "Favorites",
+			"description": "Jump to the widget panels you use most without digging through the desktop."
+		},
+		"app-ewdesk": {
+			"name": "EWDesk",
+			"description": "Company news and announcements in one place so updates are not lost in chat."
+		},
+		"app-survey-hub": {
+			"name": "Surveys",
+			"description": "Take interactive surveys and earn rewards for honest participation."
+		},
+		"app-about-project": {
+			"name": "About the project",
+			"description": "An interactive walk through EliteEW — ecosystem, apps, and what you can do here."
+		},
+		"app-marketing-cabinet": {
+			"name": "Marketing hall",
+			"description": "From home to project: positioning, evidence, and oracles in one marketing hall — without scattered tables."
+		},
+		"app-poemma": {
+			"name": "POEMMA",
+			"description": "Zoya’s business map: meaning, the next ninety days, profit, experience, and the next actions — visible at a glance."
+		},
+		"app-empery-nexus-chronicle": {
+			"name": "Empery Nexus",
+			"description": "A living chronicle of the EliteEW world — layers of story and reality you can explore without leaving the desktop."
+		},
+		"app-ewa": {
+			"name": "Assistant",
+			"description": "Your constant desktop Assistant — calm conversation and a steady presence when you need a partner."
+		},
+		"app-assistant": {
+			"name": "Reference Navigation",
+			"description": "Product navigation: ready FAQ answers and a chat that helps you find your way around EliteEW."
+		},
+		"app-feedback-hub": {
+			"name": "Feedback",
+			"description": "Share ideas, wishes, and bug reports so the product can improve from real use."
+		},
+		"app-professional-worlds": {
+			"name": "Professional Worlds",
+			"description": "A specialist workspace: profile, learning, objects, clients, and smart hints in one professional world."
+		},
+		"app-site-studio": {
+			"name": "Site studio",
+			"description": "Build and publish a personal site — content, storefront, admin, and a safe guest view that never opens your private desktop."
+		},
+		"app-site-manager-ops": {
+			"name": "Site control",
+			"description": "Operator view of sites: service readiness, jobs, domains, publish checks, and an event log."
+		},
+		"app-local-service": {
+			"name": "Local Service",
+			"description": "Open a local service interface running on this computer in an embedded desktop window."
+		},
+		"app-kirs": {
+			"name": "KIRS",
+			"description": "Curate a project site: choose a template, publish, and hand a clean client view without sharing your desk."
+		},
+		"app-kirs-client-site": {
+			"name": "My site",
+			"description": "Open the project storefront when you arrive from KIRS — guest-safe browsing of the published site."
+		},
+		"widget-clipboard": {
+			"name": "Clipboard",
+			"description": "Keep a short history of what you copied so you can paste again without re-finding the source."
+		},
+		"app-kursorina": {
+			"description": "An investigator that searches your materials and the open web, gathers evidence, and answers the case — or stops honestly when it cannot.",
+			"name": "Kursorina"
+		},
+		"app-ebrowser": {
+			"description": "Browse allowed HTTPS sites inside EliteEW with navigation policy and camera, microphone, and sound controls under your hand.",
+			"name": "EBrowser"
+		}
+	}
+}

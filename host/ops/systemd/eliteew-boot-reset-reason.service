@@ -1,0 +1,13 @@
+[Unit]
+Description=EliteEW host boot reset reason logger
+Documentation=file:///var/log/eliteew-host/boot-reset-reason.log
+After=systemd-journald.service rasdaemon.service
+Wants=rasdaemon.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/log-boot-reset-reason.sh
+
+[Install]
+WantedBy=multi-user.target

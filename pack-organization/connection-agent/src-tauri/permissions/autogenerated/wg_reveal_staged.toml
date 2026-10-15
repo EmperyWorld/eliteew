@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-wg-reveal-staged"
+description = "Enables the wg_reveal_staged command without any pre-configured scope."
+commands.allow = ["wg_reveal_staged"]
+
+[[permission]]
+identifier = "deny-wg-reveal-staged"
+description = "Denies the wg_reveal_staged command without any pre-configured scope."
+commands.deny = ["wg_reveal_staged"]

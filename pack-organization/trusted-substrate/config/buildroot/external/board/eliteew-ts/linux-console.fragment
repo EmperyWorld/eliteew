@@ -1,0 +1,38 @@
+# EliteEW Trusted Substrate — metal text console (UEFI laptops).
+# Without FB/EFI/simpledrm + fbdev, GRUB ends at "Booting a command list"
+# and the panel stays frozen even if the system boots.
+
+CONFIG_FB=y
+CONFIG_FB_EFI=y
+CONFIG_FRAMEBUFFER_CONSOLE=y
+CONFIG_FRAMEBUFFER_CONSOLE_DETECT_PRIMARY=y
+CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y
+CONFIG_FONTS=y
+CONFIG_FONT_8x8=y
+CONFIG_FONT_8x16=y
+
+# DRM → fbcon path for i915 after modeset
+CONFIG_DRM_FBDEV_EMULATION=y
+CONFIG_DRM_FBDEV_OVERALLOC=100
+
+# Early GOP / simple display before full i915
+CONFIG_SYSFB=y
+CONFIG_SYSFB_SIMPLEFB=y
+CONFIG_DRM_SIMPLEDRM=y
+
+# Common laptop NICs (link LED dead without driver)
+CONFIG_IGB=y
+CONFIG_IGC=y
+CONFIG_ATLANTIC=y
+
+# USB-Ethernet break-glass (dongle)
+CONFIG_USB_NET_DRIVERS=y
+CONFIG_USB_USBNET=y
+CONFIG_USB_NET_CDCETHER=y
+CONFIG_USB_NET_CDC_NCM=y
+CONFIG_USB_RTL8152=y
+CONFIG_USB_NET_AQC111=y
+
+# Internal install targets (modern laptops are often NVMe-only)
+CONFIG_NVME_CORE=y
+CONFIG_BLK_DEV_NVME=y

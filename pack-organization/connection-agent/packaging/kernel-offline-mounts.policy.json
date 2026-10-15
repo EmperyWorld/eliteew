@@ -1,0 +1,114 @@
+{
+  "schema_version": 7,
+  "wave": "K17",
+  "description": "client-offline-ai Kernel-offline mount policy SoT. O5 pack + spa_offline_only (DocEditor*, Presentations*, Chronicle, Poemma, shell chrome + maintenance + Handbook). K17: AssistantApp. Consumed via @eliteew/kernel-offline-policy workspace.",
+  "mounts": {
+    "ProjectAboutApp": {
+      "mode": "presentation_url",
+      "path": "/o-proekte/index.html",
+      "window_title": "EliteEW · О приложении",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "О приложении",
+      "catalog_hint_ru": "На устройстве · краткая справка"
+    },
+    "ClipboardManager": {
+      "mode": "o5_panel_only",
+      "spa_deep_link": true,
+      "offline_spa_subset": true,
+      "label_ru": "Буфер обмена",
+      "catalog_hint_ru": "На устройстве · облачный стол при сети"
+    },
+    "NotificationsApp": {
+      "mode": "o5_panel_only",
+      "spa_deep_link": true,
+      "offline_spa_subset": true,
+      "label_ru": "Уведомления",
+      "catalog_hint_ru": "На устройстве · облачный стол при сети"
+    },
+    "MusicPlayer": {
+      "mode": "o5_panel_only",
+      "spa_deep_link": true,
+      "offline_spa_subset": true,
+      "label_ru": "Музыка",
+      "catalog_hint_ru": "На устройстве · облачный стол при сети"
+    },
+    "DocEditor": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Документы",
+      "catalog_hint_ru": "Документы в офлайн-рабочем столе"
+    },
+    "DocEditorV2": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Документы (v2)",
+      "catalog_hint_ru": "Документы в офлайн-рабочем столе"
+    },
+    "Presentations": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Презентации",
+      "catalog_hint_ru": "Презентации в офлайн-рабочем столе"
+    },
+    "PresentationsArchive": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Архив презентаций",
+      "catalog_hint_ru": "Архив презентаций в офлайн-рабочем столе"
+    },
+    "EmperyNexusChronicleApp": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Хроника",
+      "catalog_hint_ru": "Хроника Empery в офлайн-рабочем столе"
+    },
+    "PoemmaApp": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Poemma",
+      "catalog_hint_ru": "Локальное пространство Poemma; облачная синхронизация при сети"
+    },
+    "AssistantApp": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Справочная навигация",
+      "catalog_hint_ru": "Справочная навигация офлайн: сохранённые FAQ; чат — при сети"
+    },
+    "DesktopShellSettings": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Настройки стола",
+      "catalog_hint_ru": "Настройки рабочего стола офлайн"
+    },
+    "DesktopWidgetShelfApp": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Виджеты",
+      "catalog_hint_ru": "Панель виджетов; облачные слоты — при сети"
+    },
+    "DesktopDashboardFavoritesApp": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Избранное",
+      "catalog_hint_ru": "Избранное стола; локальный fallback офлайн"
+    },
+    "DesktopAppMaintenance": {
+      "mode": "spa_offline_only",
+      "spa_deep_link": false,
+      "offline_spa_subset": true,
+      "label_ru": "Обслуживание",
+      "catalog_hint_ru": "Экран обслуживания приложения; полностью локальный"
+    }
+  }
+}

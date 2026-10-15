@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-p1ACBByB+igNHJPYOrmLXbRCVEtqM6cR0wpHU54V3fU='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'" />
+  <!-- FOFLINE_OIDC_BRIDGE_CSP_SHA256=p1ACBByB+igNHJPYOrmLXbRCVEtqM6cR0wpHU54V3fU= -->
+  <title>EliteEW · Завершение входа</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f1419;
+      --fg: #e8eef4;
+      --muted: #9aa7b5;
+      --accent: #3d8bfd;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Segoe UI", "Noto Sans", sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, #1a2430 0%, var(--bg) 55%);
+      color: var(--fg);
+    }
+    main {
+      max-width: 28rem;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    p {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.95rem;
+    }
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 0.5rem;
+      padding: 0.7rem 1.1rem;
+      font: inherit;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      cursor: pointer;
+    }
+    button[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>EliteEW FoFline</h1>
+    <p id="status">Завершаем вход и возвращаем вас в локальное приложение…</p>
+    <button type="button" id="retry" hidden>Повторить переход</button>
+  </main>
+  <script>(function () {
+  "use strict";
+  var ALLOWED = {
+    code: 1,
+    state: 1,
+    session_state: 1,
+    iss: 1,
+    error: 1,
+    error_description: 1,
+    error_uri: 1
+  };
+  var TARGET = "fofline-spa://localhost/index.html";
+  var statusEl = document.getElementById("status");
+  var retryBtn = document.getElementById("retry");
+
+  function hasAuthParams(params) {
+    return !!(params.get("code") || params.get("state") || params.get("error"));
+  }
+
+  function readSourceParams() {
+    // Prefer fragment (response_mode=fragment) so OAuth credentials never hit HTTP access logs.
+    var hash = window.location.hash.charAt(0) === "#"
+      ? window.location.hash.slice(1)
+      : window.location.hash;
+    if (hash && hash.indexOf("=") !== -1) {
+      var fromHash = new URLSearchParams(hash);
+      if (hasAuthParams(fromHash)) return fromHash;
+    }
+    // Legacy query callback (pre-fragment SPA packs).
+    return new URLSearchParams(window.location.search);
+  }
+
+  function buildHandoff() {
+    var src = readSourceParams();
+    var dst = new URLSearchParams();
+    src.forEach(function (value, key) {
+      if (ALLOWED[key]) dst.set(key, value);
+    });
+    dst.set("eliteewFoflineClient", "1");
+    return TARGET + "?" + dst.toString();
+  }
+
+  function handoff() {
+    var url = buildHandoff();
+    try {
+      window.location.replace(url);
+    } catch (e) {
+      if (statusEl) {
+        statusEl.textContent =
+          "Не удалось открыть локальное приложение. Проверьте, что FoFline запущен, и повторите.";
+      }
+      if (retryBtn) retryBtn.hidden = false;
+    }
+  }
+
+  if (retryBtn) {
+    retryBtn.addEventListener("click", function () {
+      retryBtn.hidden = true;
+      if (statusEl) {
+        statusEl.textContent = "Повторный переход в локальное приложение…";
+      }
+      handoff();
+    });
+  }
+
+  handoff();
+  window.setTimeout(function () {
+    if (!document.hidden && retryBtn) {
+      if (statusEl) {
+        statusEl.textContent =
+          "Переход не завершился. Нажмите «Повторить переход», если окно FoFline всё ещё открыто.";
+      }
+      retryBtn.hidden = false;
+    }
+  }, 2500);
+})();</script>
+</body>
+</html>

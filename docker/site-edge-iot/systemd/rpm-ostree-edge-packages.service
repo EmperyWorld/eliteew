@@ -1,0 +1,18 @@
+[Unit]
+Description=EliteEW Site-Edge: layer podman/rsync via rpm-ostree (once)
+Documentation=file:///var/lib/eliteew/site-edge
+ConditionPathExists=!/var/lib/eliteew/.edge-packages-done
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+# podman-compose is optional; Carrier v1 uses podman run.
+ExecStart=/bin/bash -c 'rpm-ostree install -y --allow-inactive podman rsync || rpm-ostree install -y podman rsync'
+ExecStart=/bin/mkdir -p /var/lib/eliteew
+ExecStart=/bin/touch /var/lib/eliteew/.edge-packages-done
+ExecStart=/usr/bin/systemctl reboot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

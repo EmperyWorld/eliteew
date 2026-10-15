@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.editor.limit.value": 150,
+		"explorer.openEditors.visible": 200
+	}
+}

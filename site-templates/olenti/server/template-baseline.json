@@ -1,0 +1,999 @@
+{
+  "siteSettings": {
+    "contactPhone": "",
+    "contactEmail": "",
+    "contactAddress": "",
+    "workingHours": "Пн–Сб 10:00–20:00 · воскресенье по записи",
+    "siteTitle": "Ваш бренд",
+    "siteDescription": "Премиальная витрина услуг и предложений: каталог, консультации и форматы обучения. Контент легко адаптируется под вашу тематику через Site Studio и ImperorG.",
+    "defaultTheme": "nocturnal-bloom"
+  },
+  "configEntries": [
+    {
+      "key": "siteTitle",
+      "type": "string",
+      "valueJson": "Ваш бренд"
+    },
+    {
+      "key": "siteDescription",
+      "type": "string",
+      "valueJson": "Премиальная витрина услуг и предложений: каталог, консультации и форматы обучения. Контент легко адаптируется под вашу тематику через Site Studio и ImperorG."
+    },
+    {
+      "key": "defaultTheme",
+      "type": "string",
+      "valueJson": "nocturnal-bloom"
+    },
+    {
+      "key": "contactPhone",
+      "type": "string",
+      "valueJson": ""
+    },
+    {
+      "key": "contactEmail",
+      "type": "string",
+      "valueJson": ""
+    },
+    {
+      "key": "contactAddress",
+      "type": "string",
+      "valueJson": ""
+    },
+    {
+      "key": "workingHours",
+      "type": "string",
+      "valueJson": "Пн–Сб 10:00–20:00 · воскресенье по записи"
+    },
+    {
+      "key": "frontendUrl",
+      "type": "url",
+      "valueJson": ""
+    },
+    {
+      "key": "shopUrl",
+      "type": "url",
+      "valueJson": ""
+    }
+  ],
+  "contentBlocks": [
+    {
+      "page": "layout",
+      "section": "header",
+      "key": "tagline",
+      "value": "Premium storefront",
+      "maxLength": 80
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "badge",
+      "value": "Премиальный формат под ключ",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "headline_1",
+      "value": "Ваш бренд",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "headline_2",
+      "value": "Сайт, который продаёт опыт и доверие",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "lead",
+      "value": "Собираем витрину, услуги и личный бренд в один понятный сценарий: посетитель сразу видит ценность, предложения и путь к заявке.",
+      "maxLength": 400
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "cta_shop",
+      "value": "Смотреть каталог",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "cta_consultation",
+      "value": "Записаться на встречу",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "card_label",
+      "value": "Запуск в фокусе",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "card_title",
+      "value": "Структура + контент + визуал",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "card_description",
+      "value": "Готовая витрина с каталогом, блоком экспертизы и маршрутом до заявки — можно показывать клиентам сразу после запуска.",
+      "maxLength": 300
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "card_notes",
+      "value": "Без перегруза и воды",
+      "maxLength": 80
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "card_footer",
+      "value": "Подходит для экспертных и сервисных ниш",
+      "maxLength": 200
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "badge_small_label",
+      "value": "100%",
+      "maxLength": 30
+    },
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "badge_small_text",
+      "value": "готово к правкам",
+      "maxLength": 30
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "greeting",
+      "value": "О проекте",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "title",
+      "value": "Системный подход к росту",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "description_1",
+      "value": "Шаблон построен вокруг доверия: короткий путь от первого экрана к доказательствам, кейсам и действию.",
+      "maxLength": 500
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "description_2",
+      "value": "Секции адаптируются под вашу тематику и объясняют ценность простым языком.",
+      "maxLength": 500
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "cta_consultation",
+      "value": "Обсудить задачу",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "cta_shop",
+      "value": "Открыть каталог",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "section_title",
+      "value": "Почему выбирают нас",
+      "maxLength": 80
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "section_subtitle",
+      "value": "Четыре опоры, которые помогают посетителю быстро понять ценность и доверие к бренду.",
+      "maxLength": 300
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item1_title",
+      "value": "Понятная структура",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item1_description",
+      "value": "Витрина, услуги, обучение и контакты связаны в один маршрут без лишних кликов.",
+      "maxLength": 250
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item2_title",
+      "value": "Премиальная подача",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item2_description",
+      "value": "Аккуратная типографика, сильные визуалы и тексты, которые читаются с первого экрана.",
+      "maxLength": 250
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item3_title",
+      "value": "Гибкое редактирование",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item3_description",
+      "value": "Контент и медиа обновляются через встроенную админку или AI-пайплайн Site Studio.",
+      "maxLength": 250
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item4_title",
+      "value": "Готовность к масштабу",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "why_choose",
+      "key": "item4_description",
+      "value": "Каталог, записи и форматы работы легко расширяются под новые продукты и услуги.",
+      "maxLength": 250
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "badge",
+      "value": "Форматы работы",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "title",
+      "value": "Как мы сопровождаем клиента",
+      "maxLength": 80
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "intro",
+      "value": "Выберите удобный формат — от разового продукта до сопровождения и обучения команды.",
+      "maxLength": 400
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item1_title",
+      "value": "Каталог предложений",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item1_description",
+      "value": "Готовые позиции с понятной ценой и описанием ценности.",
+      "maxLength": 200
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item2_title",
+      "value": "Консультации",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item2_description",
+      "value": "Персональные сессии с записью и подтверждением заявки.",
+      "maxLength": 200
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item3_title",
+      "value": "Мастер-классы",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item3_description",
+      "value": "Групповые форматы с лимитом мест и расписанием.",
+      "maxLength": 200
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item4_title",
+      "value": "Сопровождение",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "ways_to_work",
+      "key": "item4_description",
+      "value": "Долгий цикл работы с обновлением контента и витрины.",
+      "maxLength": 200
+    },
+    {
+      "page": "home",
+      "section": "value_block",
+      "key": "badge",
+      "value": "Как мы работаем",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "value_block",
+      "key": "paragraph_1",
+      "value": "Стартуем с диагностики: фиксируем аудиторию, оффер и критерии результата.",
+      "maxLength": 300
+    },
+    {
+      "page": "home",
+      "section": "value_block",
+      "key": "paragraph_2",
+      "value": "Собираем контентный каркас и визуальную подачу, чтобы сайт выглядел цельно.",
+      "maxLength": 300
+    },
+    {
+      "page": "home",
+      "section": "value_block",
+      "key": "paragraph_3",
+      "value": "После запуска улучшаем конверсию через точечные итерации и обратную связь.",
+      "maxLength": 300
+    },
+    {
+      "page": "home",
+      "section": "value_block",
+      "key": "cta",
+      "value": "Получить план запуска",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "products_section",
+      "key": "badge",
+      "value": "Каталог",
+      "maxLength": 60
+    },
+    {
+      "page": "home",
+      "section": "products_section",
+      "key": "headline_1",
+      "value": "Избранные",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "products_section",
+      "key": "headline_2",
+      "value": "предложения",
+      "maxLength": 40
+    },
+    {
+      "page": "home",
+      "section": "products_section",
+      "key": "subtitle",
+      "value": "Примеры позиций каталога — замените под свою линейку продуктов или услуг.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "hero",
+      "key": "badge",
+      "value": "О бренде",
+      "maxLength": 30
+    },
+    {
+      "page": "about",
+      "section": "hero",
+      "key": "title",
+      "value": "Почему клиенты возвращаются",
+      "maxLength": 100
+    },
+    {
+      "page": "about",
+      "section": "hero",
+      "key": "description",
+      "value": "Мы проектируем сайт как инструмент продаж: чёткая упаковка оффера, прозрачный путь пользователя и контент, который закрывает вопросы до звонка.",
+      "maxLength": 400
+    },
+    {
+      "page": "about",
+      "section": "hero",
+      "key": "image_caption",
+      "value": "Пространство и команда проекта",
+      "maxLength": 80
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "title",
+      "value": "Наши принципы",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "description",
+      "value": "Три опоры, на которых держится качество сервиса и восприятие бренда.",
+      "maxLength": 300
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "value1_title",
+      "value": "Ясность",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "value1_description",
+      "value": "Каждый экран отвечает на конкретный вопрос посетителя.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "value2_title",
+      "value": "Доверие",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "value2_description",
+      "value": "Факты, кейсы и прозрачные условия вместо общих обещаний.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "value3_title",
+      "value": "Ритм",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "value3_description",
+      "value": "Обновления контента и витрины без долгих согласований.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "title",
+      "value": "Процесс",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "description",
+      "value": "Четыре шага от идеи до стабильной витрины, которую можно развивать дальше.",
+      "maxLength": 300
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "archive_note",
+      "value": "Архив материалов хранится в админке — удобно для итераций и AI-перезаписи.",
+      "maxLength": 300
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step1_title",
+      "value": "Диагностика",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step1_description",
+      "value": "Цели, аудитория, оффер и KPI первого запуска.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step2_title",
+      "value": "Структура",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step2_description",
+      "value": "Каркас страниц, каталога и сценариев записи.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step3_title",
+      "value": "Контент и визуал",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step3_description",
+      "value": "Тексты, медиа и SEO-блоки под тематику бренда.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step4_title",
+      "value": "Запуск",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "step4_description",
+      "value": "Публикация, проверка заявок и первые улучшения.",
+      "maxLength": 200
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "title",
+      "value": "Этапы роста",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "intro",
+      "value": "Краткая история развития — замените датами и фактами вашего проекта.",
+      "maxLength": 400
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item1_year",
+      "value": "2024",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item1_title",
+      "value": "Старт",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item1_description",
+      "value": "Первый запуск витрины и базовых услуг.",
+      "maxLength": 250
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item2_year",
+      "value": "2025",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item2_title",
+      "value": "Расширение",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item2_description",
+      "value": "Новые форматы консультаций и групповых программ.",
+      "maxLength": 250
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item3_year",
+      "value": "2026",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item3_title",
+      "value": "Масштаб",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item3_description",
+      "value": "Автоматизация контента через Site Studio и ImperorG.",
+      "maxLength": 250
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item4_year",
+      "value": "2026+",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item4_title",
+      "value": "Дальше",
+      "maxLength": 60
+    },
+    {
+      "page": "about",
+      "section": "timeline",
+      "key": "item4_description",
+      "value": "Персональные сценарии и интеграции под вашу нишу.",
+      "maxLength": 250
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "name",
+      "value": "Команда проекта",
+      "maxLength": 50
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "title",
+      "value": "Экспертиза и сопровождение",
+      "maxLength": 80
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "bio",
+      "value": "Мы объединяем стратегию, дизайн и контент, чтобы сайт выглядел премиально и оставался понятным в ежедневной работе.",
+      "maxLength": 500
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "bullet1",
+      "value": "Витрина, услуги, консультации и обучение в одной системе",
+      "maxLength": 150
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "bullet2",
+      "value": "Редактирование через админку Desktop без внешних подрядчиков",
+      "maxLength": 150
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "bullet3",
+      "value": "Готовность к AI-итерациям: блоки обновляются пакетно",
+      "maxLength": 150
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "cta_button",
+      "value": "Запросить демо",
+      "maxLength": 40
+    },
+    {
+      "page": "about",
+      "section": "stats",
+      "key": "stat1_value",
+      "value": "24/7",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "stats",
+      "key": "stat1_label",
+      "value": "онлайн-витрина",
+      "maxLength": 50
+    },
+    {
+      "page": "about",
+      "section": "stats",
+      "key": "stat2_value",
+      "value": "4+",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "stats",
+      "key": "stat2_label",
+      "value": "формата работы",
+      "maxLength": 50
+    },
+    {
+      "page": "about",
+      "section": "stats",
+      "key": "stat3_value",
+      "value": "100%",
+      "maxLength": 10
+    },
+    {
+      "page": "about",
+      "section": "stats",
+      "key": "stat3_label",
+      "value": "редактируемый контент",
+      "maxLength": 50
+    },
+    {
+      "page": "about",
+      "section": "cta_section",
+      "key": "title",
+      "value": "Готовы запустить проект в новом формате?",
+      "maxLength": 100
+    },
+    {
+      "page": "about",
+      "section": "cta_section",
+      "key": "description",
+      "value": "Получите рабочую витрину и админку для быстрых обновлений контента.",
+      "maxLength": 300
+    },
+    {
+      "page": "about",
+      "section": "cta_section",
+      "key": "button_consultation",
+      "value": "Записаться на консультацию",
+      "maxLength": 40
+    },
+    {
+      "page": "about",
+      "section": "cta_section",
+      "key": "button_shop",
+      "value": "Посмотреть каталог",
+      "maxLength": 40
+    },
+    {
+      "page": "shop",
+      "section": "hero",
+      "key": "badge",
+      "value": "Каталог",
+      "maxLength": 60
+    },
+    {
+      "page": "shop",
+      "section": "hero",
+      "key": "title",
+      "value": "Предложения и позиции",
+      "maxLength": 60
+    },
+    {
+      "page": "shop",
+      "section": "hero",
+      "key": "description",
+      "value": "Примеры карточек — замените названия, цены и категории под ваш ассортимент.",
+      "maxLength": 200
+    },
+    {
+      "page": "consultations",
+      "section": "hero",
+      "key": "title",
+      "value": "Консультации",
+      "maxLength": 60
+    },
+    {
+      "page": "consultations",
+      "section": "hero",
+      "key": "description",
+      "value": "Персональные форматы с записью, оплатой и подтверждением заявки.",
+      "maxLength": 300
+    },
+    {
+      "page": "masterclasses",
+      "section": "hero",
+      "key": "title",
+      "value": "Мастер-классы",
+      "maxLength": 60
+    },
+    {
+      "page": "masterclasses",
+      "section": "hero",
+      "key": "description",
+      "value": "Групповые программы с расписанием, лимитом мест и понятным описанием результата.",
+      "maxLength": 300
+    }
+  ],
+  "contentImages": [
+    {
+      "page": "home",
+      "section": "hero",
+      "key": "background",
+      "url": "/uploads/content/home-hero-background.webp",
+      "alt": "Фон главного экрана"
+    },
+    {
+      "page": "home",
+      "section": "about_preview",
+      "key": "portrait",
+      "url": "/uploads/content/home-about-preview-portrait.webp",
+      "alt": "Портрет для блока о бренде"
+    },
+    {
+      "page": "about",
+      "section": "hero",
+      "key": "atelier",
+      "url": "/uploads/content/about-hero-atelier.webp",
+      "alt": "Рабочее пространство бренда"
+    },
+    {
+      "page": "about",
+      "section": "philosophy",
+      "key": "ingredients",
+      "url": "/uploads/content/about-philosophy-ingredients.webp",
+      "alt": "Детали и материалы бренда"
+    },
+    {
+      "page": "about",
+      "section": "process",
+      "key": "crafting",
+      "url": "/uploads/content/about-process-crafting.webp",
+      "alt": "Процесс работы"
+    },
+    {
+      "page": "about",
+      "section": "founder",
+      "key": "portrait",
+      "url": "/uploads/content/about-founder-portrait.webp",
+      "alt": "Портрет команды или основателя"
+    }
+  ],
+  "consultations": [
+    {
+      "slug": "intro-session",
+      "title": "Вводная консультация",
+      "shortDescription": "30–60 минут, чтобы согласовать задачу, формат и ожидаемый результат.",
+      "fullDescription": "Короткая сессия для знакомства с проектом, уточнения целей и выбора следующего шага.",
+      "price": 3500,
+      "duration": 60,
+      "isPopular": true,
+      "order": 1,
+      "image": "/uploads/services/consultation-1.webp"
+    },
+    {
+      "slug": "strategy-call",
+      "title": "Стратегическая сессия",
+      "shortDescription": "Разбор аудитории, оффера и структуры сайта под вашу нишу.",
+      "fullDescription": "Совместно фиксируем позиционирование, ключевые сообщения и приоритеты для главной и каталога.",
+      "price": 5500,
+      "duration": 90,
+      "order": 2,
+      "image": "/uploads/services/consultation-2.webp"
+    },
+    {
+      "slug": "content-audit",
+      "title": "Аудит контента",
+      "shortDescription": "Проверка текстов, медиа и сценариев конверсии на готовом сайте.",
+      "fullDescription": "Находим слабые места в подаче и приоритеты для ImperorG или ручного редактирования.",
+      "price": 4500,
+      "duration": 75,
+      "order": 3,
+      "image": "/uploads/services/consultation-3.webp"
+    },
+    {
+      "slug": "launch-support",
+      "title": "Сопровождение запуска",
+      "shortDescription": "Помощь с публикацией, проверкой заявок и первыми итерациями.",
+      "fullDescription": "Доводим сайт до состояния «можно показывать клиентам».",
+      "price": 7000,
+      "duration": 120,
+      "order": 4,
+      "image": "/uploads/services/consultation-4.webp"
+    }
+  ],
+  "masterclasses": [
+    {
+      "slug": "group-workshop",
+      "title": "Групповой воркшоп",
+      "shortDescription": "Практический формат для небольшой группы с результатом на выходе.",
+      "fullDescription": "Камерная группа, понятная программа и материалы.",
+      "price": 4500,
+      "priceNote": "с человека",
+      "duration": 180,
+      "maxParticipants": 10,
+      "category": "workshop",
+      "order": 1,
+      "image": "/uploads/services/masterclass-1.webp"
+    },
+    {
+      "slug": "intensive-day",
+      "title": "Интенсив за один день",
+      "shortDescription": "Сжатый формат с фокусом на ключевой навык или продукт.",
+      "fullDescription": "Подходит для запуска новой линейки услуг.",
+      "price": 12000,
+      "duration": 360,
+      "maxParticipants": 12,
+      "category": "intensive",
+      "order": 2,
+      "image": "/uploads/services/masterclass-2.webp"
+    },
+    {
+      "slug": "team-session",
+      "title": "Сессия для команды",
+      "shortDescription": "Корпоративный формат с адаптацией под вашу тематику.",
+      "fullDescription": "Согласуем программу и результат под задачи команды.",
+      "price": 35000,
+      "duration": 240,
+      "maxParticipants": 20,
+      "category": "corporate",
+      "order": 3,
+      "image": "/uploads/services/masterclass-3.webp"
+    },
+    {
+      "slug": "online-lab",
+      "title": "Онлайн-лаборатория",
+      "shortDescription": "Удалённый формат с разбором кейсов.",
+      "fullDescription": "Материалы доступны после эфира.",
+      "price": 2900,
+      "priceNote": "с человека",
+      "duration": 120,
+      "maxParticipants": 30,
+      "category": "online",
+      "order": 4,
+      "image": "/uploads/services/masterclass-4.webp"
+    }
+  ],
+  "galleryImages": [
+    {
+      "url": "/uploads/gallery/brand-1.webp",
+      "alt": "Пример работы бренда",
+      "title": "Кейс 1",
+      "category": "brand",
+      "order": 1
+    },
+    {
+      "url": "/uploads/gallery/workshop-1.webp",
+      "alt": "Групповой формат",
+      "title": "Воркшоп",
+      "category": "workshop",
+      "order": 2
+    },
+    {
+      "url": "/uploads/gallery/products-1.webp",
+      "alt": "Каталог",
+      "title": "Каталог",
+      "category": "products",
+      "order": 3
+    }
+  ]
+}

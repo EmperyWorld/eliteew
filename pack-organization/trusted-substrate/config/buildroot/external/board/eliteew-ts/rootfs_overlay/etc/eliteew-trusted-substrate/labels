@@ -1,0 +1,8 @@
+os_trust=from-source
+payload_trust=eliteew-runtime
+payload_profile=empiieros-shell
+sku=trusted-substrate
+wave=W4
+substrate_edition=client
+toolchain_sot=eliteew-w3-hostcc
+note=Buildroot rootfs with EliteEW W3 HOSTCC; EmpiierOS sovereign shell + Wayland/labwc; WebKitGTK from BR — from-source runtime

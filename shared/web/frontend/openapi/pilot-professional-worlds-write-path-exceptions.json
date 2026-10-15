@@ -1,0 +1,14 @@
+{
+  "description": "Professional Worlds api.ts write paths intentionally without JSON Zod body parsers (documented exceptions for adoption audit).",
+  "empty_body_post": [
+    "backfillProfessionalDealPropertyLinks",
+    "convertRealtorLeadToClient",
+    "recomputeRealtorListingQuality",
+    "completeLearningLesson",
+    "acceptMediaEnhancement",
+    "rejectMediaEnhancement",
+    "refreshProfessionalCrossAppDraft"
+  ],
+  "no_body_post": ["streamRealtorMediaBatchRun"],
+  "multipart": ["streamMediaUploadEnhancement", "uploadRealtorPropertyMedia"]
+}

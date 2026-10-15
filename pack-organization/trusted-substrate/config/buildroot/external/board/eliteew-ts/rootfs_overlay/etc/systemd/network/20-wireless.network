@@ -1,0 +1,12 @@
+[Match]
+Name=wl*
+Type=wlan
+
+[Network]
+DHCP=ipv4
+IPv6AcceptRA=no
+LLMNR=no
+MulticastDNS=no
+
+[Link]
+RequiredForOnline=no

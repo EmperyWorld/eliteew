@@ -1,0 +1,15 @@
+# Stack9 Qwen3-TTS — HTTP synthesis (Silero-compatible API surface)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+python-multipart>=0.0.6
+
+numpy>=1.24.0
+scipy>=1.11.0
+soundfile>=0.12.0
+
+qwen-tts>=0.1.0
+transformers>=4.46.0
+accelerate>=0.34.0
+huggingface-hub>=0.26.0
+modelscope>=1.20.0

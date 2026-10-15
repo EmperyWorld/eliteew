@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-wg-bring-up"
+description = "Enables the wg_bring_up command without any pre-configured scope."
+commands.allow = ["wg_bring_up"]
+
+[[permission]]
+identifier = "deny-wg-bring-up"
+description = "Denies the wg_bring_up command without any pre-configured scope."
+commands.deny = ["wg_bring_up"]

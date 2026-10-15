@@ -1,0 +1,21 @@
+[Unit]
+Description=NVIDIA GPU fan boost at temperature threshold
+Documentation=file:///etc/nvidia-gpu-fanctl.conf
+After=nvidia-persistenced.service fanboost-x11.service
+Requires=fanboost-x11.service
+Wants=nvidia-persistenced.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+EnvironmentFile=-/etc/nvidia-gpu-fanctl.conf
+ExecStartPre=/usr/local/sbin/ensure-fanboost-xauth.sh
+ExecStart=/usr/local/sbin/nvidia-gpu-fanctl.sh
+Restart=on-failure
+RestartSec=30
+StartLimitIntervalSec=600
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

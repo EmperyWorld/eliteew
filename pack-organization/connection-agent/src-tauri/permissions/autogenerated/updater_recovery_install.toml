@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-updater-recovery-install"
+description = "Enables the updater_recovery_install command without any pre-configured scope."
+commands.allow = ["updater_recovery_install"]
+
+[[permission]]
+identifier = "deny-updater-recovery-install"
+description = "Denies the updater_recovery_install command without any pre-configured scope."
+commands.deny = ["updater_recovery_install"]

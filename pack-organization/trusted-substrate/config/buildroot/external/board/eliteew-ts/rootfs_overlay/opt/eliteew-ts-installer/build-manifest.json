@@ -1,0 +1,25 @@
+{
+  "component": "eliteew-ts-installer",
+  "outputs": {
+    "usr/local/bin/eliteew-ts-installer": "672382c45648069ef472a0a6d3dc2a47ac36f4bdb1d8655312e8c899e3a9bc99"
+  },
+  "schema": 1,
+  "source_commit": "71e7fe00b8d0cc89a2c59b4680fad691e5d1eae9",
+  "source_inputs": {
+    "installer/Cargo.lock": "019ffe3cb6e24209cc4703dd481ade89bd8e5efe65d198d6875ee7163f229775",
+    "installer/Cargo.toml": "3c4c5c329659a3d167a5e4f4cea0614e5b37e87909d0b8cdad01527e400aa176",
+    "installer/assets/boot-splash.png": "ce7cbcf64acdc489e5ef73e5d97c65009915b11d3027c7a7d897d4333f8e0c01",
+    "installer/assets/chime.wav": "775fc92598419dc0ea199c0cf289a6a7bdb43a73178115ab8692ea36bb9df34c",
+    "installer/assets/design-preview.html": "caf0d1dc464055c7940820f6d7745e320fca7d3a8c0ecaf672f74a0e9e83e001",
+    "installer/assets/logo.png": "35ff13c31e545067b7bf97e27a609c65f54b525b3ccdff586ef636920f4b5ad2",
+    "installer/src/apply.rs": "8315d93b39935ca4cfc46770db0b216ee8492d1ff613d25a66d1b180ca50045e",
+    "installer/src/audio.rs": "4780f25890a570d10c48990096e678f6f5ae2f91d18a667a3a8e5662b2b4a17f",
+    "installer/src/brand.rs": "0de948662c6eb9a2b5ed6537504b82f0e9ec5642a9768ba9b4424f52372e0f0b",
+    "installer/src/logutil.rs": "fbd5ce9648dd47a9e440e9591e127c08659b8353b07d9ba30a63304690d88211",
+    "installer/src/main.rs": "2390fdba0db986b3418b536014a575bc0aa2e316887f63cf36db6781ec4497fd",
+    "installer/src/net.rs": "f7fde95b30005cbf65679b8c23fd84bbaf795e4563d55b9d8d70f996a07df5b4",
+    "installer/src/regional.rs": "fd5fd992191ccebc520f5ccc919ae7a373b7f8fe4a5a6e94208b188ea7b688e4",
+    "installer/src/ui.rs": "5acca65ea7cbfaa0b391f2c5382760832d064e27a8456489219c8b28d155ffec"
+  },
+  "source_tree_dirty": true
+}

@@ -1,0 +1,3862 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="dark" />
+  <title>EliteEW — полный текст</title>
+  <link rel="stylesheet" href="../assets/export.css" />
+</head>
+<body class="page-book">
+  <div class="read-progress" aria-hidden="true"><div class="read-progress-bar" data-progress></div></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="site-top">
+    <div class="site-top-inner">
+      <a class="brand-row" href="index.html">
+        <img class="logo" src="../assets/brand/emperyworld-logo.webp" alt="" width="34" height="34" />
+        <div>
+          <span class="brand-name">EliteEW</span>
+          <span class="brand-sub">HTML primary · не схема эксплуатации</span>
+        </div>
+      </a>
+      <div class="nav-wrap">
+        <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Меню">☰</button>
+        <nav class="nav" aria-label="Export sections">
+          <a href="index.html">Вход</a>
+          <a href="onepagers.html">Сжато</a>
+          <a href="book.html" class="active">Полный текст</a>
+          <a href="diagrams.html">Схемы</a>
+          <a class="nav-cta" href="book.html#01-what-is-eliteew">Начать →</a>
+          <a class="lang-switch" href="../en/book.html" hreflang="en" lang="en" data-lang-switch>English</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <header class="cover is-compact">
+    <div class="cover-copy">
+      <p class="eyebrow">Empery World · product overview</p>
+      <h1>EliteEW</h1>
+      <p class="promise">Рабочий слой ∩ безопасный периметр</p>
+    </div>
+    <a class="nav-cta" href="index.html">← Обложка</a>
+  </header>
+
+  <main class="wrap">
+
+    <button type="button" class="rail-fab" data-rail-toggle aria-expanded="false" aria-controls="book-side-rail">
+      Содержание
+    </button>
+    <div class="rail-scrim" data-rail-scrim hidden aria-hidden="true"></div>
+    <div class="book-layout">
+      <aside class="side-rail" id="book-side-rail" aria-label="Chapter navigation">
+        <p class="sr-title">Части</p>
+        <label class="sr-search">
+          <span class="sr-search-label">Поиск</span>
+          <input type="search" data-book-search autocomplete="off"
+            placeholder="Фильтр глав…"
+            aria-label="Фильтр оглавления" />
+        </label>
+        <p class="sr-search-empty" data-book-search-empty hidden>
+          Ничего не найдено
+        </p>
+        <div class="sr-part" data-part="start"><p class="sr-part-title">Вход</p><a href="#00-README">EliteEW — обзор продукта</a></div><div class="sr-part" data-part="product"><p class="sr-part-title">Продукт</p><a href="#01-what-is-eliteew">P1 — Что такое EliteEW</a><a href="#01a-any-device-vr">P1a — Доступ с любого устройства, в т.ч.…</a></div><div class="sr-part" data-part="security"><p class="sr-part-title">Периметр и ИБ</p><a href="#02-threats-and-protection">P2 — Угрозы и защита</a><a href="#02a-agentless-instant-access">P2a — Безагентный доступ и быстрый старт</a></div><div class="sr-part" data-part="gift"><p class="sr-part-title">Дар и внедрение</p><a href="#03-regulatory-map">P3 — Карта нормативных ориентиров</a><a href="#03a-employee-day-adoption">P3a — День сотрудника: внутреннее внедре…</a><a href="#03b-industry-profiles">P3b — Отраслевые профили</a><a href="#03c-full-complex-source">P3c — Комплекс, открытый код, дар миру</a><a href="#03d-tco-orientative">P3d — Структура затрат self-host (ориент…</a><a href="#03e-delivery-models">P3e — Дар миру: как пользоваться открыты…</a><a href="#03f-transfer-bom-handover">P3f — Принять дар у себя (артефакты · Da…</a><a href="#03g-si-migration-playbook">P3g — SI, миграция с зоопарка, PoC до ма…</a></div><div class="sr-part" data-part="desk"><p class="sr-part-title">Стол и приложения</p><a href="#04-desktop-workspace">P4 — Стол как рабочая среда</a><a href="#04a-files-two-planes">P4a — Файлы: метаданные, object store, д…</a><a href="#04b-document-collaboration">P4b — Совместная правка документов</a><a href="#05-apps-store-ai-contours">P5 — Приложения, магазин, два контура ИИ</a><a href="#05a-roles-org-project">P5a — Роли организации и проекта</a><a href="#05b-generation-spend-vault-ai">P5b — Контроль расходов на генерации · И…</a><a href="#05c-single-sign-on-sessions">P5c — Единый вход и контроль сессий</a><a href="#06-app-index-brief">P6 — Индекс приложений (краткий)</a></div><div class="sr-part" data-part="mobile"><p class="sr-part-title">Мобильный и native</p><a href="#07-android-satellite-security">P7 — Android-спутник и безопасность</a><a href="#07a-internal-messenger">P7a — Внутренний мессенджер (GAF)</a><a href="#07b-internal-video-calls">P7b — Внутренние видеозвонки</a><a href="#07c-trusted-phone-e2ee">P7c — Доверенный телефон и E2EE-ключ на …</a><a href="#07d-edge-wall-one-click">P7d — Edge: глухая стена и один шаг дост…</a><a href="#07e-mobile-capability-matrix">P7e — Mobile capability matrix</a><a href="#08-tauri-clients-ota">P8 — Tauri-клиенты и доверие обновлений</a><a href="#08a-atomic-conditional-access">P8a — Atomic Conditional Access</a></div><div class="sr-part" data-part="access"><p class="sr-part-title">Доступ и editions</p><a href="#09-capsules-enterprise-seats">P9 — Капсулы и доступ к месту</a><a href="#09a-controlled-licenses-sealed">P9a — Сервисный доступ и sealed-материалы</a><a href="#10-editions">P10 — Editions: cloud / on-prem / client</a><a href="#10a-native-tauri-hybrid">P10a — Нативный клиент и гибрид</a><a href="#10b-live-sealed-install">P10b — Live-носитель и sealed install</a><a href="#10c-ops-scale-not-user-cli">P10c — Ops-масштаб: деплой и контроль (н…</a><a href="#10d-external-messenger-honesty">P10d — Опциональные внешние notify-каналы</a></div><div class="sr-part" data-part="cards"><p class="sr-part-title">Карточки apps</p><a href="#11-must-app-cards">P11 — Must: карточки приложений (tier 1)</a><a href="#11a-should-app-cards">P11 — Should: карточки приложений (tier 2)</a><a href="#11b-later-app-cards">P11 — Later: краткие карточки (tier 3)</a></div><div class="sr-part" data-part="limits"><p class="sr-part-title">Честные границы</p><a href="#12-honest-limits">P12 — Честные лимиты</a></div><div class="sr-part" data-part="briefs"><p class="sr-part-title">Сжато</p><a href="#13-onepager-executive">Обзор: дар миру и свой контур</a><a href="#13-onepager-ciso">Обзор для ИБ / периметр</a><a href="#13-onepager-industry">Обзор для внедрения / отрасли</a><a href="#13-onepager-dd-rfi">Вопросы до глубокого чтения</a><a href="#13-summary-matrix">Сводная матрица (Хост | DIY | EliteEW)</a><a href="#glossary">Глоссарий</a><a href="#14-export-pdf-html">P14 — Export HTML + Markdown (+ optional…</a></div>
+      </aside>
+      <div class="book-main">
+        <p class="meta reveal">Полный текст по частям · схемы inline · <a href="diagrams.html">каталог схем</a>.</p>
+        <header class="part-head reveal" id="part-start"><h2>Вход</h2></header><article class="chapter reveal" id="00-README">
+<h1>EliteEW — обзор продукта</h1>
+<p>Краткий пакет: <strong>что такое EliteEW</strong>, как принять его как открытый дар миру,<br />
+и где честные границы. Не runbook и не тарифный лист.</p>
+<p><strong>Языки:</strong> <a href="#00-README">Русский</a> · <a href="../en/index.html">English</a></p>
+<p><strong>Кому:</strong> люди и организации, которым нужен свой рабочий контур · ИТ · ИБ · SI.<br />
+<strong>Модель:</strong> first-party код — дар по <code>MIT</code> (<a href="#03c-full-complex-source">P3c</a>);<br />
+сопровождение и hosted — <strong>опция</strong>, исходники остаются открытыми по MIT (<a href="#03e-delivery-models">P3e</a>).</p>
+<h2>С чего начать</h2>
+<table>
+<thead>
+<tr>
+<th>Нужно</th>
+<th>Открыть</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Что это</td>
+<td><a href="#01-what-is-eliteew">P1</a> · <a href="#13-onepager-executive">обзор</a></td>
+</tr>
+<tr>
+<td>Дар / лицензия / условия лицензии</td>
+<td><a href="#03c-full-complex-source">P3c</a> · <a href="#03e-delivery-models">P3e</a></td>
+</tr>
+<tr>
+<td>Периметр и ИБ</td>
+<td><a href="#13-onepager-ciso">CISO</a> · <a href="#02-threats-and-protection">P2</a> · <a href="#12-honest-limits">P12</a></td>
+</tr>
+<tr>
+<td>Принять у себя</td>
+<td><a href="#03f-transfer-bom-handover">P3f</a> · <a href="#03g-si-migration-playbook">P3g</a> · <a href="#13-onepager-dd-rfi">вопросы</a></td>
+</tr>
+<tr>
+<td>День сотрудника</td>
+<td><a href="#13-onepager-industry">industry</a> · <a href="#03a-employee-day-adoption">P3a</a></td>
+</tr>
+<tr>
+<td>Термины</td>
+<td><a href="#glossary">glossary</a></td>
+</tr>
+</tbody>
+</table>
+<p>Схема путей: </p>
+<figure class="diagram" id="D10-reading-paths">
+<figcaption><strong>D10</strong></figcaption>
+<p class="diagram-sense">входы для организации, ИБ, отрасли и внедрения — без рекламного захода.</p><pre class="mermaid">flowchart TB
+  P0[&quot;P0 Оглавление&quot;]
+  P0 --&gt; ORG[&quot;Организация / внедрение&quot;]
+  P0 --&gt; CISO[&quot;ИБ / периметр&quot;]
+  P0 --&gt; IND[&quot;Отрасль / день сотрудника&quot;]
+  P0 --&gt; SI[&quot;Миграция / интегратор&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 угрозы&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  P0[&quot;P0 Оглавление&quot;]
+  P0 --&gt; ORG[&quot;Организация / внедрение&quot;]
+  P0 --&gt; CISO[&quot;ИБ / периметр&quot;]
+  P0 --&gt; IND[&quot;Отрасль / день сотрудника&quot;]
+  P0 --&gt; SI[&quot;Миграция / интегратор&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 угрозы&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre></details>
+</figure>
+
+<p>.</p>
+<h2>Как читать сравнения</h2>
+<p>Где нужно — колонки <strong>Хост | DIY | EliteEW</strong>. Формула — <a href="#01-what-is-eliteew">P1</a>;<br />
+границы — <a href="#12-honest-limits">P12</a>.</p>
+<h2>Оглавление</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Файл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td><a href="#01-what-is-eliteew">01-what-is-eliteew.md</a></td>
+</tr>
+<tr>
+<td>P1a</td>
+<td><a href="#01a-any-device-vr">01a-any-device-vr.md</a></td>
+</tr>
+<tr>
+<td>P2</td>
+<td><a href="#02-threats-and-protection">02-threats-and-protection.md</a></td>
+</tr>
+<tr>
+<td>P2a</td>
+<td><a href="#02a-agentless-instant-access">02a-agentless-instant-access.md</a></td>
+</tr>
+<tr>
+<td>P3</td>
+<td><a href="#03-regulatory-map">03-regulatory-map.md</a></td>
+</tr>
+<tr>
+<td>P3a</td>
+<td><a href="#03a-employee-day-adoption">03a-employee-day-adoption.md</a></td>
+</tr>
+<tr>
+<td>P3b</td>
+<td><a href="#03b-industry-profiles">03b-industry-profiles.md</a></td>
+</tr>
+<tr>
+<td>P3c</td>
+<td><a href="#03c-full-complex-source">03c-full-complex-source.md</a></td>
+</tr>
+<tr>
+<td>P3d</td>
+<td><a href="#03d-tco-orientative">03d-tco-orientative.md</a></td>
+</tr>
+<tr>
+<td>P3e</td>
+<td><a href="#03e-delivery-models">03e-delivery-models.md</a></td>
+</tr>
+<tr>
+<td>P3f</td>
+<td><a href="#03f-transfer-bom-handover">03f-transfer-bom-handover.md</a></td>
+</tr>
+<tr>
+<td>P3g</td>
+<td><a href="#03g-si-migration-playbook">03g-si-migration-playbook.md</a></td>
+</tr>
+<tr>
+<td>P4</td>
+<td><a href="#04-desktop-workspace">04-desktop-workspace.md</a></td>
+</tr>
+<tr>
+<td>P4a</td>
+<td><a href="#04a-files-two-planes">04a-files-two-planes.md</a></td>
+</tr>
+<tr>
+<td>P4b</td>
+<td><a href="#04b-document-collaboration">04b-document-collaboration.md</a></td>
+</tr>
+<tr>
+<td>P5</td>
+<td><a href="#05-apps-store-ai-contours">05-apps-store-ai-contours.md</a></td>
+</tr>
+<tr>
+<td>P5a</td>
+<td><a href="#05a-roles-org-project">05a-roles-org-project.md</a></td>
+</tr>
+<tr>
+<td>P5b</td>
+<td><a href="#05b-generation-spend-vault-ai">05b-generation-spend-vault-ai.md</a></td>
+</tr>
+<tr>
+<td>P5c</td>
+<td><a href="#05c-single-sign-on-sessions">05c-single-sign-on-sessions.md</a></td>
+</tr>
+<tr>
+<td>P6</td>
+<td><a href="#06-app-index-brief">06-app-index-brief.md</a></td>
+</tr>
+<tr>
+<td>P7</td>
+<td><a href="#07-android-satellite-security">07-android-satellite-security.md</a></td>
+</tr>
+<tr>
+<td>P7a</td>
+<td><a href="#07a-internal-messenger">07a-internal-messenger.md</a></td>
+</tr>
+<tr>
+<td>P7b</td>
+<td><a href="#07b-internal-video-calls">07b-internal-video-calls.md</a></td>
+</tr>
+<tr>
+<td>P7c</td>
+<td><a href="#07c-trusted-phone-e2ee">07c-trusted-phone-e2ee.md</a></td>
+</tr>
+<tr>
+<td>P7d</td>
+<td><a href="#07d-edge-wall-one-click">07d-edge-wall-one-click.md</a></td>
+</tr>
+<tr>
+<td>P7e</td>
+<td><a href="#07e-mobile-capability-matrix">07e-mobile-capability-matrix.md</a></td>
+</tr>
+<tr>
+<td>P8</td>
+<td><a href="#08-tauri-clients-ota">08-tauri-clients-ota.md</a></td>
+</tr>
+<tr>
+<td>P8a</td>
+<td><a href="#08a-atomic-conditional-access">08a-atomic-conditional-access.md</a></td>
+</tr>
+<tr>
+<td>P9</td>
+<td><a href="#09-capsules-enterprise-seats">09-capsules-enterprise-seats.md</a></td>
+</tr>
+<tr>
+<td>P9a</td>
+<td><a href="#09a-controlled-licenses-sealed">09a-controlled-licenses-sealed.md</a></td>
+</tr>
+<tr>
+<td>P10</td>
+<td><a href="#10-editions">10-editions.md</a></td>
+</tr>
+<tr>
+<td>P10a</td>
+<td><a href="#10a-native-tauri-hybrid">10a-native-tauri-hybrid.md</a></td>
+</tr>
+<tr>
+<td>P10b</td>
+<td><a href="#10b-live-sealed-install">10b-live-sealed-install.md</a></td>
+</tr>
+<tr>
+<td>P10c</td>
+<td><a href="#10c-ops-scale-not-user-cli">10c-ops-scale-not-user-cli.md</a></td>
+</tr>
+<tr>
+<td>P10d</td>
+<td><a href="#10d-external-messenger-honesty">10d-external-messenger-honesty.md</a></td>
+</tr>
+<tr>
+<td>P11</td>
+<td><a href="#11-must-app-cards">11-must-app-cards.md</a> · <a href="#11a-should-app-cards">11a</a> · <a href="#11b-later-app-cards">11b</a></td>
+</tr>
+<tr>
+<td>P12</td>
+<td><a href="#12-honest-limits">12-honest-limits.md</a></td>
+</tr>
+<tr>
+<td>P13</td>
+<td><a href="#13-onepager-executive">обзор</a> · <a href="#13-onepager-ciso">CISO</a> · <a href="#13-onepager-industry">industry</a> · <a href="#13-onepager-dd-rfi">вопросы</a> · <a href="#13-summary-matrix">matrix</a></td>
+</tr>
+<tr>
+<td>—</td>
+<td><a href="#glossary">glossary.md</a> · <a href="#14-export-pdf-html">export</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Материалы</h2>
+<ul>
+<li>Схемы D01–D12: <a href="../assets/diagrams-md/"><code>assets/diagrams/</code></a></li>
+<li>Логотип: <a href="../assets/brand/"><code>assets/illustrations/brand/</code></a></li>
+<li>HTML/MD бандл: <a href="../index.html"><code>export/</code></a></li>
+</ul>
+</article>
+<header class="part-head reveal" id="part-product"><h2>Продукт</h2></header><article class="chapter reveal" id="01-what-is-eliteew">
+<h1>P1 — Что такое EliteEW</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D01-hybrid-formula">
+<figcaption><strong>D01</strong></figcaption>
+<p class="diagram-sense">EliteEW — управляемый слой поверх устройства, не «выбросили ядро ОС».</p><pre class="mermaid">flowchart LR
+  subgraph Host[&quot;Хост-устройство&quot;]
+    OS[&quot;Десктоп / серверная ОС / VR-браузер&quot;]
+  end
+  subgraph Elite[&quot;Рабочий слой EliteEW&quot;]
+    Desk[&quot;Стол + apps + файлы&quot;]
+    Sec[&quot;Периметр + роли + доступы&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph Host[&quot;Хост-устройство&quot;]
+    OS[&quot;Десктоп / серверная ОС / VR-браузер&quot;]
+  end
+  subgraph Elite[&quot;Рабочий слой EliteEW&quot;]
+    Desk[&quot;Стол + apps + файлы&quot;]
+    Sec[&quot;Периметр + роли + доступы&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre></details>
+</figure>
+
+<h2>Формула</h2>
+<p><strong>EliteEW</strong> — рабочая среда организации: стол с приложениями, файлы и документы,<br />
+проекты на своих данных, связь внутри контура и ИИ на материалах организации.</p>
+<p>Это <strong>управляемый рабочий слой</strong> поверх обычного устройства: рабочие приложения<br />
+и файлы живут в продукте, а не как «просто папки на личном столе».<br />
+Это <strong>не</strong> замена хост-ОС и <strong>не</strong> обещание стерильного диска.</p>
+<p>Параллельно это <strong>дар миру</strong>: first-party код открыт по <code>MIT</code> —<br />
+можно принять, изучить, изменить и распространять на условиях лицензии<br />
+(<a href="#03c-full-complex-source">P3c</a>). Свобода кода ≠ штат авторов и ≠ услуги.</p>
+<h2>Хост / DIY / EliteEW</h2>
+<table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Хост</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Роль</td>
+<td>Привычный ПК / сервер</td>
+<td>Самосборный стек</td>
+<td>Рабочий слой поверх хоста</td>
+</tr>
+<tr>
+<td>Сильнее здесь</td>
+<td>Драйверы, локальный софт</td>
+<td>Гибкость сборки</td>
+<td>Единый стол, apps, файлы, роли, периметр сессии</td>
+</tr>
+<tr>
+<td>Чего нет</td>
+<td>—</td>
+<td>—</td>
+<td>Замены ядра ОС «на любом edition»</td>
+</tr>
+</tbody>
+</table>
+<h2>Кому это</h2>
+<p>Тем, кому нужен <strong>свой</strong> контур работы, а не зоопарк внешних сервисов — и кто<br />
+готов принять открытый комплекс. Как пользоваться даром — <a href="#03e-delivery-models">P3e</a>;<br />
+editions — <a href="#10-editions">P10</a>; apps — <a href="#06-app-index-brief">P6</a> / <a href="#11-must-app-cards">P11</a>.</p>
+</article>
+<article class="chapter reveal" id="01a-any-device-vr">
+<h1>P1a — Доступ с любого устройства, в т.ч. иммерсивные дисплеи</h1>
+<p><strong>Детали звонков/GAF:</strong> P7a / P7b (здесь только any-device + иммерсивные дисплеи)<br />
+<strong>Mobile subset:</strong> P7e · <strong>Desktop-клиент:</strong> P8</p>
+<h2>Тезис</h2>
+<p>EliteEW открывается там, где есть современный <strong>браузерный</strong> контур — ПК, ноутбук,<br />
+планшет в браузере, Android-спутник, а также <strong>иммерсивный шлем</strong> (VR / XR)<br />
+через браузер шлема.</p>
+<p>Отдельного «VR-приложения в магазине шлема» продукт <strong>не</strong> выпускает.<br />
+На шлеме — тот же <strong>веб-слой</strong>: стол, apps и внутренние видеозвонки<br />
+(в т.ч. из GAF Chat), когда браузер, микрофон и камера шлема пригодны к работе.</p>
+<p><strong>Проверено:</strong> сценарий на шлеме проверен; <strong>модель шлема в публичном<br />
+тексте не называется</strong>.</p>
+<h2>Карта устройств</h2>
+<table>
+<thead>
+<tr>
+<th>Контур</th>
+<th>Что получаете</th>
+<th>Не это</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Браузер (ПК / ноутбук / планшет)</td>
+<td>Полный рабочий слой в браузере</td>
+<td>Замена хост-ОС</td>
+</tr>
+<tr>
+<td>Android-спутник</td>
+<td>Подмножество лента / чат / push (<a href="#07e-mobile-capability-matrix">P7e</a>)</td>
+<td>Полный стол как на desktop</td>
+</tr>
+<tr>
+<td>Браузер иммерсивного шлема</td>
+<td>Веб-слой + внутренние звонки при годном железе</td>
+<td>Нативный VR-OS · магазин шлема · «любой шлем без браузера/мика/камеры»</td>
+</tr>
+<tr>
+<td>Tauri desktop-клиент</td>
+<td>Connected-клиент (<a href="#08-tauri-clients-ota">P8</a>)</td>
+<td>Второе продуктовое дерево</td>
+</tr>
+</tbody>
+</table>
+<h2>Честная рамка</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Есть</strong></td>
+<td>Браузерный доступ · Android-спутник · звонки — веб/WebRTC-контур · шлем проверен без имени модели</td>
+</tr>
+<tr>
+<td><strong>Проверено</strong></td>
+<td>Путь браузера шлема к веб-UI продукта и внутренним звонкам</td>
+</tr>
+<tr>
+<td><strong>Не обещаем</strong></td>
+<td>Нативный VR-OS · листинг в магазине шлема · «любой шлем офлайн без браузера» · телефон = полный EliteEW</td>
+</tr>
+</tbody>
+</table>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-security"><h2>Периметр и ИБ</h2></header><article class="chapter reveal" id="02-threats-and-protection">
+<h1>P2 — Угрозы и защита</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D02-threat-classes">
+<figcaption><strong>D02 — классы угроз</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Threats[&quot;Классы угроз&quot;]
+    T1[&quot;Shadow IT / личный мессенджер&quot;]
+    T2[&quot;Личные облака&quot;]
+    T3[&quot;Копипаст / внешний AI&quot;]
+    T4[&quot;BYOD без разделения&quot;]
+    T5[&quot;Аналог: фото экрана&quot;]
+  end
+  subgraph Answers[&quot;Ответы EliteEW&quot;]
+    A1[&quot;Рабочий слой + внутренний чат&quot;]
+    A2[&quot;Управляемые файлы&quot;]
+    A3[&quot;ИИ в контуре проекта&quot;]
+    A4[&quot;Браузер / APK без admin-агента&quot;]
+    A5[&quot;Минимизация · не 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;не абсолют&quot;| A5</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Threats[&quot;Классы угроз&quot;]
+    T1[&quot;Shadow IT / личный мессенджер&quot;]
+    T2[&quot;Личные облака&quot;]
+    T3[&quot;Копипаст / внешний AI&quot;]
+    T4[&quot;BYOD без разделения&quot;]
+    T5[&quot;Аналог: фото экрана&quot;]
+  end
+  subgraph Answers[&quot;Ответы EliteEW&quot;]
+    A1[&quot;Рабочий слой + внутренний чат&quot;]
+    A2[&quot;Управляемые файлы&quot;]
+    A3[&quot;ИИ в контуре проекта&quot;]
+    A4[&quot;Браузер / APK без admin-агента&quot;]
+    A5[&quot;Минимизация · не 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;не абсолют&quot;| A5</pre></details>
+</figure>
+
+<h2>Проблема (не люди — канал)</h2>
+<p>Массовый канал утечки mid-market: личные мессенджеры, личные облака, копипаст в внешний AI. VPN закрывает «трубу», но не видит содержимое личного приложения. Классический DLP часто требует агента на endpoint — на BYOD это ломается юридически и социально.</p>
+<p>EliteEW — <strong>быстрый рычаг</strong> поверх текущего стека ИБ: разделение рабочего и личного контура. <strong>Не</strong> замена firewall / антивируса / полного DLP-стека.</p>
+<h2>Классы угроз → ответ продукта</h2>
+<table>
+<thead>
+<tr>
+<th>Класс</th>
+<th>Что происходит</th>
+<th>Ответ EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shadow IT / личный мессенджер</td>
+<td>Рабочие файлы уходят в личный канал</td>
+<td>Рабочий чат/файлы внутри контура (P7a)</td>
+</tr>
+<tr>
+<td>Личные облака</td>
+<td>Копия вне контроля организации</td>
+<td>Файлы в управляемой библиотеке (P4a)</td>
+</tr>
+<tr>
+<td>Копипаст / внешний AI</td>
+<td>Фрагменты во внешний чат</td>
+<td>ИИ и материалы — в контуре проекта (P5b)</td>
+</tr>
+<tr>
+<td>BYOD без разделения</td>
+<td>Личная ОС = рабочий стол</td>
+<td>Браузерный / APK слой без admin-агента на личной ОС</td>
+</tr>
+<tr>
+<td>MITM / открытый доступ</td>
+<td>Сервисы «на всех»</td>
+<td>Edge / доверенный доступ (P7d)</td>
+</tr>
+<tr>
+<td>Недоверенное устройство / OTA</td>
+<td>Подмена клиента</td>
+<td>Trust-границы клиентов (P8)</td>
+</tr>
+<tr>
+<td>Insider / роли</td>
+<td>Лишние права</td>
+<td>Роли org/проекта (P5a)</td>
+</tr>
+<tr>
+<td>Фото экрана</td>
+<td>Аналоговый канал</td>
+<td>Минимизация цифрового канала — не 100% (P12)</td>
+</tr>
+<tr>
+<td>«Стерильный диск на всех edition»</td>
+<td>Нет следов на личном диске</td>
+<td>Не универсальное обещание (P12)</td>
+</tr>
+</tbody>
+</table>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="02a-agentless-instant-access">
+<h1>P2a — Безагентный доступ и быстрый старт</h1>
+<h2>Тезисы</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Тезис</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agentless</td>
+<td>Нет системных агентов EDR/DLP на личном устройстве</td>
+<td>Доступ через браузер или лёгкий Android APK без root/admin на личной ОС</td>
+</tr>
+<tr>
+<td>Instant Provisioning</td>
+<td>Среда готова за минуты после выдачи доступа</td>
+<td>Без переустановки хост-ОС</td>
+</tr>
+</tbody>
+</table>
+<p>Это <strong>не</strong> обещание «данные никогда не касаются ОС» на всех edition сразу (см. <a href="#12-honest-limits">P12</a>).</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-gift"><h2>Дар и внедрение</h2></header><article class="chapter reveal" id="03-regulatory-map">
+<h1>P3 — Карта нормативных ориентиров</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D03-npa-split">
+<figcaption><strong>D03 — нормы: даёт / остаётся</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  subgraph NPA[&quot;Нормативные ориентиры&quot;]
+    N1[&quot;Защита информации&quot;]
+    N2[&quot;Трансграничные данные&quot;]
+    N3[&quot;Применение ИИ&quot;]
+    N4[&quot;Персональные данные&quot;]
+  end
+  subgraph EE[&quot;Даёт EliteEW&quot;]
+    E1[&quot;Периметр · роли · доступ&quot;]
+    E2[&quot;Контур данных edition&quot;]
+    E3[&quot;ИИ в контуре&quot;]
+  end
+  subgraph Cust[&quot;Остаётся организации&quot;]
+    C1[&quot;Аттестация · СЗИ&quot;]
+    C2[&quot;Юр. основания · политики&quot;]
+    C3[&quot;Оператор данных&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph NPA[&quot;Нормативные ориентиры&quot;]
+    N1[&quot;Защита информации&quot;]
+    N2[&quot;Трансграничные данные&quot;]
+    N3[&quot;Применение ИИ&quot;]
+    N4[&quot;Персональные данные&quot;]
+  end
+  subgraph EE[&quot;Даёт EliteEW&quot;]
+    E1[&quot;Периметр · роли · доступ&quot;]
+    E2[&quot;Контур данных edition&quot;]
+    E3[&quot;ИИ в контуре&quot;]
+  end
+  subgraph Cust[&quot;Остаётся организации&quot;]
+    C1[&quot;Аттестация · СЗИ&quot;]
+    C2[&quot;Юр. основания · политики&quot;]
+    C3[&quot;Оператор данных&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre></details>
+</figure>
+
+<h2>Важно</h2>
+<p>Текст — <strong>карта ориентиров</strong> для диалога ИБ и юристов организации. EliteEW <strong>помогает</strong> закрыть организационно-технический контур (разделение данных, доступ, роли, периметр). Это <strong>не</strong> замена аттестации, лицензирования средств защиты, оценки воздействия и внутренних политик.</p>
+<p><strong>Запрещено в этом пакете:</strong> заявления об «уже аттестовано», «полное соответствие закону из коробки», гарантии штрафов/исков.</p>
+<p>Актуальные формулировки норм организация сверяет со своими юристами.</p>
+<h2>Ориентиры (смысловая карта)</h2>
+<table>
+<thead>
+<tr>
+<th>Ориентир</th>
+<th>О чём речь</th>
+<th>Что даёт EliteEW</th>
+<th>Что остаётся организации</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Требования к защите информации / ЗИ</td>
+<td>Контур и доступ</td>
+<td>Управляемый периметр, роли, контроль доступа к рабочему слою</td>
+<td>Модель угроз, аттестация, выбор СЗИ, оргмеры</td>
+</tr>
+<tr>
+<td>Трансграничная передача данных</td>
+<td>Куда уходят персональные данные</td>
+<td>Хранение и работа в <strong>выбранном</strong> edition-контуре (cloud / on-prem)</td>
+<td>Юр. основания, договоры, реестры</td>
+</tr>
+<tr>
+<td>Применение ИИ</td>
+<td>Прозрачность и контроль</td>
+<td>ИИ на данных проекта внутри контура; политики доступа (P5b)</td>
+<td>Политика ИИ, оценка рисков, ответственность оператора</td>
+</tr>
+<tr>
+<td>Персональные данные</td>
+<td>Защита и разделение</td>
+<td>Технические рычаги разделения и доступа</td>
+<td>Оператор данных, согласия, локализация по модели</td>
+</tr>
+</tbody>
+</table>
+<p>Точные статьи и даты — в legal pack организации; здесь только <strong>смысл</strong>.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="03a-employee-day-adoption">
+<h1>P3a — День сотрудника: внутреннее внедрение</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D04-employee-day">
+<figcaption><strong>D04 — день сотрудника</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  S1[&quot;Вход&quot;] --&gt; S2[&quot;Стол + apps&quot;]
+  S2 --&gt; S3[&quot;Файлы / документы&quot;]
+  S3 --&gt; S4[&quot;Связь GAF / звонки&quot;]
+  S4 --&gt; S5[&quot;Проект / маркетинг&quot;]
+  S5 --&gt; S6[&quot;ИИ в контуре&quot;]
+  S6 --&gt; S7[&quot;Мобильный спутник&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  S1[&quot;Вход&quot;] --&gt; S2[&quot;Стол + apps&quot;]
+  S2 --&gt; S3[&quot;Файлы / документы&quot;]
+  S3 --&gt; S4[&quot;Связь GAF / звонки&quot;]
+  S4 --&gt; S5[&quot;Проект / маркетинг&quot;]
+  S5 --&gt; S6[&quot;ИИ в контуре&quot;]
+  S6 --&gt; S7[&quot;Мобильный спутник&quot;]</pre></details>
+</figure>
+
+<p><strong>НПА:</strong> только ссылка на <a href="#03-regulatory-map">P3</a> — без пересказа</p>
+<h2>Позиция</h2>
+<p>EliteEW — не «ещё один SaaS сбоку», а <strong>единый контур рабочего дня</strong> сотрудника организации: стол, файлы, документы, общение, ИИ на материалах проекта, мобильный спутник — с ролями и периметром.</p>
+<h2>Один день (swimlane)</h2>
+<ol>
+<li><strong>Вход</strong> — единый вход в рабочий слой (детали SSO — P5c).  </li>
+<li><strong>Стол</strong> — окна, магазин приложений под роль (P4, P5, P6).  </li>
+<li><strong>Файлы и документы</strong> — библиотека, ACL/vault, редактор (P4a–b).  </li>
+<li><strong>Связь</strong> — внутренний мессенджер и видеозвонки (P7a–b); при необходимости — телефон/VR (P1a, P7).  </li>
+<li><strong>Маркетинг / проект</strong> — кабинет на данных проекта (если роль) (P5 / Must cards).  </li>
+<li><strong>ИИ</strong> — в контуре, не «в личный внешний чат» (P5b).  </li>
+<li><strong>Мобильный</strong> — лента/чат/push как спутник, не полный стол (P7e).</li>
+</ol>
+<p>Угрозы и agentless — в <a href="#02-threats-and-protection">P2</a> / <a href="#02a-agentless-instant-access">P2a</a>; здесь не повторяем.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="03b-industry-profiles">
+<h1>P3b — Отраслевые профили</h1>
+<p><strong>НПА:</strong> отсылка к <a href="#03-regulatory-map">P3</a></p>
+<h2>Как читать профили</h2>
+<p>Это <strong>не</strong> отдельные продукты и <strong>не</strong> аттестаты по отраслям. Это типовые <strong>сборки акцента</strong> одного комплекса EliteEW под крупный масштаб в организация.</p>
+<table>
+<thead>
+<tr>
+<th>Профиль</th>
+<th>Акцент</th>
+<th>Типовой состав смысла</th>
+<th>НПА-отсылка</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Холдинг / много юрлиц</td>
+<td>Роли, единый вход, периметр</td>
+<td>Стол · роли · Admin-lite · editions</td>
+<td>P3 · доступ</td>
+</tr>
+<tr>
+<td>Маркетинг / агентство</td>
+<td>Проекты, заказчик, генерации</td>
+<td>Маркетинг-кабинет · Customer Cabinet · файлы · EWRP</td>
+<td>P3 · ИИ/ПДн</td>
+</tr>
+<tr>
+<td>Недвижимость / поле</td>
+<td>Профили, объекты, мобильный</td>
+<td>Professional Worlds · mobile спутник · звонки</td>
+<td>P3 · ПДн</td>
+</tr>
+<tr>
+<td>Жёсткий периметр / контур персональных данных</td>
+<td>Закрытый контур, on-prem</td>
+<td>On-prem edition · edge · лицензии · FoFline≠air-gap (P10)</td>
+<td>P3 · №60 / 152</td>
+</tr>
+<tr>
+<td>Подрядчики / внешние</td>
+<td>Ограниченный доступ</td>
+<td>Роли · Customer Cabinet · без лишнего Shadow IT</td>
+<td>P3 · доступ</td>
+</tr>
+<tr>
+<td>Демо / live / sealed</td>
+<td>Показ без «голого» хоста</td>
+<td>Live/sealed (P10b) · любой браузер (P1a)</td>
+<td>P3 · контур</td>
+</tr>
+<tr>
+<td>Госсектор-смежные</td>
+<td>Compliance-диалог</td>
+<td>Карта P3 + on-prem + роли — <strong>без</strong> «аттестовано»</td>
+<td>P3 целиком</td>
+</tr>
+</tbody>
+</table>
+<p>Детали edge, лицензий, editions — в P7d / P9a / P10; здесь только профиль.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="03c-full-complex-source">
+<h1>P3c — Комплекс, открытый код, дар миру</h1>
+<h2>Суть</h2>
+<p>EliteEW отдаётся миру как <strong>свободное ПО</strong>: first-party код по умолчанию —<br />
+<code>MIT</code> (корневой <code>LICENSE</code> репозитория). Это про <strong>свободу</strong>,<br />
+про свободу пользоваться и делиться кодом.</p>
+<ol>
+<li><strong>Комплекс</strong> — не «один чат» и не «один диск»: стол, apps, файлы, связь, ИИ,<br />
+   мобильный спутник, editions (cloud / on-prem / client) в одной платформе.</li>
+<li><strong>Свой экземпляр</strong> — развёрнутый контур организации остаётся <strong>её</strong> контуром<br />
+   (особенно on-prem), а не общей демо-учёткой.</li>
+<li><strong>Свободный исходный код</strong> — можно запускать, изучать, изменять и<br />
+   распространять first-party код на условиях MIT. Публичный ориентир исходников<br />
+   : <a href="https://github.com/EmperyWorld/eliteew">github.com/EmperyWorld/eliteew</a><br />
+   (см. также карту лицензий в каноне платформы).</li>
+<li><strong>Условия MIT</strong> — сохраняйте уведомления об авторских правах и текст разрешения в копиях или существенных частях ПО. MIT не требует публикации изменений или исходников сетевого сервиса.</li>
+<li><strong>Не весь tree одной лицензией</strong> — first-party default = MIT;<br />
+   явные лицензии компонентов и third-party — по своим SPDX / NOTICE / SBOM.<br />
+   Карта: <code>documentation/platform/THIRD-PARTY-LICENSE-MAP.md</code>.</li>
+</ol>
+<h2>Что это не отменяет</h2>
+<p>Имя и логотип EliteEW — не «часть MIT». Форк и доработка — по лицензии кода;<br />
+называть форк официальным EliteEW без отдельной договорённости о знаке — нельзя.</p>
+<p>Как жить с даром на практике — <a href="#03e-delivery-models">P3e</a>.<br />
+Как принять артефакты релиза у себя — <a href="#03f-transfer-bom-handover">P3f</a>.</p>
+</article>
+<article class="chapter reveal" id="03d-tco-orientative">
+<h1>P3d — Структура затрат self-host (ориентир)</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D09-tco-columns">
+<figcaption><strong>D09</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Win[&quot;Типичный десктоп-контур&quot;]
+    W1[&quot;ОС + агенты + внешние сервисы&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Сборка + ФОТ поддержки&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Контур + хост как есть&quot;]
+  end
+  Note[&quot;Self-host затраты · не оценка дара · ориентир&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Win[&quot;Типичный десктоп-контур&quot;]
+    W1[&quot;ОС + агенты + внешние сервисы&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Сборка + ФОТ поддержки&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Контур + хост как есть&quot;]
+  end
+  Note[&quot;Self-host затраты · не оценка дара · ориентир&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre></details>
+</figure>
+
+<h2>Дисклеймер</h2>
+<p>Ниже — <strong>структура</strong> статей, если организация ведёт контур <strong>сама</strong>.<br />
+Это не тариф и не условие услуг, не оценка дара в деньгах и не ROI-формула. Дар по MIT —<br />
+про свободу кода; затраты появляются у хоста, людей и эксплуатации.</p>
+<h2>База статей</h2>
+<table>
+<thead>
+<tr>
+<th>Статья</th>
+<th>Типичный десктоп-контур</th>
+<th>Self-host DIY</th>
+<th>EliteEW self-host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Хост-ОС / устройства</td>
+<td>Лицензии / обновления ПК</td>
+<td>Железо + поддержка ОС</td>
+<td>Хост остаётся; слой — профиль контура</td>
+</tr>
+<tr>
+<td>Агентный DLP/EDR на BYOD</td>
+<td>Лицензии + конфликты</td>
+<td>Аналогично</td>
+<td>Не требуем admin-агент на личной ОС (P2a)</td>
+</tr>
+<tr>
+<td>Зоопарк внешних сервисов</td>
+<td>Много подписок</td>
+<td>Self-host + ФОТ</td>
+<td>Единый контур apps</td>
+</tr>
+<tr>
+<td>Подъём контура</td>
+<td>Долгий агентный путь</td>
+<td>Долгая сборка</td>
+<td>После выдачи доступа — минуты–дни (ориентир)</td>
+</tr>
+<tr>
+<td>Поддержка</td>
+<td>Helpdesk агентов/ПО</td>
+<td>Высокий ФОТ DIY</td>
+<td>Ваша служба / SI</td>
+</tr>
+<tr>
+<td>Риск Shadow IT</td>
+<td>Высокий без слоя</td>
+<td>Высокий без слоя</td>
+<td>Слой разделения (P2) — не нулевой риск</td>
+</tr>
+</tbody>
+</table>
+<h2>Как читать</h2>
+<p>«Дар» не обнуляет ФОТ. Смысл — меньше зоопарка и агентного конфликта BYOD,<br />
+<strong>если</strong> сценарии реально сводятся в EliteEW. Конкретные цифры — вне пакета.</p>
+<table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Хост</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Драйвер затрат</td>
+<td>ОС + агенты + SaaS</td>
+<td>ФОТ сборки</td>
+<td>Хост + люди на контур</td>
+</tr>
+<tr>
+<td>Ловушка</td>
+<td>Shadow IT</td>
+<td>«Бесплатно» ≠ дёшево в ФОТ</td>
+<td>Нужна дисциплина ролей</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="03e-delivery-models">
+<h1>P3e — Дар миру: как пользоваться открытым комплексом</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D11-gift-to-world">
+<figcaption><strong>D11</strong></figcaption>
+<p class="diagram-sense">центр — свободный код как дар. Сопровождение (если есть) помогает</p><pre class="mermaid">flowchart LR
+  Gift[&quot;Дар миру · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Запуск / изучение / изменение&quot;]
+  Gift --&gt; Share[&quot;Распространение по MIT&quot;]
+  Gift --&gt; Net[&quot;Модифицированный сетевой сервис → source своим users&quot;]
+  Run --&gt; Org[&quot;Свой контур организации&quot;]
+  Share --&gt; Org
+  Help[&quot;Опциональное сопровождение&quot;]
+  Help --&gt; Accept[&quot;Помощь с приёмкой / SBOM&quot;]
+  Help --&gt; Ops[&quot;Помощь с эксплуатацией&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  Gift[&quot;Дар миру · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Запуск / изучение / изменение&quot;]
+  Gift --&gt; Share[&quot;Распространение по MIT&quot;]
+  Gift --&gt; Net[&quot;Модифицированный сетевой сервис → source своим users&quot;]
+  Run --&gt; Org[&quot;Свой контур организации&quot;]
+  Share --&gt; Org
+  Help[&quot;Опциональное сопровождение&quot;]
+  Help --&gt; Accept[&quot;Помощь с приёмкой / SBOM&quot;]
+  Help --&gt; Ops[&quot;Помощь с эксплуатацией&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre></details>
+</figure>
+
+<p><strong>Не путать с:</strong> обязательным платным контуром · аттестатом · закрытой передачей исходников вне MIT</p>
+<h2>Центр</h2>
+<p>EliteEW — <strong>дар миру</strong> в форме свободного ПО. Главный путь — взять first-party<br />
+код по <code>MIT</code>, развернуть свой контур и развивать его.<br />
+Свобода кода ≠ «в комплекте штат авторов, SLA и официальный бренд».</p>
+<table>
+<thead>
+<tr>
+<th>Путь</th>
+<th>Что это</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Self-hosted по MIT</strong></td>
+<td>Запуск, изучение, изменение, распространение first-party кода; без платы за «право открыть репозиторий»</td>
+</tr>
+<tr>
+<td><strong>Свой on-prem / изолированный контур</strong></td>
+<td>Тот же дар, развёрнутый у организации (ИТ или SI)</td>
+</tr>
+<tr>
+<td><strong>Hosted / сопровождение (опция)</strong></td>
+<td>Кто-то может помочь эксплуатировать или принять релиз — это <strong>сопровождение</strong>, не замена MIT и исходники остаются открытыми по MIT</td>
+</tr>
+<tr>
+<td><strong>Имя и знак</strong></td>
+<td>MIT не передаёт права на бренд EliteEW; свой бренд поверх продукта — отдельная тема о знаке</td>
+</tr>
+</tbody>
+</table>
+<h2>Зачем организации открытый контур</h2>
+<ol>
+<li><strong>Свой рабочий периметр</strong> — стол, файлы, связь, роли, мобильный спутник.</li>
+<li><strong>Контроль данных</strong> там, где нужен свой контур (<a href="#03-regulatory-map">P3</a>).</li>
+<li><strong>Один день сотрудника</strong> (<a href="#03a-employee-day-adoption">P3a</a>).</li>
+<li><strong>Отраслевой акцент</strong> без второго продукта (<a href="#03b-industry-profiles">P3b</a>).</li>
+<li><strong>ИИ на своих материалах</strong> (<a href="#05b-generation-spend-vault-ai">P5b</a>).</li>
+<li><strong>Доступ к hosted-каналу</strong> (если пользуетесь) <strong>не отменяет</strong> право self-host<br />
+   (<a href="#09-capsules-enterprise-seats">P9</a> · <a href="#09a-controlled-licenses-sealed">P9a</a>).</li>
+<li><strong>Свободный код комплекса</strong> (<a href="#03c-full-complex-source">P3c</a>).</li>
+</ol>
+<h2>Что можно сделать</h2>
+<table>
+<thead>
+<tr>
+<th>Шаг</th>
+<th>Смысл</th>
+<th>Куда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Принять дар</td>
+<td>Развернуть first-party код у себя</td>
+<td>P3c · P10</td>
+</tr>
+<tr>
+<td>Свести Shadow IT</td>
+<td>Рабочие чат/диск/ВКС/ИИ — в контуре</td>
+<td>P2 · P2a · P7*</td>
+</tr>
+<tr>
+<td>Собрать on-prem</td>
+<td>Свой экземпляр edition</td>
+<td>P10 · P10b</td>
+</tr>
+<tr>
+<td>Попросить сопровождение</td>
+<td>Опционально: помощь с приёмкой/эксплуатацией</td>
+<td>P3f · P3g</td>
+</tr>
+<tr>
+<td>Развивать вертикаль</td>
+<td>Профиль apps + роли на свободном коде</td>
+<td>P3b · P5a · P11</td>
+</tr>
+<tr>
+<td>Без user-CLI</td>
+<td>Ops у ИТ/SI организации</td>
+<td>P10c · P12</td>
+</tr>
+</tbody>
+</table>
+<p>Дальше: артефакты и приёмка у себя — <a href="#03f-transfer-bom-handover">P3f</a>;<br />
+миграция — <a href="#03g-si-migration-playbook">P3g</a>; вопросы — <a href="#13-onepager-dd-rfi">DD</a>.</p>
+</article>
+<article class="chapter reveal" id="03f-transfer-bom-handover">
+<h1>P3f — Принять дар у себя (артефакты · Day‑0…90)</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D12-transfer-handover">
+<figcaption><strong>D12</strong></figcaption>
+<p class="diagram-sense">исходники открыты по MIT; приёмка у себя сверяет версию, сборку,</p><pre class="mermaid">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Сверка артефактов&quot;]
+  Check --&gt; Build[&quot;Сборка / стенд&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Пилот орг. единицы&quot;]
+  Pilot --&gt; Scale[&quot;Масштаб у своей службы&quot;]
+  Help[&quot;Опциональное сопровождение&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Сверка артефактов&quot;]
+  Check --&gt; Build[&quot;Сборка / стенд&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Пилот орг. единицы&quot;]
+  Pilot --&gt; Scale[&quot;Масштаб у своей службы&quot;]
+  Help[&quot;Опциональное сопровождение&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre></details>
+</figure>
+
+<p><strong>Дар и лицензия:</strong> <a href="#03c-full-complex-source">P3c</a> · <strong>как пользоваться:</strong> <a href="#03e-delivery-models">P3e</a><br />
+<strong>Не путать с:</strong> ops-runbook оператора · user-CLI · «секреты чужого контура в zip»</p>
+<h2>Зачем глава</h2>
+<p>Код уже открыт по MIT. Организации нужен практический ответ: <strong>какие артефакты<br />
+сверять</strong>, чего в «передаче контура» не будет, и как за первые недели поднять<br />
+свой экземпляр без иллюзии, что «дар» = бессрочный штат авторов.</p>
+<h2>Классы артефактов (не секретный манифест)</h2>
+<p>Ниже — ориентир для due diligence self-host / on-prem. Право пользоваться<br />
+first-party кодом по MIT от этого списка <strong>не зависит</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Класс</th>
+<th>Обычно есть</th>
+<th>Обычно нет</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Исходники</td>
+<td>Публичный MIT source + commit/tag релиза</td>
+<td>Чужие SaaS-аккаунты, чужие ПДн, чужие ключи</td>
+</tr>
+<tr>
+<td>Документация</td>
+<td>Актуальный product/platform-канон для развития</td>
+<td>Внутренние черновики, agent-диалекты</td>
+</tr>
+<tr>
+<td>Сборка</td>
+<td>Рецепты сборки, тестовые контуры без prod-секретов</td>
+<td>Пароли, ключи хостов, боевые SOPS-бандлы</td>
+</tr>
+<tr>
+<td>Конфиг-образец</td>
+<td>Scrubbed шаблоны / профили edition</td>
+<td>Боевые URL/IP, client id чужого IdP</td>
+</tr>
+<tr>
+<td>Клиенты</td>
+<td>Исходники / артефакты Desktop / mobile по согласованному объёму</td>
+<td>Чужие сертификаты магазинов без отдельной передачи</td>
+</tr>
+<tr>
+<td>Знания</td>
+<td>Согласованный объём передачи знаний — <strong>если</strong> договорились о сопровождении</td>
+<td>Обещание «авторы навсегда»</td>
+</tr>
+<tr>
+<td>Бренд</td>
+<td>Только если отдельно согласован знак</td>
+<td>Автоматическое право выдавать fork за официальный EliteEW</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Права:</strong> first-party default — <code>MIT</code>; явные лицензии компонентов и<br />
+third-party — по своим лицензиям (карта third-party + SBOM релиза). Знак и<br />
+имя — отдельно. Этот пакет <strong>не</strong> юридическое заключение.</p>
+<h2>Логика «дня принятия»</h2>
+<ol>
+<li>Ссылка на публичный source и точный commit/tag (+ согласованные бинарные артефакты, если нужны).</li>
+<li>Чеклист классов выше (не user-CLI).</li>
+<li>Если есть сопровождение — контакт на период приёмки (не «вечный user support»).</li>
+<li>Архитектор / наставник внедрения — <strong>только</strong> если отдельно договорились (<a href="#03e-delivery-models">P3e</a>).</li>
+</ol>
+<h2>Ориентир Day‑0…90</h2>
+<p>Сроки зависят от зрелости ИТ/SI и edition. Цифры — ориентир, не договорный SLA.</p>
+<table>
+<thead>
+<tr>
+<th>Фаза</th>
+<th>Ориентир</th>
+<th>Фокус</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H0 Сверка артефактов</strong></td>
+<td>Day 0–14</td>
+<td>Source, commit/tag, сборки, docs</td>
+<td>«То, что нужно для своего стенда — на месте»</td>
+</tr>
+<tr>
+<td><strong>H1 Первый стенд</strong></td>
+<td>Day 14–45</td>
+<td>Свой экземпляр, IdP, smoke ролей</td>
+<td>Живой стенд <strong>у вас</strong></td>
+</tr>
+<tr>
+<td><strong>H2 Пилот</strong></td>
+<td>Day 30–75</td>
+<td>Отдел: стол, файлы, чат, роли (<a href="#03a-employee-day-adoption">P3a</a>)</td>
+<td>Доказанный день сотрудника</td>
+</tr>
+<tr>
+<td><strong>H3 Масштаб</strong></td>
+<td>Day 60–90+</td>
+<td>Runbooks вашей службы (<a href="#10c-ops-scale-not-user-cli">P10c</a>)</td>
+<td>Ops без пользовательского CLI</td>
+</tr>
+<tr>
+<td><strong>H4 Закрепление</strong></td>
+<td>по плану организации</td>
+<td>Критерии edition + нужные apps</td>
+<td>Контур живёт у вас</td>
+</tr>
+</tbody>
+</table>
+<p>Миграция с зоопарка — <a href="#03g-si-migration-playbook">P3g</a>.</p>
+<h2>Риски (сжато)</h2>
+<table>
+<thead>
+<tr>
+<th>Риск</th>
+<th>Смысл</th>
+<th>Опора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Нет штата авторов «в даре»</td>
+<td>Развитие — ваши / SI</td>
+<td>P3e · P3g · P12</td>
+</tr>
+<tr>
+<td>Key-person</td>
+<td>Не default</td>
+<td>Только отдельная договорённость</td>
+</tr>
+<tr>
+<td>Неполный перечень артефактов</td>
+<td>Споры «что сверяли»</td>
+<td>Commit/tag + чеклист классов</td>
+</tr>
+<tr>
+<td>Абсолюты ИБ</td>
+<td>Завышенные обещания</td>
+<td><a href="#12-honest-limits">P12</a></td>
+</tr>
+<tr>
+<td>Third-party лицензии</td>
+<td>Чужой код</td>
+<td>SBOM + NOTICE + карта third-party</td>
+</tr>
+<tr>
+<td>Чужие prod-секреты</td>
+<td>Не часть дара</td>
+<td>Не включать; scrub</td>
+</tr>
+</tbody>
+</table>
+<p>Вопросы — <a href="#13-onepager-dd-rfi">DD</a>.</p>
+</article>
+<article class="chapter reveal" id="03g-si-migration-playbook">
+<h1>P3g — SI, миграция с зоопарка, PoC до масштаба</h1>
+<p><strong>Связь:</strong> <a href="#03f-transfer-bom-handover">P3f приёмка</a> · <a href="#03e-delivery-models">P3e сервисная модель</a> · <a href="#03a-employee-day-adoption">P3a день</a><br />
+<strong>Аудитория:</strong> интегратор (SI) · ИТ/ИБ организации · комитет «как сойдём с текущего зоопарка»</p>
+<h2>Роль SI (self-managed сценарий)</h2>
+<table>
+<thead>
+<tr>
+<th>Зона</th>
+<th>SI / ИТ организации</th>
+<th>Не считать частью лицензии на код</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host / сеть / резерв / мониторинг</td>
+<td>Да</td>
+<td>Постоянный ops-штат авторов</td>
+</tr>
+<tr>
+<td>IdP, роли, offboarding</td>
+<td>Да (с ИБ)</td>
+<td>«Включили и забыли»</td>
+</tr>
+<tr>
+<td>Первый стенд edition</td>
+<td>Да</td>
+<td>Готовый managed prod как ваш self-hosted контур</td>
+</tr>
+<tr>
+<td>Пилот орг. единицы</td>
+<td>Да</td>
+<td>Автоматическую managed-эксплуатацию «вместе с кодом»</td>
+</tr>
+<tr>
+<td>Helpdesk L1–L2</td>
+<td>Да</td>
+<td>Vendor desk навсегда</td>
+</tr>
+<tr>
+<td>Развитие backlog</td>
+<td>Да (или подряд)</td>
+<td>Чужой SaaS-roadmap</td>
+</tr>
+<tr>
+<td>Архитектор Empery</td>
+<td>Только отдельный договор</td>
+<td>Гарантия «возглавит»</td>
+</tr>
+</tbody>
+</table>
+<h2>Состав команды внедрения (ориентир)</h2>
+<table>
+<thead>
+<tr>
+<th>Роль</th>
+<th>Зачем</th>
+<th>Комментарий</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Владелец внедрения (организация)</td>
+<td>Приоритеты, acceptance</td>
+<td>Нельзя «отдать SI без спонсора»</td>
+</tr>
+<tr>
+<td>Архитектор платформы</td>
+<td>Edition, IdP, границы контура</td>
+<td>Может быть ваш / SI; архитектор Empery — отдельная услуга</td>
+</tr>
+<tr>
+<td>ИБ</td>
+<td>Политики, edge, managed service entitlements</td>
+<td>CISO-path: P2 → P7d → P8a → P9a</td>
+</tr>
+<tr>
+<td>Desktop / client</td>
+<td>Tauri / FoFline контур</td>
+<td>P8 · P10a</td>
+</tr>
+<tr>
+<td>Mobile (если в scope)</td>
+<td>Спутник, доверенные устройства</td>
+<td>P7 · P7e</td>
+</tr>
+<tr>
+<td>Данные / файлы</td>
+<td>PG + object store, ACL</td>
+<td>P4a · P4b</td>
+</tr>
+<tr>
+<td>Change / обучение</td>
+<td>День сотрудника</td>
+<td>P3a</td>
+</tr>
+</tbody>
+</table>
+<h2>Миграция с зоопарка (программа, не «кнопка»)</h2>
+<p>Типичный старт крупного организация: почта/чат снаружи, диск снаружи, ВКС снаружи, ИИ в личных аккаунтах. EliteEW <strong>не</strong> обещает мгновенную замену всего Microsoft/Google стека ОС.</p>
+<table>
+<thead>
+<tr>
+<th>Волна</th>
+<th>Смысл</th>
+<th>Опора</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M0 Карта Shadow IT</td>
+<td>Что реально используют (чат/диск/ИИ)</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>M1 Контур дня</td>
+<td>Стол + файлы + роли для пилотной группы</td>
+<td>P4 · P4a · P5a · P3a</td>
+</tr>
+<tr>
+<td>M2 Связь</td>
+<td>Внутренний мессенджер / ВКС вместо рабочих переписок снаружи</td>
+<td>P7a · P7b</td>
+</tr>
+<tr>
+<td>M3 ИИ</td>
+<td>Генерации и vault на своих материалах вместо личного SaaS</td>
+<td>P5 · P5b</td>
+</tr>
+<tr>
+<td>M4 Mobile / edge</td>
+<td>Спутник и доступ по доверию — по необходимости</td>
+<td>P7 · P7d</td>
+</tr>
+<tr>
+<td>M5 Вывод</td>
+<td>Политика: рабочие каналы только в контуре</td>
+<td>ИБ + орг. приказ; не «магия продукта»</td>
+</tr>
+</tbody>
+</table>
+<p>Честно: параллельный период двух контуров почти всегда нужен; длительность — Discovery, не тарифный ориентир.</p>
+<h2>PoC до масштаба (честный)</h2>
+<p>Цель PoC — подтвердить реальные возможности продукта, не абсолюты из <a href="#12-honest-limits">P12</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Проверка</th>
+<th>Ожидание</th>
+<th>Не ожидать</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Agentless / быстрый доступ</td>
+<td>Нет admin-агента на личной ОС как нормы</td>
+<td>«Стерильный диск всегда»</td>
+</tr>
+<tr>
+<td>День пилотной группы</td>
+<td>Стол + файлы + роли работают</td>
+<td>1000+ пользователей за неделю</td>
+</tr>
+<tr>
+<td>Edition on-prem / изолированный</td>
+<td>Стенд <strong>у вас</strong> поднимается SI</td>
+<td>Чужой shared demo = ваш контур</td>
+</tr>
+<tr>
+<td>E2EE чат (если в scope)</td>
+<td>Opt-in + ключ на телефоне</td>
+<td>Все чаты всегда E2EE</td>
+</tr>
+<tr>
+<td>Atomic native (если Connected/FoFline)</td>
+<td>Условие native-клиентов</td>
+<td>То же для всего браузерного SPA</td>
+</tr>
+<tr>
+<td>Latency / UX</td>
+<td>Ориентир на PoC</td>
+<td>Универсальный ≤200 мс как обещание</td>
+</tr>
+<tr>
+<td>НПА</td>
+<td>Карта «помогает»</td>
+<td>Аттестат по защите информации из коробки</td>
+</tr>
+</tbody>
+</table>
+<p>Границы: <a href="#12-honest-limits">P12</a>. RFI-таблица: <a href="#13-onepager-dd-rfi">13-onepager-dd-rfi.md</a>.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-desk"><h2>Стол и приложения</h2></header><article class="chapter reveal" id="04-desktop-workspace">
+<h1>P4 — Стол как рабочая среда</h1>
+<h2>Тезис</h2>
+<p>На рабочем столе EliteEW — окна, значки, панель задач, меню запуска и приложения под роль. Это <strong>интегрированная среда в браузере</strong> (и в client/FoFline-оболочках — см. P10), а не набор несвязанных вкладок.</p>
+<p>Состав иконок зависит от <strong>роли</strong>, <strong>магазина приложений</strong> и настроек организации — стол не одинаков у всех.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="04a-files-two-planes">
+<h1>P4a — Файлы: метаданные, object store, доступ, поиск</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D05-files-two-planes">
+<figcaption><strong>D05</strong></figcaption>
+<p class="diagram-sense">права и каталог в БД; содержимое — в объектном хранилище; пользователь не ходит в PG/Seaweed руками.</p><pre class="mermaid">flowchart TB
+  UI[&quot;Файловый менеджер&quot;]
+  PG[&quot;PostgreSQL\nметаданные · ACL · версии · проект&quot;]
+  OBJ[&quot;Object store S3-класс\nбайты файла\nSeaweedFS в контуре Empery&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  UI[&quot;Файловый менеджер&quot;]
+  PG[&quot;PostgreSQL\nметаданные · ACL · версии · проект&quot;]
+  OBJ[&quot;Object store S3-класс\nбайты файла\nSeaweedFS в контуре Empery&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre></details>
+</figure>
+
+<h2>Две плоскости (честно)</h2>
+<table>
+<thead>
+<tr>
+<th>Плоскость</th>
+<th>Что хранит</th>
+<th>Смысл для пользователя</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PostgreSQL</strong></td>
+<td>Метаданные, версии, ACL, привязка к компании/проекту</td>
+<td>«Кто видит файл и в каком проекте он лежит»</td>
+</tr>
+<tr>
+<td><strong>Object store (S3-класс; в контуре Empery — SeaweedFS)</strong></td>
+<td>Байты файла</td>
+<td>Содержимое не лежит «просто на диске ПК сотрудника» как единственный источник истины</td>
+</tr>
+</tbody>
+</table>
+<p>Пользователь работает через <strong>Файловый менеджер</strong>; в PG/Seaweed руками не ходит.</p>
+<h2>Что умеет контур</h2>
+<ul>
+<li>Единая библиотека с папками, версиями, шарингом, квотой хранилища  </li>
+<li>Скоуп <strong>компании / проекта</strong> (в т.ч. vault проекта маркетинга)  </li>
+<li>Поиск: по тексту и <strong>умный</strong> (полнотекст + семантика по индексу документов)  </li>
+<li>После извлечения текста / OCR сканов — материал становится находимым в поиске (обработка на стороне платформы; не «магия 100% на любом скане»)</li>
+</ul>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="04b-document-collaboration">
+<h1>P4b — Совместная правка документов</h1>
+<h2>Тезис</h2>
+<p>В <strong>редакторе документов</strong> доступна совместная работа: присутствие участников,<br />
+курсоры, синхронизация правок. Подключение к совместной сессии — <strong>явное</strong><br />
+(пользователь включает «Подключиться»), не скрытый фоновый режим.</p>
+<p>Приглашать в совместную работу может <strong>владелец документа</strong>. Есть комментарии /<br />
+review в рамках редактора.</p>
+<h2>Честная рамка</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Есть</strong></td>
+<td>Присутствие · курсоры · синхрон внутри редактора продукта · приглашает владелец</td>
+</tr>
+<tr>
+<td><strong>Не обещаем</strong></td>
+<td>Паритет со всеми внешними совместными редакторами · совместная правка любого бинарного офис-формата без конвертации</td>
+</tr>
+</tbody>
+</table>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.<br />
+См. также: <a href="#04a-files-two-planes">P4a</a> (файлы и ACL).</p>
+</article>
+<article class="chapter reveal" id="05-apps-store-ai-contours">
+<h1>P5 — Приложения, магазин, два контура ИИ</h1>
+<h2>Магазин приложений</h2>
+<p>На столе есть <strong>магазин</strong>: каталог, установка/удаление под доступ организации, карточка приложения. Состав стола собирается под роль — не один фиксированный набор иконок у всех.</p>
+<p><strong>Флот / App Store</strong> в смысле «витрина + установленное» — живой сценарий desktop shell. Не путать с магазинами ОС (магазин хост-ОС / магазин хост-пакетов).</p>
+<h2>Два ИИ-контура — не смешивать</h2>
+<table>
+<thead>
+<tr>
+<th>Контур</th>
+<th>Имя в UI</th>
+<th>Суть</th>
+<th>Не путать с</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EWA</strong></td>
+<td>Ассистент / спутник</td>
+<td>Присутствие и действия на столе, оркестрация</td>
+<td>Экспертами</td>
+</tr>
+<tr>
+<td><strong>Experts</strong></td>
+<td>Эксперты / чат с ИИ</td>
+<td>Инструментальный чат с файлами и «командой»</td>
+<td>Спутником EWA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Есть:</strong> это разные продукты на столе. <strong>Не обещаем:</strong> «один ИИ делает всё одинаково».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="05a-roles-org-project">
+<h1>P5a — Роли организации и проекта</h1>
+<p><strong>Exemplar:</strong> маркетинговый кабинет + файлы проекта</p>
+<h2>Модель (обзорный язык)</h2>
+<table>
+<thead>
+<tr>
+<th>Роль</th>
+<th>Смысл</th>
+<th>Типовые полномочия</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Собственник / владелец контура компании</strong></td>
+<td>Задаёт рамку организации</td>
+<td>Компания, высокий уровень доступа к проектам</td>
+</tr>
+<tr>
+<td><strong>Руководитель проекта</strong></td>
+<td>Ведёт конкретный проект (<code>created_by</code> / лид)</td>
+<td>Команда, модули, удаление чувствительных записей, настройки</td>
+</tr>
+<tr>
+<td><strong>Участник</strong></td>
+<td>Работает в выданных модулях</td>
+<td>Только явные права на разделы; пустой список прав ≠ полный write</td>
+</tr>
+</tbody>
+</table>
+<p>Дополнительно: право загрузки в <strong>vault проекта</strong> может выдаваться отдельно и <strong>не</strong> открывает все модули кабинета само по себе.</p>
+<p>Приглашение в команду проекта — под контролем руководителя; серверные проверки доступа обязательны (не «все видят всё»).</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="05b-generation-spend-vault-ai">
+<h1>P5b — Контроль расходов на генерации · ИИ на данных проекта</h1>
+<p>Тяжёлые генерации (изображения, презентации, музыка и др. через единый контур генераций) учитываются как <strong>энергия / кредиты</strong> типов генерации. В интерфейсе пользователь видит стоимость до запуска; при нехватке — отказ с честным состоянием (не «тихий успех»).</p>
+<p>Это <strong>контроль расхода</strong> внутри продукта, не банковский биллинг в этом тексте.</p>
+<h2>ИИ на данных проекта (vault RAG)</h2>
+<p>В маркетинговом контуре исследования и ответы могут опираться на <strong>документы vault проекта</strong> (RAG), а не на «интернет-мозг» по умолчанию для типов <code>imc_rag_*</code>. Качество зависит от того, что загружено в vault; слабое покрытие документов честно подсвечивается подсказками.</p>
+<p><strong>Не обещаем:</strong> «ИИ всегда знает всё о компании без документов».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="05c-single-sign-on-sessions">
+<h1>P5c — Единый вход и контроль сессий</h1>
+<h2>Тезис</h2>
+<p>Вход в рабочий слой — через <strong>корпоративную идентификацию</strong> (OIDC / единый вход организации). Сессия продукта отделена от «просто открыл сайт»; выход и политики доступа задаются контуром заказчика и edition.</p>
+<p>Для разных носителей (браузер, мобильный спутник, desktop-client / FoFline) действуют <strong>свои</strong> правила сессии и доверия устройства — детали в P7–P10. Здесь только принцип: <strong>один аккаунт организации → рабочий слой</strong>, без раздачи паролей от десятка SaaS вручную как нормы.</p>
+<p><strong>Не пишем в публичном тексте:</strong> внутренние имена client id, URL IdP, JWT claims.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="06-app-index-brief">
+<h1>P6 — Индекс приложений (краткий)</h1>
+<p><strong>Имена apps:</strong> реестр desktop-компонентов + карточка продукта</p>
+<h2>Зачем этот файл</h2>
+<p>Короткий указатель, <strong>без</strong> пересказа возможностей каждой программы. Полные карточки — волна P11.</p>
+<h2>Группы (ориентир)</h2>
+<table>
+<thead>
+<tr>
+<th>Группа</th>
+<th>Примеры (имена в UI)</th>
+<th>Глава-деталь</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Стол / оболочка</td>
+<td>Магазин, Настройки, Уведомления</td>
+<td>P4, P5</td>
+</tr>
+<tr>
+<td>Файлы и тексты</td>
+<td>Файловый менеджер, Редактор документов, EWRP</td>
+<td>P4a–b</td>
+</tr>
+<tr>
+<td>Маркетинг и заказчик</td>
+<td>Маркетинговый кабинет, Кабинет заказчика</td>
+<td>P5a–b</td>
+</tr>
+<tr>
+<td>ИИ</td>
+<td>Ассистент (EWA), Эксперты, Справочная</td>
+<td>P5</td>
+</tr>
+<tr>
+<td>Связь</td>
+<td>GAF Chat, Видеозвонки</td>
+<td>P7a–b</td>
+</tr>
+<tr>
+<td>Творчество</td>
+<td>Image / Video Studio · MusicForge + плеер · Студия ГУ</td>
+<td>P11 Should</td>
+</tr>
+<tr>
+<td>Сайты</td>
+<td>Site Studio, КИРС</td>
+<td>P11</td>
+</tr>
+<tr>
+<td>Сервис</td>
+<td>Admin, обращения, EWDesk</td>
+<td>P11 / P10c</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Честно:</strong> не у всех ролей виден полный список; мобильный спутник — <strong>подмножество</strong> (P7e).</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-mobile"><h2>Мобильный и native</h2></header><article class="chapter reveal" id="07-android-satellite-security">
+<h1>P7 — Android-спутник и безопасность</h1>
+<h2>Тезис</h2>
+<p>Мобильное приложение Android — <strong>спутник</strong> рабочего контура: лента, мессенджер, друзья, уведомления, профиль, часть генераций и видеозвонков. Это <strong>не</strong> полный рабочий стол и <strong>не</strong> маркетинговый кабинет на телефоне.</p>
+<p>Поверх входа организации доступен слой <strong>доверенного устройства</strong> (привязка телефона): ключи генерируются на устройстве; сервер не получает приватные ключи. Без настроенной блокировки экрана доверенная привязка и GAF E2EE не включаются.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07a-internal-messenger">
+<h1>P7a — Внутренний мессенджер (GAF)</h1>
+<h2>Тезис</h2>
+<p><strong>GAF Chat</strong> — внутренний мессенджер 1:1 внутри контура: переписка, файлы, композер. Смысл для Shadow IT — рабочий канал <strong>не</strong> обязан уходить в личный мессенджер ОС.</p>
+<p>По умолчанию чат может быть <strong>обычным</strong> (не E2EE). Шифрование конца-в-конец — отдельный режим (P7c), не «все сообщения всегда E2EE».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07b-internal-video-calls">
+<h1>P7b — Внутренние видеозвонки</h1>
+<h2>Тезис</h2>
+<p>Внутренние видеозвонки — отдельное приложение <strong>Video Calls</strong>; вход в 1:1 часто из GAF. Медиа идёт через внутренний Meet-контур продукта; звонок открывается <strong>внутри</strong> окна продукта (не «просто ссылка в чужой браузер» как единственная норма).</p>
+<p><strong>1:1:</strong> звонящий <strong>не</strong> входит в комнату, пока получатель <strong>не принял</strong> звонок (сначала принять — потом войти). Есть явные статусы (ожидание / активен / пропущен) и доставка входящего на выбранные поверхности.</p>
+<p><strong>Куда принимать звонок:</strong> обе поверхности (по умолчанию) · только рабочий стол · только мобильный — настройка пользователя.</p>
+<p><strong>Групповые:</strong> отдельный сценарий; у организатора правила входа в комнату <strong>другие</strong>, чем у правила принятия 1:1 — не смешивать в один тезис.</p>
+<p><strong>Не обещаем:</strong> «нативная VR-OS телефония»; звонки на VR — через браузерный слой (P1a, проверено).</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07c-trusted-phone-e2ee">
+<h1>P7c — Доверенный телефон и E2EE-ключ на устройстве</h1>
+<h2>Тезис</h2>
+<p>При <strong>доверенной привязке</strong> телефона на устройстве могут появиться отдельные семейства ключей:</p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Зачем</th>
+<th>Приватный ключ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Идентичность устройства</td>
+<td>Доказать «это тот же телефон»</td>
+<td>На телефоне</td>
+</tr>
+<tr>
+<td>Канал Secure Connection</td>
+<td>Доступ в защищённый периметр</td>
+<td>На телефоне</td>
+</tr>
+<tr>
+<td><strong>GAF E2EE</strong></td>
+<td>Шифрование чата конец-в-конец</td>
+<td>На телефоне</td>
+</tr>
+</tbody>
+</table>
+<p>Сервер хранит <strong>публичные</strong> материалы и ciphertext сообщений; <strong>не</strong> восстанавливает утерянный GAF private key. Потеря ключа без переноса = старые E2EE-сообщения нечитаемы с сервера.</p>
+<p><strong>Включение E2EE в чате :</strong> не по умолчанию; нужно взаимное согласие участников и готовность trusted devices с ключами. Пока E2EE активен, обычный plaintext в этот чат не принимается.</p>
+<p><strong>Не обещаем:</strong> «все чаты всегда E2EE» · «сервер держит секрет расшифровки» · «E2EE = тот же ключ, что WireGuard».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07d-edge-wall-one-click">
+<h1>P7d — Edge: глухая стена и один шаг доступа</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D06-edge-wall">
+<figcaption><strong>D06</strong></figcaption>
+<p class="diagram-sense">default-deny снаружи; allow только по выданному доверию. Без IP/портов на схеме.</p><pre class="mermaid">flowchart LR
+  Scan[&quot;Сканер / чужой интернет&quot;] --&gt;|лишние входы закрыты| Wall[&quot;Глухая стена&quot;]
+  Trust[&quot;Доверенный\nвыданный ключ / seat&quot;] --&gt;|1 действие| Chan[&quot;Защищённый канал&quot;]
+  Chan --&gt; Work[&quot;Рабочий контур EliteEW&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  Scan[&quot;Сканер / чужой интернет&quot;] --&gt;|лишние входы закрыты| Wall[&quot;Глухая стена&quot;]
+  Trust[&quot;Доверенный\nвыданный ключ / seat&quot;] --&gt;|1 действие| Chan[&quot;Защищённый канал&quot;]
+  Chan --&gt; Work[&quot;Рабочий контур EliteEW&quot;]</pre></details>
+</figure>
+
+<p><strong>Без:</strong> IP, портов, имён интерфейсов в публичном тексте</p>
+<h2>Тезис</h2>
+<p>Снаружи контур устроен как <strong>default-deny</strong>: лишние входы для сканера/случайного интернета закрыты («глухая стена»). Рабочий доступ открывается по <strong>выданному доверию</strong> (seat / peer / доверенное устройство) — для пользователя это сводится к <strong>одному осмысленному действию</strong> (импорт доступа / подъём защищённого канала / привязка), а не к «открыли порты миру».</p>
+<p>Есть отдельные контуры доверия для <strong>телефона</strong> и для <strong>desktop-client</strong> — не один ключ на всё (см. P7c / P8 / P9a).</p>
+<p><strong>Не обещаем:</strong> air-gap · «невозможно никак пробить» · публикация внутренней топологии.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="07e-mobile-capability-matrix">
+<h1>P7e — Mobile capability matrix</h1>
+<h2>Есть на Android-спутнике</h2>
+<table>
+<thead>
+<tr>
+<th>Возможность</th>
+<th>Примечание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Лента / EWDesk</td>
+<td>Спутник</td>
+</tr>
+<tr>
+<td>Мессенджер GAF</td>
+<td>В т.ч. путь к E2EE при trusted (P7c)</td>
+</tr>
+<tr>
+<td>Друзья / профиль</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Уведомления / push</td>
+<td>Да (с политиками категорий)</td>
+</tr>
+<tr>
+<td>Часть UGS (чат, картинки, песни, презентации)</td>
+<td>Подмножество</td>
+</tr>
+<tr>
+<td>Видеозвонки (WebView Meet)</td>
+<td>Да; учитывает настройку «куда принимать звонок»</td>
+</tr>
+<tr>
+<td>Упрощённый пульт стола</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>Trusted device / Secure Connection</td>
+<td>Опциональный слой безопасности</td>
+</tr>
+</tbody>
+</table>
+<h2>Нет (намеренно / пока не спутник)</h2>
+<table>
+<thead>
+<tr>
+<th>Возможность</th>
+<th>Куда смотреть</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Полный рабочий стол</td>
+<td>Web / desktop-client (P4, P8)</td>
+</tr>
+<tr>
+<td>Спутник EWA</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>Маркетинговый кабинет / кабинет заказчика</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>POEMMA, Professional Worlds</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>Site Studio</td>
+<td>Desktop</td>
+</tr>
+<tr>
+<td>Справочник как отдельное нативное app</td>
+<td>Desktop / web</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> «телефон = полный EliteEW».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="08-tauri-clients-ota">
+<h1>P8 — Tauri-клиенты и доверие обновлений</h1>
+<h2>Тезис</h2>
+<p>Помимо браузера есть <strong>нативные клиенты</strong> (Tauri) для сценариев Connected / offline-capable / FoFline-adjacent: лаунчер, импорт доступа, защищённый канал, запуск продукта, <strong>подписанные</strong> обновления по доверенному каналу.</p>
+<table>
+<thead>
+<tr>
+<th>Инвариант</th>
+<th>Смысл для организации</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OTA fail-closed</td>
+<td>Неподписанное / отозванное обновление не ставится «тихо»</td>
+</tr>
+<tr>
+<td>Не kiosk / не Trusted Substrate</td>
+<td>Клиент на ноутбуке ≠ sealed OS-носитель (P10b)</td>
+</tr>
+<tr>
+<td>Не путать продукты</td>
+<td>Connected и FoFline — разные каналы; не ставить «оба пакета вперемешку» как норму</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> «любой exe из интернета доверен» · FoFline = air-gap.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="08a-atomic-conditional-access">
+<h1>P8a — Atomic Conditional Access</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D07-atomic-access">
+<figcaption><strong>D07</strong></figcaption>
+<p class="diagram-sense">native Connected / FoFline — связка факторов; не универсально для любого браузерного входа.</p><pre class="mermaid">flowchart TB
+  I[&quot;Личность&quot;] --&gt; AND{&quot;Все истины?&quot;}
+  L[&quot;Лицензия активна&quot;] --&gt; AND
+  C[&quot;Канал разрешён&quot;] --&gt; AND
+  D[&quot;Устройство / ключ&quot;] --&gt; AND
+  B[&quot;Привязка учётки&quot;] --&gt; AND
+  AND --&gt;|да| OK[&quot;Доступ в продукт&quot;]
+  AND --&gt;|нет| DENY[&quot;Отказ · без детального оракула&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  I[&quot;Личность&quot;] --&gt; AND{&quot;Все истины?&quot;}
+  L[&quot;Лицензия активна&quot;] --&gt; AND
+  C[&quot;Канал разрешён&quot;] --&gt; AND
+  D[&quot;Устройство / ключ&quot;] --&gt; AND
+  B[&quot;Привязка учётки&quot;] --&gt; AND
+  AND --&gt;|да| OK[&quot;Доступ в продукт&quot;]
+  AND --&gt;|нет| DENY[&quot;Отказ · без детального оракула&quot;]</pre></details>
+</figure>
+
+<h2>Инвариант (обзорный язык)</h2>
+<p>Для <strong>нативных</strong> клиентов Connected и FoFline вход в продукт завязан на связку:</p>
+<pre><code class="language-text">личность подтверждена
+  ∧ лицензия активна
+  ∧ канал разрешён
+  ∧ устройство / доказательство ключа на месте
+  ∧ привязка учётки согласована
+→ доступ разрешён
+</code></pre>
+<p>Отказ — без детального «оракула» наружу (общая формулировка пользователю; детали — в защищённом аудите).</p>
+<h2>Честные границы</h2>
+<table>
+<thead>
+<tr>
+<th>В scope atomic (текущая программа)</th>
+<th>Вне v1 / отдельно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Нативные клиенты Connected и FoFline</td>
+<td>Обычный браузерный SPA организации</td>
+</tr>
+<tr>
+<td>Enforce на cloud contour для этих клиентов</td>
+<td>Mobile SSO как единственный фактор</td>
+</tr>
+<tr>
+<td>Offline-only seat — локальная entitlement без OIDC</td>
+<td>«Абсолютная невозможность обхода»</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> atomic = замена firewall · atomic уже на каждом HTTP-запросе всех клиентов мира · browser-вход «навсегда убран у всех».</p>
+<p><em>(Внутренние OIDC client id в публичный текст не выносим.)</em></p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-access"><h2>Доступ и editions</h2></header><article class="chapter reveal" id="09-capsules-enterprise-seats">
+<h1>P9 — Капсулы и доступ к месту</h1>
+<p><strong>Граница:</strong> капсула / seat — это <strong>сервисный доступ</strong> к hosted или доверенному<br />
+каналу. Она <strong>не</strong> лицензия кода и <strong>не</strong> отменяет MIT-дар self-host.</p>
+<h2>Тезис</h2>
+<p>Если организация пользуется official cloud, управляемым контуром или доверенным<br />
+подключением места, доступ выдаётся как <strong>файл доступа (капсула)</strong>: оператор<br />
+выпускает, пользователь импортирует — без «магазинной саморегистрации ключа<br />
+с витрины». Self-hosted запуск first-party кода по MIT <strong>не</strong> требует капсулы.</p>
+<p>Режимы места: <strong>offline</strong> / <strong>cloud</strong> / <strong>both</strong> — без сырых внутренних id в тексте.</p>
+<p>Капсула — носитель доверия к месту; <strong>не</strong> E2EE-ключ чата и <strong>не</strong> пароль IdP.</p>
+</article>
+<article class="chapter reveal" id="09a-controlled-licenses-sealed">
+<h1>P9a — Сервисный доступ и sealed-материалы</h1>
+<h2>Тезис</h2>
+<p>Слово «лицензия» в старых API-именах здесь значит <strong>сервисный entitlement</strong>:<br />
+доступ к hosted, managed-функциям или доверенному каналу. Это <strong>не</strong> лицензия<br />
+кода MIT и <strong>не</strong> блокирует self-hosted запуск дара.</p>
+<table>
+<thead>
+<tr>
+<th>Правило</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Контроль</td>
+<td>Entitlement можно отозвать / ограничить срок / сменить возможности там, где это поддерживается</td>
+</tr>
+<tr>
+<td>At rest</td>
+<td>В хранении — <strong>хэш</strong> / sealed материалы; не «вечный plaintext ключ в БД как норма»</td>
+</tr>
+<tr>
+<td>Выдача</td>
+<td>Секрет доступа может показаться <strong>один раз</strong> при выпуске; дальше — капсула</td>
+</tr>
+<tr>
+<td>UX</td>
+<td>Импорт <strong>sealed</strong> капсулы; не «вставь ключ в блокнот» как основной путь</td>
+</tr>
+<tr>
+<td>Клиент</td>
+<td>Приватные материалы места — в защищённом хранилище ОС, не в JS/логах</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> пользователь обязан править conf вручную · сервер хранит чужие<br />
+private-ключи чата · капсула = пароль от всех сервисов мира.</p>
+</article>
+<article class="chapter reveal" id="10-editions">
+<h1>P10 — Editions: cloud / on-prem / client</h1>
+<p><strong>Схема:</strong> </p>
+<figure class="diagram" id="D08-editions">
+<figcaption><strong>D08</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph One[&quot;Один продукт EliteEW&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · контур заказчика&quot;]
+    Client[&quot;Client · устройство&quot;]
+  end
+  FoF[&quot;FoFline · local pack + канал\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph One[&quot;Один продукт EliteEW&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · контур заказчика&quot;]
+    Client[&quot;Client · устройство&quot;]
+  end
+  FoF[&quot;FoFline · local pack + канал\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre></details>
+</figure>
+
+<p><strong>FoFline:</strong> ≠ air-gap (ниже)</p>
+<h2>Три формы одного продукта</h2>
+<table>
+<thead>
+<tr>
+<th>Edition</th>
+<th>Кто держит инфраструктуру</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloud</strong></td>
+<td>Hosted-контур</td>
+<td>Работа в общем hosted-слое (доступ к месту — отдельно от MIT)</td>
+</tr>
+<tr>
+<td><strong>On-prem</strong></td>
+<td>Организация</td>
+<td>Self-host дара по MIT или контур с опциональным сопровождением</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>В основном устройство</td>
+<td>Offline-capable subset; remote tools — по allowlist и entitlement</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> «on-prem — одна кнопка для любого без профиля».</p>
+<h2>FoFline (client-adjacent)</h2>
+<p>Свободный <strong>локальный</strong> пакет + опциональный защищённый канал к тому же API.<br />
+Локальный self-host профиль запускается <strong>без</strong> сервисной капсулы; hosted /<br />
+доверенный канал может требовать entitlement. <strong>Не</strong> чистый air-gap.<br />
+<strong>Не</strong> второй независимый backend.</p>
+<p>Foundation (entitlement, SSO, shell OTA, local Start) — shipped.<br />
+Остаточный live-smoke / pack parity не маскируем под «Done» для всего контура.</p>
+</article>
+<article class="chapter reveal" id="10a-native-tauri-hybrid">
+<h1>P10a — Нативный клиент и гибрид</h1>
+<p>Поставка — не «только браузер» и не «только контейнеры»:</p>
+<ul>
+<li><strong>Браузерный</strong> рабочий слой (cloud / on-prem)</li>
+<li><strong>Нативные</strong> клиенты (Connected / FoFline / offline-capable seats) на открытой серверной ОС и на обычной десктоп-ОС</li>
+<li>Контейнерный runtime на стороне платформы — для сервисов, <strong>не</strong> как единственный способ открыть стол пользователю</li>
+</ul>
+<p>Гибрид: хост остаётся своим; EliteEW — управляемый слой поверх него (<a href="#01-what-is-eliteew">P1</a>).</p>
+</article>
+<article class="chapter reveal" id="10b-live-sealed-install">
+<h1>P10b — Live-носитель и sealed install</h1>
+<h2>Тезис</h2>
+<table>
+<thead>
+<tr>
+<th>Носитель</th>
+<th>Смысл</th>
+<th>Честный статус</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sealed capsule / seat</strong></td>
+<td>Файл доступа к месту (P9a)</td>
+<td>Актуальный путь выдачи доступа для desktop-клиента</td>
+</tr>
+<tr>
+<td><strong>Live USB / metal install</strong></td>
+<td>Загрузочный носитель → установка sealed OS-носителя (Trusted Substrate)</td>
+<td>Целевой контур разработки; массовый sealed-образ у всех организаций не заявляется</td>
+</tr>
+<tr>
+<td><strong>Постоянная установка</strong></td>
+<td>Kiosk-class OS + payload EliteEW</td>
+<td>Target end-state; bootstrap payload может отличаться от финального Tauri</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> live USB = готовый air-gap без канала · Substrate = замена Connection Agent · «уже полностью заменил Fedora kiosk у Empery».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="10c-ops-scale-not-user-cli">
+<h1>P10c — Ops-масштаб: деплой и контроль (не user CLI)</h1>
+<h2>Тезис</h2>
+<p>У Empery / оператора контура — <strong>сотни</strong> автоматизаций деплоя, контроля и<br />
+обслуживания (порядок <strong>250–300+</strong> скриптов и обёрток). Это ориентир масштаба,<br />
+не «тысячи» и не выдуманное круглое число.</p>
+<p>Для <strong>сотрудника организации</strong> это значит: восстановление и выкладка — зона<br />
+оператора и Admin-панели, <strong>не</strong> «откройте терминал и запустите скрипт деплоя».</p>
+<p>В self-hosted / on-prem тот же принцип: ops-масштаб у <strong>ИТ/SI организации</strong>.<br />
+В managed enterprise эксплуатацию и участие архитектора можно оформить<br />
+отдельной услугой — см. <a href="#03e-delivery-models">P3e</a>.</p>
+<p>Admin на столе — <strong>упрощённая админ-панель</strong> для ответственных организации<br />
+(люди, каталог, очереди), не полная замена IdP-админки и не пользовательская<br />
+фича дня.</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="10d-external-messenger-honesty">
+<h1>P10d — Опциональные внешние notify-каналы</h1>
+<h2>Каналы (честно)</h2>
+<table>
+<thead>
+<tr>
+<th>Канал</th>
+<th>Статус</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Исходящий notify</strong></td>
+<td><strong>Есть</strong> при включённой политике</td>
+<td>Опциональная интеграция в API/companion. Не штатный мессенджер сотрудников и не обязательный вход в EliteEW</td>
+</tr>
+<tr>
+<td><strong>Access / IP-verif бот</strong></td>
+<td><strong>История</strong></td>
+<td>Исторический бот доступа; в текущем продукте не используется как вход</td>
+</tr>
+<tr>
+<td><strong>Сторонний мессенджер как «вход в продукт»</strong></td>
+<td><strong>Не позиционируем</strong></td>
+<td>Не позиционировать как рабочий канал продукта</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Не обещаем:</strong> «весь EliteEW открывается только через внешний мессенджер» · «сторонний бот уже в проде как штатный вход».</p>
+<p>Сравнение «хост / DIY / EliteEW» — кратко в <a href="#01-what-is-eliteew">P1</a>; границы обещаний — <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<header class="part-head reveal" id="part-cards"><h2>Карточки apps</h2></header><article class="chapter reveal" id="11-must-app-cards">
+<h1>P11 — Must: карточки приложений (tier 1)</h1>
+<p>Анти-тавтология: здесь только «суть / результат / куда читать»; детали файлов/ролей/E2EE — в P4–P9.</p>
+<p>Каждая карточка: Хост | DIY | EliteEW — одна строка сравнения.</p>
+<hr />
+<h3>Файловый менеджер</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Единая библиотека файлов организации</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>ContentManagerPro</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Папки, версии, доступ, поиск без «файла только на чужом диске»</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#04a-files-two-planes">P4a</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Редактор документов (+ совместная работа)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Документы в контуре; совместная правка по явному подключению</td>
+</tr>
+<tr>
+<td><strong>Компоненты</strong></td>
+<td><code>DocEditor</code> · <code>DocEditorV2</code> (актуальный UI)</td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Текст и review без обязательного выноса во внешний Docs</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#04b-document-collaboration">P4b</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>GAF Chat</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Внутренний мессенджер 1:1</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>GAFChatApp</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Рабочий чат в периметре; E2EE — опция (P7c), не default</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#07a-internal-messenger">P7a</a> · <a href="#07c-trusted-phone-e2ee">P7c</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Видеозвонки</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Внутренние звонки; 1:1 — сначала принять, потом войти</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>VideoCallApp</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Синхрон без зоопарка ссылок; выбор, куда принимать звонок</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#07b-internal-video-calls">P7b</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Магазин приложений</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Каталог и установка программ стола</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>AppStore</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Стол собирается под роль, не один набор иконок</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#05-apps-store-ai-contours">P5</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Настройки рабочего стола</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Тема, обои, поведение окон/панели</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td>shell Settings (часть оболочки, не отдельное app id)</td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Персонализация стола без правки ОС</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#04-desktop-workspace">P4</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Маркетинговый кабинет</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Компания → проект → стратегия / кампании / исследования</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>MarketingCabinet</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Проект на своих материалах; RAG по vault (P5b)</td>
+</tr>
+<tr>
+<td><strong>Читать</strong></td>
+<td><a href="#05a-roles-org-project">P5a</a> · <a href="#05b-generation-spend-vault-ai">P5b</a></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Кабинет заказчика</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Упрощённый контур для стороны заказчика</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>CustomerCabinet</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Согласование/сводка <strong>без</strong> кухни маркетолога</td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>≠ маркетинговый кабинет · ≠ КИРС</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Ассистент (EWA)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Спутник стола: диалог и действия в контуре</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>EwaApp</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Помощь «на месте», оркестрация сценариев стола</td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td><strong>≠ Эксперты</strong> (P5)</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Эксперты</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Инструментальный ИИ-чат: файлы, память, «команда»</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>DesktopAiChatApp</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Черновики и разбор материалов в контуре</td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td><strong>≠ EWA-спутник</strong></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Админ</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Панель ответственных: люди, каталог, очереди</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>UnifiedAdminApp</code></td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Порядок доступов без выдачи ops-CLI пользователям</td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>≠ полная админка IdP · ≠ user feature дня (P10c)</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</article>
+<article class="chapter reveal" id="11a-should-app-cards">
+<h1>P11 — Should: карточки приложений (tier 2)</h1>
+<p><strong>Сверка каталога (2026-09-30):</strong> около <strong>46</strong> desktop apps в реестре (manifests ∪ legacy).<br />
+<strong>Must:</strong> <a href="#11-must-app-cards">11-must-app-cards.md</a> · <strong>Later:</strong> <a href="#11b-later-app-cards">11b-later-app-cards.md</a></p>
+<p>Честно: не у всех ролей включены все apps; тяжёлые генерации зависят от среды (P5b / P12).</p>
+<hr />
+<h3>EWRP (презентации)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Тема → слайды с иллюстрациями → PDF</td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Презентация в контуре без обязательного внешнего внешний слайд-редактор-как-нормы</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>EWRP</code> (+ архив <code>Presentations</code> / <code>PresentationsArchive</code>)</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Студия изображений</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Текст → картинка; правка по инструкции</td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Визуалы для проектов внутри периметра (где включено)</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>ImageStudio</code></td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>Нужна доступность Comfy/очереди; энергия (P5b)</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Студия видео</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Картинка → короткое видео (по возможностям контура)</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>VideoStudio</code></td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>Не «полный тяжёлый видеоредактор»; зависит от сервисов</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Голос / Студия ГУ</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Голосовые сценарии: диалог, штаб команд, Live Voice, транскрипция</td>
+</tr>
+<tr>
+<td><strong>Компонент (актуальный UI)</strong></td>
+<td><code>StudioGU</code></td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>Legacy catalog ids <code>VoiceStudio</code> / <code>AudioTranscriptionPro</code> / часть <code>VoiceCommand</code> остаются в реестре; <strong>пользовательский</strong> контур — Студия ГУ (+ on-demand штаб где включён). Не обещать «всё всегда онлайн»</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Музыка (плеер + Студия песен)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Плеер библиотеки; создание песен — <strong>MusicForge</strong> («Студия песен»)</td>
+</tr>
+<tr>
+<td>**Компоненты **</td>
+<td><code>MusicPlayer</code>, <code>MusicForgeApp</code></td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td><code>MusicGenerator</code> / <code>MusicEvolutionApp</code> — <strong>legacy</strong> ids в реестре (ярлыки/уведомления → MusicForge); не позиционировать как отдельные актуальный студии. Канон — MusicForge</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Professional Worlds</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Профессиональные среды; пакет «Риэлтор» и др.</td>
+</tr>
+<tr>
+<td><strong>Результат</strong></td>
+<td>Объекты/клиенты/playbooks в контуре</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>ProfessionalWorlds</code> — в реестре apps (<strong>46</strong>)</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Социальный хаб / друзья</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Профиль, друзья, приватность, переход в чат</td>
+</tr>
+<tr>
+<td><strong>Компоненты</strong></td>
+<td><code>SocialHubApp</code>, <code>FriendsApp</code>, <code>UserProfile</code></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Центр уведомлений</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Единая лента событий продукта</td>
+</tr>
+<tr>
+<td><strong>Компонент</strong></td>
+<td><code>NotificationsApp</code></td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Site Studio и КИРС</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Личная студия сайтов · сайт по маркетинг-проекту · витрина клиента</td>
+</tr>
+<tr>
+<td><strong>Компоненты</strong></td>
+<td><code>UserSiteStudio</code>, <code>KirsCuration</code>, <code>KirsClientSite</code></td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>КИРС ≠ личная Студия ≠ кабинет заказчика (P11 Must)</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>UGS (хаб / студия сценариев)</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Суть</strong></td>
+<td>Очередь и обзор генераций / сценариев</td>
+</tr>
+<tr>
+<td><strong>Компоненты</strong></td>
+<td><code>UGSHubApp</code>, <code>UGS</code></td>
+</tr>
+<tr>
+<td><strong>Честно</strong></td>
+<td>Очередь/карточки/quick-execute — в продукте. Отдельный <strong>Workflow Builder</strong> shell на Hub — <strong>retired</strong> (нет в active <code>src/</code>). Не «бесплатно без лимитов»</td>
+</tr>
+<tr>
+<td>**Хост</td>
+<td>DIY</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>EWDesk · обращения · POEMMA (кратко)</h3>
+<table>
+<thead>
+<tr>
+<th>App</th>
+<th>Суть</th>
+<th>Честно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EWDeskApp</code></td>
+<td>Лента новостей продукта</td>
+<td>Не CRM</td>
+</tr>
+<tr>
+<td><code>FeedbackHubApp</code></td>
+<td>Идеи/баги → ответ команды</td>
+<td>Не support SLA-гарантия в этом тексте</td>
+</tr>
+<tr>
+<td><code>PoemmaApp</code></td>
+<td>Карта бизнеса 90 дней</td>
+<td><strong>≠</strong> зал маркетинга</td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="11b-later-app-cards">
+<h1>P11 — Later: краткие карточки (tier 3)</h1>
+<hr />
+<table>
+<thead>
+<tr>
+<th>Имя в UI</th>
+<th>Компонент / поверхность</th>
+<th>Суть</th>
+<th>Честно</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local Service</td>
+<td><code>LocalServiceIframeApp</code></td>
+<td>Встраивание локального/оговорённого сервиса в окно</td>
+<td>Не «любой URL без политики»</td>
+</tr>
+<tr>
+<td>Буфер обмена</td>
+<td><code>ClipboardManager</code></td>
+<td>История копирований на столе</td>
+<td>Не корпоративный DLP-агент ОС</td>
+</tr>
+<tr>
+<td>Системный монитор</td>
+<td><code>SystemMonitorWidget</code> (виджет)</td>
+<td>Метрики среды</td>
+<td>GPU/метрики — с оговорками; <strong>не</strong> полное отдельное app</td>
+</tr>
+<tr>
+<td>Календарь</td>
+<td><code>CalendarApp</code></td>
+<td>Календарные сценарии на столе</td>
+<td>Не замена корп. почтовый календарь целиком</td>
+</tr>
+<tr>
+<td>ComfyUI (окно)</td>
+<td><code>ComfyUI</code></td>
+<td>Служебное/творческое окно к генеративному UI где включено</td>
+<td><strong>Не</strong> user Image/Video Studio; пользовательский путь — студии. Id остаётся в реестре</td>
+</tr>
+<tr>
+<td>MusicGenerator / Music Evolution (legacy)</td>
+<td><code>MusicGenerator</code>, <code>MusicEvolutionApp</code></td>
+<td>Исторические ids</td>
+<td>Ярлыки → <strong>MusicForge</strong>; не отдельные активные apps</td>
+</tr>
+<tr>
+<td>Браузер в столе</td>
+<td><code>EBrowserApp</code></td>
+<td>Встроенный браузерный контур</td>
+<td>Не замена хост-браузера для всего</td>
+</tr>
+<tr>
+<td>Курсорина</td>
+<td><code>KursorinaApp</code></td>
+<td>Исследовательский агент по уликкам</td>
+<td>≠ Experts · ≠ EWA</td>
+</tr>
+<tr>
+<td>Справочная / Assistant FAQ</td>
+<td><code>AssistantApp</code></td>
+<td>FAQ + RAG по продукту</td>
+<td>≠ EWA-спутник (разные apps)</td>
+</tr>
+<tr>
+<td>О проекте</td>
+<td><code>ProjectAboutApp</code></td>
+<td>Презентация продукта на столе</td>
+<td>Сопроводительный материал</td>
+</tr>
+<tr>
+<td>Survey hub</td>
+<td><code>SurveyHubApp</code></td>
+<td>Опросы</td>
+<td>Узкий сценарий</td>
+</tr>
+<tr>
+<td>UGS Studio (legacy label)</td>
+<td>см. Should UGS</td>
+<td>—</td>
+<td>Не плодить вторую Must-карточку</td>
+</tr>
+</tbody>
+</table>
+<h2>Хост-среда и рабочий слой</h2>
+<table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Хост</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Служебные утилиты</td>
+<td>Встроенные + зоопарк</td>
+<td>Пакеты</td>
+<td>Точечные apps/виджеты контура</td>
+</tr>
+<tr>
+<td>Приоритет показа</td>
+<td>—</td>
+<td>—</td>
+<td>Ниже Must/Should</td>
+</tr>
+</tbody>
+</table>
+</article>
+<header class="part-head reveal" id="part-limits"><h2>Честные границы</h2></header><article class="chapter reveal" id="12-honest-limits">
+<h1>P12 — Честные лимиты</h1>
+<p>Чтобы не смешивать дар и абсолюты. Ниже — то, чего <strong>нельзя</strong> обещать «для всех edition сразу».</p>
+<table>
+<thead>
+<tr>
+<th>Тема</th>
+<th>Как говорить</th>
+<th>Как не говорить</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Стерильный диск / wipe</td>
+<td>Политика конкретного edition; проверять на PoC</td>
+<td>«Гарантируем стерильный диск везде»</td>
+</tr>
+<tr>
+<td>Задержки интерфейса</td>
+<td>Ориентир комфорта на PoC</td>
+<td>«Всегда ≤200 мс у всех»</td>
+</tr>
+<tr>
+<td>Фото экрана</td>
+<td>Минимизация цифрового канала, не 100%</td>
+<td>«Снять экран невозможно»</td>
+</tr>
+<tr>
+<td>FoFline = air-gap</td>
+<td>Нет: локальный пакет + канал (<a href="#10-editions">P10</a>)</td>
+<td>«Полный air-gap»</td>
+</tr>
+<tr>
+<td>Замена firewall / AV / DLP</td>
+<td>Слой поверх стека (<a href="#02-threats-and-protection">P2</a>)</td>
+<td>«Заменим весь ИБ-стек»</td>
+</tr>
+<tr>
+<td>ИИ вместо эксперта</td>
+<td>Ускоряет черновики на ваших данных</td>
+<td>«Заменит команду»</td>
+</tr>
+<tr>
+<td>Несколько «студий песен»</td>
+<td>Сейчас: <strong>MusicForge</strong> (+ плеер)</td>
+<td>Несколько равноправных активных студий</td>
+</tr>
+<tr>
+<td>Телефон = полный стол</td>
+<td>Подмножество (<a href="#07e-mobile-capability-matrix">P7e</a>)</td>
+<td>«Весь EliteEW в кармане»</td>
+</tr>
+<tr>
+<td>Всегда E2EE</td>
+<td>По согласию (<a href="#07c-trusted-phone-e2ee">P7c</a>)</td>
+<td>«Всегда E2EE»</td>
+</tr>
+<tr>
+<td>Затраты self-host</td>
+<td>Ориентир ФОТ/хоста (<a href="#03d-tco-orientative">P3d</a>)</td>
+<td>«Дар = ноль затрат навсегда»</td>
+</tr>
+<tr>
+<td>Сторонний мессенджер как вход</td>
+<td>Не штатный канал (<a href="#10d-external-messenger-honesty">P10d</a>)</td>
+<td>«Это наш основной вход»</td>
+</tr>
+<tr>
+<td>Аттестация «из коробки»</td>
+<td>Запрещено (<a href="#03-regulatory-map">P3</a>)</td>
+<td>«Уже аттестовано»</td>
+</tr>
+<tr>
+<td>Штат авторов «в даре»</td>
+<td>Нет (<a href="#03e-delivery-models">P3e</a>)</td>
+<td>«Авторы ведут вас годами»</td>
+</tr>
+<tr>
+<td>MIT = весь monorepo</td>
+<td>First-party default; исключения и third-party отдельно (<a href="#03c-full-complex-source">P3c</a>)</td>
+<td>«Всё в репо — одна лицензия»</td>
+</tr>
+<tr>
+<td>Hosted «для всех завтра»</td>
+<td>Опциональный контур, не следствие MIT</td>
+<td>«Бесплатная managed-эксплуатация вместе с кодом»</td>
+</tr>
+<tr>
+<td>Бренд на любом форке</td>
+<td>Знак отдельно от MIT</td>
+<td>«Форк = официальный EliteEW»</td>
+</tr>
+</tbody>
+</table>
+<p>Возможности рабочего слоя эта глава <strong>не отменяет</strong> — только ограничивает абсолюты.</p>
+</article>
+<header class="part-head reveal" id="part-briefs"><h2>Сжато</h2></header><article class="chapter reveal" id="13-onepager-executive">
+<h1>Обзор: дар миру и свой контур</h1>
+<p>Короткая страница для тех, кто решает, <strong>принимать ли EliteEW</strong> в организацию<br />
+как открытый рабочий комплекс.</p>
+<h2>Что это</h2>
+<p><strong>EliteEW</strong> = рабочий стол организации (приложения, файлы, проекты, ИИ на своих данных)<br />
+<strong>+</strong> закрытый рабочий слой (личное и рабочее разделены)<br />
+<strong>+</strong> first-party код как <strong>дар миру</strong> по MIT.</p>
+<p>Не замена хост-ОС. Не «100% защита». Не аттестат. Не «принятие дара закрепляет штат авторов навсегда».</p>
+<p>Формула — <a href="#01-what-is-eliteew">P1</a>; лицензия и условия лицензии — <a href="#03c-full-complex-source">P3c</a>;<br />
+границы — <a href="#12-honest-limits">P12</a>.</p>
+<h2>Четыре вопроса</h2>
+<table>
+<thead>
+<tr>
+<th>Вопрос</th>
+<th>Ответ</th>
+<th>Куда</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Что отдано миру?</td>
+<td>First-party код: запуск, изучение, изменение, распространение по MIT; сохранение copyright и текста разрешения</td>
+<td><a href="#03c-full-complex-source">P3c</a></td>
+</tr>
+<tr>
+<td>Что не входит в дар?</td>
+<td>Штат авторов, SLA, официальный бренд, чужие секреты</td>
+<td><a href="#03e-delivery-models">P3e</a> · <a href="#12-honest-limits">P12</a></td>
+</tr>
+<tr>
+<td>Кто поднимает контур?</td>
+<td>ИТ/ИБ организации и/или SI; сопровождение — опция</td>
+<td><a href="#03g-si-migration-playbook">P3g</a> · <a href="#10c-ops-scale-not-user-cli">P10c</a></td>
+</tr>
+<tr>
+<td>Как принять у себя?</td>
+<td>Source + commit/tag, артефакты, пилот, свои runbooks</td>
+<td><a href="#03f-transfer-bom-handover">P3f</a> · <a href="#13-onepager-dd-rfi">вопросы</a></td>
+</tr>
+</tbody>
+</table>
+<h2>Editions</h2>
+<p>Cloud (hosted) · On-prem (контур организации) · Client/FoFline (устройство + канал; <strong>не</strong> air-gap) — <a href="#10-editions">P10</a>.</p>
+<h2>Дальше</h2>
+<table>
+<thead>
+<tr>
+<th>Роль</th>
+<th>Страница</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ИБ</td>
+<td><a href="#13-onepager-ciso">CISO</a></td>
+</tr>
+<tr>
+<td>Внедрение</td>
+<td><a href="#13-onepager-industry">industry</a> · <a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td>Термины</td>
+<td><a href="#glossary">glossary</a></td>
+</tr>
+<tr>
+<td>Весь пакет</td>
+<td><a href="#00-README">оглавление</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="13-onepager-ciso">
+<h1>Обзор для ИБ / периметр</h1>
+<p>Сжатый вход. Полный путь: <a href="#02-threats-and-protection">P2</a> → <a href="#02a-agentless-instant-access">P2a</a> → <a href="#07d-edge-wall-one-click">P7d</a> → <a href="#09a-controlled-licenses-sealed">P9a</a> → <a href="#08a-atomic-conditional-access">P8a</a> → <a href="#08-tauri-clients-ota">P8</a> → <a href="#07c-trusted-phone-e2ee">P7c</a> → <a href="#12-honest-limits">P12</a> → <a href="#03-regulatory-map">P3</a>.</p>
+<h2>В одном абзаце</h2>
+<p>EliteEW добавляет <strong>рабочий слой</strong> поверх личного устройства: файлы и приложения организации — в контуре, без системного агента на личной ОС как нормы. Снаружи — закрытый периметр и доступ по выданному доверию. У нативных Connected/FoFline-клиентов доступ завязан на личность, сервисный entitlement, канал и устройство (не универсально для всего браузера). Сквозное шифрование чата — по согласию, с ключом на телефоне. Нормативная карта — «помогает контуру», <strong>не</strong> аттестат. Поставка — <a href="#03e-delivery-models">P3e</a>.</p>
+<h2>Тезисы</h2>
+<table>
+<thead>
+<tr>
+<th>Тема</th>
+<th>Суть</th>
+<th>Глава</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shadow IT / личные мессенджеры</td>
+<td>Массовый канал вне периметра</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>Firewall / AV / полный DLP</td>
+<td>Не заменяет</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>Доступ без агента на личной ОС</td>
+<td>Быстрая выдача рабочего слоя</td>
+<td>P2a</td>
+</tr>
+<tr>
+<td>Внешний периметр</td>
+<td>Default-deny + доверие</td>
+<td>P7d</td>
+</tr>
+<tr>
+<td>Сервисный доступ (капсула)</td>
+<td>Управляемый доступ к месту, отзыв</td>
+<td>P9a</td>
+</tr>
+<tr>
+<td>Условный доступ native</td>
+<td>Связка личность ∧ entitlement ∧ канал ∧ устройство</td>
+<td>P8a</td>
+</tr>
+<tr>
+<td>Обновления клиента</td>
+<td>Подписанный канал, fail-closed</td>
+<td>P8</td>
+</tr>
+<tr>
+<td>E2EE чата</td>
+<td>Опция, не default</td>
+<td>P7c</td>
+</tr>
+<tr>
+<td>Стерильный диск / air-gap</td>
+<td>Не абсолют</td>
+<td>P12 · P10</td>
+</tr>
+<tr>
+<td>Нормы и аттестация</td>
+<td>Помогает; не заменяет</td>
+<td>P3</td>
+</tr>
+</tbody>
+</table>
+<p>Границы обещаний — <a href="#12-honest-limits">P12</a>. Формула продукта — <a href="#01-what-is-eliteew">P1</a>.</p>
+</article>
+<article class="chapter reveal" id="13-onepager-industry">
+<h1>Обзор для внедрения / отрасли</h1>
+<p>Для руководителя внедрения и тех, кто поднимает контур у организации.</p>
+<h2>В одном абзаце</h2>
+<p>EliteEW — <strong>рабочая среда</strong> и <strong>дар миру</strong> по MIT: организация принимает<br />
+код, разворачивает свой экземпляр силами ИТ/SI и живёт в своём контуре.<br />
+Сопровождение (если нужно) — опция, не замена дара сопровождением. Структура затрат<br />
+self-host — ориентир по ФОТ/хосту, не тариф на код<br />
+(<a href="#03d-tco-orientative">P3d</a> · <a href="#03e-delivery-models">P3e</a>).</p>
+<h2>Карта</h2>
+<table>
+<thead>
+<tr>
+<th>Тема</th>
+<th>Глава</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Что это</td>
+<td><a href="#01-what-is-eliteew">P1</a></td>
+</tr>
+<tr>
+<td>Дар / MIT / условия лицензии</td>
+<td><a href="#03c-full-complex-source">P3c</a></td>
+</tr>
+<tr>
+<td>Как пользоваться даром</td>
+<td><a href="#03e-delivery-models">P3e</a></td>
+</tr>
+<tr>
+<td>День сотрудника</td>
+<td><a href="#03a-employee-day-adoption">P3a</a></td>
+</tr>
+<tr>
+<td>Отраслевые акценты</td>
+<td><a href="#03b-industry-profiles">P3b</a></td>
+</tr>
+<tr>
+<td>Принять у себя</td>
+<td><a href="#03f-transfer-bom-handover">P3f</a></td>
+</tr>
+<tr>
+<td>Миграция с зоопарка</td>
+<td><a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td>Роли</td>
+<td><a href="#05a-roles-org-project">P5a</a></td>
+</tr>
+<tr>
+<td>Файлы</td>
+<td><a href="#04a-files-two-planes">P4a</a></td>
+</tr>
+<tr>
+<td>Границы</td>
+<td><a href="#12-honest-limits">P12</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="13-onepager-dd-rfi">
+<h1>Вопросы до глубокого чтения</h1>
+<p>Короткие ответы. <strong>Не заменяет:</strong> юридическое заключение, аттестацию, передачу чужих секретов.</p>
+<p>Связь: <a href="#03c-full-complex-source">P3c</a> · <a href="#03e-delivery-models">P3e</a> · <a href="#03f-transfer-bom-handover">P3f</a> · <a href="#03g-si-migration-playbook">P3g</a></p>
+<h2>Дар и лицензия</h2>
+<table>
+<thead>
+<tr>
+<th>Вопрос</th>
+<th>Ответ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Лицензия first-party кода?</td>
+<td><code>MIT</code> (корневой LICENSE); не весь monorepo одной лицензией</td>
+</tr>
+<tr>
+<td>Что свободно?</td>
+<td>Запуск, изучение, изменение, распространение на условиях MIT</td>
+</tr>
+<tr>
+<td>Сетевая модификация?</td>
+<td>MIT не требует публикации исходников сервиса</td>
+</tr>
+<tr>
+<td>Third-party / MIT-исключения?</td>
+<td>По своим лицензиям; карта + SBOM / NOTICE</td>
+</tr>
+<tr>
+<td>Бренд EliteEW?</td>
+<td>Не передаётся MIT</td>
+</tr>
+<tr>
+<td>Штат авторов / SLA в «даре»?</td>
+<td>Нет; сопровождение — отдельная опция</td>
+</tr>
+<tr>
+<td>Тарифы услуг в этом пакете?</td>
+<td>Нет — пакет не содержит тарифов</td>
+</tr>
+</tbody>
+</table>
+<h2>Продукт и ИБ</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Вопрос</th>
+<th>Ответ</th>
+<th>Глава</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Замена хост-ОС?</td>
+<td>Нет — слой поверх хоста</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Агент на личной ОС?</td>
+<td>Не норма</td>
+<td>P2a</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Аттестат «из коробки»?</td>
+<td>Нет</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Air-gap FoFline?</td>
+<td>Нет</td>
+<td>P10 · P12</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Всегда E2EE?</td>
+<td>Нет; по согласию</td>
+<td>P7c</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Условный доступ native?</td>
+<td>Для Connected/FoFline native</td>
+<td>P8a</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Стерильный диск везде?</td>
+<td>Нет как абсолют</td>
+<td>P12</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Фото экрана невозможно?</td>
+<td>Нет</td>
+<td>P12</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Где данные?</td>
+<td>По edition</td>
+<td>P10</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Mobile = полный стол?</td>
+<td>Подмножество</td>
+<td>P7e</td>
+</tr>
+</tbody>
+</table>
+<h2>Принять у себя</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Вопрос</th>
+<th>Ответ</th>
+<th>Глава</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>11</td>
+<td>Что сверять при приёмке?</td>
+<td>Source, commit/tag, сборка, docs, SBOM</td>
+<td>P3f</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Чужие prod-секреты?</td>
+<td>Не часть дара</td>
+<td>P3f</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Кто поднимает?</td>
+<td>ИТ/SI организации</td>
+<td>P3e · P3g</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Миграция с зоопарка?</td>
+<td>Волны, не одна кнопка</td>
+<td>P3g</td>
+</tr>
+<tr>
+<td>15</td>
+<td>PoC?</td>
+<td>Да; по реальным возможностям</td>
+<td>P3g · P12</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Структура затрат self-host?</td>
+<td>Ориентир (ФОТ/хост), не тариф и не условие услуг</td>
+<td>P3d</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Официальный бренд на форке?</td>
+<td>Только отдельная договорённость о знаке</td>
+<td>P3c · P3e</td>
+</tr>
+<tr>
+<td>18</td>
+<td>OSS / third-party?</td>
+<td>Карта + SBOM релиза</td>
+<td>P3c · P3f</td>
+</tr>
+</tbody>
+</table>
+<h2>Дальше</h2>
+<table>
+<thead>
+<tr>
+<th>Роль</th>
+<th>Путь</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Обзор</td>
+<td><a href="#13-onepager-executive">executive</a></td>
+</tr>
+<tr>
+<td>ИБ</td>
+<td><a href="#13-onepager-ciso">CISO</a></td>
+</tr>
+<tr>
+<td>Внедрение</td>
+<td><a href="#13-onepager-industry">industry</a> · <a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td>Термины</td>
+<td><a href="#glossary">glossary</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="13-summary-matrix">
+<h1>Сводная матрица (Хост | DIY | EliteEW)</h1>
+<p>Сжатие уже написанных глав; без новых обещаний.</p>
+<table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Хост</th>
+<th>DIY</th>
+<th>EliteEW</th>
+<th>Глава</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Роль в день</td>
+<td>Хост-ОС + apps</td>
+<td>Хост-ОС + packages</td>
+<td>Рабочий <strong>слой</strong> поверх хоста</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>Shadow IT</td>
+<td>Личные apps рядом</td>
+<td>То же</td>
+<td>Контур чата/файлов/ИИ</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>Endpoint-агент на BYOD</td>
+<td>Типичен для DLP</td>
+<td>Типичен</td>
+<td><strong>Без</strong> admin-агента на личной ОС</td>
+<td>P2a</td>
+</tr>
+<tr>
+<td>НПА / аттестация</td>
+<td>Отдельный контур</td>
+<td>Отдельный</td>
+<td>Помогает контуру; <strong>не</strong> аттестат</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>День сотрудника</td>
+<td>Разрозненный SaaS</td>
+<td>То же</td>
+<td>Один swimlane</td>
+<td>P3a</td>
+</tr>
+<tr>
+<td>Отрасль организация</td>
+<td>Вертикали</td>
+<td>DIY</td>
+<td>Профили акцента</td>
+<td>P3b</td>
+</tr>
+<tr>
+<td>Исходники / экземпляр</td>
+<td>Закрытая ОС</td>
+<td>Ядро open</td>
+<td>MIT-дар · self-host</td>
+<td>P3c</td>
+</tr>
+<tr>
+<td>Дар vs сопровождение</td>
+<td>—</td>
+<td>DIY</td>
+<td>Код открыт; сопровождение опционально</td>
+<td>P3e</td>
+</tr>
+<tr>
+<td>Приёмка у себя</td>
+<td>Volume / image</td>
+<td>Distro + пакеты</td>
+<td>Commit/tag + сборка + SBOM · Day‑0…90</td>
+<td>P3f</td>
+</tr>
+<tr>
+<td>SI / миграция</td>
+<td>Change apps</td>
+<td>DIY cutover</td>
+<td>Волны M0–M5 · PoC по реальным возможностям</td>
+<td>P3g</td>
+</tr>
+<tr>
+<td>Структура затрат</td>
+<td>Лицензии+агенты</td>
+<td>ФОТ DIY</td>
+<td>Структура · Discovery</td>
+<td>P3d</td>
+</tr>
+<tr>
+<td>Файлы</td>
+<td>Диск/облако</td>
+<td>FS/DIY</td>
+<td>PG + object store + ACL</td>
+<td>P4a</td>
+</tr>
+<tr>
+<td>Collab docs</td>
+<td>365 / сторонние</td>
+<td>self-host офисный пакет DIY</td>
+<td>Редактор контура</td>
+<td>P4b</td>
+</tr>
+<tr>
+<td>ИИ</td>
+<td>Внешний чат</td>
+<td>DIY LLM</td>
+<td>EWA <strong>≠</strong> Experts</td>
+<td>P5</td>
+</tr>
+<tr>
+<td>Роли</td>
+<td>каталог учёток группы</td>
+<td>LDAP DIY</td>
+<td>Собственник/лид/участник</td>
+<td>P5a</td>
+</tr>
+<tr>
+<td>Генерации</td>
+<td>Внешние SaaS</td>
+<td>DIY GPU</td>
+<td>Энергия / квоты</td>
+<td>P5b</td>
+</tr>
+<tr>
+<td>Mobile</td>
+<td>MDM apps</td>
+<td>То же</td>
+<td>Спутник · subset</td>
+<td>P7e</td>
+</tr>
+<tr>
+<td>E2EE чат</td>
+<td>Signal и др.</td>
+<td>То же</td>
+<td>Opt-in · ключ на телефоне</td>
+<td>P7c</td>
+</tr>
+<tr>
+<td>Edge доступ</td>
+<td>VPN/firewall</td>
+<td>DIY</td>
+<td>Стена + выданное доверие</td>
+<td>P7d</td>
+</tr>
+<tr>
+<td>Native client</td>
+<td>Store/установщик desktop-ОС</td>
+<td>RPM/портативная сборка</td>
+<td>Tauri + signed OTA</td>
+<td>P8</td>
+</tr>
+<tr>
+<td>Conditional access</td>
+<td>Entra CA</td>
+<td>DIY</td>
+<td>Atomic native scope</td>
+<td>P8a</td>
+</tr>
+<tr>
+<td>Сервисный доступ</td>
+<td>Volume</td>
+<td>DIY</td>
+<td>Капсула/entitlement; MIT self-host не блокируется</td>
+<td>P9a</td>
+</tr>
+<tr>
+<td>Editions</td>
+<td>SaaS/RDS</td>
+<td>Self-host</td>
+<td>cloud/onprem/client</td>
+<td>P10</td>
+</tr>
+<tr>
+<td>FoFline air-gap</td>
+<td>—</td>
+<td>—</td>
+<td><strong>Нет</strong> (local+канал)</td>
+<td>P10</td>
+</tr>
+<tr>
+<td>Live sealed OS</td>
+<td>Image</td>
+<td>Live USB</td>
+<td>Substrate <strong>target</strong></td>
+<td>P10b</td>
+</tr>
+<tr>
+<td>Стерильный диск</td>
+<td>—</td>
+<td>—</td>
+<td>Не универсальное обещание</td>
+<td>P12</td>
+</tr>
+<tr>
+<td>Аналог (фото)</td>
+<td>Не закрыт ОС</td>
+<td>Не закрыт</td>
+<td>Минимизация · не 100%</td>
+<td>P12</td>
+</tr>
+</tbody>
+</table>
+<h2>Индекс one-pagers</h2>
+<table>
+<thead>
+<tr>
+<th>Файл</th>
+<th>Аудитория</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#13-onepager-executive">13-onepager-executive.md</a></td>
+<td>Комитет / организация</td>
+</tr>
+<tr>
+<td><a href="#13-onepager-ciso">13-onepager-ciso.md</a></td>
+<td>ИБ</td>
+</tr>
+<tr>
+<td><a href="#13-onepager-industry">13-onepager-industry.md</a></td>
+<td>Внедрение / отрасль</td>
+</tr>
+<tr>
+<td><a href="#13-onepager-dd-rfi">13-onepager-dd-rfi.md</a></td>
+<td>DD / RFI (внедрение + ИБ)</td>
+</tr>
+<tr>
+<td><a href="#03e-delivery-models">03e-delivery-models.md</a></td>
+<td>Дар миру: как пользоваться</td>
+</tr>
+<tr>
+<td><a href="#03f-transfer-bom-handover">03f-transfer-bom-handover.md</a></td>
+<td>Принять у себя · артефакты</td>
+</tr>
+<tr>
+<td><a href="#03g-si-migration-playbook">03g-si-migration-playbook.md</a></td>
+<td>SI · миграция · PoC</td>
+</tr>
+<tr>
+<td><a href="#glossary">glossary.md</a></td>
+<td>Термины</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Перед внешней выдачей:</strong> нет IP/портов/client id/ops-CLI; абсолюты ИБ только по <a href="#12-honest-limits">P12</a>.</p>
+</article>
+<article class="chapter reveal" id="glossary">
+<h1>Глоссарий</h1>
+<table>
+<thead>
+<tr>
+<th>Термин</th>
+<th>Смысл</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EliteEW</strong></td>
+<td>Рабочая среда (стол, apps, файлы, связь, ИИ) + управляемый слой; не замена хост-ОС</td>
+</tr>
+<tr>
+<td><strong>Дар миру</strong></td>
+<td>First-party код отдаётся как свободное ПО по MIT</td>
+</tr>
+<tr>
+<td><strong>MIT</strong></td>
+<td>Разрешительная лицензия: использование, изменение и распространение с сохранением copyright и текста разрешения</td>
+</tr>
+<tr>
+<td><strong>Corresponding source</strong></td>
+<td>Исходники той версии, которую предлагаете пользователям изменённого сетевого сервиса</td>
+</tr>
+<tr>
+<td><strong>First-party</strong></td>
+<td>Код авторов EliteEW без более узкой лицензии на файле; default MIT</td>
+</tr>
+<tr>
+<td><strong>Third-party</strong></td>
+<td>Чужие компоненты — свои лицензии; см. карту / SBOM / NOTICE</td>
+</tr>
+<tr>
+<td><strong>Слой / контур</strong></td>
+<td>Рабочая среда организации поверх хост-ОС</td>
+</tr>
+<tr>
+<td><strong>Self-hosted</strong></td>
+<td>Запуск дара у себя</td>
+</tr>
+<tr>
+<td><strong>Сопровождение (опция)</strong></td>
+<td>Помощь с приёмкой/эксплуатацией; исходники остаются открытыми по MIT</td>
+</tr>
+<tr>
+<td><strong>Артефакты приёмки</strong></td>
+<td>Source, commit/tag, сборка, docs, SBOM — <a href="#03f-transfer-bom-handover">P3f</a></td>
+</tr>
+<tr>
+<td><strong>SI</strong></td>
+<td>Интегратор / подряд внедрения</td>
+</tr>
+<tr>
+<td><strong>Edition cloud / on-prem / client</strong></td>
+<td>Где крутится контур — <a href="#10-editions">P10</a></td>
+</tr>
+<tr>
+<td><strong>Agentless</strong></td>
+<td>Без системного агента на личной ОС как нормы доступа</td>
+</tr>
+<tr>
+<td><strong>Сервисный доступ (seat / капсула)</strong></td>
+<td>Доступ к hosted/доверенному каналу; <strong>не</strong> лицензия кода MIT</td>
+</tr>
+<tr>
+<td><strong>E2EE (чат)</strong></td>
+<td>Сквозное шифрование по согласию</td>
+</tr>
+<tr>
+<td><strong>Edge / стена</strong></td>
+<td>Default-deny снаружи + доступ по доверию</td>
+</tr>
+<tr>
+<td><strong>MusicForge</strong></td>
+<td>Актуальная «Студия песен»</td>
+</tr>
+<tr>
+<td><strong>PoC</strong></td>
+<td>Проверка реальных возможностей — <a href="#03g-si-migration-playbook">P3g</a></td>
+</tr>
+<tr>
+<td><strong>DD / вопросы</strong></td>
+<td><a href="#13-onepager-dd-rfi">13-onepager-dd-rfi.md</a></td>
+</tr>
+</tbody>
+</table>
+</article>
+<article class="chapter reveal" id="14-export-pdf-html">
+<h1>P14 — Export HTML + Markdown (+ optional PDF)</h1>
+<p><strong>Языки:</strong> RU + EN (HTML <code>html/ru|en</code>, MD <code>md/ru|en</code>, picker <code>html/index.html</code>).<br />
+<strong>Статус:</strong> ✅ <strong>HTML primary</strong> · <strong>MD pack</strong> · handover · visual polish · PDF второстепенный<br />
+<strong>Бандл:</strong> каталог <a href="../index.html"><code>export/</code></a></p>
+<h2>Выходы</h2>
+<table>
+<thead>
+<tr>
+<th>Приоритет</th>
+<th>Артефакт</th>
+<th>Путь</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 · HTML</strong></td>
+<td>Вход: 4 path cards + Layering + TOC по частям · nav: Вход / Сжато / Полный текст / Схемы</td>
+<td><a href="../index.html"><code>html/index.html</code></a> → <code>ru/</code> · <code>en/</code></td>
+</tr>
+<tr>
+<td><strong>1 · HTML</strong></td>
+<td>Полный текст по частям + side-rail</td>
+<td><a href="../ru/book.html"><code>html/ru/book.html</code></a></td>
+</tr>
+<tr>
+<td><strong>1 · HTML</strong></td>
+<td>Сжато / DD / схемы</td>
+<td><code>onepagers.html</code> · <code>diagrams.html</code></td>
+</tr>
+<tr>
+<td><strong>1 · MD</strong></td>
+<td>Тот же spine</td>
+<td><a href="../../md/README.md"><code>md/README.md</code></a> → <code>ru/</code> · <code>en/</code></td>
+</tr>
+<tr>
+<td>2 · PDF</td>
+<td>опционально</td>
+<td><code>export/pdf/</code> — <code>ELITEEW_OVERVIEW_WITH_PDF=1</code></td>
+</tr>
+<tr>
+<td>Share</td>
+<td>zip</td>
+<td><code>export/share/eliteew-product-overview-share-YYYYMMDD.zip</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">.venv/bin/python documentation/product/product-overview/export/build_export.py
+ELITEEW_OVERVIEW_WITH_PDF=1 .venv/bin/python documentation/product/product-overview/export/build_export.py
+</code></pre>
+<h2>Оформление</h2>
+<p>Общие визуальные токены · метафора Layering · <strong>не</strong> маркетинговый лендинг.<br />
+Manrope · sticky chrome · path cards · <strong>handover-strip</strong> · side-rail по частям · fade-in · <strong>read-progress</strong> · <strong>honesty badges</strong> · <strong>table-scroll</strong> · <strong>поиск по book</strong> · cover glow / logo float · staggered path cards · lang-switch с сохранением страницы/якоря · Mermaid.</p>
+<h2>Хост-среда и рабочий слой</h2>
+<table>
+<thead>
+<tr>
+<th>Ось</th>
+<th>Хост</th>
+<th>DIY</th>
+<th>EliteEW</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Основная выдача</td>
+<td>PDF DIY</td>
+<td>то же</td>
+<td><strong>HTML-бандл</strong> + <strong>MD-пакет</strong></td>
+</tr>
+<tr>
+<td>Печать</td>
+<td>опционально</td>
+<td>опционально</td>
+<td>PDF вторичен</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PDF:</strong> для короткого комитетного пакета — <code>eliteew-overview-{lang}-onepagers.pdf</code>;<br />
+<code>*-book.pdf</code> — полный spine (~80 стр.). В share-zip открывайте <code>OPEN.html</code>.</p>
+<h2>Честно</h2>
+<p>UI screenshots отложены · safe-to-share после review HTML/MD.</p>
+<h2>Related</h2>
+<p><code>export/build_export.py</code> · <code>export/html/index.html</code></p>
+</article>
+
+      </div>
+    </div>
+
+    <footer class="export-foot">
+      Empery World / EliteEW · <strong>HTML — основной формат</strong> · PDF второстепенный · общие визуальные токены · текст: только product overview (не маркетинговый лендинг) · не схема эксплуатации
+    </footer>
+  </main>
+  <button type="button" class="back-top" data-back-top aria-label="Наверх">↑</button>
+  <script src="../assets/export.js"></script>
+
+  <script src="../assets/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      securityLevel: "strict",
+      flowchart: { htmlLabels: false },
+      themeVariables: {
+        primaryColor: "#0e131c",
+        primaryTextColor: "#e8eef7",
+        primaryBorderColor: "#00f2ff55",
+        lineColor: "#2dd4bf99",
+        secondaryColor: "#121820",
+        tertiaryColor: "#0b0e14",
+        fontFamily: "Manrope, system-ui, sans-serif"
+      }
+    });
+  </script>
+
+</body>
+</html>

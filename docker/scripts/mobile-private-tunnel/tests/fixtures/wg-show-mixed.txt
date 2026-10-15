@@ -1,0 +1,12 @@
+interface: wg-mobile
+  public key: 9PkoMzQEFq/Y3aW/RWwOI2viaJiKgNM4x/3aaUKFt1c=
+  private key: (hidden)
+  listening port: 51822
+
+peer: iKr+Z8ypuW4G0TPyGjKBolZNYCLsX15ap9H5Y8u6508=
+  endpoint: 31.200.239.94:1299
+  allowed ips: 10.88.88.108/32
+  latest handshake: 3 seconds ago
+
+peer: yLG+bwe7G/b9WZj47fD1uXWJjJIUMFFL2/kAv7BaRBk=
+  allowed ips: 10.88.88.102/32

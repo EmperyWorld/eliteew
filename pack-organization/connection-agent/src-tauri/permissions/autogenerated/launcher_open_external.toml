@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-launcher-open-external"
+description = "Enables the launcher_open_external command without any pre-configured scope."
+commands.allow = ["launcher_open_external"]
+
+[[permission]]
+identifier = "deny-launcher-open-external"
+description = "Denies the launcher_open_external command without any pre-configured scope."
+commands.deny = ["launcher_open_external"]

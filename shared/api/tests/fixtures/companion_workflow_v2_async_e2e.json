@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_dag_async_e2e",
+  "version": 1,
+  "title_ru": "Async E2E",
+  "title_en": "Async E2E",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^dag async e2e$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1",
+      "type": "prompt_gen",
+      "mode": "stateful",
+      "config": {
+        "temperature": 0.2,
+        "max_tokens": 256,
+        "top_p": 1.0
+      },
+      "inputs": {
+        "prompt": "{{turn.user_line}}"
+      },
+      "outputs": {
+        "reply": {
+          "type": "text"
+        }
+      },
+      "title_ru": "Prompt",
+      "title_en": "Prompt"
+    },
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2",
+      "type": "image_gen",
+      "mode": "stateful",
+      "inputs": {
+        "prompt": "{{bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1.reply}}"
+      },
+      "outputs": {
+        "image_url": {
+          "type": "image_url"
+        }
+      },
+      "title_ru": "Image",
+      "title_en": "Image"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1",
+      "target_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "async_e2e"]
+}

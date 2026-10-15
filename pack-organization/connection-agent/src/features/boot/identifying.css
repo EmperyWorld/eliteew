@@ -1,0 +1,94 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Identifying phase styles — calm brand preloader, no drop-zone.
+ * Invariants: Reduced-motion disables pulse; no operator chrome.
+ * Related: DESKTOP-CLIENT-LAUNCHER-JOURNEY.md §3
+ */
+
+.identifying {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  min-height: min(70vh, 32rem);
+  padding: 2rem var(--dc-shell-pad);
+  text-align: center;
+}
+
+.identifying-mark {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(208, 174, 114, 0.35);
+}
+
+.identifying-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.identifying[data-state='busy'] .identifying-mark {
+  animation: identifying-pulse 1.6s ease-in-out infinite;
+}
+
+.identifying-title {
+  margin: 0;
+  font-family: var(--dc-display);
+  font-size: clamp(1.65rem, 3.2vw, 2.15rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.identifying-lead {
+  margin: 0;
+  max-width: 28rem;
+  color: var(--dc-muted);
+  font-size: 1.02rem;
+}
+
+.identifying .cta {
+  margin-top: 0.5rem;
+  appearance: none;
+  border: 1px solid rgba(208, 174, 114, 0.55);
+  background: linear-gradient(
+    180deg,
+    rgba(208, 174, 114, 0.22),
+    rgba(208, 174, 114, 0.08)
+  );
+  color: var(--dc-fg);
+  border-radius: 999px;
+  padding: 0.65rem 1.35rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.identifying .cta:hover {
+  border-color: rgba(208, 174, 114, 0.85);
+}
+
+@keyframes identifying-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identifying[data-state='busy'] .identifying-mark {
+    animation: none;
+  }
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "id": "suvorov-ten",
+    "author": "Александр Суворов",
+    "text": "Возьмись за дело с душой — и превзойдёшь десятерых.",
+    "category": "discipline"
+  },
+  {
+    "id": "peter-brief",
+    "author": "Пётр I",
+    "text": "Говори кратко, проси мало, уходи бодро.",
+    "category": "discipline"
+  },
+  {
+    "id": "ermolov-self",
+    "author": "Алексей Ермолов",
+    "text": "Иногда нужно уметь приказывать самому себе.",
+    "category": "discipline"
+  },
+  {
+    "id": "cromwell-better",
+    "author": "Оливер Кромвель",
+    "text": "Кто перестал стремиться стать лучше, тот перестал быть хорошим.",
+    "category": "discipline"
+  },
+  {
+    "id": "peter-work",
+    "author": "Пётр I",
+    "text": "Не день, потерянный без дела, а век, прожитый впустую.",
+    "category": "discipline"
+  },
+  {
+    "id": "saltykov-order",
+    "author": "Фёдор Салтыков",
+    "text": "Порядок — половина победы.",
+    "category": "discipline"
+  },
+  {
+    "id": "aristotle-habit",
+    "author": "Аристотель",
+    "text": "Мы — то, что делаем постоянно.",
+    "category": "discipline"
+  },
+  {
+    "id": "plutarch-character",
+    "author": "Плутарх",
+    "text": "Характер — это судьба.",
+    "category": "discipline"
+  },
+  {
+    "id": "confucius-master",
+    "author": "Конфуций",
+    "text": "Путь в тысячу ли начинается с первого шага.",
+    "category": "discipline"
+  },
+  {
+    "id": "buddha-mind",
+    "author": "Будда",
+    "text": "Управляй разумом — и управишь жизнью.",
+    "category": "discipline"
+  },
+  {
+    "id": "franklin-time",
+    "author": "Бенджамин Франклин",
+    "text": "Не откладывай на завтра то, что можешь сделать сегодня.",
+    "category": "discipline"
+  },
+  {
+    "id": "carnegie-prepare",
+    "author": "Эндрю Карнеги",
+    "text": "Успех — подготовка, встретившая возможность.",
+    "category": "discipline"
+  },
+  {
+    "id": "tchaikovsky-labor",
+    "author": "Пётр Чайковский",
+    "text": "Вдохновение приходит во время работы.",
+    "category": "discipline"
+  },
+  {
+    "id": "mendeleev-table",
+    "author": "Дмитрий Менделеев",
+    "text": "Наука начинается с терпения и порядка.",
+    "category": "discipline"
+  },
+  {
+    "id": "lomonosov-learn",
+    "author": "Михаил Ломоносов",
+    "text": "Наука молодых украшает, а стариков питает.",
+    "category": "discipline"
+  },
+  {
+    "id": "drake-prepare",
+    "author": "Фрэнсис Дрейк",
+    "text": "Готовь корабль и паруса — ветер придёт.",
+    "category": "discipline"
+  }
+]

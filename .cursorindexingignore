@@ -1,0 +1,73 @@
+# Sentinel — Soft Block (semantic index exclusion)
+# Paths here remain accessible via @ references, Read, Grep, Glob, and Shell.
+# They are excluded from @codebase semantic search to reduce context pollution.
+#
+# Pair with:
+# - .cursorignore          — hard block (no agent access)
+# - skill deep-dive        — structured module analysis when index is empty
+# - .cursor/universe_map.md — global project registry (sessionStart injection)
+#
+# Policy (2026-08-16, post EliteEW retire):
+# - Indexed: shared/{api,web,apps,packages}, pack-organization/connection-agent source,
+#   docker/, documentation/, scripts/, .cursor/
+# - Soft-block: pack-cloud/mobile/ (Gradle noise) + build artifacts under shared/ and
+#   pack-organization (belt-and-suspenders; many also hard-blocked in .cursorignore)
+# - Soft-block: EliteEW/ leftover mid (Wave 2 alias retired; shared/ is SoT) — reduce
+#   duplicate-path noise in @codebase; Read/@path still OK until operator trash-moves
+# - Soft-retired trees live under trash/ (hard-blocked)
+# Reload Window after edits.
+
+# --- Soft-blocked product trees ---
+pack-cloud/mobile/
+pack-cloud/mobile/**
+
+# --- Retired product mid leftover (do not recreate as living SoT) ---
+EliteEW/
+EliteEW/**
+
+# --- Build/runtime noise under shared mid ---
+shared/**/node_modules/
+shared/**/dist/
+shared/**/dist-build/
+shared/**/__pycache__/
+shared/**/.pytest_cache/
+shared/**/test-results/
+shared/**/*.pyc
+shared/**/*.pyo
+shared/**/*.py[cod]
+
+# --- Host Python venv / caches (hard-blocked in .cursorignore; soft belt) ---
+.venv/
+.venv/**
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+
+# --- Build/runtime noise under pack-organization door ---
+pack-organization/connection-agent/**/node_modules/
+pack-organization/connection-agent/**/dist/
+pack-organization/connection-agent/src-tauri/target/
+pack-organization/connection-agent/**/target/
+pack-organization/trusted-substrate/installer/target-*/
+pack-organization/trusted-substrate/installer/target/
+pack-organization/trusted-substrate/state-unlock-agent/target/
+
+# --- Mobile build noise (also hard-blocked where applicable) ---
+pack-cloud/mobile/**/build/
+pack-cloud/mobile/**/.gradle/
+pack-cloud/mobile/**/.cxx/
+
+# --- Ops-data noise (hard-blocked in .cursorignore; soft for belt-and-suspenders) ---
+host/comfyui/
+host/generated_files/
+host/runtime/
+
+# --- Large archived trees (also hard-blocked in .cursorignore) ---
+trash/
+trash/**
+
+# Operator-local process plans (gitignored; not living canon)
+documentation/plans/
+!documentation/plans/README.md

@@ -1,0 +1,93 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_outbound_email_doc_chain",
+  "version": 1,
+  "title_ru": "Document summary email",
+  "title_en": "Document summary email",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^email doc chain$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1",
+      "type": "document_import",
+      "mode": "stateful",
+      "inputs": {
+        "paperless_id": 88
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" }
+      },
+      "title_ru": "Import",
+      "title_en": "Import"
+    },
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2",
+      "type": "llm_summarizer",
+      "mode": "stateless",
+      "inputs": {
+        "text": "{{eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1.text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "summary_text": { "type": "text" },
+        "analysis_text": { "type": "text" }
+      },
+      "title_ru": "Summarize",
+      "title_en": "Summarize"
+    },
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3",
+      "type": "confirm_gate",
+      "mode": "stateful",
+      "config": {
+        "confirm_message_ru": "Отправить письмо?",
+        "confirm_message_en": "Send this email?"
+      },
+      "outputs": {
+        "message": { "type": "text" },
+        "confirmed": { "type": "boolean" }
+      },
+      "title_ru": "Confirm",
+      "title_en": "Confirm"
+    },
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee4",
+      "type": "email_dispatcher",
+      "mode": "stateless",
+      "inputs": {
+        "to": "operator@example.com",
+        "subject": "Document summary",
+        "body": "{{eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2.summary_text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "delivery_status": { "type": "string" },
+        "to": { "type": "string" }
+      },
+      "title_ru": "Email",
+      "title_en": "Email"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1",
+      "target_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2"
+    },
+    {
+      "source_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2",
+      "target_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3"
+    },
+    {
+      "source_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3",
+      "target_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee4"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "outbound", "email", "document"]
+}

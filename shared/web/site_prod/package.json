@@ -1,0 +1,39 @@
+{
+  "name": "eliteew-site-prod",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "EliteEW public landing (Safe Workspace) for eliteew.ru — site_prod",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "node ./eslint-with-ts6.cjs .",
+    "test": "vitest run",
+    "test:content": "vitest run src/content"
+  },
+  "dependencies": {
+    "framer-motion": "^13.4.3",
+    "lucide-react": "^1.48.0",
+    "next": "16.3.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "16.3.6",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.11.0",
+    "tailwindcss": "^4.3.3",
+    "ts-for-eslint": "npm:typescript@7.0.2",
+    "typescript": "^7.0.2",
+    "typescript-eslint": "8.70.1",
+    "vitest": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

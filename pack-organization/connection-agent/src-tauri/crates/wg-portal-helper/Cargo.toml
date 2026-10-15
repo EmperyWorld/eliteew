@@ -1,0 +1,16 @@
+[package]
+name = "eliteew-wg-portal-helper"
+version = "0.1.0"
+edition = "2021"
+description = "Root-owned EliteEW ops helper: install/start/stop wg-portal without shell"
+authors = ["po&T && TZBrand"]
+license = "MIT"
+publish = false
+
+[[bin]]
+name = "eliteew-wg-portal-helper"
+path = "src/main.rs"
+
+[dependencies]
+w-transport-core = { path = "../w-transport-core" }
+libc = "0.2"

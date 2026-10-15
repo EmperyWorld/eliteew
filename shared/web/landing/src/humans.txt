@@ -1,0 +1,12 @@
+/* TEAM */
+Company: Empery World
+Site: https://eliteew.ru
+Project: EliteEW
+Project authors: po&T, TZBrand
+Contact: mailto:keysray70@gmail.com
+
+/* SITE */
+Languages: ru, en
+About: Empery World is the company; EliteEW is its main project by po&T and TZBrand — a browser desktop, 20+ programs, EWA, AMKA, Android, VR and AR.
+Last update: see /landing-build.txt
+Standards: /.well-known/security.txt

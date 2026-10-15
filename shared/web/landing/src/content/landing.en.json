@@ -1,0 +1,656 @@
+{
+  "meta": {
+    "title": "EliteEW — the digital desktop by Empery World",
+    "description": "EliteEW is the main project by Empery World: a browser desktop, 20+ programs, EWA, AMKA, and Android. The project started in May 2025. Our app works in VR and AR too.",
+    "keywords": "EliteEW, Empery World, EWA, desktop, AMKA, GAF, Android, VR, AR",
+    "contactEmail": "keysray70@gmail.com",
+    "og": {
+      "image": "og-landing.png",
+      "imageWidth": 1200,
+      "imageHeight": 630,
+      "imageAlt": "EliteEW — digital desktop, programs, EWA, Android, VR and AR"
+    }
+  },
+  "identity": {
+    "companyLabel": "Company",
+    "projectLabel": "Project"
+  },
+  "ui": {
+    "loading": "Loading EliteEW…",
+    "scrollTop": "Back to top",
+    "menu": "Menu",
+    "skipToContent": "Skip to content",
+    "productJumpLabel": "Program sections",
+    "mobileCta": "Open EliteEW",
+    "mobileCtaAndroid": "Download Android",
+    "mobileCtaVideo": "Demo",
+    "scrollHint": "Scroll down",
+    "externalLink": "Opens on app.eliteew.ru",
+    "androidExternalLink": "APK download page at app.eliteew.ru/mobile-app/",
+    "videoFallback": "Your browser does not support video.",
+    "videoPlayHint": "Watch demo",
+    "outlineLabel": "On this page",
+    "outlineCtaShort": "Open",
+    "roadmapProgress": "Project stages",
+    "logoHome": "Empery World — back to top",
+    "loadError": "Could not load the page",
+    "retry": "Try again",
+    "langAnnounced": "Language: English",
+    "groupItemsSuffix": "programs",
+    "readyRibbon": "Ready",
+    "noscript": "To see everything on this page, open it in a modern browser. EliteEW: app.eliteew.ru",
+    "breadcrumbLabel": "Where you are on the page",
+    "copyLink": "Copy link",
+    "copyLinkDone": "Link copied",
+    "copyLinkAnnounced": "Page link copied",
+    "copyLinkFailed": "Copy failed",
+    "copyLinkFailedAnnounced": "Could not copy the page link",
+    "sectionNavPrefix": "Section:",
+    "mainNavLabel": "Main navigation",
+    "journeyProgress": "Team rhythm steps",
+    "scrollProgressLabel": "How far you have scrolled",
+    "mobileMenuLabel": "Mobile menu",
+    "footerNavLabel": "Page sections",
+    "langSwitcherLabel": "Language switcher",
+    "mainContentLabel": "Page content",
+    "faqCopyLink": "Copy question link",
+    "faqCopyLinkDone": "Link copied",
+    "faqCopyLinkAnnounced": "Question link copied",
+    "faqCopyLinkFailedAnnounced": "Could not copy the question link",
+    "securityContact": "Security contact",
+    "offlineBanner": "You are offline — cached content is still available",
+    "onlineBannerAnnounced": "Connection restored",
+    "buildStampLabel": "Updated",
+    "sitemapLink": "Sitemap",
+    "humansLink": "About"
+  },
+  "brand": {
+    "company": "Empery World",
+    "project": "EliteEW",
+    "projectExpansion": "",
+    "authors": "po&T and TZBrand",
+    "tagline": "EliteEW · Empery World's main project",
+    "footerLine": "EliteEW — an Empery World project by po&T and TZBrand"
+  },
+  "nav": {
+    "journey": "How it works",
+    "video": "Demo",
+    "platform": "About",
+    "philosophy": "Idea",
+    "products": "Programs",
+    "roadmap": "History",
+    "faq": "Questions",
+    "cta": "Open EliteEW"
+  },
+  "hero": {
+    "badge": "since May 2025 · 20+ programs · browser, Android, VR and AR",
+    "badgeHref": "#products",
+    "titleAccent": "EliteEW",
+    "title": "A working place that keeps everything close",
+    "lead": "EliteEW is Empery World's main project: a desktop in your browser, 20+ programs, EWA for everyday work, AMKA for marketing, Android, and work in VR and AR.",
+    "secondary": "The project started in May 2025 as the team's own environment: tasks, communication, documents, materials, and publishing in one place.",
+    "ctaPrimary": "Open EliteEW",
+    "ctaAndroid": "Download for Android",
+    "ctaSecondary": "Watch demo",
+    "ctaSecondaryHref": "#video",
+    "ctaTertiary": "Programs",
+    "ctaTertiaryHref": "#products",
+    "stats": [
+      { "icon": "programs", "value": "20+", "label": "work programs", "href": "#products" },
+      { "icon": "ewa", "value": "EWA", "label": "beside the task", "href": "#philosophy" },
+      { "icon": "platforms", "value": "3+", "label": "ways to work", "href": "#products-clients" }
+    ],
+    "platforms": [
+      {
+        "key": "desktop",
+        "label": "Browser",
+        "href": "#products-core"
+      },
+      {
+        "key": "android",
+        "label": "Android",
+        "href": "https://app.eliteew.ru/mobile-app/"
+      },
+      {
+        "key": "vr",
+        "label": "VR and AR",
+        "href": "#products-clients"
+      }
+    ],
+    "chips": [
+      {
+        "label": "Web desktop",
+        "href": "#products-core"
+      },
+      {
+        "label": "EWA beside you",
+        "href": "#products-core"
+      },
+      {
+        "label": "AMKA for marketing",
+        "href": "#products-projects"
+      },
+      {
+        "label": "Messenger and calls",
+        "href": "#products-collab"
+      },
+      {
+        "label": "Music and images",
+        "href": "#products-collab"
+      },
+      {
+        "label": "KIRS and sites",
+        "href": "#products-collab"
+      },
+      {
+        "label": "Android",
+        "href": "#products-clients"
+      },
+      {
+        "label": "VR and AR",
+        "href": "#products-clients"
+      }
+    ]
+  },
+  "journey": {
+    "eyebrow": "How work comes together",
+    "title": "From thought to result without losing the thread",
+    "subtitle": "Five simple steps the team can handle inside EliteEW",
+    "steps": [
+      {
+        "title": "Idea",
+        "text": "Set the goal, collect context, and see tasks on the desktop",
+        "href": "#platform"
+      },
+      {
+        "title": "Materials",
+        "text": "Prepare copy, documents, presentations, music, and visuals",
+        "href": "#products-collab"
+      },
+      {
+        "title": "Communication",
+        "text": "Discuss in Messenger, make calls, and keep decisions visible in EWDesk",
+        "href": "#products-collab"
+      },
+      {
+        "title": "Publishing",
+        "text": "Build a page, storefront, or package of materials and put it to work",
+        "href": "#products-collab"
+      },
+      {
+        "title": "Follow-through",
+        "text": "Return to the work with EWA, the Handbook, Android, and feedback",
+        "href": "#products-clients"
+      }
+    ]
+  },
+  "trust": {
+    "eyebrow": "Why this is not just another screen",
+    "title": "EliteEW grew out of real team work",
+    "subtitle": "We did not assemble a showcase from random tools. We built a place where the Empery World team works every day.",
+    "items": [
+      {
+        "title": "Clear authorship",
+        "text": "Empery World is the company. EliteEW is its main project, created by po&T and TZBrand.",
+        "href": "#platform"
+      },
+      {
+        "title": "One desktop",
+        "text": "Windows, programs, chat, documents, and materials open in one space.",
+        "href": "#products-core"
+      },
+      {
+        "title": "Companions with clear roles",
+        "text": "EWA helps on the desktop. AMKA guides marketing steps. Each has its own role and tone.",
+        "href": "#philosophy"
+      },
+      {
+        "title": "Browser, phone, and large screen",
+        "text": "EliteEW remains the same project in the browser, on Android, in VR, and in AR.",
+        "href": "#products-clients"
+      }
+    ],
+    "summary": [
+      { "icon": "inhouse", "label": "Created inside Empery World" },
+      { "icon": "desktop", "label": "Work in one place" },
+      { "icon": "assistants", "label": "EWA and AMKA with different roles" }
+    ]
+  },
+  "video": {
+    "eyebrow": "Demo",
+    "title": "See how EliteEW feels",
+    "subtitle": "The video should show a path, not a list of screens: sign-in, desktop, EWA, programs, and the result.",
+    "src": "kuku2.mp4",
+    "poster": "logo_empery.png",
+    "uploadDate": "2025-10-10",
+    "durationLabel": "~1 min",
+    "durationSeconds": 60,
+    "caption": "EliteEW at work: desktop, EWA, programs, and different screens.",
+    "highlights": [
+      { "icon": "desktop", "label": "Sign-in and desktop" },
+      { "icon": "ewa", "label": "EWA beside the task" },
+      { "icon": "android", "label": "Phone, VR, and AR" }
+    ]
+  },
+  "platform": {
+    "title": "What EliteEW is",
+    "subtitle": "Empery World's work environment: sign in through the browser and open the programs you need like on your own computer.",
+    "paragraphs": [
+      "EliteEW started in May 2025 as Empery World's main project. The idea was simple: create our own place where the team does not jump between dozens of unrelated windows.",
+      "Inside it are the desktop, program store, marketing hall, GAF, documents, presentations, music, images, KIRS sites, EWDesk, EWA, Android, VR, and AR.",
+      "The point is not the number of features. The point is the connection: a thought becomes a task, a task becomes a material, and a material becomes a published result or a team decision."
+    ],
+    "ecosystem": [
+      { "icon": "core", "label": "Desktop", "href": "#products-core" },
+      { "icon": "projects", "label": "Projects and marketing", "href": "#products-projects" },
+      { "icon": "collab", "label": "Team and materials", "href": "#products-collab" },
+      { "icon": "clients", "label": "Phone and large screen", "href": "#products-clients" }
+    ],
+    "metricsLabel": "By the numbers",
+    "metrics": [
+      {
+        "value": "20+",
+        "label": "programs for team work",
+        "href": "#products"
+      },
+      {
+        "value": "10+",
+        "label": "areas inside EliteEW",
+        "href": "#products"
+      },
+      {
+        "value": "1",
+        "label": "main Empery World project",
+        "href": "#platform"
+      },
+      {
+        "value": "3+",
+        "label": "browser, Android, VR and AR",
+        "href": "#products-clients"
+      }
+    ]
+  },
+  "philosophy": {
+    "title": "The idea behind Empery World",
+    "subtitle": "A strong environment does not pressure people. It keeps the useful things close enough to act.",
+    "quote": "EliteEW is not here for noise or a shiny showcase. It is here so the team can understand the task, see the next step, and finish the work.",
+    "paragraphs": [
+      "Empery World builds EliteEW as its own work environment. That is why the project values connection over noise: where the task is, who owns it, what materials are ready, and what comes next.",
+      "EWA and AMKA are not decorative names. EWA helps on the desktop and in everyday work; AMKA guides marketing step by step."
+    ],
+    "pillars": [
+      {
+        "key": "empery",
+        "title": "Empery",
+        "text": "Presence, responsibility, and clarity: people understand what is happening and where the next step is."
+      },
+      {
+        "key": "world",
+        "title": "World",
+        "text": "A working space where a draft, chat, call, file, and publication do not break into separate islands."
+      },
+      {
+        "key": "awakening",
+        "title": "Awakening",
+        "text": "The moment the desktop starts helping: it suggests, opens what is needed, and does not get in the way."
+      }
+    ],
+    "assistants": {
+      "title": "Two companions, two roles",
+      "items": [
+        {
+          "key": "ewa",
+          "name": "EWA",
+          "role": "Desktop companion",
+          "text": "EWA replies in chat, helps with desktop actions, prepares music, images, and work hints.",
+          "href": "#products-core"
+        },
+        {
+          "key": "amka",
+          "name": "AMKA",
+          "role": "Marketing assistant",
+          "text": "AMKA helps marketing work move step by step: research, strategy, materials, and review.",
+          "href": "#products-projects"
+        }
+      ]
+    }
+  },
+  "products": {
+    "title": "What is inside EliteEW",
+    "subtitle": "The desktop brings together programs for tasks, communication, materials, marketing, and support.",
+    "groupOrder": [
+      "core",
+      "projects",
+      "collab",
+      "clients"
+    ],
+    "groupTitles": {
+      "core": "Workplace",
+      "projects": "Projects and marketing",
+      "collab": "Communication and materials",
+      "clients": "Phone, VR, AR, and help"
+    },
+    "groupIntros": {
+      "core": "Desktop, windows, program store, and EWA beside the task.",
+      "projects": "Marketing hall, AMKA, and professional scenarios for different roles.",
+      "collab": "Chat, calls, documents, presentations, music, images, video, and sites.",
+      "clients": "Android, handbook, feedback, VR, and AR for work on different screens."
+    },
+    "groupHighlights": {
+      "clients": "One project — browser, phone, VR, and AR.",
+      "core": "The desktop opens programs and keeps work in order.",
+      "projects": "AMKA helps keep marketing steps clear.",
+      "collab": "Materials, conversations, and publishing stay close."
+    },
+    "items": [
+      {
+        "group": "core",
+        "name": "EliteEW Desktop",
+        "label": "Desktop",
+        "labelTone": "brand",
+        "description": "A desktop in the browser: windows, wallpaper, taskbar, saved layouts, and a program store.",
+        "tags": [
+          "Windows and layouts",
+          "Program store",
+          "Everything saves"
+        ]
+      },
+      {
+        "group": "core",
+        "name": "EWA",
+        "label": "Beside you",
+        "labelTone": "brand",
+        "description": "EWA replies in chat, helps open what is needed, prepares music and images, and remembers important details from past conversations.",
+        "tags": [
+          "Chat",
+          "Desktop actions",
+          "Music and images"
+        ]
+      },
+      {
+        "group": "projects",
+        "name": "Marketing hall",
+        "label": "Marketing",
+        "labelTone": "brand",
+        "description": "Research, strategy, campaigns, tasks, materials, and document discussion in one cabinet.",
+        "tags": [
+          "Project",
+          "Research",
+          "Campaigns"
+        ]
+      },
+      {
+        "group": "projects",
+        "name": "AMKA",
+        "label": "Assistant",
+        "labelTone": "brand",
+        "description": "AMKA guides marketing work step by step: move through sections, notice gaps, and keep decision history.",
+        "tags": [
+          "Plan",
+          "Steps",
+          "History"
+        ]
+      },
+      {
+        "group": "projects",
+        "name": "Professional Worlds",
+        "label": "Evolving",
+        "labelTone": "evolving",
+        "description": "Work scenarios by profession. The first section is for realtors: properties, people, deals, and materials.",
+        "tags": [
+          "Professions",
+          "Realtors",
+          "In development"
+        ]
+      },
+      {
+        "group": "collab",
+        "name": "GAF",
+        "label": "Communication",
+        "labelTone": "brand",
+        "description": "Chats, attachments, voice messages, and video calls — so the team stays connected inside EliteEW.",
+        "tags": [
+          "Chats",
+          "Video calls",
+          "Team"
+        ]
+      },
+      {
+        "group": "collab",
+        "name": "EWDesk",
+        "label": "Feed",
+        "labelTone": "brand",
+        "description": "A feed for team news and decisions: what was done, what changed, and where the project is heading.",
+        "tags": [
+          "News",
+          "Announcements",
+          "Team rhythm"
+        ]
+      },
+      {
+        "group": "collab",
+        "name": "Content and documents",
+        "label": "Content",
+        "labelTone": "brand",
+        "description": "Files, document editor, and presentations — from draft to a ready PDF for a meeting.",
+        "tags": [
+          "Files",
+          "Editor",
+          "Presentations"
+        ]
+      },
+      {
+        "group": "collab",
+        "name": "Music, images, and video",
+        "label": "Media",
+        "labelTone": "brand",
+        "description": "Create music, images, and video beside the task. You can see what is ready and what is still running.",
+        "tags": [
+          "Music",
+          "Images",
+          "Video"
+        ]
+      },
+      {
+        "group": "collab",
+        "name": "KIRS and sites",
+        "label": "Sites",
+        "labelTone": "brand",
+        "description": "Launch sites and storefronts for projects: templates, publishing, updates, and marketing connection.",
+        "tags": [
+          "Storefronts",
+          "Publishing",
+          "Updates"
+        ]
+      },
+      {
+        "group": "clients",
+        "name": "EliteEW for Android",
+        "label": "Ready",
+        "labelTone": "ready",
+        "href": "https://app.eliteew.ru/mobile-app/",
+        "description": "EWDesk, chat, profile, friends, notifications, and main EliteEW actions on your phone. Download the APK from the download page.",
+        "tags": [
+          "Android",
+          "Feed and chat",
+          "On the go"
+        ]
+      },
+      {
+        "group": "clients",
+        "name": "EliteEW in VR and AR",
+        "label": "Ready",
+        "labelTone": "ready",
+        "description": "EliteEW on a large screen: communication, materials, and work programs in virtual and augmented reality.",
+        "tags": [
+          "VR",
+          "AR",
+          "Full screen"
+        ]
+      },
+      {
+        "group": "clients",
+        "name": "Assistant and feedback",
+        "label": "Support",
+        "labelTone": "brand",
+        "link": false,
+        "description": "Product Assistant (FAQ and chat) and team feedback: questions, issues, ideas, and answers.",
+        "tags": [
+          "Assistant",
+          "Feedback",
+          "Help"
+        ]
+      }
+    ]
+  },
+  "roadmap": {
+    "title": "How EliteEW developed",
+    "subtitle": "The project started in May 2025 and grew as a working environment, not as a random set of screens.",
+    "legend": {
+      "done": "Done",
+      "active": "Evolving",
+      "planned": "Next"
+    },
+    "phases": [
+      {
+        "status": "done",
+        "period": "May 2025",
+        "title": "Desktop foundation",
+        "description": "Windows, settings, program store, and saved workplace.",
+        "href": "#products-core"
+      },
+      {
+        "status": "done",
+        "period": "Documents",
+        "title": "Files, editor, and presentations",
+        "description": "Team materials got their own place: files, documents, and ready PDFs.",
+        "href": "#products-collab"
+      },
+      {
+        "status": "done",
+        "period": "Marketing",
+        "title": "Cabinet and AMKA",
+        "description": "Marketing work became a sequence of clear steps, with history and materials.",
+        "href": "#products-projects"
+      },
+      {
+        "status": "done",
+        "period": "Communication",
+        "title": "Messenger, video calls, and EWDesk",
+        "description": "Chats, video calls, and the team feed connected people and decisions.",
+        "href": "#products-collab"
+      },
+      {
+        "status": "done",
+        "period": "Media",
+        "title": "Music, images, and video",
+        "description": "Music, images, and video became part of the work process, not a separate tab.",
+        "href": "#products-collab"
+      },
+      {
+        "status": "active",
+        "period": "Companion",
+        "title": "EWA beside the work",
+        "description": "EWA started answering in chat, helping with actions, and supporting material creation.",
+        "href": "#products-core"
+      },
+      {
+        "status": "done",
+        "period": "Sites",
+        "title": "KIRS and sites",
+        "description": "A path appeared from materials and marketing to a published page.",
+        "href": "#products-collab"
+      },
+      {
+        "status": "done",
+        "period": "Mobile",
+        "title": "EliteEW for Android",
+        "description": "Main EliteEW actions moved to the phone: feed, chat, profile, and notifications.",
+        "href": "https://app.eliteew.ru/mobile-app/"
+      },
+      {
+        "status": "done",
+        "period": "VR and AR",
+        "title": "EliteEW in VR and AR",
+        "description": "The same project became available on a large screen in VR and AR.",
+        "href": "#products-clients"
+      },
+      {
+        "status": "active",
+        "period": "Professions",
+        "title": "Professional Worlds",
+        "description": "Work scenarios by profession are growing. The first section is for realtors.",
+        "href": "#products-projects"
+      },
+      {
+        "status": "planned",
+        "period": "Next",
+        "title": "A shorter path from idea to result",
+        "description": "EWA, marketing, materials, and sites will work even closer together."
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "Questions",
+    "title": "Brief and clear",
+    "subtitle": "Answers to the questions people usually ask first",
+    "items": [
+      {
+        "q": "Are Empery World and EliteEW the same thing?",
+        "a": "No. Empery World is the company. EliteEW is its main project. Project authorship: po&T and TZBrand."
+      },
+      {
+        "q": "Where can I use EliteEW?",
+        "a": "In the browser at app.eliteew.ru, on Android, and in VR and AR. One project, opened on different screens."
+      },
+      {
+        "q": "What do VR and AR mean in EliteEW?",
+        "a": "The same EliteEW on a large screen. You open the desktop, calls, materials, and programs in virtual or augmented reality."
+      },
+      {
+        "q": "Who are EWA and AMKA?",
+        "a": "EWA helps with everyday desktop work. AMKA helps inside the marketing hall. Different companions for different jobs."
+      },
+      {
+        "q": "Is this an off-the-shelf product?",
+        "a": "No. EliteEW is created inside Empery World. The desktop, programs, companions, and work links are made for the team's tasks."
+      },
+      {
+        "q": "How do I get started?",
+        "a": "Open app.eliteew.ru and sign in with your organization account. After sign-in, you will see the desktop and the programs available to you."
+      },
+      {
+        "q": "Where can I get help with the interface?",
+        "a": "On the desktop, open Assistant (product help). If you need help from the team or have an idea, use Feedback."
+      },
+      {
+        "q": "How is EWA different from AMKA?",
+        "a": "EWA helps beside the desktop: conversation, actions, music, images, and hints. AMKA works inside marketing: research, campaigns, and step-by-step reviews."
+      },
+      {
+        "q": "How do I sign in to EliteEW?",
+        "a": "Open app.eliteew.ru and sign in with your organization account. The set of programs depends on your role and access settings."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Ready to look",
+    "title": "Open EliteEW and follow the path yourself",
+    "text": "Start with the desktop: browse programs, open EWA, enter chat, or go to the marketing hall.",
+    "button": "Open EliteEW",
+    "android": "Download for Android",
+    "secondary": "Watch video",
+    "secondaryHref": "#video",
+    "note": "Empery World · EliteEW · po&T and TZBrand"
+  },
+  "footer": {
+    "copyright": "© 2025–2026 Empery World. EliteEW project.",
+    "signature": "EliteEW created by po&T and TZBrand for Empery World",
+    "highlights": [
+      { "icon": "app", "label": "Open EliteEW", "type": "app" },
+      { "icon": "android", "label": "Download Android", "type": "android" },
+      { "icon": "video", "label": "Demo", "href": "#video" },
+      { "icon": "programs", "label": "Programs", "href": "#products" }
+    ]
+  }
+}

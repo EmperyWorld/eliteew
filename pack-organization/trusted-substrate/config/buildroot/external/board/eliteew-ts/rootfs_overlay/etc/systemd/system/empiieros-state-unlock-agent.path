@@ -1,0 +1,15 @@
+[Unit]
+Description=Watch for state LUKS password requests
+Documentation=file:///opt/eliteew-trusted-substrate/README-FIRST.txt
+DefaultDependencies=no
+After=systemd-vconsole-setup.service
+Before=paths.target cryptsetup.target getty@tty1.service
+Conflicts=shutdown.target emergency.service
+Before=shutdown.target emergency.service
+
+[Path]
+DirectoryNotEmpty=/run/systemd/ask-password
+MakeDirectory=yes
+
+[Install]
+WantedBy=cryptsetup.target

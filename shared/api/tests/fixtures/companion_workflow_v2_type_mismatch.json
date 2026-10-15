@@ -1,0 +1,36 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_dag_type_mismatch",
+  "version": 1,
+  "title_ru": "Type mismatch demo",
+  "title_en": "Type mismatch demo",
+  "enabled": false,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^dag type mismatch$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "dddddddd-dddd-4ddd-8ddd-dddddddddd01",
+      "type": "image_gen",
+      "inputs": { "prompt": "{{turn.user_line}}" },
+      "outputs": { "image_url": { "type": "image_url" } }
+    },
+    {
+      "id": "dddddddd-dddd-4ddd-8ddd-dddddddddd02",
+      "type": "prompt_gen",
+      "inputs": { "prompt": "{{dddddddd-dddd-4ddd-8ddd-dddddddddd01.image_url}}" },
+      "input_specs": { "prompt": { "type": "text", "required": true } },
+      "outputs": { "reply": { "type": "text" } }
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "dddddddd-dddd-4ddd-8ddd-dddddddddd01",
+      "target_node_id": "dddddddd-dddd-4ddd-8ddd-dddddddddd02"
+    }
+  ],
+  "execution_mode": "sync"
+}

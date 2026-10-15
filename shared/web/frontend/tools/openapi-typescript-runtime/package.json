@@ -1,0 +1,11 @@
+{
+	"name": "eliteew-openapi-typescript-runtime",
+	"private": true,
+	"license": "MIT",
+	"version": "0.0.0",
+	"description": "Isolated openapi-typescript runtime (TypeScript aligned with SPA latest stable).",
+	"dependencies": {
+		"openapi-typescript": "7.13.0",
+		"typescript": "7.0.2"
+	}
+}

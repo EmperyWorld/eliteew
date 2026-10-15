@@ -1,0 +1,7 @@
+{"claim": "HANDBOOK-MAP TREE banner 0.5.37", "id": "handbook-map-tree", "kind": "semantic", "status": "match"}
+{"claim": "no living links to AGENT-HARD-ACCEPTANCE-WORKFLOW.md", "id": "hard-acceptance-links-cleared", "kind": "semantic", "status": "match"}
+{"claim": "AGENT-LANGUAGE-BRIDGE + .cursorrules mark unhooked 2026-09-22", "id": "language-bridge-doc-status", "kind": "semantic", "status": "match"}
+{"claim": "AGENT-TAURI-SECURITY-WORKFLOW marks skill/rule unhooked", "id": "tauri-workflow-doc-status", "kind": "semantic", "status": "match"}
+{"claim": "GOD-FILE-LOC-BASELINES refreshed 2026-09-30", "id": "god-file-baselines-refreshed", "kind": "semantic", "status": "match"}
+{"claim": "dated backlog/FoFline snapshots still mention 0.5.30 Current — hub SoT updated", "id": "desktop-current-0.5.30-snapshots", "kind": "semantic", "status": "partial"}
+{"claim": "6 broken links remain in public-buyer export mirrors", "id": "public-buyer-export-broken-links", "kind": "semantic", "status": "intentional"}

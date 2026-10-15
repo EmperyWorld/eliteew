@@ -1,0 +1,2 @@
+# Alias for queue-worker (backward-compatible `--target api-worker`).
+-r queue-worker.in

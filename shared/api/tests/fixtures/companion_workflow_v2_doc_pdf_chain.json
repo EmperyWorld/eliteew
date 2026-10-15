@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_doc_pdf_chain_demo",
+  "version": 1,
+  "title_ru": "Document to PDF chain",
+  "title_en": "Document to PDF chain",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^doc pdf chain$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1",
+      "type": "document_import",
+      "mode": "stateful",
+      "inputs": {
+        "paperless_id": 42
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "text": { "type": "text" },
+        "unified_content_id": { "type": "string" },
+        "document_id": { "type": "string" },
+        "paperless_id": { "type": "number" }
+      },
+      "title_ru": "Import",
+      "title_en": "Import"
+    },
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2",
+      "type": "prompt_gen",
+      "mode": "stateful",
+      "config": {
+        "temperature": 0.2,
+        "max_tokens": 512
+      },
+      "inputs": {
+        "prompt": "Summarize for presentation: {{bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1.text}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" }
+      },
+      "title_ru": "Prompt",
+      "title_en": "Prompt"
+    },
+    {
+      "id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3",
+      "type": "pdf_generate",
+      "mode": "stateful",
+      "inputs": {
+        "topic": "{{bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2.reply}}"
+      },
+      "outputs": {
+        "reply": { "type": "text" },
+        "run_id": { "type": "string" },
+        "task_run_id": { "type": "string" },
+        "pdf_url": { "type": "string" }
+      },
+      "title_ru": "PDF",
+      "title_en": "PDF"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb1",
+      "target_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2"
+    },
+    {
+      "source_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb2",
+      "target_node_id": "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbb3"
+    }
+  ],
+  "execution_mode": "async",
+  "tags": ["fixture", "document", "pdf"]
+}

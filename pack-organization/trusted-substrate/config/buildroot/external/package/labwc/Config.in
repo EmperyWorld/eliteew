@@ -1,0 +1,37 @@
+config BR2_PACKAGE_LABWC
+	bool "labwc"
+	depends on BR2_PACKAGE_WLROOTS
+	depends on !BR2_STATIC_LIBS
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_USE_MMU
+	depends on BR2_INSTALL_LIBSTDCPP # pango
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4
+	select BR2_PACKAGE_CAIRO
+	select BR2_PACKAGE_LIBGLIB2
+	select BR2_PACKAGE_LIBINPUT
+	select BR2_PACKAGE_LIBPNG
+	select BR2_PACKAGE_LIBXML2
+	select BR2_PACKAGE_LIBXKBCOMMON
+	select BR2_PACKAGE_PANGO
+	select BR2_PACKAGE_PIXMAN
+	select BR2_PACKAGE_WAYLAND
+	select BR2_PACKAGE_WAYLAND_PROTOCOLS
+	help
+	  labwc — wlroots-based window-stacking Wayland compositor
+	  (Openbox-compatible). EliteEW Trusted Substrate kiosk uses it
+	  for multi-window Tauri (launcher + product).
+
+	  https://labwc.github.io/
+
+if BR2_PACKAGE_LABWC
+
+config BR2_PACKAGE_LABWC_XWAYLAND
+	bool "XWayland support"
+	default y
+	depends on BR2_PACKAGE_WLROOTS_XWAYLAND
+	select BR2_PACKAGE_LIBXCB
+	select BR2_PACKAGE_XCB_UTIL_WM
+	help
+	  Enable XWayland clients under labwc (needs wlroots XWayland).
+
+endif

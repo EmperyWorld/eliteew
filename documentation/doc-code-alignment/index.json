@@ -1,0 +1,26 @@
+{
+  "schema": "eliteew.doc_code_alignment.index.v1",
+  "ingest_order": [
+    "manifest.json",
+    "raw/semantic-findings.jsonl",
+    "raw/missing-paths-classified.jsonl",
+    "ACTIONABLE.md",
+    "SPOTCHECKS.md",
+    "by-section/"
+  ],
+  "files": {
+    "manifest": "manifest.json",
+    "summary": "SUMMARY.md",
+    "matches": "MATCHES.md",
+    "mismatches": "MISMATCHES.md",
+    "mismatches_classified": "MISMATCHES-CLASSIFIED.md",
+    "actionable": "ACTIONABLE.md",
+    "spotchecks": "SPOTCHECKS.md",
+    "raw_dir": "raw/",
+    "by_section_dir": "by-section/",
+    "scripts": [
+      "scripts/audit_doc_code_paths.py",
+      "scripts/classify_mismatches.py"
+    ]
+  }
+}

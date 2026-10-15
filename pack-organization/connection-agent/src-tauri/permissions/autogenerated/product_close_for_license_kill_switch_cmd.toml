@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-product-close-for-license-kill-switch-cmd"
+description = "Enables the product_close_for_license_kill_switch_cmd command without any pre-configured scope."
+commands.allow = ["product_close_for_license_kill_switch_cmd"]
+
+[[permission]]
+identifier = "deny-product-close-for-license-kill-switch-cmd"
+description = "Denies the product_close_for_license_kill_switch_cmd command without any pre-configured scope."
+commands.deny = ["product_close_for_license_kill_switch_cmd"]

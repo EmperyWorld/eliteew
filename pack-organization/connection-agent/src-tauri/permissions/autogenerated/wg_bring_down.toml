@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-wg-bring-down"
+description = "Enables the wg_bring_down command without any pre-configured scope."
+commands.allow = ["wg_bring_down"]
+
+[[permission]]
+identifier = "deny-wg-bring-down"
+description = "Denies the wg_bring_down command without any pre-configured scope."
+commands.deny = ["wg_bring_down"]

@@ -1,0 +1,24 @@
+# EliteEW product app manifest
+id: feedback_hub
+title: Feedback Hub
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: FeedbackHubApp
+    icon: app-feedback-hub
+  api:
+    prefixes:
+      - /api/v1/product-desktop/feedback
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "id": "code_architecture_audit_v1",
+  "version": 1,
+  "title": "Аудит архитектуры кода",
+  "description": "Code-grounded architecture review: domain/surface lock, inventory EXISTS/PARTIAL/MISSING before invent, Keep/Change/Kill, gap-only MVP. Not a greenfield PRD.",
+  "artifact_type": "code_architecture_audit",
+  "required_context": [
+    "target_surface_or_module",
+    "decision_question",
+    "existing_code_or_canon_signals",
+    "constraints"
+  ],
+  "quality_rubric": [
+    "Сначала domain/surface lock: какая поверхность исполнения (например desktop_ai_chat ensemble vs ewa_companion task_run) — не смешивать.",
+    "До любого «создать/построить/внедрить» обязана быть таблица инвентаря со статусами EXISTS / PARTIAL / MISSING (или русскими эквивалентами) по символам, путям, миграциям, API.",
+    "То, что EXISTS, нельзя предлагать как greenfield; только Keep / Change / Kill.",
+    "MVP и roadmap только по PARTIAL/MISSING; не переписывать Done-контракты как «план с нуля».",
+    "Гипотезы и пробелы отделены от подтверждённого; citations 【P1】/【D1】/【C1】/【W1】 если есть registry.",
+    "Не выдавать Desktop ensemble plan за companion WorkflowRuntimeKind/task_run и наоборот."
+  ],
+  "output_sections": [
+    "Поверхность и domain lock",
+    "Инвентарь кода",
+    "Gap vs Done и Keep/Change/Kill",
+    "MVP только по пробелам",
+    "Fidelity scorecard"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "caa1",
+      "title": "Поверхность и domain lock",
+      "instruction_for_model": "Зафиксируй domain lock одним абзацем: какая поверхность исполнения в scope (пример ярлыков: `desktop_ai_chat` / Desktop ensemble blueprint, `ewa_companion` / companion task_run / WorkflowRuntimeKind, иной модуль из запроса). Явно скажи, что out of scope и с чем нельзя путать. Сформулируй decision question в 1 предложении. Не предлагай реализацию и не строй inventory. Без `##`. Без имён героев.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только surface/domain lock и вопрос решения. Без таблицы инвентаря и без MVP.",
+      "output_format": [
+        "Domain lock",
+        "In / out of scope",
+        "Decision question"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "caa2",
+      "title": "Инвентарь кода",
+      "instruction_for_model": "Построй инвентарь до любых предложений «создать». Таблица (или маркированный список той же структуры): символ/путь/контракт | статус EXISTS|PARTIAL|MISSING | основание (cite 【P…】/【D…】/【C…】/материал запроса) | заметка. Минимум 5 строк, если вход позволяет. Если кода/канона в контексте нет — пометь MISSING и «нужно добрать путь/символ», не выдумывай файлы. Запрещено: «построить с нуля», «новый runtime», roadmap. Без `##`.",
+      "required_slots": {
+        "engineering": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только inventory EXISTS/PARTIAL/MISSING. Без Keep/Change/Kill и без MVP.",
+      "output_format": [
+        "Инвентарь: символ | статус | основание | заметка"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "caa3",
+      "title": "Gap vs Done и Keep/Change/Kill",
+      "instruction_for_model": "На основе инвентаря caa2: для каждой значимой строки дай Keep / Change / Kill. EXISTS → Keep или Change (что именно доработать), не «создать заново». MISSING → можно предложить добавить. PARTIAL → Change с конкретной дырой. Явно перечисли claims пользователя, которые reinvent уже EXISTS (код `reinvents_existing`). Без полного MVP-roadmap. Без `##`.",
+      "required_slots": {
+        "engineering": 3,
+        "product": 2,
+        "rigor": 3
+      },
+      "scope_fence": "Только gap vs Done и Keep/Change/Kill. Не дублируй полную таблицу инвентаря.",
+      "output_format": [
+        "Keep / Change / Kill",
+        "Reinvent claims (если есть)"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "caa4",
+      "title": "MVP только по пробелам",
+      "instruction_for_model": "MVP и ближайшие шаги только по PARTIAL/MISSING из инвентаря. Каждый шаг: что меняется, критерий Done, чем проверить (тест/smoke). Не включать EXISTS как «этап внедрения». Не смешивать поверхности из caa1. Без `##`.",
+      "required_slots": {
+        "operations": 2,
+        "engineering": 2,
+        "rigor": 2
+      },
+      "scope_fence": "Только gap-only MVP. Без повторного domain lock.",
+      "output_format": [
+        "MVP scope (gaps only)",
+        "Verify / smoke"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "caa5",
+      "title": "Fidelity scorecard",
+      "instruction_for_model": "Короткий scorecard верности плану/ТЗ (не «красота текста»): Surface match 0–2, Inventory before invent 0–2, No reinvent of EXISTS 0–2, Gap-only MVP 0–2, Evidence honesty 0–2. Итого /10. Одна строка: главный риск ложной уверенности. Без новых фич. Без `##`.",
+      "required_slots": {
+        "rigor": 3,
+        "product": 2
+      },
+      "scope_fence": "Только fidelity scorecard поверх уже написанного.",
+      "output_format": [
+        "Scorecard /10",
+        "Главный риск"
+      ],
+      "min_roster": 4
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Поверхность и domain lock",
+      "step_ids": ["caa1"]
+    },
+    {
+      "heading": "Инвентарь кода",
+      "step_ids": ["caa2"]
+    },
+    {
+      "heading": "Gap vs Done и Keep/Change/Kill",
+      "step_ids": ["caa3"]
+    },
+    {
+      "heading": "MVP только по пробелам",
+      "step_ids": ["caa4"]
+    },
+    {
+      "heading": "Fidelity scorecard",
+      "step_ids": ["caa5"]
+    }
+  ]
+}

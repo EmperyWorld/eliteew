@@ -1,0 +1,10 @@
+-- Fix "database whisperx has a collation version mismatch" warning in PostgreSQL logs.
+-- Run once (as superuser) when the OS collation library version differs from when the DB was created:
+--
+--   docker exec -it stack1-postgres psql -U postgres -c "ALTER DATABASE whisperx REFRESH COLLATION VERSION;"
+--
+-- Or connect to the container and run:
+--   psql -U postgres -c "ALTER DATABASE whisperx REFRESH COLLATION VERSION;"
+--
+-- After this, the warning should stop. If you see "could not determine which collation to use",
+-- rebuild objects that use the default collation first (see PostgreSQL docs).

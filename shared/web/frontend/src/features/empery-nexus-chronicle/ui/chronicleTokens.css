@@ -1,0 +1,401 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Atmospheric void tokens for Empery Nexus Chronicle (dark abyss required by concept).
+ * Invariants: Gold/steel accents only — no purple-glow cliché.
+ * Related: documentation/product/EMPERY-NEXUS-CHRONICLE.md
+ */
+
+.empery-nexus-chronicle {
+	--enc-void: #03050a;
+	--enc-void-mid: #0a1018;
+	--enc-gold: #c9a227;
+	--enc-gold-soft: rgba(201, 162, 39, 0.55);
+	--enc-steel: #8fa3b5;
+	--enc-steel-dim: rgba(143, 163, 181, 0.35);
+	--enc-text: #e8eef4;
+	--enc-muted: rgba(232, 238, 244, 0.58);
+	--enc-font-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+	--enc-font-body: 'Manrope', 'Raleway', system-ui, sans-serif;
+	position: relative;
+	isolation: isolate;
+	min-height: 100dvh;
+	width: 100%;
+	overflow: hidden;
+	background:
+		radial-gradient(ellipse 80% 60% at 50% 40%, #0c1522 0%, transparent 55%),
+		radial-gradient(ellipse 50% 40% at 70% 80%, rgba(201, 162, 39, 0.06) 0%, transparent 50%),
+		linear-gradient(180deg, var(--enc-void) 0%, var(--enc-void-mid) 100%);
+	color: var(--enc-text);
+	font-family: var(--enc-font-body);
+}
+
+.empery-nexus-chronicle__canvas-host {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.empery-nexus-chronicle__hud {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	pointer-events: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: clamp(1rem, 3vw, 2rem);
+}
+
+.empery-nexus-chronicle__hud * {
+	pointer-events: auto;
+}
+
+.empery-nexus-chronicle__brand {
+	font-family: var(--enc-font-display);
+	font-size: clamp(1.75rem, 4vw, 3rem);
+	letter-spacing: 0.18em;
+	font-weight: 500;
+	color: var(--enc-gold);
+	text-shadow: 0 0 40px rgba(201, 162, 39, 0.25);
+	margin: 0;
+}
+
+.empery-nexus-chronicle__subtitle {
+	margin: 0.35rem 0 0;
+	max-width: 28rem;
+	font-size: 0.95rem;
+	line-height: 1.45;
+	color: var(--enc-muted);
+}
+
+.empery-nexus-chronicle__layer-title {
+	font-family: var(--enc-font-display);
+	font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+	letter-spacing: 0.06em;
+	margin: 0;
+}
+
+.empery-nexus-chronicle__stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem 1.25rem;
+	margin-top: 1rem;
+	font-size: 0.75rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--enc-steel);
+}
+
+.empery-nexus-chronicle__stats strong {
+	color: var(--enc-text);
+	font-weight: 600;
+}
+
+.empery-nexus-chronicle__controls {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.empery-nexus-chronicle__btn {
+	appearance: none;
+	border: 1px solid var(--enc-steel-dim);
+	background: rgba(3, 5, 10, 0.55);
+	backdrop-filter: blur(8px);
+	color: var(--enc-text);
+	font-family: var(--enc-font-body);
+	font-size: 0.8rem;
+	letter-spacing: 0.04em;
+	padding: 0.55rem 0.95rem;
+	cursor: pointer;
+	transition:
+		border-color 180ms ease,
+		background 180ms ease,
+		color 180ms ease;
+}
+
+.empery-nexus-chronicle__btn:hover,
+.empery-nexus-chronicle__btn:focus-visible {
+	border-color: var(--enc-gold-soft);
+	outline: none;
+}
+
+.empery-nexus-chronicle__btn--primary {
+	border-color: var(--enc-gold-soft);
+	color: var(--enc-gold);
+}
+
+.empery-nexus-chronicle__btn--active {
+	background: rgba(201, 162, 39, 0.12);
+	border-color: var(--enc-gold);
+	color: var(--enc-gold);
+}
+
+.empery-nexus-chronicle__hint {
+	margin: 0.5rem 0 0;
+	font-size: 0.7rem;
+	color: var(--enc-muted);
+	max-width: 22rem;
+}
+
+.empery-nexus-chronicle__subtitle-archaic {
+	margin: 0.2rem 0 0;
+	font-family: var(--enc-font-display);
+	font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+	letter-spacing: 0.14em;
+	color: var(--enc-gold-soft);
+}
+
+.empery-nexus-chronicle__hierarchy {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.35rem 0.55rem;
+	margin-top: 0.85rem;
+	font-size: 0.72rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--enc-steel);
+}
+
+.empery-nexus-chronicle__hierarchy-active {
+	color: var(--enc-gold);
+}
+
+.empery-nexus-chronicle__stats-disclosure {
+	margin-top: 0.75rem;
+	max-width: 36rem;
+	font-size: 0.75rem;
+	color: var(--enc-muted);
+}
+
+.empery-nexus-chronicle__stats-disclosure summary {
+	cursor: pointer;
+	list-style: none;
+}
+
+.empery-nexus-chronicle__stats-disclosure summary::-webkit-details-marker {
+	display: none;
+}
+
+.empery-nexus-chronicle__cold-open {
+	position: absolute;
+	inset: 0;
+	z-index: 4;
+	display: grid;
+	place-items: center;
+	padding: 1.5rem;
+	pointer-events: none;
+	background: linear-gradient(
+		180deg,
+		rgba(3, 5, 10, 0.55) 0%,
+		rgba(3, 5, 10, 0.25) 45%,
+		rgba(3, 5, 10, 0.7) 100%
+	);
+}
+
+.empery-nexus-chronicle__cold-open-inner {
+	pointer-events: auto;
+	max-width: 28rem;
+	text-align: left;
+}
+
+.empery-nexus-chronicle__cold-open-line {
+	margin: 1.25rem 0 1.5rem;
+	font-size: clamp(1rem, 2.2vw, 1.25rem);
+	line-height: 1.55;
+	color: var(--enc-text);
+	min-height: 4.5rem;
+}
+
+.empery-nexus-chronicle__audio-unlock {
+	margin: 0.75rem 0;
+	align-self: flex-start;
+}
+
+.empery-nexus-chronicle__awakening {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	color: rgba(232, 238, 244, 0.6);
+	font-family: var(--enc-font-body);
+	letter-spacing: 0.12em;
+}
+
+.empery-nexus-chronicle__hud-bottom {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 1.25rem 2rem;
+}
+
+.empery-nexus-chronicle__inspector {
+	max-width: 18rem;
+	padding: 0.85rem 1rem;
+	border: 1px solid var(--enc-steel-dim);
+	background: rgba(3, 5, 10, 0.62);
+	backdrop-filter: blur(10px);
+}
+
+.empery-nexus-chronicle__inspector-title {
+	margin: 0 0 0.45rem;
+	font-size: 0.65rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--enc-steel);
+}
+
+.empery-nexus-chronicle__inspector-meta {
+	margin: 0.35rem 0 0;
+	font-size: 0.75rem;
+	color: var(--enc-steel);
+}
+
+.empery-nexus-chronicle__inspector .empery-nexus-chronicle__btn {
+	margin-top: 0.75rem;
+}
+
+.empery-nexus-chronicle__chapters {
+	margin-top: 1.25rem;
+	max-width: min(40rem, 92vw);
+	padding: 0.85rem 1rem;
+	border: 1px solid var(--enc-steel-dim);
+	background: rgba(3, 5, 10, 0.45);
+	backdrop-filter: blur(8px);
+}
+
+.empery-nexus-chronicle__chapter-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+	margin-top: 0.35rem;
+}
+
+.empery-nexus-chronicle__chapter-body {
+	margin: 0.75rem 0 0.65rem;
+	font-size: 0.85rem;
+	line-height: 1.5;
+	color: var(--enc-muted);
+	max-width: 36rem;
+}
+
+.empery-nexus-chronicle[data-chapter='husk'] {
+	--enc-chapter-glow: rgba(90, 98, 110, 0.12);
+}
+
+.empery-nexus-chronicle[data-chapter='word'] {
+	--enc-chapter-glow: rgba(126, 184, 201, 0.14);
+}
+
+.empery-nexus-chronicle[data-chapter='constellation'] {
+	--enc-chapter-glow: rgba(201, 162, 39, 0.12);
+}
+
+.empery-nexus-chronicle[data-chapter='sovereignty'] {
+	--enc-chapter-glow: rgba(232, 213, 163, 0.16);
+}
+
+.empery-nexus-chronicle::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background: radial-gradient(
+		ellipse 70% 55% at 50% 42%,
+		var(--enc-chapter-glow, transparent) 0%,
+		transparent 70%
+	);
+	transition: background 600ms ease;
+}
+
+.empery-nexus-chronicle[data-cinema='1']::before {
+	opacity: 0.55;
+}
+
+.empery-nexus-chronicle__hud--cinema {
+	justify-content: flex-end;
+	align-items: flex-end;
+}
+
+.empery-nexus-chronicle__cinema-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem 1.25rem;
+	width: min(40rem, 100%);
+	padding: 0.75rem 1rem;
+	border: 1px solid var(--enc-steel-dim);
+	background: rgba(3, 5, 10, 0.55);
+	backdrop-filter: blur(10px);
+}
+
+.empery-nexus-chronicle__help {
+	position: absolute;
+	inset: 0;
+	z-index: 5;
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	background: rgba(3, 5, 10, 0.72);
+	backdrop-filter: blur(6px);
+}
+
+.empery-nexus-chronicle__help-panel {
+	width: min(28rem, 100%);
+	padding: 1.25rem 1.35rem;
+	border: 1px solid var(--enc-gold-soft);
+	background: rgba(10, 16, 24, 0.92);
+}
+
+.empery-nexus-chronicle__help-list {
+	list-style: none;
+	margin: 1rem 0 1.25rem;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.65rem;
+}
+
+.empery-nexus-chronicle__help-list li {
+	display: grid;
+	grid-template-columns: 7.5rem 1fr;
+	gap: 0.75rem;
+	align-items: baseline;
+	font-size: 0.85rem;
+	color: var(--enc-muted);
+}
+
+.empery-nexus-chronicle__help-list kbd {
+	font-family: var(--enc-font-body);
+	font-size: 0.75rem;
+	letter-spacing: 0.04em;
+	color: var(--enc-gold);
+	border: 1px solid var(--enc-steel-dim);
+	padding: 0.2rem 0.45rem;
+	background: rgba(3, 5, 10, 0.65);
+}
+
+@media (max-width: 720px) {
+	.empery-nexus-chronicle__hud-bottom {
+		flex-direction: column-reverse;
+		align-items: stretch;
+	}
+
+	.empery-nexus-chronicle__inspector {
+		max-width: none;
+	}
+
+	.empery-nexus-chronicle__help-list li {
+		grid-template-columns: 1fr;
+		gap: 0.25rem;
+	}
+}

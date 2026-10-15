@@ -1,0 +1,707 @@
+{
+	"shell": {
+		"collab": {
+			"connected": "Совместно: подключено",
+			"disconnected": "Совместно: не подключено",
+			"sessionLabel": "Сессия",
+			"participant_one": "участник",
+			"participant_other": "участников"
+		},
+		"preview": {
+			"escToClose": "Нажмите Esc, чтобы выйти из предпросмотра"
+		},
+		"load": {
+			"retry": "Повторить",
+			"failedTitle": "Не удалось загрузить документ",
+			"loadingTitle": "Загрузка документа",
+			"loadingDesc": "Подтягиваем содержимое и восстанавливаем редактор."
+		},
+		"saveError": {
+			"title": "Ошибка сохранения. Не удалось сохранить документ."
+		},
+		"onboarding": {
+			"emptyTitle": "Начните документ",
+			"emptyBody": "Печатайте ниже или используйте панель форматирования. Слева — рельс с ИИ, импортом и др.",
+			"dismiss": "Понятно"
+		}
+	},
+	"destructiveConfirm": {
+		"closeTabTitle": "Закрыть вкладку?",
+		"closeTabMessage": "Несохранённые изменения будут потеряны.",
+		"switchDocCollabTitle": "Переключить документ?",
+		"switchDocCollabMessage": "Совместное редактирование активно. При переключении документа сессия будет отключена.",
+		"openOtherDocCollabTitle": "Открыть другой документ?",
+		"openOtherDocCollabMessage": "Совместное редактирование активно. Открытие другого документа отключит сессию.",
+		"continue": "Продолжить",
+		"cancel": "Отмена",
+		"closeTab": "Закрыть вкладку"
+	},
+	"statusBar": {
+		"document": "Документ",
+		"words": "Слова",
+		"chars": "Символы",
+		"cursor": "Курсор",
+		"cursorLineCol": "Строка {{line}}, столбец {{column}}",
+		"saving": "Сохранение…",
+		"savedPrefix": "Сохранено:",
+		"savedJustNow": "только что",
+		"savedSeconds": "{{count}} с назад",
+		"savedMinutes": "{{count}} мин назад",
+		"savedHours": "{{count}} ч назад",
+		"renderModeGpu": "Рендер: GPU",
+		"renderModeCpu": "Рендер: CPU",
+		"statusPrefixSaving": "Состояние: сохранение",
+		"statusPrefixSaved": "Состояние: сохранено",
+		"statusTime": "{{time}}"
+	},
+	"toolbar": {
+		"overflow": "Ещё инструменты",
+		"overflowAria": "Открыть меню с дополнительными инструментами форматирования",
+		"undoDisabled": "Нечего отменять",
+		"redoDisabled": "Нечего повторить",
+		"removeEmptyLines": "Удалить пустые строки (пустые абзацы и заголовки)",
+		"splitSelectionLines": "Разбить выделение на строки: переносы в тексте → абзацы; одна строка → слова через перенос (форматирование не сохраняется)",
+		"splitSelectionLinesDisabled": "Выделите текст с несколькими словами или с переносами строк",
+		"aria": {
+			"bar": "Панель форматирования",
+			"closePanel": "Закрыть окно",
+			"close": "Закрыть"
+		},
+		"groups": {
+			"history": "История изменений",
+			"inline": "Оформление текста",
+			"structure": "Структура документа",
+			"lists": "Списки и цитаты",
+			"align": "Выравнивание",
+			"insert": "Вставка объектов",
+			"accent": "Акценты и оформление"
+		},
+		"tools": {
+			"undo": "Отменить последнее действие (Ctrl+Z)",
+			"redo": "Повторить отменённое действие (Ctrl+Y)",
+			"bold": "Сделать текст жирным (Ctrl+B)",
+			"italic": "Сделать текст курсивом (Ctrl+I)",
+			"strike": "Зачеркнуть текст",
+			"code": "Встроенный код (моноширинный шрифт)",
+			"underline": "Подчеркнуть текст (Ctrl+U)",
+			"subscript": "Подстрочный индекс",
+			"superscript": "Надстрочный индекс",
+			"fontFamily": "Семейство шрифта",
+			"h1": "Заголовок 1 уровня (самый крупный)",
+			"h2": "Заголовок 2 уровня",
+			"h3": "Заголовок 3 уровня",
+			"h4": "Заголовок 4 уровня",
+			"h5": "Заголовок 5 уровня",
+			"h6": "Заголовок 6 уровня",
+			"bulletList": "Маркированный список (точки)",
+			"orderedList": "Нумерованный список (цифры)",
+			"taskList": "Список задач (чекбоксы)",
+			"blockquote": "Цитата (блок с отступом)",
+			"alignLeft": "Выровнять по левому краю",
+			"alignCenter": "Выровнять по центру",
+			"alignRight": "Выровнять по правому краю",
+			"alignJustify": "Выровнять по ширине",
+			"link": "Вставить или редактировать ссылку",
+			"image": "Вставить изображение по URL",
+			"table": "Вставить таблицу (настраиваемый размер)",
+			"codeBlock": "Блок кода (для программирования)",
+			"horizontalRule": "Горизонтальная линия (разделитель)",
+			"formula": "Вставить формулу (LaTeX)",
+			"textColor": "Цвет текста",
+			"highlight": "Подсветка фона"
+		},
+		"popovers": {
+			"font": {
+				"title": "Шрифт",
+				"subtitle": "Для выделенного текста или с места курсора"
+			},
+			"link": {
+				"title": "Вставка ссылки",
+				"subtitle": "Добавьте ссылку с понятным текстом",
+				"urlLabel": "URL адрес",
+				"urlPlaceholder": "https://...",
+				"textLabel": "Отображаемый текст",
+				"textPlaceholder": "Текст ссылки",
+				"removeLink": "Удалить ссылку",
+				"insert": "Вставить"
+			},
+			"image": {
+				"title": "Вставка изображения",
+				"subtitle": "Поддерживаются внешние ссылки и data:/blob:",
+				"urlLabel": "URL изображения",
+				"altLabel": "Альтернативный текст",
+				"altPlaceholder": "Описание изображения",
+				"insert": "Вставить"
+			},
+			"table": {
+				"title": "Создание таблицы",
+				"subtitle": "Настройте размеры и параметры таблицы",
+				"rowsLabel": "Строки",
+				"colsLabel": "Столбцы",
+				"headerRow": "Добавить строку заголовков",
+				"insert": "Вставить"
+			}
+		},
+		"errors": {
+			"invalidLinkUrl": "Укажите корректный URL",
+			"invalidImageUrl": "Укажите URL изображения",
+			"tableInsertFailed": "Невозможно вставить таблицу в текущей позиции"
+		}
+	},
+	"commentAnchors": {
+		"statusOpen": "Есть открытые комментарии",
+		"statusResolved": "Тред решён",
+		"anchorTitle": "{{status}} ({{unresolved}}/{{total}})",
+		"promptCopyLink": "Скопируйте ссылку на тред:"
+	},
+	"bubbleMenu": {
+		"bold": "Жирный (Ctrl+B)",
+		"boldAria": "Жирный",
+		"italic": "Курсив (Ctrl+I)",
+		"italicAria": "Курсив",
+		"underline": "Подчёркнутый",
+		"underlineAria": "Подчёркнутый",
+		"textColor": "Цвет текста",
+		"textColorAria": "Цвет текста",
+		"highlight": "Подсветка",
+		"highlightAria": "Подсветка",
+		"link": "Ссылка",
+		"linkAria": "Ссылка"
+	},
+	"floatingMenu": {
+		"bulletList": "Список",
+		"orderedListTitle": "Нумерованный список",
+		"orderedListLabel": "Нумерация",
+		"taskList": "Задачи"
+	},
+	"gutter": {
+		"lineWrapTitle": "Продолжение строки",
+		"collabEditing": "{{name}} редактирует"
+	},
+	"anchorQuickMenu": {
+		"title": "Комментарий в тексте",
+		"stats": "{{open}} открыто из {{total}}",
+		"openThread": "Открыть тред",
+		"replyThread": "Ответить в тред",
+		"resolveThread": "Разрешить тред",
+		"copyLink": "Скопировать ссылку",
+		"linkCopied": "Ссылка скопирована",
+		"cancel": "Отмена"
+	},
+	"formulaDialog": {
+		"title": "Вставить формулу",
+		"description": "Введите LaTeX-выражение, которое нужно вставить в документ.",
+		"label": "LaTeX формула",
+		"placeholder": "E = mc^2",
+		"submit": "Вставить"
+	},
+	"collabLoading": "Подключение совместного редактирования…",
+	"collabYjsErrorTitle": "Не удалось запустить совместное редактирование",
+	"collabYjsErrorBody": "Сервер совместной сессии недоступен или отклонил подключение. Можно повторить попытку или вернуться к обычному редактору.",
+	"collabYjsRetry": "Повторить",
+	"collabYjsEditWithoutCollab": "Редактировать без совместной работы",
+	"collabRemoteUserFallback": "Участник",
+	"collabStatus": {
+		"connecting": "Подключение к живой сессии",
+		"syncingDoc": "Синхронизация содержимого с сервером…",
+		"offline": "Совместное редактирование недоступно"
+	},
+	"editorPlaceholder": "Начните вводить текст документа…",
+	"versionsDisabledTooltip": "Сохраните документ, чтобы открыть историю версий",
+	"loadingEditorTitle": "Загрузка редактора",
+	"loadingEditorDesc": "Подготавливаем рабочую область документа.",
+	"loadingEditorExtensions": "Подключаем расширения форматирования, кодовых блоков и формул.",
+	"store": {
+		"toastTitle": "Редактор документов"
+	},
+	"docAiRecovery": {
+		"bannerTitle": "Незавершённый ответ ИИ",
+		"bannerHint": "Мы сохранили черновик ответа. Можно восстановить или скрыть.",
+		"restore": "Восстановить черновик",
+		"dismiss": "Скрыть",
+		"staleHint": "Черновик может быть устаревшим."
+	},
+	"slashCommands": {
+		"title": "Вставить блок",
+		"subtitle": "Введите текст для фильтра · Enter — вставить",
+		"emptyTitle": "Нет совпадений",
+		"emptyHint": "Попробуйте другое слово или категорию ниже.",
+		"fontPresetLabels": {
+			"default": "По умолчанию",
+			"systemUi": "Системный",
+			"sans": "Без засечек",
+			"serif": "С засечками",
+			"mono": "Моноширинный",
+			"georgia": "Georgia"
+		},
+		"fontCommand": {
+			"namedTitle": "Шрифт: {{label}}",
+			"defaultTitle": "Шрифт по умолчанию",
+			"namedDesc": "Семейство «{{label}}»",
+			"defaultDesc": "Убрать явное семейство шрифта"
+		},
+		"items": {
+			"heading1": {
+				"title": "Заголовок 1",
+				"description": "Большой заголовок"
+			},
+			"heading2": {
+				"title": "Заголовок 2",
+				"description": "Средний заголовок"
+			},
+			"heading3": {
+				"title": "Заголовок 3",
+				"description": "Маленький заголовок"
+			},
+			"heading4": {
+				"title": "Заголовок 4",
+				"description": "Подзаголовок раздела"
+			},
+			"heading5": {
+				"title": "Заголовок 5",
+				"description": "Мелкий заголовок"
+			},
+			"heading6": {
+				"title": "Заголовок 6",
+				"description": "Самый мелкий уровень"
+			},
+			"bulletList": {
+				"title": "Маркированный список",
+				"description": "Создать список с точками"
+			},
+			"orderedList": {
+				"title": "Нумерованный список",
+				"description": "Создать список с цифрами"
+			},
+			"taskList": {
+				"title": "Список задач",
+				"description": "Создать список с чекбоксами"
+			},
+			"codeBlock": {
+				"title": "Блок кода",
+				"description": "Вставить блок кода"
+			},
+			"blockquote": {
+				"title": "Цитата",
+				"description": "Вставить цитату"
+			},
+			"image": {
+				"title": "Изображение",
+				"description": "Вставить изображение"
+			},
+			"table": {
+				"title": "Таблица",
+				"description": "Вставить таблицу"
+			},
+			"horizontalRule": {
+				"title": "Горизонтальная линия",
+				"description": "Вставить разделитель"
+			},
+			"formula": {
+				"title": "Формула",
+				"description": "Вставить LaTeX формулу"
+			},
+			"paragraph": {
+				"title": "Текст",
+				"description": "Обычный текст"
+			}
+		}
+	},
+	"colorPicker": {
+		"textTitle": "Цвет текста",
+		"highlightTitle": "Цвет подсветки",
+		"hint": "Выберите образец или введите значение",
+		"close": "Закрыть палитру",
+		"palette": "Пресеты",
+		"ariaColor": "Цвет {{color}}",
+		"customLabel": "Свой",
+		"pickNative": "Системная палитра",
+		"apply": "Применить",
+		"current": "Текущий"
+	},
+	"linkDialog": {
+		"title": "Вставить ссылку",
+		"description": "Укажите URL и отображаемый текст.",
+		"urlLabel": "URL",
+		"urlPlaceholder": "https://…",
+		"textLabel": "Текст",
+		"textPlaceholder": "Текст ссылки",
+		"previewLabel": "Превью",
+		"cancel": "Отмена",
+		"submit": "Вставить",
+		"errors": {
+			"urlEmpty": "Укажите URL",
+			"urlProtocols": "Допустимы http, https и mailto",
+			"urlInvalid": "URL выглядит некорректно"
+		}
+	},
+	"imageDialog": {
+		"title": "Вставить изображение",
+		"description": "Вставьте URL или загрузите файл.",
+		"urlLabel": "URL изображения",
+		"urlPlaceholder": "https://…",
+		"altLabel": "Альтернативный текст",
+		"altPlaceholder": "Описание изображения",
+		"uploadLabel": "Загрузить файл",
+		"uploading": "Загрузка…",
+		"uploadPick": "Выбрать файл",
+		"previewAlt": "Превью",
+		"previewHint": "Предпросмотр выбранного изображения",
+		"cancel": "Отмена",
+		"submit": "Вставить",
+		"defaultAlt": "Изображение",
+		"errors": {
+			"urlEmpty": "Укажите URL или загрузите файл",
+			"protocols": "Используйте http или https",
+			"urlInvalid": "URL выглядит некорректно",
+			"fileType": "Неподдерживаемый тип файла",
+			"fileSize": "Файл слишком большой",
+			"uploadFailed": "Не удалось загрузить",
+			"readFailed": "Не удалось прочитать файл"
+		}
+	},
+	"textPrompt": {
+		"errorRequired": "Заполните поле",
+		"cancel": "Отмена"
+	},
+	"header": {
+		"statusLabel": "Статус",
+		"statusSaving": "Сохраняется",
+		"statusUnsaved": "Не сохранено",
+		"statusSaved": "Сохранено",
+		"statusDraft": "Черновик",
+		"statusNoServerRecord": "Нет записи на сервере",
+		"statusDraftConflict": "Конфликт черновика",
+		"statusLocalDraft": "Локальный черновик",
+		"untitled": "Без названия",
+		"statusBadgeAria": "Статус документа: {{state}}",
+		"viewSection": "Вид",
+		"viewModeLine": "Режим: {{mode}}",
+		"viewModeFormatted": "Форматированный",
+		"viewModeMarkdown": "Markdown",
+		"viewModePreview": "Предпросмотр",
+		"markdownTooltipToHtml": "Вернуться в редактор с форматированием",
+		"markdownTooltipToMd": "Открыть исходник Markdown",
+		"markdownTooltipCollabBlocked": "Совместное редактирование доступно только в визуальном редакторе. Сначала отключите сессию.",
+		"markdownCollabBlockedTitle": "Режим Markdown недоступен",
+		"markdownCollabBlockedBody": "Исходник — отдельное текстовое поле без совместной сессии. Отключите совместное редактирование и переключитесь снова.",
+		"companionSetBodyCollabBlockedTitle": "Нельзя заменить документ во время совместной сессии",
+		"companionSetBodyCollabBlockedBody": "Сначала выйдите из совместного редактирования и повторите запрос Ассистенту.",
+		"previewTooltipHide": "Скрыть предпросмотр",
+		"previewTooltipShow": "Показать предпросмотр",
+		"tabs": {
+			"closeAria": "Закрыть вкладку",
+			"addAria": "Добавить документ",
+			"openOtherTitle": "Открыть другой документ",
+			"dirtySuffix": " *"
+		},
+		"localDraftRecoveryTitle": "Открыть восстановление локального черновика",
+		"metrics": {
+			"version": "Версия",
+			"words": "Слов",
+			"chars": "Символов"
+		},
+		"cluster": {
+			"file": "Файл",
+			"collab": "Совместно"
+		},
+		"panel": {
+			"fileManager": "Открыть файлы и список документов",
+			"search": "Поиск по документам",
+			"versions": "Версии документа",
+			"import": "Загрузить / импорт в редактор",
+			"comments": "Комментарии и обсуждение",
+			"collabInvites": "Совместная работа: приглашения и участники"
+		},
+		"save": {
+			"tooltip": "Сохранить документ",
+			"tooltipCollabCommit": "Зафиксировать текст в базе (совместная сессия)",
+			"ariaLabel": "Сохранить документ"
+		},
+		"export": {
+			"tooltip": "Экспортировать документ",
+			"ariaLabel": "Экспортировать документ",
+			"menuTitle": "Экспорт документа",
+			"menuSubtitle": "Выберите формат сохранения",
+			"closeMenuAria": "Закрыть меню экспорта",
+			"formats": {
+				"pdf": {
+					"label": "PDF-документ",
+					"description": "Высокое качество для печати и обмена"
+				},
+				"docx": {
+					"label": "Microsoft Word",
+					"description": "Редактируемый формат для офисных пакетов"
+				},
+				"xlsx": {
+					"label": "Microsoft Excel",
+					"description": "Таблицы и данные в формате Excel"
+				},
+				"html": {
+					"label": "HTML-страница",
+					"description": "Готово для публикации в вебе"
+				},
+				"txt": {
+					"label": "Текстовый файл",
+					"description": "Простой текст UTF-8 без форматирования"
+				},
+				"md": {
+					"label": "Markdown",
+					"description": "Подходит для документации и Git"
+				}
+			}
+		},
+		"collabActions": {
+			"disconnectTooltip": "Отключиться от совместного редактирования",
+			"disconnectAria": "Отключиться",
+			"disconnect": "Отключиться",
+			"connectTooltip": "Подключиться к совместному редактированию",
+			"connectAria": "Подключиться",
+			"connect": "Подключиться"
+		},
+		"guide": {
+			"tooltip": "Показать подсказки",
+			"ariaLabel": "Показать подсказки"
+		},
+		"closeEditor": {
+			"tooltip": "Закрыть редактор",
+			"ariaLabel": "Закрыть редактор"
+		}
+	},
+	"editorContextMenu": {
+		"ariaLabel": "Контекстное меню редактора",
+		"headerEyebrow": "Контекстные действия",
+		"headerSubtitleSelection": "Работа с выделенным фрагментом",
+		"headerSubtitleCursor": "Действия для текущей позиции курсора",
+		"badgeChars": "{{count}} симв.",
+		"badgeNoSelection": "Без выделения",
+		"sectionTable": "Таблица",
+		"sectionLink": "Ссылка",
+		"sectionImage": "Изображение",
+		"sectionHistory": "История",
+		"sectionClipboard": "Буфер обмена",
+		"sectionFormat": "Формат",
+		"sectionHeadings": "Заголовки",
+		"sectionInsert": "Вставка",
+		"sectionLists": "Списки",
+		"sectionAlign": "Выравнивание",
+		"sectionFont": "Шрифт",
+		"sectionColor": "Цвет",
+		"cut": "Вырезать",
+		"copy": "Копировать",
+		"paste": "Вставить",
+		"selectAll": "Выделить всё",
+		"undo": "Отменить",
+		"redo": "Повторить",
+		"bold": "Жирный",
+		"italic": "Курсив",
+		"underline": "Подчёркнутый",
+		"strike": "Зачёркнутый",
+		"subscript": "Подстрочный",
+		"superscript": "Надстрочный",
+		"blockquote": "Цитата",
+		"clearFormatting": "Сбросить форматирование",
+		"heading1": "Заголовок 1",
+		"heading2": "Заголовок 2",
+		"heading3": "Заголовок 3",
+		"heading4": "Заголовок 4",
+		"heading5": "Заголовок 5",
+		"heading6": "Заголовок 6",
+		"insertLink": "Вставить ссылку",
+		"insertImage": "Вставить изображение",
+		"insertTable": "Вставить таблицу",
+		"insertFormula": "Вставить формулу",
+		"horizontalRule": "Горизонтальная линия",
+		"bulletList": "Маркированный список",
+		"orderedList": "Нумерованный список",
+		"taskList": "Список задач",
+		"alignLeft": "По левому краю",
+		"alignCenter": "По центру",
+		"alignRight": "По правому краю",
+		"textColor": "Цвет текста",
+		"highlightColor": "Подсветка фона",
+		"delete": "Удалить",
+		"tableAddRowBefore": "Строка выше",
+		"tableAddRowAfter": "Строка ниже",
+		"tableDeleteRow": "Удалить строку",
+		"tableAddColumnBefore": "Столбец слева",
+		"tableAddColumnAfter": "Столбец справа",
+		"tableDeleteColumn": "Удалить столбец",
+		"tableMergeCells": "Объединить ячейки",
+		"tableDeleteTable": "Удалить таблицу",
+		"linkCopyAddress": "Копировать адрес",
+		"linkOpen": "Открыть в новой вкладке",
+		"linkEdit": "Изменить ссылку",
+		"linkUnset": "Убрать ссылку",
+		"imageCopyAddress": "Копировать адрес изображения",
+		"imageReplace": "Заменить изображение…",
+		"imageDelete": "Удалить изображение",
+		"clipboardTitle": "Буфер обмена",
+		"clipboardCopyFailed": "Не удалось скопировать текст в буфер обмена.",
+		"clipboardPasteFailed": "Не удалось прочитать буфер — проверьте разрешения браузера.",
+		"clipboardCopyLinkFailed": "Не удалось скопировать адрес.",
+		"clipboardCopyImageFailed": "Не удалось скопировать адрес изображения."
+	},
+	"fileManager": {
+		"title": "Управление файлами",
+		"close": "Закрыть",
+		"closeAria": "Закрыть менеджер файлов",
+		"createDoc": "Создать документ",
+		"fromLibrary": "Из библиотеки",
+		"fromLibraryTitle": "Открыть файл из библиотеки (уже загруженные материалы)",
+		"import": "Импорт",
+		"importTitle": "Импорт нового файла с диска в библиотеку",
+		"hintLibraryVsImport": "Библиотека — уже загруженное; импорт — новый файл с диска.",
+		"sortLabel": "Сортировка",
+		"sortDate": "Дата",
+		"sortName": "Имя",
+		"sortWords": "Слова",
+		"searchPlaceholder": "Поиск по названию и тексту…",
+		"loadingTitle": "Загрузка документов",
+		"loadingDesc": "Подтягиваем список файлов и черновиков.",
+		"recentSection": "Недавние",
+		"allDocuments": "Все документы",
+		"wordsCount": "{{count}} слов",
+		"openBadge": "Открыт",
+		"delete": "Удалить",
+		"deleteModalTitle": "Удаление документа",
+		"deleteModalBody": "Удалить «{{title}}»? Это действие нельзя отменить.",
+		"deleteDeleting": "Удаление…",
+		"deleteConfirmHint": "Удаление необратимо. Подтвердите или отмените.",
+		"cancel": "Отмена",
+		"emptyNoDocs": "Документов пока нет",
+		"emptyNoMatch": "Ничего не найдено по запросу",
+		"emptyNoDocsDesc": "Создайте документ или загрузите файл.",
+		"emptyNoMatchDesc": "Измените запрос или очистите фильтр.",
+		"clearSearch": "Очистить поиск",
+		"resetFilter": "Сбросить фильтр",
+		"footerLoaded": "Загружено {{loaded}} из {{total}}",
+		"footerTotal_one": "{{count}} документ",
+		"footerTotal_other": "{{count}} документов",
+		"loadMore": "Загрузить ещё",
+		"loadMoreLoading": "Загрузка…",
+		"newDocTitle": "Новый документ",
+		"newDocDescription": "Введите название для нового документа, чтобы сразу добавить его в рабочую область.",
+		"newDocLabel": "Название документа",
+		"newDocPlaceholder": "Например: План релиза",
+		"newDocSubmit": "Создать",
+		"initialDocBody": "<p>Начните писать...</p>",
+		"errors": {
+			"createFailed": "Не удалось создать документ",
+			"deleteFailed": "Не удалось удалить документ"
+		},
+		"selectDocAria": "Выбрать документ «{{title}}»",
+		"dateToday": "Сегодня",
+		"dateYesterday": "Вчера",
+		"dateDaysAgo": "{{count}} дн. назад",
+		"dateWeeksAgo": "{{count}} нед. назад",
+		"dateMonthsAgo": "{{count}} мес. назад",
+		"compactMode": "Компактный список",
+		"comfortableMode": "Подробный список",
+		"compactModeAria": "Компактный вид: больше документов на экране",
+		"comfortableModeAria": "Подробный вид: превью текста",
+		"askAi": "ИИ",
+		"askAiTitle": "Спросить ИИ по этому документу (контекст из списка, без открытия в редакторе)",
+		"contextMenu": {
+			"menuAria": "Действия с документом",
+			"open": "Открыть",
+			"askAi": "Спросить ИИ по документу",
+			"select": "Выделить",
+			"deselect": "Снять выделение",
+			"delete": "Удалить"
+		}
+	},
+	"mainGrid": {
+		"markdownRibbonTitle": "Исходник Markdown",
+		"markdownRibbonHint": "Слева редактируется структура markdown, а предпросмотр справа показывает итоговый рендер.",
+		"markdownStatusEdited": "Редактируется",
+		"markdownStatusClean": "Без изменений",
+		"markdownFieldLabel": "Исходник Markdown",
+		"markdownPlaceholder": "# Заголовок\n\nНачните писать markdown…",
+		"markdownTextareaAria": "Редактор исходного текста Markdown",
+		"scrollToTop": "Прокрутить в начало документа",
+		"scrollToBottom": "Прокрутить в конец документа",
+		"previewTitleMarkdown": "Предпросмотр Markdown",
+		"previewTitleDocument": "Предпросмотр документа",
+		"previewHintMarkdown": "Показывает, как markdown будет выглядеть после рендера.",
+		"previewHintDocument": "Обновляется в реальном времени по мере редактирования.",
+		"eastPanelLoadingTitle": "Загрузка панели…",
+		"eastPanelLoadingDesc": "Подготавливаем содержимое панели."
+	},
+	"sidebar": {
+		"ai": "ИИ-ассистент",
+		"imageGeneration": "Генерация изображений",
+		"table": "Таблица",
+		"math": "Формулы",
+		"charts": "Диаграммы",
+		"pdf": "PDF",
+		"ocr": "OCR",
+		"templates": "Шаблоны",
+		"voiceDictate": "Голосовой ввод в документ",
+		"voiceEmpty": "Текст не распознан",
+		"voiceErrorGeneric": "Ошибка распознавания",
+		"voiceTranscribing": "распознаю…",
+		"voiceStopToInsert": "нажмите ещё раз, чтобы вставить текст"
+	},
+	"draftRecovery": {
+		"title": "Найден локальный черновик",
+		"badgeManualTitle": "Открыто вручную из статуса",
+		"badgeAutoTitle": "Открыто автоматически при обнаружении черновика",
+		"badgeManual": "Открыто вручную",
+		"badgeAuto": "Авто-обнаружение",
+		"body": "Обнаружена локальная версия документа, сохранённая после несинхронизированных изменений. Можно восстановить её или оставить текущую серверную версию.",
+		"conflictTitle": "Обнаружен конфликт между вкладками",
+		"conflictExternalUpdate": "Последнее внешнее обновление: {{date}}",
+		"conflictRevision": "Ревизия: r{{rev}} • Источник: {{session}}",
+		"documentLabel": "Документ:",
+		"draftLabel": "Черновик:",
+		"untitled": "Без названия",
+		"serverStats": "Сервер: {{words}} слов / {{chars}} симв.",
+		"localStats": "Локально: {{words}} слов / {{chars}} симв.",
+		"diffFromPosition": "Отличия с позиции {{n}}",
+		"versionsMatch": "Версии совпадают",
+		"columnServer": "Сервер",
+		"columnLocalDraft": "Локальный черновик",
+		"keepCurrent": "Оставить текущую версию",
+		"discardDraft": "Удалить черновик",
+		"restoreDraft": "Восстановить черновик"
+	},
+	"editorCloseConfirm": {
+		"title": "Закрыть без сохранения?",
+		"body": "В документе есть несохранённые изменения. Если закрыть редактор сейчас, они будут потеряны.",
+		"documentLabel": "Документ:",
+		"stay": "Остаться",
+		"saving": "Сохранение…",
+		"saveAndClose": "Сохранить и закрыть",
+		"closeWithoutSaving": "Закрыть без сохранения"
+	},
+	"dragDrop": {
+		"overlayTitle": "Перетащите файлы сюда",
+		"overlayHint": "Изображения и документы добавятся автоматически",
+		"memoryWarningTitle": "Предупреждение о памяти",
+		"dismissWarningAria": "Закрыть предупреждение",
+		"dismissWarningTitle": "Закрыть предупреждение"
+	},
+	"lazyPanel": {
+		"loadingAria": "Загрузка панели",
+		"loadingLabel": "Загрузка панели…"
+	},
+	"quickStart": {
+		"title": "Ultimate документ-редактор",
+		"subtitle": "Это не просто блокнот! У вас есть доступ к мощным инструментам ИИ, генерации изображений, коллаборации и многому другому.",
+		"bulletAi": "<bold>ИИ-ассистент</bold> — генерация и правка текста в контексте документа",
+		"bulletImage": "<bold>Генерация изображений</bold> — по описанию через подключённую студию",
+		"bulletCollab": "<bold>Совместная работа</bold> — редактирование в реальном времени",
+		"bulletAdvanced": "<bold>Расширенные инструменты</bold> — таблицы, формулы, диаграммы, OCR",
+		"hint": "💡 Все инструменты сгруппированы по категориям выше",
+		"tour": "Экскурсия по интерфейсу",
+		"dismiss": "Понятно, спасибо!"
+	},
+	"inner": {
+		"you": "Вы",
+		"preview": {
+			"markdownEmpty": "Markdown пуст. Начните вводить текст, чтобы увидеть результат.",
+			"editorEmpty": "Начните вводить текст в редакторе, чтобы увидеть содержимое здесь..."
+		}
+	}
+}

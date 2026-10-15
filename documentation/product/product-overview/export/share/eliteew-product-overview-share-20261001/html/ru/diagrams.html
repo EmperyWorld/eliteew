@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="dark" />
+  <title>EliteEW — схемы D01–D12</title>
+  <link rel="stylesheet" href="../assets/export.css" />
+</head>
+<body class="page-diagrams">
+  <div class="read-progress" aria-hidden="true"><div class="read-progress-bar" data-progress></div></div>
+  <div class="ambient" aria-hidden="true"></div>
+  <div class="site-top">
+    <div class="site-top-inner">
+      <a class="brand-row" href="index.html">
+        <img class="logo" src="../assets/brand/emperyworld-logo.webp" alt="" width="34" height="34" />
+        <div>
+          <span class="brand-name">EliteEW</span>
+          <span class="brand-sub">HTML primary · не схема эксплуатации</span>
+        </div>
+      </a>
+      <div class="nav-wrap">
+        <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Меню">☰</button>
+        <nav class="nav" aria-label="Export sections">
+          <a href="index.html">Вход</a>
+          <a href="onepagers.html">Сжато</a>
+          <a href="book.html">Полный текст</a>
+          <a href="diagrams.html" class="active">Схемы</a>
+          <a class="nav-cta" href="book.html#01-what-is-eliteew">Начать →</a>
+          <a class="lang-switch" href="../en/diagrams.html" hreflang="en" lang="en" data-lang-switch>English</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <header class="cover is-compact">
+    <div class="cover-copy">
+      <p class="eyebrow">Empery World · product overview</p>
+      <h1>EliteEW</h1>
+      <p class="promise">Рабочий слой ∩ безопасный периметр</p>
+    </div>
+    <a class="nav-cta" href="index.html">← Обложка</a>
+  </header>
+
+  <main class="wrap">
+<p class="meta reveal">Схемы D01–D12 · Mermaid в браузере · исходники в <code>../assets/diagrams-md/</code>.</p>
+<div class="reveal"><figure class="diagram" id="D01-hybrid-formula">
+<figcaption><strong>D01 — Hybrid formula (P1)</strong></figcaption>
+<p class="diagram-sense">EliteEW — управляемый слой поверх устройства, не «выбросили ядро ОС».</p><pre class="mermaid">flowchart LR
+  subgraph Host[&quot;Хост-устройство&quot;]
+    OS[&quot;Десктоп / серверная ОС / VR-браузер&quot;]
+  end
+  subgraph Elite[&quot;Рабочий слой EliteEW&quot;]
+    Desk[&quot;Стол + apps + файлы&quot;]
+    Sec[&quot;Периметр + роли + доступы&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph Host[&quot;Хост-устройство&quot;]
+    OS[&quot;Десктоп / серверная ОС / VR-браузер&quot;]
+  end
+  subgraph Elite[&quot;Рабочий слой EliteEW&quot;]
+    Desk[&quot;Стол + apps + файлы&quot;]
+    Sec[&quot;Периметр + роли + доступы&quot;]
+  end
+  OS --&gt; Elite
+  Desk --- Sec</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D02-threat-classes">
+<figcaption><strong>D02 — Классы угроз → ответы (P2)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Threats[&quot;Классы угроз&quot;]
+    T1[&quot;Shadow IT / личный мессенджер&quot;]
+    T2[&quot;Личные облака&quot;]
+    T3[&quot;Копипаст / внешний AI&quot;]
+    T4[&quot;BYOD без разделения&quot;]
+    T5[&quot;Аналог: фото экрана&quot;]
+  end
+  subgraph Answers[&quot;Ответы EliteEW&quot;]
+    A1[&quot;Рабочий слой + внутренний чат&quot;]
+    A2[&quot;Управляемые файлы&quot;]
+    A3[&quot;ИИ в контуре проекта&quot;]
+    A4[&quot;Браузер / APK без admin-агента&quot;]
+    A5[&quot;Минимизация · не 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;не абсолют&quot;| A5</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Threats[&quot;Классы угроз&quot;]
+    T1[&quot;Shadow IT / личный мессенджер&quot;]
+    T2[&quot;Личные облака&quot;]
+    T3[&quot;Копипаст / внешний AI&quot;]
+    T4[&quot;BYOD без разделения&quot;]
+    T5[&quot;Аналог: фото экрана&quot;]
+  end
+  subgraph Answers[&quot;Ответы EliteEW&quot;]
+    A1[&quot;Рабочий слой + внутренний чат&quot;]
+    A2[&quot;Управляемые файлы&quot;]
+    A3[&quot;ИИ в контуре проекта&quot;]
+    A4[&quot;Браузер / APK без admin-агента&quot;]
+    A5[&quot;Минимизация · не 100%&quot;]
+  end
+  T1 --&gt; A1
+  T2 --&gt; A2
+  T3 --&gt; A3
+  T4 --&gt; A4
+  T5 -.-&gt;|&quot;не абсолют&quot;| A5</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D03-npa-split">
+<figcaption><strong>D03 — Нормы: даёт EliteEW / остаётся организации (P3)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  subgraph NPA[&quot;Нормативные ориентиры&quot;]
+    N1[&quot;Защита информации&quot;]
+    N2[&quot;Трансграничные данные&quot;]
+    N3[&quot;Применение ИИ&quot;]
+    N4[&quot;Персональные данные&quot;]
+  end
+  subgraph EE[&quot;Даёт EliteEW&quot;]
+    E1[&quot;Периметр · роли · доступ&quot;]
+    E2[&quot;Контур данных edition&quot;]
+    E3[&quot;ИИ в контуре&quot;]
+  end
+  subgraph Cust[&quot;Остаётся организации&quot;]
+    C1[&quot;Аттестация · СЗИ&quot;]
+    C2[&quot;Юр. основания · политики&quot;]
+    C3[&quot;Оператор данных&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  subgraph NPA[&quot;Нормативные ориентиры&quot;]
+    N1[&quot;Защита информации&quot;]
+    N2[&quot;Трансграничные данные&quot;]
+    N3[&quot;Применение ИИ&quot;]
+    N4[&quot;Персональные данные&quot;]
+  end
+  subgraph EE[&quot;Даёт EliteEW&quot;]
+    E1[&quot;Периметр · роли · доступ&quot;]
+    E2[&quot;Контур данных edition&quot;]
+    E3[&quot;ИИ в контуре&quot;]
+  end
+  subgraph Cust[&quot;Остаётся организации&quot;]
+    C1[&quot;Аттестация · СЗИ&quot;]
+    C2[&quot;Юр. основания · политики&quot;]
+    C3[&quot;Оператор данных&quot;]
+  end
+  N1 --&gt; E1
+  N1 --&gt; C1
+  N2 --&gt; E2
+  N2 --&gt; C2
+  N3 --&gt; E3
+  N3 --&gt; C2
+  N4 --&gt; E1
+  N4 --&gt; C3</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D04-employee-day">
+<figcaption><strong>D04 — День сотрудника (P3a)</strong></figcaption>
+<pre class="mermaid">flowchart LR
+  S1[&quot;Вход&quot;] --&gt; S2[&quot;Стол + apps&quot;]
+  S2 --&gt; S3[&quot;Файлы / документы&quot;]
+  S3 --&gt; S4[&quot;Связь GAF / звонки&quot;]
+  S4 --&gt; S5[&quot;Проект / маркетинг&quot;]
+  S5 --&gt; S6[&quot;ИИ в контуре&quot;]
+  S6 --&gt; S7[&quot;Мобильный спутник&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  S1[&quot;Вход&quot;] --&gt; S2[&quot;Стол + apps&quot;]
+  S2 --&gt; S3[&quot;Файлы / документы&quot;]
+  S3 --&gt; S4[&quot;Связь GAF / звонки&quot;]
+  S4 --&gt; S5[&quot;Проект / маркетинг&quot;]
+  S5 --&gt; S6[&quot;ИИ в контуре&quot;]
+  S6 --&gt; S7[&quot;Мобильный спутник&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D05-files-two-planes">
+<figcaption><strong>D05 — Файлы: две плоскости (P4a)</strong></figcaption>
+<p class="diagram-sense">права и каталог в БД; содержимое — в объектном хранилище; пользователь не ходит в PG/Seaweed руками.</p><pre class="mermaid">flowchart TB
+  UI[&quot;Файловый менеджер&quot;]
+  PG[&quot;PostgreSQL\nметаданные · ACL · версии · проект&quot;]
+  OBJ[&quot;Object store S3-класс\nбайты файла\nSeaweedFS в контуре Empery&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  UI[&quot;Файловый менеджер&quot;]
+  PG[&quot;PostgreSQL\nметаданные · ACL · версии · проект&quot;]
+  OBJ[&quot;Object store S3-класс\nбайты файла\nSeaweedFS в контуре Empery&quot;]
+  UI --&gt; PG
+  UI --&gt; OBJ</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D06-edge-wall">
+<figcaption><strong>D06 — Edge: стена и 1 клик (P7d)</strong></figcaption>
+<p class="diagram-sense">default-deny снаружи; allow только по выданному доверию. Без IP/портов на схеме.</p><pre class="mermaid">flowchart LR
+  Scan[&quot;Сканер / чужой интернет&quot;] --&gt;|лишние входы закрыты| Wall[&quot;Глухая стена&quot;]
+  Trust[&quot;Доверенный\nвыданный ключ / seat&quot;] --&gt;|1 действие| Chan[&quot;Защищённый канал&quot;]
+  Chan --&gt; Work[&quot;Рабочий контур EliteEW&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  Scan[&quot;Сканер / чужой интернет&quot;] --&gt;|лишние входы закрыты| Wall[&quot;Глухая стена&quot;]
+  Trust[&quot;Доверенный\nвыданный ключ / seat&quot;] --&gt;|1 действие| Chan[&quot;Защищённый канал&quot;]
+  Chan --&gt; Work[&quot;Рабочий контур EliteEW&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D07-atomic-access">
+<figcaption><strong>D07 — Atomic access (P8a)</strong></figcaption>
+<p class="diagram-sense">native Connected / FoFline — связка факторов; не универсально для любого браузерного входа.</p><pre class="mermaid">flowchart TB
+  I[&quot;Личность&quot;] --&gt; AND{&quot;Все истины?&quot;}
+  L[&quot;Лицензия активна&quot;] --&gt; AND
+  C[&quot;Канал разрешён&quot;] --&gt; AND
+  D[&quot;Устройство / ключ&quot;] --&gt; AND
+  B[&quot;Привязка учётки&quot;] --&gt; AND
+  AND --&gt;|да| OK[&quot;Доступ в продукт&quot;]
+  AND --&gt;|нет| DENY[&quot;Отказ · без детального оракула&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  I[&quot;Личность&quot;] --&gt; AND{&quot;Все истины?&quot;}
+  L[&quot;Лицензия активна&quot;] --&gt; AND
+  C[&quot;Канал разрешён&quot;] --&gt; AND
+  D[&quot;Устройство / ключ&quot;] --&gt; AND
+  B[&quot;Привязка учётки&quot;] --&gt; AND
+  AND --&gt;|да| OK[&quot;Доступ в продукт&quot;]
+  AND --&gt;|нет| DENY[&quot;Отказ · без детального оракула&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D08-editions">
+<figcaption><strong>D08 — Editions (P10)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph One[&quot;Один продукт EliteEW&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · контур заказчика&quot;]
+    Client[&quot;Client · устройство&quot;]
+  end
+  FoF[&quot;FoFline · local pack + канал\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph One[&quot;Один продукт EliteEW&quot;]
+    Cloud[&quot;Cloud · hosted&quot;]
+    Onprem[&quot;On-prem · контур заказчика&quot;]
+    Client[&quot;Client · устройство&quot;]
+  end
+  FoF[&quot;FoFline · local pack + канал\n≠ air-gap&quot;]
+  Client -.-&gt; FoF</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D09-tco-columns">
+<figcaption><strong>D09 — Структура затрат: три колонки (P3d)</strong></figcaption>
+<pre class="mermaid">flowchart TB
+  subgraph Win[&quot;Типичный десктоп-контур&quot;]
+    W1[&quot;ОС + агенты + внешние сервисы&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Сборка + ФОТ поддержки&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Контур + хост как есть&quot;]
+  end
+  Note[&quot;Self-host затраты · не оценка дара · ориентир&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  subgraph Win[&quot;Типичный десктоп-контур&quot;]
+    W1[&quot;ОС + агенты + внешние сервисы&quot;]
+  end
+  subgraph Ubu[&quot;Self-host DIY&quot;]
+    U1[&quot;Сборка + ФОТ поддержки&quot;]
+  end
+  subgraph EE[&quot;EliteEW&quot;]
+    E1[&quot;Контур + хост как есть&quot;]
+  end
+  Note[&quot;Self-host затраты · не оценка дара · ориентир&quot;]
+  Win -.-&gt; Note
+  Ubu -.-&gt; Note
+  EE -.-&gt; Note</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D10-reading-paths">
+<figcaption><strong>D10 — Reading paths (P0)</strong></figcaption>
+<p class="diagram-sense">входы для организации, ИБ, отрасли и внедрения — без рекламного захода.</p><pre class="mermaid">flowchart TB
+  P0[&quot;P0 Оглавление&quot;]
+  P0 --&gt; ORG[&quot;Организация / внедрение&quot;]
+  P0 --&gt; CISO[&quot;ИБ / периметр&quot;]
+  P0 --&gt; IND[&quot;Отрасль / день сотрудника&quot;]
+  P0 --&gt; SI[&quot;Миграция / интегратор&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 угрозы&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  P0[&quot;P0 Оглавление&quot;]
+  P0 --&gt; ORG[&quot;Организация / внедрение&quot;]
+  P0 --&gt; CISO[&quot;ИБ / периметр&quot;]
+  P0 --&gt; IND[&quot;Отрасль / день сотрудника&quot;]
+  P0 --&gt; SI[&quot;Миграция / интегратор&quot;]
+  P0 --&gt; FULL[&quot;Full spine&quot;]
+  ORG --&gt; A1[&quot;P1 · P3e · P3c&quot;]
+  A1 --&gt; A2[&quot;P3f · P3g · DD · P12&quot;]
+  CISO --&gt; C1[&quot;P2 угрозы&quot;]
+  C1 --&gt; C2[&quot;P7d edge · P9a · P8a&quot;]
+  IND --&gt; I1[&quot;P1 · P3a&quot;]
+  I1 --&gt; I2[&quot;P3b · P3e · P3d&quot;]
+  SI --&gt; S1[&quot;P3e · P3f · P3g&quot;]
+  S1 --&gt; S2[&quot;P10c · P5a&quot;]
+  FULL --&gt; F1[&quot;P0 → P14 + glossary&quot;]</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D11-gift-to-world">
+<figcaption><strong>D11 — Дар миру: MIT и опциональное сопровождение (P3e)</strong></figcaption>
+<p class="diagram-sense">центр — свободный код как дар. Сопровождение (если есть) помогает</p><pre class="mermaid">flowchart LR
+  Gift[&quot;Дар миру · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Запуск / изучение / изменение&quot;]
+  Gift --&gt; Share[&quot;Распространение по MIT&quot;]
+  Gift --&gt; Net[&quot;Модифицированный сетевой сервис → source своим users&quot;]
+  Run --&gt; Org[&quot;Свой контур организации&quot;]
+  Share --&gt; Org
+  Help[&quot;Опциональное сопровождение&quot;]
+  Help --&gt; Accept[&quot;Помощь с приёмкой / SBOM&quot;]
+  Help --&gt; Ops[&quot;Помощь с эксплуатацией&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart LR
+  Gift[&quot;Дар миру · MIT first-party&quot;]
+  Gift --&gt; Run[&quot;Запуск / изучение / изменение&quot;]
+  Gift --&gt; Share[&quot;Распространение по MIT&quot;]
+  Gift --&gt; Net[&quot;Модифицированный сетевой сервис → source своим users&quot;]
+  Run --&gt; Org[&quot;Свой контур организации&quot;]
+  Share --&gt; Org
+  Help[&quot;Опциональное сопровождение&quot;]
+  Help --&gt; Accept[&quot;Помощь с приёмкой / SBOM&quot;]
+  Help --&gt; Ops[&quot;Помощь с эксплуатацией&quot;]
+  Accept --&gt; Org
+  Ops --&gt; Org</pre></details>
+</figure>
+</div>
+<div class="reveal"><figure class="diagram" id="D12-transfer-handover">
+<figcaption><strong>D12 — Принять дар у себя (P3f)</strong></figcaption>
+<p class="diagram-sense">исходники открыты по MIT; приёмка у себя сверяет версию, сборку,</p><pre class="mermaid">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Сверка артефактов&quot;]
+  Check --&gt; Build[&quot;Сборка / стенд&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Пилот орг. единицы&quot;]
+  Pilot --&gt; Scale[&quot;Масштаб у своей службы&quot;]
+  Help[&quot;Опциональное сопровождение&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre>
+<details class="diagram-source"><summary>Исходник схемы (текст)</summary><pre class="diagram-fallback">flowchart TB
+  Source[&quot;MIT source · commit/tag&quot;]
+  Source --&gt; Check[&quot;Сверка артефактов&quot;]
+  Check --&gt; Build[&quot;Сборка / стенд&quot;]
+  Check --&gt; Docs[&quot;Docs + SBOM / NOTICE&quot;]
+  Build --&gt; Pilot[&quot;Пилот орг. единицы&quot;]
+  Pilot --&gt; Scale[&quot;Масштаб у своей службы&quot;]
+  Help[&quot;Опциональное сопровождение&quot;] -.-&gt; Check
+  Help -.-&gt; Pilot</pre></details>
+</figure>
+</div>
+    <footer class="export-foot">
+      Empery World / EliteEW · <strong>HTML — основной формат</strong> · PDF второстепенный · общие визуальные токены · текст: только product overview (не маркетинговый лендинг) · не схема эксплуатации
+    </footer>
+  </main>
+  <button type="button" class="back-top" data-back-top aria-label="Наверх">↑</button>
+  <script src="../assets/export.js"></script>
+
+  <script src="../assets/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      securityLevel: "strict",
+      flowchart: { htmlLabels: false },
+      themeVariables: {
+        primaryColor: "#0e131c",
+        primaryTextColor: "#e8eef7",
+        primaryBorderColor: "#00f2ff55",
+        lineColor: "#2dd4bf99",
+        secondaryColor: "#121820",
+        tertiaryColor: "#0b0e14",
+        fontFamily: "Manrope, system-ui, sans-serif"
+      }
+    });
+  </script>
+
+</body>
+</html>

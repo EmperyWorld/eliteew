@@ -1,0 +1,53 @@
+{
+  "name": "template-site-api",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Template storefront API server",
+  "main": "dist/index.js",
+  "type": "module",
+  "overrides": {
+    "lodash": ">=4.17.23",
+    "hono": ">=4.11.7"
+  },
+  "scripts": {
+    "tsx:dev:api": "tsx watch src/index.ts",
+    "tsc:build:api": "node ./node_modules/prisma/build/index.js generate && tsc",
+    "node:start:api": "node dist/index.js",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:migrate": "prisma migrate dev",
+    "tsx:seed:template": "tsx prisma/seed.template.ts",
+    "tsx:seed:demo": "tsx prisma/seed.ts",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0",
+    "pg": "^8.23.0",
+    "prisma": "^7.10.0",
+    "rate-limiter-flexible": "^11.2.1",
+    "sharp": "^0.35.4",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1",
+    "tsx": "^4.23.15",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^26.6.2",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,0 +1,23 @@
+# EliteEW product app manifest
+id: customer_cabinet
+title: Customer Cabinet
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: CustomerCabinet
+    icon: app-customer-cabinet
+  api:
+    prefixes: []
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

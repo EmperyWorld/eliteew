@@ -1,0 +1,12 @@
+# EliteEW · CC — drift notify oneshot (never auto-deploy)
+[Unit]
+Description=EliteEW Portal Private Tunnel drift notify (no auto-deploy)
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/powered_by_emperyworld
+ExecStart=/usr/bin/bash %h/powered_by_emperyworld/docker/scripts/portal-private-tunnel/notify-drift.sh
+SuccessExitStatus=0 2
+Nice=10

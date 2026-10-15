@@ -1,0 +1,18 @@
+[Unit]
+Description=EliteEW remote GPU embed/rerank/tool-router stack
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=%h/powered_by_emperyworld
+Environment=REPO_ROOT=%h/powered_by_emperyworld
+Environment=ELITEEW_CONTAINER_RUNTIME=podman
+Environment=PODMAN_COMPOSE_PROVIDER=podman-compose
+ExecStart=/usr/bin/env podman-compose -f %h/llama-remote/stack2-llama-remote-embed-rerank.yml --env-file %h/llama-remote/.env.llama-remote up -d --remove-orphans
+ExecStop=/usr/bin/env podman-compose -f %h/llama-remote/stack2-llama-remote-embed-rerank.yml --env-file %h/llama-remote/.env.llama-remote down --remove-orphans
+TimeoutStartSec=1800
+
+[Install]
+WantedBy=default.target

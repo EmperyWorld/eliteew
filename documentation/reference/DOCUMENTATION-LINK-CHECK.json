@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-11",
+  "method": "Filesystem links separately recorded in DOCUMENTATION-INVENTORY.json; approximate GitHub-style heading slugs and literal HTML ids; source line bounds.",
+  "markdown_anchor_checks": 176,
+  "source_line_checks": 1965,
+  "issues": [],
+  "issues_by_scope": {},
+  "limitations": [
+    "Slug checks are static candidates; renderer-specific anchors, setext headings and automatic transformations need confirmation.",
+    "Source line links are bounds-checked, not assertions of whole function correctness.",
+    "External targets not fetched."
+  ]
+}

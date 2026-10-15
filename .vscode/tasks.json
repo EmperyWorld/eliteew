@@ -1,0 +1,227 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "pytestPath",
+      "type": "promptString",
+      "description": "pytest path (relative to shared/api/tests or file under api/)",
+      "default": "tests/"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "EliteEW frontend: TypeScript (все файлы проекта)",
+      "type": "shell",
+      "command": "pnpm exec tsc --noEmit -p tsconfig.json",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/web/frontend"
+      },
+      "problemMatcher": "$tsc",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
+      "label": "EliteEW frontend: Biome check",
+      "type": "shell",
+      "command": "pnpm exec biome check src",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/web/frontend"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
+      "label": "EliteEW API: Ruff check",
+      "type": "shell",
+      "command": "uv run ruff check .",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/api",
+        "env": {
+          "UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv",
+          "PYTHONPATH": "${workspaceFolder}/shared"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
+      "label": "EliteEW API: Ruff format (check only)",
+      "type": "shell",
+      "command": "uv run ruff format --check .",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/api",
+        "env": {
+          "UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv",
+          "PYTHONPATH": "${workspaceFolder}/shared"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "build"
+    },
+    {
+      "label": "EliteEW API: stack0 pytest (wrapper)",
+      "type": "shell",
+      "command": "bash docker/scripts/run-stack0-api-tests.sh -q",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": "test"
+    },
+    {
+      "label": "EliteEW API: stack0 pytest (path)",
+      "type": "shell",
+      "command": "bash docker/scripts/run-stack0-api-tests.sh ${input:pytestPath} -q",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": "test"
+    },
+    {
+      "label": "EliteEW frontend: Vitest (current file)",
+      "type": "shell",
+      "command": "pnpm exec vitest run ${relativeFile}",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/web/frontend"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": "test"
+    },
+    {
+      "label": "EliteEW frontend: OpenAPI pilot freshness",
+      "type": "shell",
+      "command": "pnpm run openapi:check-pilot-freshness",
+      "options": {
+        "cwd": "${workspaceFolder}/shared/web/frontend"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Shell scripts: shellcheck (docker/scripts)",
+      "type": "shell",
+      "command": "fd -e sh -d 1 . docker/scripts | xargs -r shellcheck",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "test"
+    },
+    {
+      "label": "Dev environment: preflight check",
+      "type": "shell",
+      "command": "bash .vscode/preflight-check.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "group": "test"
+    },
+    {
+      "label": "Quality: lint all (Biome + Ruff)",
+      "dependsOn": [
+        "EliteEW frontend: Biome check",
+        "EliteEW API: Ruff check"
+      ],
+      "dependsOrder": "parallel",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Prod-line: sync (API + docs + dist)",
+      "type": "shell",
+      "command": "bash docker/scripts/eeprodline.sh sync",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "group": "none"
+    },
+    {
+      "label": "Prod-line: up dev-bind",
+      "type": "shell",
+      "command": "bash docker/scripts/eeprodline.sh up-dev-bind --yes --skip-sync",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "group": "none"
+    },
+    {
+      "label": "Prod-line: deploy dev-bind (sync + up)",
+      "dependsOn": [
+        "Prod-line: sync (API + docs + dist)",
+        "Prod-line: up dev-bind"
+      ],
+      "dependsOrder": "sequence",
+      "group": "none"
+    },
+    {
+      "label": "Prod-line: status",
+      "type": "shell",
+      "command": "bash docker/scripts/eeprodline.sh status",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "none"
+    },
+    {
+      "label": "Command-center: smoke",
+      "type": "shell",
+      "command": "bash docker/scripts/eliteew-command-center.sh smoke",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": "none"
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Router shell styles, including premium green SPA login fallback before Keycloak redirect.
+ * Invariants: login fallback uses local CSS tokens only — no external assets or inline theme injection.
+ * Related: AppRouter.tsx, docker/keycloak/themes/eliteew/login/resources/css/eliteew-login.css
+ */
+
+.login-page-container {
+  --eliteew-login-bg: #020a08;
+  --eliteew-login-bg-soft: #041410;
+  --eliteew-login-panel: rgba(6, 24, 18, 0.84);
+  --eliteew-login-border: rgba(167, 243, 208, 0.14);
+  --eliteew-login-border-strong: rgba(52, 211, 153, 0.34);
+  --eliteew-login-text: #ecfdf5;
+  --eliteew-login-text-soft: #bbf7d0;
+  --eliteew-login-text-muted: #86efac;
+  --eliteew-login-accent: #34d399;
+  --eliteew-login-accent-strong: #10b981;
+  --eliteew-login-accent-deep: #059669;
+  --eliteew-login-highlight: #6ee7b7;
+  --eliteew-login-shadow: 0 34px 90px rgba(2, 10, 8, 0.62);
+  --eliteew-login-radius: 1.75rem;
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  color: var(--eliteew-login-text);
+  background:
+    radial-gradient(circle at 16% 14%, rgba(52, 211, 153, 0.2), transparent 30rem),
+    radial-gradient(circle at 84% 10%, rgba(16, 185, 129, 0.14), transparent 28rem),
+    radial-gradient(circle at 58% 100%, rgba(5, 150, 105, 0.18), transparent 34rem),
+    linear-gradient(145deg, var(--eliteew-login-bg) 0%, var(--eliteew-login-bg-soft) 46%, #071912 100%);
+}
+
+.eliteew-login-fallback {
+  width: min(100%, 28rem);
+}
+
+.eliteew-login-fallback__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.25rem, 4vw, 2rem);
+}
+
+.eliteew-login-fallback__mark {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  border: 1px solid rgba(110, 231, 183, 0.42);
+  border-radius: 1.1rem;
+  background:
+    linear-gradient(135deg, rgba(52, 211, 153, 0.34), rgba(16, 185, 129, 0.16)),
+    rgba(6, 24, 18, 0.78);
+  box-shadow: 0 18px 48px rgba(5, 150, 105, 0.28);
+  color: var(--eliteew-login-text);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.eliteew-login-fallback__wordmark {
+  color: var(--eliteew-login-text);
+  font-size: clamp(1.85rem, 5vw, 2.75rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-shadow: 0 20px 60px rgba(52, 211, 153, 0.18);
+}
+
+.eliteew-login-fallback__card {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 2rem);
+  border: 1px solid var(--eliteew-login-border);
+  border-radius: var(--eliteew-login-radius);
+  background:
+    linear-gradient(180deg, rgba(167, 243, 208, 0.08), transparent 36%),
+    var(--eliteew-login-panel);
+  box-shadow: var(--eliteew-login-shadow), inset 0 1px 0 rgba(167, 243, 208, 0.08);
+  backdrop-filter: blur(22px);
+}
+
+.eliteew-login-fallback__card::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 0.22rem;
+  content: "";
+  background: linear-gradient(
+    90deg,
+    var(--eliteew-login-accent-deep),
+    var(--eliteew-login-accent),
+    var(--eliteew-login-highlight)
+  );
+}
+
+.eliteew-login-fallback__title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 1.25rem;
+  color: var(--eliteew-login-text);
+  font-size: clamp(1.35rem, 2.6vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+.eliteew-login-fallback__notice {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(251, 191, 36, 0.28);
+  border-radius: 1rem;
+  background: rgba(120, 53, 15, 0.22);
+  color: #fde68a;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.eliteew-login-fallback__remember {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin: 0 0 1.25rem;
+  color: var(--eliteew-login-text-soft);
+  font-size: 0.88rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.eliteew-login-fallback__remember input {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(110, 231, 183, 0.35);
+  background: rgba(2, 10, 8, 0.62);
+  accent-color: var(--eliteew-login-accent);
+}
+
+.eliteew-login-fallback__submit {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  min-height: 2.9rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    var(--eliteew-login-accent-strong) 0%,
+    var(--eliteew-login-accent) 56%,
+    var(--eliteew-login-highlight) 100%
+  );
+  box-shadow: 0 18px 42px rgba(5, 150, 105, 0.32);
+  color: #022c22;
+  font-size: 1rem;
+  font-weight: 760;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: filter 120ms ease, box-shadow 120ms ease, transform 120ms ease;
+}
+
+.eliteew-login-fallback__submit:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 20px 56px rgba(16, 185, 129, 0.34);
+}
+
+.eliteew-login-fallback__submit:active {
+  transform: translateY(1px);
+}
+
+.eliteew-login-fallback__submit:focus-visible {
+  outline: 3px solid rgba(52, 211, 153, 0.42);
+  outline-offset: 3px;
+}
+
+.eliteew-login-fallback__meta {
+  position: relative;
+  z-index: 1;
+  margin: 1rem 0 0;
+  color: var(--eliteew-login-text-muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.eliteew-login-fallback__meta button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--eliteew-login-highlight);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.eliteew-login-fallback__meta button:hover {
+  color: #a7f3d0;
+}
+
+.eliteew-login-fallback__hint {
+  position: relative;
+  z-index: 1;
+  margin: 0.65rem 0 0;
+  color: rgba(134, 239, 172, 0.72);
+  font-size: 0.74rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* AdvancedLoadingScreen: avoid inline style (webhint no-inline-styles) */
+.ew-loading-ring-orbit.animate-spin {
+  animation-duration: 2.5s;
+}
+
+.ew-spinner-dots .ew-spinner-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.ew-spinner-dots .ew-spinner-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.ew-spinner-dots .ew-spinner-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/*
+ * Optional shell perf knob: weaker backdrop-blur on inactive windows when
+ * `desktop-window-inactive-soft-blur` is set on the window shell (see EnhancedWindow).
+ */
+.desktop-window-inactive-soft-blur :is(
+    .backdrop-blur-sm,
+    .backdrop-blur-md,
+    .backdrop-blur-lg,
+    .backdrop-blur-xl,
+    .backdrop-blur-2xl,
+    .backdrop-blur-3xl
+  ) {
+  --tw-backdrop-blur: blur(6px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur);
+  backdrop-filter: var(--tw-backdrop-blur);
+}
+
+/* Plan 02/20 R18: keep title bar readable when inactive soft-blur is enabled. */
+.desktop-window-inactive-soft-blur .desktop-window-titlebar {
+  --tw-backdrop-blur: blur(2px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur);
+  backdrop-filter: var(--tw-backdrop-blur);
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eliteew-login-fallback__submit {
+    transition: none;
+  }
+}

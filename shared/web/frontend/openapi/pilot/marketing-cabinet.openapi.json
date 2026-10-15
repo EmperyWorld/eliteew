@@ -1,0 +1,6694 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/marketing-cabinet/ai/assist/stream)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/marketing-cabinet/ai/assist/stream": {
+      "post": {
+        "tags": [
+          "Marketing Cabinet - AI Studio",
+          "Marketing Cabinet - AI Studio"
+        ],
+        "summary": "Assist With Ai Stream",
+        "operationId": "assist_with_ai_stream_api_v1_marketing_cabinet_ai_assist_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketingAiAssistRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "`text/event-stream` — SSE `event: started|result|error` with named JSON `data:` (`MarketingAiAssistStreamSsePayloadDoc`); keep-alive comments while waiting.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingAiAssistStreamSsePayloadDoc"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingAiAssistStreamSsePayloadDoc"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/ai/runs": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - AI Studio",
+          "Marketing Cabinet - AI Studio"
+        ],
+        "summary": "List Ai Runs",
+        "operationId": "list_ai_runs_api_v1_marketing_cabinet_ai_runs_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Company Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Фильтр: exact статус или special `active` = queued+processing",
+              "title": "Status"
+            },
+            "description": "Фильтр: exact статус или special `active` = queued+processing"
+          },
+          {
+            "name": "tool_key",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 2,
+                  "maxLength": 120
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tool Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingAiRunListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/ai/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - AI Studio",
+          "Marketing Cabinet - AI Studio"
+        ],
+        "summary": "Get Ai Run Detail",
+        "operationId": "get_ai_run_detail_api_v1_marketing_cabinet_ai_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingAiRunDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/amka/project/{project_id}/runs": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - AMKA",
+          "Marketing Cabinet - AMKA"
+        ],
+        "summary": "List Amka Runs",
+        "operationId": "list_amka_runs_api_v1_marketing_cabinet_amka_project__project_id__runs_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 20,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AmkaRunListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/amka/runs": {
+      "post": {
+        "tags": [
+          "Marketing Cabinet - AMKA",
+          "Marketing Cabinet - AMKA"
+        ],
+        "summary": "Create Amka Run",
+        "operationId": "create_amka_run_api_v1_marketing_cabinet_amka_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AmkaStartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AmkaAsyncStartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/amka/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - AMKA",
+          "Marketing Cabinet - AMKA"
+        ],
+        "summary": "Get Amka Run Detail",
+        "operationId": "get_amka_run_detail_api_v1_marketing_cabinet_amka_runs__run_id__get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AmkaRunDetailResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/amka/runs/{run_id}/core-alignment": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - AMKA",
+          "Marketing Cabinet - AMKA"
+        ],
+        "summary": "Get Amka Run Core Alignment",
+        "description": "Align persisted run + master plan through AmkaCoreEngine (read-only; no LLM replan when plan is stored).",
+        "operationId": "get_amka_run_core_alignment_api_v1_marketing_cabinet_amka_runs__run_id__core_alignment_get",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AmkaCoreAlignmentOut"
+                }
+              }
+            }
+          },
+          "304": {
+            "description": "Not Modified — repeat If-None-Match"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/autofill/async": {
+      "post": {
+        "tags": [
+          "Marketing Cabinet - Document Autofill",
+          "Marketing Cabinet - Document Autofill"
+        ],
+        "summary": "Start Document Autofill Preview Async",
+        "operationId": "start_document_autofill_preview_async_api_v1_marketing_cabinet_autofill_async_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketingDocumentAutofillRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingAiAsyncStartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/chat/history": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Context Chat",
+          "Marketing Cabinet - Context Chat"
+        ],
+        "summary": "Get Marketing Chat History",
+        "operationId": "get_marketing_chat_history_api_v1_marketing_cabinet_chat_history_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Company Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingChatHistoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/chat/message": {
+      "post": {
+        "tags": [
+          "Marketing Cabinet - Context Chat",
+          "Marketing Cabinet - Context Chat"
+        ],
+        "summary": "Send Marketing Chat Message",
+        "operationId": "send_marketing_chat_message_api_v1_marketing_cabinet_chat_message_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketingChatMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingChatMessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/chat/message/stream": {
+      "post": {
+        "tags": [
+          "Marketing Cabinet - Context Chat",
+          "Marketing Cabinet - Context Chat"
+        ],
+        "summary": "Send Marketing Chat Message Stream",
+        "operationId": "send_marketing_chat_message_stream_api_v1_marketing_cabinet_chat_message_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MarketingChatMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "`text/event-stream` — SSE `event: started|progress|result|error` with named JSON `data:` (`MarketingChatStreamSsePayloadDoc`); keep-alive comments while waiting.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingChatStreamSsePayloadDoc"
+                }
+              },
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingChatStreamSsePayloadDoc"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/imc/types": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - IMC",
+          "Marketing Cabinet - IMC"
+        ],
+        "summary": "List Imc Types",
+        "operationId": "list_imc_types_api_v1_marketing_cabinet_imc_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImcResearchTypesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/projects/{project_id}/live-jobs-summary": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Project Insights",
+          "Marketing Cabinet - Projects"
+        ],
+        "summary": "Get Project Live Jobs Summary",
+        "description": "Счётчики активных AI/IMC runs для rail и Job Center (один round-trip).",
+        "operationId": "get_project_live_jobs_summary_api_v1_marketing_cabinet_projects__project_id__live_jobs_summary_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectLiveJobsSummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/companies/{company_id}/live-jobs-summary": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Live jobs",
+          "Marketing Cabinet - Live jobs"
+        ],
+        "summary": "Get Company Live Jobs Summary",
+        "description": "Счётчики активных AI/IMC runs для company-only Job Center (один round-trip).",
+        "operationId": "get_company_live_jobs_summary_api_v1_marketing_cabinet_companies__company_id__live_jobs_summary_get",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Company Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectLiveJobsSummaryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/projects/{project_id}/dashboard": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Project Insights",
+          "Marketing Cabinet - Projects"
+        ],
+        "summary": "Get Project Dashboard",
+        "description": "Объединённый endpoint: health + overview в одном запросе.\nСнижает количество round-trips при загрузке обзора.",
+        "operationId": "get_project_dashboard_api_v1_marketing_cabinet_projects__project_id__dashboard_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Comma-separated optional expansions. Use `series` for UTC daily analytics (tasks, alerts, AI).",
+              "title": "Include"
+            },
+            "description": "Comma-separated optional expansions. Use `series` for UTC daily analytics (tasks, alerts, AI)."
+          },
+          {
+            "name": "window_days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 90,
+              "minimum": 1,
+              "description": "Calendar window length for series buckets when include contains series.",
+              "default": 30,
+              "title": "Window Days"
+            },
+            "description": "Calendar window length for series buckets when include contains series."
+          },
+          {
+            "name": "layout_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional active dashboard layout id: response may include widget_list_slices (server-side filters/sort/maxItems for list tiles).",
+              "title": "Layout Id"
+            },
+            "description": "Optional active dashboard layout id: response may include widget_list_slices (server-side filters/sort/maxItems for list tiles)."
+          },
+          {
+            "name": "compact_lists",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Smaller list payloads (quick summary / background warm); skips widget_list_slices when combined with omitting layout_id.",
+              "default": false,
+              "title": "Compact Lists"
+            },
+            "description": "Smaller list payloads (quick summary / background warm); skips widget_list_slices when combined with omitting layout_id."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectDashboardResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/projects/{project_id}/graph": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Project Insights",
+          "Marketing Cabinet - Projects"
+        ],
+        "summary": "Get Project Graph",
+        "description": "Deprecated: overview UI uses the interactive dashboard (layouts/widgets API).",
+        "operationId": "get_project_graph_api_v1_marketing_cabinet_projects__project_id__graph_get",
+        "deprecated": true,
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectGraphResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/projects/{project_id}/overview": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Project Insights",
+          "Marketing Cabinet - Projects"
+        ],
+        "summary": "Get Project Overview",
+        "operationId": "get_project_overview_api_v1_marketing_cabinet_projects__project_id__overview_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Project Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingProjectOverviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/researches": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Researches",
+          "Marketing Cabinet - Researches"
+        ],
+        "summary": "List Researches",
+        "operationId": "list_researches_api_v1_marketing_cabinet_researches_get",
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Project UUID",
+              "title": "Project Id"
+            },
+            "description": "Project UUID"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 200,
+                  "minimum": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Max items per page",
+              "title": "Limit"
+            },
+            "description": "Max items per page"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Offset for pagination",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Offset for pagination"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingResearchListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Marketing Cabinet - Researches",
+          "Marketing Cabinet - Researches"
+        ],
+        "summary": "Create Research",
+        "operationId": "create_research_api_v1_marketing_cabinet_researches_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResearchCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MarketingResearchOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/marketing-cabinet/researches/types": {
+      "get": {
+        "tags": [
+          "Marketing Cabinet - Researches",
+          "Marketing Cabinet - Researches"
+        ],
+        "summary": "List Research Types",
+        "operationId": "list_research_types_api_v1_marketing_cabinet_researches_types_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResearchTypesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MarketingAiAssistRequest": {
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "minLength": 4,
+            "title": "Prompt"
+          },
+          "tool_key": {
+            "type": "string",
+            "title": "Tool Key",
+            "default": "general_analysis"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Id"
+          },
+          "temperature": {
+            "type": "number",
+            "maximum": 2,
+            "minimum": 0,
+            "title": "Temperature",
+            "default": 0.3
+          },
+          "max_tokens": {
+            "type": "integer",
+            "maximum": 12000,
+            "minimum": 128,
+            "title": "Max Tokens",
+            "default": 3000
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "use_web_search": {
+            "type": "boolean",
+            "title": "Use Web Search",
+            "default": false
+          },
+          "web_search_quality": {
+            "type": "string",
+            "enum": [
+              "off",
+              "light",
+              "standard",
+              "deep"
+            ],
+            "title": "Web Search Quality",
+            "default": "off"
+          }
+        },
+        "type": "object",
+        "required": [
+          "prompt"
+        ],
+        "title": "MarketingAiAssistRequest"
+      },
+      "MarketingAiAssistStreamSsePayloadDoc": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/MarketingAiAssistSseStartedOut"
+          },
+          {
+            "$ref": "#/components/schemas/MarketingAiAssistSseResultOut"
+          },
+          {
+            "$ref": "#/components/schemas/MarketingAiAssistSseErrorOut"
+          }
+        ],
+        "title": "MarketingAiAssistStreamSsePayloadDoc",
+        "description": "OpenAPI doc for ``POST …/ai/assist/stream`` ``data:`` JSON.\n\nWire may also forward other UGS event types as opaque bags; keep-alive comments\nremain outside this named union."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MarketingAiRunListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingAiRunOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "MarketingAiRunListResponse"
+      },
+      "MarketingAiRunDetailResponse": {
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/MarketingAiRunOut"
+          },
+          "poll_after_ms": {
+            "type": "integer",
+            "title": "Poll After Ms",
+            "default": 2000
+          },
+          "queue": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingAiQueueSnapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "result_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Type"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run"
+        ],
+        "title": "MarketingAiRunDetailResponse"
+      },
+      "AmkaRunListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/AmkaRunOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "poll_after_ms": {
+            "type": "integer",
+            "title": "Poll After Ms",
+            "description": "Интервал опроса UI (мс), если в списке есть незавершённые запуски; 0 если все терминальны.",
+            "default": 0
+          },
+          "recent_runs_digest": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Recent Runs Digest",
+            "description": "Последние завершённые запуски AMKA по проекту (кратко, для UI/памяти)."
+          },
+          "recent_runs_digest_markdown": {
+            "type": "string",
+            "title": "Recent Runs Digest Markdown",
+            "description": "Тот же дайджест в markdown для read-only блока в кабинете.",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "AmkaRunListResponse"
+      },
+      "AmkaStartRequest": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "scope_key": {
+            "type": "string",
+            "const": "all_visible",
+            "title": "Scope Key",
+            "default": "all_visible"
+          },
+          "user_instruction": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Instruction",
+            "description": "Optional operator note about emphasis or constraints for the audit."
+          },
+          "section_keys": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "overview",
+                    "companies",
+                    "projects",
+                    "team",
+                    "jtbd",
+                    "value",
+                    "analysis",
+                    "evidence",
+                    "project_rag",
+                    "segments",
+                    "campaigns",
+                    "funnel",
+                    "tasks",
+                    "alerts",
+                    "dashboard",
+                    "imc",
+                    "client_interaction"
+                  ]
+                },
+                "type": "array",
+                "maxItems": 24
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section Keys",
+            "description": "Optional subset of cabinet sections; transitive dependencies are added server-side."
+          },
+          "imc_type_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 3
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imc Type Key",
+            "description": "Default IMC research type_key when the plan does not override it."
+          },
+          "imc_focus": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "global",
+                  "rf",
+                  "mixed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imc Focus",
+            "description": "Passed to ImcRunResearchRequest context.focus (\"global\" | \"rf\" | \"mixed\")."
+          },
+          "imc_max_wait_seconds": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3600,
+                "minimum": 10
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Imc Max Wait Seconds",
+            "description": "Max seconds to wait for IMC terminal status during execute_section (capped by server settings)."
+          },
+          "run_mode": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "semi_auto"
+            ],
+            "title": "Run Mode",
+            "description": "semi_auto: await plan approval. auto: start execution immediately after planning.",
+            "default": "semi_auto"
+          },
+          "per_step_execution": {
+            "type": "boolean",
+            "title": "Per Step Execution",
+            "description": "When true (semi_auto only), pause after each execute_section until POST continue-step.",
+            "default": false
+          },
+          "auto_cycle_count": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 5,
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Cycle Count",
+            "description": "Number of full AMKA runs in a row when run_mode=auto (ignored for semi_auto)."
+          },
+          "preset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset Id",
+            "description": "UUID пресета проекта; дополнительные задачи плана подмешиваются при планировании."
+          },
+          "use_web_search": {
+            "type": "boolean",
+            "title": "Use Web Search",
+            "description": "Legacy flag; when true and web_search_quality omitted, treated as standard.",
+            "default": false
+          },
+          "web_search_quality": {
+            "type": "string",
+            "enum": [
+              "off",
+              "light",
+              "standard",
+              "deep"
+            ],
+            "title": "Web Search Quality",
+            "description": "Web search depth for AMKA IMC steps: off | light | standard | deep.",
+            "default": "off"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_id",
+          "company_id"
+        ],
+        "title": "AmkaStartRequest"
+      },
+      "AmkaAsyncStartResponse": {
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/AmkaRunOut"
+          },
+          "poll_after_ms": {
+            "type": "integer",
+            "title": "Poll After Ms",
+            "default": 2000
+          }
+        },
+        "type": "object",
+        "required": [
+          "run"
+        ],
+        "title": "AmkaAsyncStartResponse"
+      },
+      "AmkaRunDetailResponse": {
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/AmkaRunOut"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/AmkaRunStepOut"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "poll_after_ms": {
+            "type": "integer",
+            "title": "Poll After Ms",
+            "default": 2000
+          },
+          "pulse": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pulse",
+            "description": "Human-facing AMKA pulse: changes, preserved state, doubts, agreements, and no-op reason."
+          },
+          "standalone_projection": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Standalone Projection",
+            "description": "Read-only projection of the marketing run through the standalone AMKA driver boundary."
+          },
+          "overview_health_preview": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Overview Health Preview"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run",
+          "steps"
+        ],
+        "title": "AmkaRunDetailResponse"
+      },
+      "AmkaCoreAlignmentOut": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "AmkaCoreRunStatus value from the engine."
+          },
+          "pulse": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Pulse"
+          },
+          "policy": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Policy"
+          },
+          "projection": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Projection"
+          },
+          "observations": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Observations"
+          },
+          "traces": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Traces",
+            "description": "Normalized AmkaCoreEngine trace timeline (stage, event, message, payload)."
+          },
+          "task_preview": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Task Preview"
+          },
+          "task_count": {
+            "type": "integer",
+            "title": "Task Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "AmkaCoreAlignmentOut",
+        "description": "Read-only AmkaCoreEngine alignment for an existing run (persisted plan, no act())."
+      },
+      "MarketingDocumentAutofillRequest": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "content_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Content Id"
+          },
+          "target_section": {
+            "$ref": "#/components/schemas/AutofillTarget"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/AutofillMode",
+            "default": "preview"
+          },
+          "user_instruction": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Instruction"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "draft_items": {
+            "items": {
+              "$ref": "#/components/schemas/DocumentAutofillDraftInput"
+            },
+            "type": "array",
+            "title": "Draft Items"
+          },
+          "selected_item_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Selected Item Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_id",
+          "content_id",
+          "target_section"
+        ],
+        "title": "MarketingDocumentAutofillRequest"
+      },
+      "MarketingAiAsyncStartResponse": {
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/MarketingAiRunOut"
+          },
+          "poll_after_ms": {
+            "type": "integer",
+            "title": "Poll After Ms",
+            "default": 2000
+          },
+          "queue": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingAiQueueSnapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "run"
+        ],
+        "title": "MarketingAiAsyncStartResponse"
+      },
+      "MarketingChatHistoryResponse": {
+        "properties": {
+          "conversation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversation Id"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/ChatMessageOut"
+            },
+            "type": "array",
+            "title": "Messages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "messages"
+        ],
+        "title": "MarketingChatHistoryResponse"
+      },
+      "MarketingChatMessageRequest": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Message"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "conversation_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversation Id"
+          },
+          "idempotency_key": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120,
+                "minLength": 8
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotency Key"
+          },
+          "use_web_search": {
+            "type": "boolean",
+            "title": "Use Web Search",
+            "default": false
+          },
+          "web_search_quality": {
+            "type": "string",
+            "enum": [
+              "off",
+              "light",
+              "standard",
+              "deep"
+            ],
+            "title": "Web Search Quality",
+            "default": "off"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "MarketingChatMessageRequest"
+      },
+      "MarketingChatMessageResponse": {
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "title": "Conversation Id"
+          },
+          "message": {
+            "$ref": "#/components/schemas/ChatMessageOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "message"
+        ],
+        "title": "MarketingChatMessageResponse"
+      },
+      "MarketingChatStreamSsePayloadDoc": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/MarketingChatSseStartedOut"
+          },
+          {
+            "$ref": "#/components/schemas/MarketingChatSseProgressOut"
+          },
+          {
+            "$ref": "#/components/schemas/MarketingChatSseResultOut"
+          },
+          {
+            "$ref": "#/components/schemas/MarketingChatSseErrorOut"
+          }
+        ],
+        "title": "MarketingChatStreamSsePayloadDoc",
+        "description": "OpenAPI doc for ``POST …/chat/message/stream`` ``data:`` JSON.\n\nKeep-alive comments are outside this named union."
+      },
+      "ImcResearchTypesResponse": {
+        "properties": {
+          "types": {
+            "items": {
+              "$ref": "#/components/schemas/ImcResearchTypeOut"
+            },
+            "type": "array",
+            "title": "Types"
+          }
+        },
+        "type": "object",
+        "required": [
+          "types"
+        ],
+        "title": "ImcResearchTypesResponse"
+      },
+      "MarketingProjectLiveJobsSummaryResponse": {
+        "properties": {
+          "ai_active_total": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Ai Active Total"
+          },
+          "imc_active_total": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Imc Active Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ai_active_total",
+          "imc_active_total"
+        ],
+        "title": "MarketingProjectLiveJobsSummaryResponse",
+        "description": "Лёгкий снимок для rail/badge: только счётчики активных AI и IMC runs."
+      },
+      "MarketingProjectDashboardResponse": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/MarketingProjectSummaryOut"
+          },
+          "job_stories": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingJobStoryOut"
+            },
+            "type": "array",
+            "title": "Job Stories"
+          },
+          "value_propositions": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingValuePropositionOut"
+            },
+            "type": "array",
+            "title": "Value Propositions"
+          },
+          "competitors": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCompetitorOut"
+            },
+            "type": "array",
+            "title": "Competitors"
+          },
+          "researches": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingResearchOut"
+            },
+            "type": "array",
+            "title": "Researches"
+          },
+          "content": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingContentItemOut"
+            },
+            "type": "array",
+            "title": "Content"
+          },
+          "swot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingSwotOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "counts": {
+            "$ref": "#/components/schemas/MarketingCountsOut"
+          },
+          "readiness_score": {
+            "type": "integer",
+            "title": "Readiness Score"
+          },
+          "readiness_breakdown": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReadinessBreakdownOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "readiness_meta": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReadinessMetaOut"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Расшифровка формулы готовности: веса, вклад баллов, метаданные среднего по coverage."
+          },
+          "last_activity_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Activity At"
+          },
+          "coverage": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCoverageMetricOut"
+            },
+            "type": "array",
+            "title": "Coverage"
+          },
+          "strategy_integrity_score": {
+            "type": "integer",
+            "title": "Strategy Integrity Score",
+            "default": 0
+          },
+          "strategy_integrity": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCoverageMetricOut"
+            },
+            "type": "array",
+            "title": "Strategy Integrity"
+          },
+          "strategy_integrity_issues": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingInsightOut"
+            },
+            "type": "array",
+            "title": "Strategy Integrity Issues"
+          },
+          "issue_remediation": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingIssueRemediationOut"
+            },
+            "type": "array",
+            "title": "Issue Remediation"
+          },
+          "freshness": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingFreshnessFlagOut"
+            },
+            "type": "array",
+            "title": "Freshness"
+          },
+          "gaps": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingInsightOut"
+            },
+            "type": "array",
+            "title": "Gaps"
+          },
+          "highlights": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingInsightOut"
+            },
+            "type": "array",
+            "title": "Highlights"
+          },
+          "recommended_actions": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingRecommendedActionOut"
+            },
+            "type": "array",
+            "title": "Recommended Actions"
+          },
+          "activity_feed": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingActivityItemOut"
+            },
+            "type": "array",
+            "title": "Activity Feed"
+          },
+          "company_rollup_excerpt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingCompanyRollupExcerptOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "latest_swot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingSwotOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recent_content": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingContentItemOut"
+            },
+            "type": "array",
+            "title": "Recent Content"
+          },
+          "recent_researches": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingResearchOut"
+            },
+            "type": "array",
+            "title": "Recent Researches"
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingSegmentOut"
+            },
+            "type": "array",
+            "title": "Segments"
+          },
+          "campaigns": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCampaignOut"
+            },
+            "type": "array",
+            "title": "Campaigns"
+          },
+          "funnels": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingFunnelOut"
+            },
+            "type": "array",
+            "title": "Funnels"
+          },
+          "tasks": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingTaskOut"
+            },
+            "type": "array",
+            "title": "Tasks"
+          },
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingAlertOut"
+            },
+            "type": "array",
+            "title": "Alerts"
+          },
+          "ai_runs": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingAiRunOut"
+            },
+            "type": "array",
+            "title": "Ai Runs"
+          },
+          "analytics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingDashboardAnalytics"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "widget_list_slices": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "$ref": "#/components/schemas/MarketingDashboardWidgetListSlicesOut"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Widget List Slices"
+          },
+          "imc_research_runs": {
+            "items": {
+              "$ref": "#/components/schemas/ImcResearchRunSummary"
+            },
+            "type": "array",
+            "title": "Imc Research Runs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "job_stories",
+          "value_propositions",
+          "competitors",
+          "researches",
+          "content",
+          "counts",
+          "readiness_score"
+        ],
+        "title": "MarketingProjectDashboardResponse",
+        "description": "Health + overview в одном ответе (все поля обоих)."
+      },
+      "MarketingProjectGraphResponse": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/MarketingProjectSummaryOut"
+          },
+          "readiness_score": {
+            "type": "integer",
+            "title": "Readiness Score"
+          },
+          "strategy_integrity_score": {
+            "type": "integer",
+            "title": "Strategy Integrity Score",
+            "default": 0
+          },
+          "strategy_integrity_issues": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingInsightOut"
+            },
+            "type": "array",
+            "title": "Strategy Integrity Issues"
+          },
+          "last_activity_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Activity At"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingGraphNodeOut"
+            },
+            "type": "array",
+            "title": "Nodes"
+          },
+          "edges": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingGraphEdgeOut"
+            },
+            "type": "array",
+            "title": "Edges"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "readiness_score"
+        ],
+        "title": "MarketingProjectGraphResponse"
+      },
+      "MarketingProjectOverviewResponse": {
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/MarketingProjectSummaryOut"
+          },
+          "job_stories": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingJobStoryOut"
+            },
+            "type": "array",
+            "title": "Job Stories"
+          },
+          "value_propositions": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingValuePropositionOut"
+            },
+            "type": "array",
+            "title": "Value Propositions"
+          },
+          "competitors": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCompetitorOut"
+            },
+            "type": "array",
+            "title": "Competitors"
+          },
+          "researches": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingResearchOut"
+            },
+            "type": "array",
+            "title": "Researches"
+          },
+          "content": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingContentItemOut"
+            },
+            "type": "array",
+            "title": "Content"
+          },
+          "swot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/MarketingSwotOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "project",
+          "job_stories",
+          "value_propositions",
+          "competitors",
+          "researches",
+          "content"
+        ],
+        "title": "MarketingProjectOverviewResponse"
+      },
+      "MarketingResearchListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingResearchOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "MarketingResearchListResponse"
+      },
+      "ResearchCreateRequest": {
+        "properties": {
+          "project_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Project Id"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Title"
+          },
+          "research_type": {
+            "type": "string",
+            "title": "Research Type",
+            "default": "market"
+          },
+          "research_query": {
+            "type": "string",
+            "minLength": 3,
+            "title": "Research Query"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "goals": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Goals"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority",
+            "default": "normal"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "draft"
+          },
+          "result_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Summary"
+          },
+          "result_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Content Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "project_id",
+          "title",
+          "research_query"
+        ],
+        "title": "ResearchCreateRequest"
+      },
+      "MarketingResearchOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "research_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Research Type"
+          },
+          "research_query": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Research Query"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "goals": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Goals"
+          },
+          "settings": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Settings"
+          },
+          "result_content_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Content Id"
+          },
+          "result_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Summary"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "active_ai_run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Ai Run Id",
+            "description": "Active marketing_ai_runs id for UI poll resume when status=processing"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id"
+        ],
+        "title": "MarketingResearchOut"
+      },
+      "ResearchTypesResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingOptionOut"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "ResearchTypesResponse"
+      },
+      "MarketingAiAssistSseStartedOut": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "status": {
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id"
+        ],
+        "title": "MarketingAiAssistSseStartedOut",
+        "description": "SSE ``event: started`` after UGS accepts a marketing AI assist stream."
+      },
+      "MarketingAiAssistSseResultOut": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "run": {
+            "$ref": "#/components/schemas/MarketingAiRunOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "run"
+        ],
+        "title": "MarketingAiAssistSseResultOut",
+        "description": "SSE ``event: result`` with generated text and recorded AI run."
+      },
+      "MarketingAiAssistSseErrorOut": {
+        "properties": {
+          "error": {
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "MarketingAiAssistSseErrorOut",
+        "description": "SSE ``event: error`` envelope for marketing AI assist streams."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "MarketingAiRunOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          },
+          "tool_key": {
+            "type": "string",
+            "title": "Tool Key"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "prompt_excerpt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt Excerpt"
+          },
+          "result_excerpt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Excerpt"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "finished_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finished At"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "tool_key"
+        ],
+        "title": "MarketingAiRunOut"
+      },
+      "MarketingAiQueueSnapshot": {
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "waiting_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Waiting Count"
+          },
+          "processing_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Processing Count"
+          },
+          "estimated_start_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Start At"
+          }
+        },
+        "type": "object",
+        "title": "MarketingAiQueueSnapshot"
+      },
+      "AmkaRunOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "created_by_user_id": {
+            "type": "string",
+            "title": "Created By User Id"
+          },
+          "scope_key": {
+            "type": "string",
+            "title": "Scope Key"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "current_stage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Stage"
+          },
+          "progress": {
+            "type": "integer",
+            "title": "Progress",
+            "default": 0
+          },
+          "progress_message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Progress Message"
+          },
+          "plan_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Source"
+          },
+          "plan_llm_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Llm Status",
+            "description": "Статус разбора LLM master plan: ok, empty, parse_error, error, disabled, not_applicable, heuristic_fallback."
+          },
+          "plan_llm_parse_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Llm Parse Reason"
+          },
+          "plan_llm_response_chars": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Llm Response Chars"
+          },
+          "plan_llm_retried": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Llm Retried"
+          },
+          "plan_used_llm_tasks": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Used Llm Tasks",
+            "description": "True, если итоговые задачи плана взяты из нормализованного ответа LLM (не откат на кандидатов)."
+          },
+          "plan_llm_repair_attempted": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Llm Repair Attempted"
+          },
+          "plan_llm_repaired": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Llm Repaired"
+          },
+          "plan_structure_errors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Structure Errors",
+            "description": "Краткие коды ошибок структуры ответа LLM master plan (до нормализации)."
+          },
+          "audit_llm_stats": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audit Llm Stats"
+          },
+          "master_plan_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Master Plan Summary"
+          },
+          "master_plan": {
+            "items": {
+              "$ref": "#/components/schemas/AmkaPlanTaskOut"
+            },
+            "type": "array",
+            "title": "Master Plan"
+          },
+          "final_summary_markdown": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Final Summary Markdown"
+          },
+          "final_assessment": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Final Assessment"
+          },
+          "metrics_before": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics Before"
+          },
+          "metrics_after": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics After"
+          },
+          "error_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Error Payload"
+          },
+          "approved_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approved At"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "run_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Mode"
+          },
+          "auto_cycle_index": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Cycle Index"
+          },
+          "auto_cycle_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Cycle Total"
+          },
+          "auto_cycle_group_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Auto Cycle Group Id"
+          },
+          "preset_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preset Id",
+            "description": "Необязательный пресет проекта (доп. шаги плана)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id",
+          "created_by_user_id",
+          "scope_key",
+          "status"
+        ],
+        "title": "AmkaRunOut"
+      },
+      "AmkaRunStepOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "run_id": {
+            "type": "string",
+            "title": "Run Id"
+          },
+          "ordinal": {
+            "type": "integer",
+            "title": "Ordinal"
+          },
+          "stage_kind": {
+            "type": "string",
+            "title": "Stage Kind"
+          },
+          "section_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section Key"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "plan_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Plan Payload"
+          },
+          "report_markdown": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Markdown"
+          },
+          "report_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Report Payload"
+          },
+          "applied_entities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Applied Entities"
+          },
+          "operation_trail": {
+            "items": {
+              "$ref": "#/components/schemas/AmkaOperationOut"
+            },
+            "type": "array",
+            "title": "Operation Trail"
+          },
+          "metrics_before": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics Before"
+          },
+          "metrics_after": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metrics After"
+          },
+          "error_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Error Payload"
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "run_id",
+          "ordinal",
+          "stage_kind",
+          "title",
+          "status"
+        ],
+        "title": "AmkaRunStepOut"
+      },
+      "AutofillTarget": {
+        "type": "string",
+        "enum": [
+          "jtbd",
+          "value_propositions",
+          "swot",
+          "competitors",
+          "researches",
+          "segments",
+          "campaigns",
+          "funnels",
+          "tasks",
+          "alerts"
+        ],
+        "title": "AutofillTarget"
+      },
+      "AutofillMode": {
+        "type": "string",
+        "enum": [
+          "preview",
+          "apply"
+        ],
+        "title": "AutofillMode"
+      },
+      "DocumentAutofillDraftInput": {
+        "properties": {
+          "draft_id": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "title": "Draft Id"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          },
+          "evidence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Evidence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "draft_id",
+          "title"
+        ],
+        "title": "DocumentAutofillDraftInput"
+      },
+      "ChatMessageOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "content"
+        ],
+        "title": "ChatMessageOut"
+      },
+      "MarketingChatSseStartedOut": {
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "title": "Conversation Id"
+          },
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "processing"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "request_id"
+        ],
+        "title": "MarketingChatSseStartedOut",
+        "description": "SSE ``event: started`` for context-chat stream."
+      },
+      "MarketingChatSseProgressOut": {
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "title": "Conversation Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "processing"
+          },
+          "progress": {
+            "title": "Progress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conversation_id"
+        ],
+        "title": "MarketingChatSseProgressOut",
+        "description": "SSE ``event: progress`` while UGS is processing the chat turn."
+      },
+      "MarketingChatSseResultOut": {
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "title": "Conversation Id"
+          },
+          "message": {
+            "$ref": "#/components/schemas/MarketingChatSseMessageOut"
+          },
+          "run": {
+            "$ref": "#/components/schemas/MarketingAiRunOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "message",
+          "run"
+        ],
+        "title": "MarketingChatSseResultOut",
+        "description": "SSE ``event: result`` with assistant message and AI run row."
+      },
+      "MarketingChatSseErrorOut": {
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "title": "Conversation Id"
+          },
+          "error": {
+            "title": "Error"
+          }
+        },
+        "type": "object",
+        "required": [
+          "conversation_id",
+          "error"
+        ],
+        "title": "MarketingChatSseErrorOut",
+        "description": "SSE ``event: error`` for context-chat stream."
+      },
+      "ImcResearchTypeOut": {
+        "properties": {
+          "type_key": {
+            "type": "string",
+            "title": "Type Key"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "estimated_time_seconds": {
+            "type": "integer",
+            "title": "Estimated Time Seconds",
+            "default": 30
+          },
+          "is_composite": {
+            "type": "boolean",
+            "title": "Is Composite",
+            "default": false
+          },
+          "complexity": {
+            "type": "string",
+            "title": "Complexity",
+            "default": "medium"
+          },
+          "rag_project_only": {
+            "type": "boolean",
+            "title": "Rag Project Only",
+            "description": "Research uses project PG+RAG vault only; file/URL/brief not required.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "type_key",
+          "display_name"
+        ],
+        "title": "ImcResearchTypeOut"
+      },
+      "MarketingProjectSummaryOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "goals": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Goals"
+          },
+          "key_tasks": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Key Tasks"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "enabled_modules": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Enabled Modules"
+          },
+          "company_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Name"
+          },
+          "company_industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Industry"
+          },
+          "company_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Description"
+          },
+          "company_website": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Website"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "company_id",
+          "name",
+          "slug"
+        ],
+        "title": "MarketingProjectSummaryOut"
+      },
+      "MarketingJobStoryOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "statement": {
+            "type": "string",
+            "title": "Statement"
+          },
+          "situation": {
+            "type": "string",
+            "title": "Situation"
+          },
+          "motivation": {
+            "type": "string",
+            "title": "Motivation"
+          },
+          "outcome": {
+            "type": "string",
+            "title": "Outcome"
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "importance_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Importance Score"
+          },
+          "satisfaction_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Satisfaction Score"
+          },
+          "opportunity_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Opportunity Score"
+          },
+          "quality_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quality Score"
+          },
+          "sentiment_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sentiment Score"
+          },
+          "is_validated": {
+            "type": "boolean",
+            "title": "Is Validated",
+            "default": false
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "title",
+          "statement",
+          "situation",
+          "motivation",
+          "outcome"
+        ],
+        "title": "MarketingJobStoryOut"
+      },
+      "MarketingValuePropositionOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "headline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headline"
+          },
+          "subheadline": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subheadline"
+          },
+          "value_statement": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value Statement"
+          },
+          "proof_points": {
+            "items": {},
+            "type": "array",
+            "title": "Proof Points"
+          },
+          "addressed_job_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Addressed Job Ids"
+          },
+          "addressed_jobs": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Addressed Jobs"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "target_channels": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Target Channels"
+          },
+          "quality_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quality Score"
+          },
+          "conversion_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversion Rate"
+          },
+          "click_through_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Click Through Rate"
+          },
+          "is_ai_generated": {
+            "type": "boolean",
+            "title": "Is Ai Generated",
+            "default": false
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id"
+        ],
+        "title": "MarketingValuePropositionOut"
+      },
+      "MarketingCompetitorOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "website": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Website"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "competitor_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Competitor Type"
+          },
+          "market_position": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Market Position"
+          },
+          "pricing_strategy": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pricing Strategy"
+          },
+          "market_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Market Share"
+          },
+          "strengths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Strengths"
+          },
+          "weaknesses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Weaknesses"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id"
+        ],
+        "title": "MarketingCompetitorOut"
+      },
+      "MarketingContentItemOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "content_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Type"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "processing_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Processing Status"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "excerpt": {
+            "type": "string",
+            "title": "Excerpt",
+            "default": ""
+          },
+          "file_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "File Size"
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "MarketingContentItemOut"
+      },
+      "MarketingSwotOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "company_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Name"
+          },
+          "industry": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Industry"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "executive_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Executive Summary"
+          },
+          "ai_insights": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ai Insights"
+          },
+          "strengths_count": {
+            "type": "integer",
+            "title": "Strengths Count",
+            "default": 0
+          },
+          "weaknesses_count": {
+            "type": "integer",
+            "title": "Weaknesses Count",
+            "default": 0
+          },
+          "opportunities_count": {
+            "type": "integer",
+            "title": "Opportunities Count",
+            "default": 0
+          },
+          "threats_count": {
+            "type": "integer",
+            "title": "Threats Count",
+            "default": 0
+          },
+          "factors": {
+            "$ref": "#/components/schemas/MarketingSwotFactorsOut"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id"
+        ],
+        "title": "MarketingSwotOut"
+      },
+      "MarketingCountsOut": {
+        "properties": {
+          "jtbd": {
+            "type": "integer",
+            "title": "Jtbd"
+          },
+          "value_propositions": {
+            "type": "integer",
+            "title": "Value Propositions"
+          },
+          "swot": {
+            "type": "integer",
+            "title": "Swot"
+          },
+          "competitors": {
+            "type": "integer",
+            "title": "Competitors"
+          },
+          "researches": {
+            "type": "integer",
+            "title": "Researches"
+          },
+          "content": {
+            "type": "integer",
+            "title": "Content"
+          },
+          "segments": {
+            "type": "integer",
+            "title": "Segments",
+            "default": 0
+          },
+          "campaigns": {
+            "type": "integer",
+            "title": "Campaigns",
+            "default": 0
+          },
+          "funnels": {
+            "type": "integer",
+            "title": "Funnels",
+            "default": 0
+          },
+          "tasks": {
+            "type": "integer",
+            "title": "Tasks",
+            "default": 0
+          },
+          "alerts": {
+            "type": "integer",
+            "title": "Alerts",
+            "default": 0
+          },
+          "ai_runs": {
+            "type": "integer",
+            "title": "Ai Runs",
+            "default": 0
+          },
+          "open_alerts": {
+            "type": "integer",
+            "title": "Open Alerts",
+            "default": 0
+          },
+          "critical_alerts": {
+            "type": "integer",
+            "title": "Critical Alerts",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "jtbd",
+          "value_propositions",
+          "swot",
+          "competitors",
+          "researches",
+          "content"
+        ],
+        "title": "MarketingCountsOut"
+      },
+      "ReadinessBreakdownOut": {
+        "properties": {
+          "strategy_base": {
+            "type": "integer",
+            "title": "Strategy Base",
+            "default": 0
+          },
+          "operations": {
+            "type": "integer",
+            "title": "Operations",
+            "default": 0
+          },
+          "coverage": {
+            "type": "integer",
+            "title": "Coverage",
+            "default": 0
+          },
+          "freshness": {
+            "type": "integer",
+            "title": "Freshness",
+            "default": 0
+          },
+          "strategy_integrity": {
+            "type": "integer",
+            "title": "Strategy Integrity",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "ReadinessBreakdownOut",
+        "description": "Компоненты 0–100 для расшифровки readiness_score (без дублирования формулы на клиенте)."
+      },
+      "ReadinessMetaOut": {
+        "properties": {
+          "weights": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Weights",
+            "description": "Веса компонентов (strategy_base, operations, …) — см. READINESS_WEIGHTS на API."
+          },
+          "contribution_points": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Contribution Points",
+            "description": "Приблизительный вклад каждого компонента в итоговый readiness_score (последний ключ поглощает округление)."
+          },
+          "coverage_average_rows_used": {
+            "type": "integer",
+            "title": "Coverage Average Rows Used",
+            "description": "Сколько строк coverage с total>0 участвовали в среднем для компонента «coverage».",
+            "default": 0
+          },
+          "coverage_average_slots_total": {
+            "type": "integer",
+            "title": "Coverage Average Slots Total",
+            "description": "Число строк в блоке coverage (слотов метрик связей).",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "title": "ReadinessMetaOut",
+        "description": "Веса readiness, вклад баллов по компонентам и прозрачность среднего по coverage."
+      },
+      "MarketingCoverageMetricOut": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "covered": {
+            "type": "integer",
+            "title": "Covered"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "percentage": {
+            "type": "integer",
+            "title": "Percentage"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ok"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "covered",
+          "total",
+          "percentage"
+        ],
+        "title": "MarketingCoverageMetricOut"
+      },
+      "MarketingInsightOut": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "target_view": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target View"
+          },
+          "metric_value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metric Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "severity",
+          "title",
+          "description"
+        ],
+        "title": "MarketingInsightOut"
+      },
+      "MarketingIssueRemediationOut": {
+        "properties": {
+          "issue_code": {
+            "type": "string",
+            "title": "Issue Code"
+          },
+          "state": {
+            "type": "string",
+            "title": "State",
+            "default": "none"
+          },
+          "task_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Id"
+          },
+          "task_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Title"
+          },
+          "task_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Status"
+          },
+          "task_owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Owner Name"
+          },
+          "task_due_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Due At"
+          },
+          "task_is_overdue": {
+            "type": "boolean",
+            "title": "Task Is Overdue",
+            "default": false
+          },
+          "task_needs_owner": {
+            "type": "boolean",
+            "title": "Task Needs Owner",
+            "default": false
+          },
+          "task_count": {
+            "type": "integer",
+            "title": "Task Count",
+            "default": 0
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          },
+          "alert_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Title"
+          },
+          "alert_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Status"
+          },
+          "alert_owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Owner Name"
+          },
+          "alert_count": {
+            "type": "integer",
+            "title": "Alert Count",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "issue_code"
+        ],
+        "title": "MarketingIssueRemediationOut"
+      },
+      "MarketingFreshnessFlagOut": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "age_days": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Age Days"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "state"
+        ],
+        "title": "MarketingFreshnessFlagOut"
+      },
+      "MarketingRecommendedActionOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "target_view": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target View"
+          },
+          "tone": {
+            "type": "string",
+            "title": "Tone",
+            "default": "default"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description"
+        ],
+        "title": "MarketingRecommendedActionOut"
+      },
+      "MarketingActivityItemOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "target_view": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target View"
+          },
+          "occurred_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Occurred At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "title"
+        ],
+        "title": "MarketingActivityItemOut"
+      },
+      "MarketingCompanyRollupExcerptOut": {
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "company_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Company Name"
+          },
+          "total_projects": {
+            "type": "integer",
+            "title": "Total Projects",
+            "default": 0
+          },
+          "active_projects": {
+            "type": "integer",
+            "title": "Active Projects",
+            "default": 0
+          },
+          "latest_activity_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latest Activity At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "company_id"
+        ],
+        "title": "MarketingCompanyRollupExcerptOut"
+      },
+      "MarketingSegmentOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "segment_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Segment Type"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority"
+          },
+          "estimated_reach": {
+            "type": "integer",
+            "title": "Estimated Reach",
+            "default": 0
+          },
+          "fit_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fit Score"
+          },
+          "linked_job_story_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Linked Job Story Ids"
+          },
+          "linked_content_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Linked Content Ids"
+          },
+          "linked_competitor_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Linked Competitor Ids"
+          },
+          "pain_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Pain Points"
+          },
+          "gains": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Gains"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id",
+          "name"
+        ],
+        "title": "MarketingSegmentOut"
+      },
+      "MarketingCampaignOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "objective": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Objective"
+          },
+          "channel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Channel"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority"
+          },
+          "owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner Name"
+          },
+          "hypothesis": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hypothesis"
+          },
+          "budget": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget"
+          },
+          "target_metric_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Metric Name"
+          },
+          "target_metric": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Metric"
+          },
+          "actual_metric": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Metric"
+          },
+          "linked_segment_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Linked Segment Ids"
+          },
+          "linked_value_prop_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Linked Value Prop Ids"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "start_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Start Date"
+          },
+          "end_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "End Date"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id",
+          "name"
+        ],
+        "title": "MarketingCampaignOut"
+      },
+      "MarketingFunnelOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "primary_goal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Goal"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "stages": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingFunnelStageOut"
+            },
+            "type": "array",
+            "title": "Stages"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id",
+          "name"
+        ],
+        "title": "MarketingFunnelOut"
+      },
+      "MarketingTaskOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Priority"
+          },
+          "owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner Name"
+          },
+          "due_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Due At"
+          },
+          "source_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Type"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id",
+          "title"
+        ],
+        "title": "MarketingTaskOut"
+      },
+      "MarketingAlertOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "severity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Severity"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "owner_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner Name"
+          },
+          "source_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Type"
+          },
+          "source_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Id"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "project_id",
+          "company_id",
+          "title"
+        ],
+        "title": "MarketingAlertOut"
+      },
+      "MarketingDashboardAnalytics": {
+        "properties": {
+          "series": {
+            "items": {
+              "$ref": "#/components/schemas/DashboardAnalyticsSeries"
+            },
+            "type": "array",
+            "title": "Series"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "window_days": {
+            "type": "integer",
+            "maximum": 90,
+            "minimum": 1,
+            "title": "Window Days"
+          }
+        },
+        "type": "object",
+        "required": [
+          "generated_at",
+          "window_days"
+        ],
+        "title": "MarketingDashboardAnalytics"
+      },
+      "MarketingDashboardWidgetListSlicesOut": {
+        "properties": {
+          "tasks": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingTaskOut"
+            },
+            "type": "array",
+            "title": "Tasks"
+          },
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingAlertOut"
+            },
+            "type": "array",
+            "title": "Alerts"
+          },
+          "campaigns": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCampaignOut"
+            },
+            "type": "array",
+            "title": "Campaigns"
+          },
+          "segments": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingSegmentOut"
+            },
+            "type": "array",
+            "title": "Segments"
+          },
+          "researches": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingResearchOut"
+            },
+            "type": "array",
+            "title": "Researches"
+          },
+          "job_stories": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingJobStoryOut"
+            },
+            "type": "array",
+            "title": "Job Stories"
+          },
+          "value_propositions": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingValuePropositionOut"
+            },
+            "type": "array",
+            "title": "Value Propositions"
+          },
+          "competitors": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingCompetitorOut"
+            },
+            "type": "array",
+            "title": "Competitors"
+          },
+          "imc_research_runs": {
+            "items": {
+              "$ref": "#/components/schemas/ImcResearchRunSummary"
+            },
+            "type": "array",
+            "title": "Imc Research Runs"
+          },
+          "alerts_open_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alerts Open Count"
+          },
+          "filtered_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filtered Total",
+            "description": "Rows matching filters/sort before maxItems cap (list widgets)."
+          }
+        },
+        "type": "object",
+        "title": "MarketingDashboardWidgetListSlicesOut",
+        "description": "Per-widget list data when GET .../dashboard includes layout_id."
+      },
+      "ImcResearchRunSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type_key": {
+            "type": "string",
+            "title": "Type Key"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "running",
+              "completed",
+              "failed",
+              "cancelled",
+              "partial"
+            ],
+            "title": "Status"
+          },
+          "company_id": {
+            "type": "string",
+            "title": "Company Id"
+          },
+          "project_id": {
+            "type": "string",
+            "title": "Project Id"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "ISO timestamp when present on dashboard bundle rows (sorting)."
+          },
+          "started_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started At"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "duration_seconds": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration Seconds"
+          },
+          "result_preview": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Preview"
+          },
+          "result_char_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Char Count",
+            "description": "Длина полного result_text в символах (для списка без отдачи всего текста)"
+          },
+          "result_line_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result Line Count",
+            "description": "Число строк полного result_text (как split по переводам строки)"
+          },
+          "parsed_data": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parsed Data"
+          },
+          "ugs_request_id": {
+            "type": "string",
+            "title": "Ugs Request Id"
+          },
+          "workflow_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Workflow Id"
+          },
+          "started_by_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started By User Id",
+            "description": "Пользователь (EliteEW users.id), инициировавший запуск"
+          },
+          "started_by_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Started By Label",
+            "description": "Отображаемое имя: full_name / username / email"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "type_key",
+          "display_name",
+          "status",
+          "company_id",
+          "project_id",
+          "created_at",
+          "started_at",
+          "completed_at",
+          "ugs_request_id"
+        ],
+        "title": "ImcResearchRunSummary"
+      },
+      "MarketingGraphNodeOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "Subtitle"
+          },
+          "target_view": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target View"
+          },
+          "tone": {
+            "type": "string",
+            "title": "Tone",
+            "default": "default"
+          },
+          "metric_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metric Label"
+          },
+          "metric_value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metric Value"
+          },
+          "percentage": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percentage"
+          },
+          "bullets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Bullets"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "subtitle"
+        ],
+        "title": "MarketingGraphNodeOut"
+      },
+      "MarketingGraphEdgeOut": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "target": {
+            "type": "string",
+            "title": "Target"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "target",
+          "label"
+        ],
+        "title": "MarketingGraphEdgeOut"
+      },
+      "MarketingOptionOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label"
+        ],
+        "title": "MarketingOptionOut"
+      },
+      "AmkaPlanTaskOut": {
+        "properties": {
+          "step_key": {
+            "type": "string",
+            "title": "Step Key"
+          },
+          "section_key": {
+            "type": "string",
+            "title": "Section Key"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          },
+          "depends_on": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Depends On"
+          },
+          "write_policy": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Write Policy"
+          },
+          "autofill_targets": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Autofill Targets"
+          },
+          "operations": {
+            "items": {
+              "$ref": "#/components/schemas/AmkaOperationOut"
+            },
+            "type": "array",
+            "title": "Operations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "step_key",
+          "section_key",
+          "title"
+        ],
+        "title": "AmkaPlanTaskOut"
+      },
+      "AmkaOperationOut": {
+        "properties": {
+          "operation_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation Key"
+          },
+          "kind": {
+            "type": "string",
+            "title": "Kind"
+          },
+          "entity_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Entity Type"
+          },
+          "entity_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Entity Id"
+          },
+          "target_section": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Section"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "expected_effect": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Effect"
+          },
+          "destructive": {
+            "type": "boolean",
+            "title": "Destructive",
+            "default": false
+          },
+          "requires_backup": {
+            "type": "boolean",
+            "title": "Requires Backup",
+            "default": false
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          },
+          "replacement_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Replacement Payload"
+          },
+          "source_refs": {
+            "items": {
+              "$ref": "#/components/schemas/AmkaSourceRefOut"
+            },
+            "type": "array",
+            "title": "Source Refs"
+          },
+          "source_ref": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Source Ref"
+          },
+          "before_snapshot": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Before Snapshot"
+          },
+          "after_snapshot": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "After Snapshot"
+          },
+          "result": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Result"
+          },
+          "mutated_entity_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Mutated Entity Ids"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind"
+        ],
+        "title": "AmkaOperationOut"
+      },
+      "MarketingChatSseMessageOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "role",
+          "content"
+        ],
+        "title": "MarketingChatSseMessageOut",
+        "description": "Assistant message persisted at chat stream ``result``."
+      },
+      "MarketingSwotFactorsOut": {
+        "properties": {
+          "strength": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingSwotFactorOut"
+            },
+            "type": "array",
+            "title": "Strength"
+          },
+          "weakness": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingSwotFactorOut"
+            },
+            "type": "array",
+            "title": "Weakness"
+          },
+          "opportunity": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingSwotFactorOut"
+            },
+            "type": "array",
+            "title": "Opportunity"
+          },
+          "threat": {
+            "items": {
+              "$ref": "#/components/schemas/MarketingSwotFactorOut"
+            },
+            "type": "array",
+            "title": "Threat"
+          }
+        },
+        "type": "object",
+        "title": "MarketingSwotFactorsOut"
+      },
+      "MarketingFunnelStageOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "stage_name": {
+            "type": "string",
+            "title": "Stage Name"
+          },
+          "stage_order": {
+            "type": "integer",
+            "title": "Stage Order",
+            "default": 0
+          },
+          "visitors": {
+            "type": "integer",
+            "title": "Visitors",
+            "default": 0
+          },
+          "conversions": {
+            "type": "integer",
+            "title": "Conversions",
+            "default": 0
+          },
+          "conversion_rate": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Conversion Rate"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "stage_name"
+        ],
+        "title": "MarketingFunnelStageOut"
+      },
+      "DashboardAnalyticsSeries": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/DashboardTimeSeriesPoint"
+            },
+            "type": "array",
+            "title": "Points"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "title": "DashboardAnalyticsSeries"
+      },
+      "AmkaSourceRefOut": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "excerpt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Excerpt"
+          },
+          "content_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Id"
+          },
+          "target_section": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Section"
+          },
+          "included_in_rag": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Included In Rag"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "id"
+        ],
+        "title": "AmkaSourceRefOut"
+      },
+      "MarketingSwotFactorOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "factor_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Factor Type"
+          },
+          "factor_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Factor Text"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "impact_level": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Impact Level"
+          },
+          "priority_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Priority Score",
+            "default": 0
+          },
+          "ai_generated": {
+            "type": "boolean",
+            "title": "Ai Generated",
+            "default": false
+          },
+          "confidence_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence Score"
+          },
+          "ai_reasoning": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ai Reasoning"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "MarketingSwotFactorOut"
+      },
+      "DashboardTimeSeriesPoint": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date",
+            "description": "ISO date YYYY-MM-DD (UTC)"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "date"
+        ],
+        "title": "DashboardTimeSeriesPoint",
+        "description": "Single day bucket (UTC calendar day)."
+      }
+    }
+  }
+}

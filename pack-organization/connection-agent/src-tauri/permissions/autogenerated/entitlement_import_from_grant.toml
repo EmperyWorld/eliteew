@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-entitlement-import-from-grant"
+description = "Enables the entitlement_import_from_grant command without any pre-configured scope."
+commands.allow = ["entitlement_import_from_grant"]
+
+[[permission]]
+identifier = "deny-entitlement-import-from-grant"
+description = "Denies the entitlement_import_from_grant command without any pre-configured scope."
+commands.deny = ["entitlement_import_from_grant"]

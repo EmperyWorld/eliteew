@@ -1,0 +1,1 @@
+export { ScrollToTopOnNavigate } from './ScrollToTopOnNavigate'

@@ -1,0 +1,5 @@
+# Optional metal-lab static is NOT part of the image contract.
+# Do not rename this file to *.network and do not copy a baked Address=
+# into 10-eliteew-ts-install-*.network — that blocks cable DHCP.
+# If a lab /30 has no DHCP, type the address in the installer Static form.
+# Operator snippet: trusted-substrate/docs/METAL-LAB-STATIC.network.example

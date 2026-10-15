@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-w-transport-l7-probe"
+description = "Enables the w_transport_l7_probe command without any pre-configured scope."
+commands.allow = ["w_transport_l7_probe"]
+
+[[permission]]
+identifier = "deny-w-transport-l7-probe"
+description = "Denies the w_transport_l7_probe command without any pre-configured scope."
+commands.deny = ["w_transport_l7_probe"]

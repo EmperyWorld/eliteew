@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-product-webview-wipe"
+description = "Enables the product_webview_wipe command without any pre-configured scope."
+commands.allow = ["product_webview_wipe"]
+
+[[permission]]
+identifier = "deny-product-webview-wipe"
+description = "Denies the product_webview_wipe command without any pre-configured scope."
+commands.deny = ["product_webview_wipe"]

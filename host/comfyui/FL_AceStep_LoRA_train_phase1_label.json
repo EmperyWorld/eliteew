@@ -1,0 +1,211 @@
+{
+  "id": "emew-acestep-lora-train-phase1-label",
+  "revision": 0,
+  "last_node_id": 8,
+  "last_link_id": 11,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [-2325, -308],
+      "size": [420, 98],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        { "name": "MODEL", "type": "MODEL", "links": [2, 7, 10] },
+        { "name": "CLIP", "type": "CLIP", "links": [9] },
+        { "name": "VAE", "type": "VAE", "links": [3, 8] }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": ["ace_step_1.5_turbo_aio.safetensors"],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 4,
+      "type": "FL_AceStep_LLMLoader",
+      "pos": [-1572, -785],
+      "size": [270, 130],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [{ "name": "llm", "type": "ACESTEP_LLM", "links": [4] }],
+      "properties": { "Node name for S&R": "FL_AceStep_LLMLoader" },
+      "widgets_values": ["acestep-5Hz-lm-0.6B", "auto", "pt", ""],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    },
+    {
+      "id": 6,
+      "type": "FL_AceStep_ScanDirectory",
+      "pos": [-1952, -595],
+      "size": [360, 170],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        { "name": "dataset", "type": "ACESTEP_DATASET", "links": [1] },
+        { "name": "sample_count", "type": "INT", "links": null },
+        { "name": "status", "type": "STRING", "links": null }
+      ],
+      "properties": { "Node name for S&R": "FL_AceStep_ScanDirectory" },
+      "widgets_values": [
+        "/opt/ComfyUI/models/dataset",
+        false,
+        "EMEW_STYLE_V1",
+        "prepend"
+      ],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    },
+    {
+      "id": 1,
+      "type": "FL_AceStep_LabelSamples",
+      "pos": [-1590, -594],
+      "size": [320, 190],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        { "name": "dataset", "type": "ACESTEP_DATASET", "link": 1 },
+        { "name": "model", "type": "MODEL", "link": 2 },
+        { "name": "vae", "type": "VAE", "link": 3 },
+        { "name": "llm", "type": "ACESTEP_LLM", "link": 4 }
+      ],
+      "outputs": [
+        { "name": "dataset", "type": "ACESTEP_DATASET", "links": [6] },
+        { "name": "labeled_count", "type": "INT", "links": [] },
+        { "name": "status", "type": "STRING", "links": [] }
+      ],
+      "properties": { "Node name for S&R": "FL_AceStep_LabelSamples" },
+      "widgets_values": [false, true, false, true],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    },
+    {
+      "id": 5,
+      "type": "FL_AceStep_PreprocessDataset",
+      "pos": [-1238, -594],
+      "size": [320, 166],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        { "name": "dataset", "type": "ACESTEP_DATASET", "link": 6 },
+        { "name": "model", "type": "MODEL", "link": 7 },
+        { "name": "vae", "type": "VAE", "link": 8 },
+        { "name": "clip", "type": "CLIP", "link": 9 }
+      ],
+      "outputs": [
+        { "name": "output_path", "type": "STRING", "links": [] },
+        { "name": "sample_count", "type": "INT", "links": null },
+        { "name": "status", "type": "STRING", "links": null }
+      ],
+      "properties": { "Node name for S&R": "FL_AceStep_PreprocessDataset" },
+      "widgets_values": ["./output/acestep/datasets", 120, 0],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    },
+    {
+      "id": 7,
+      "type": "FL_AceStep_TrainingConfig",
+      "pos": [-1394, -296],
+      "size": [340, 394],
+      "flags": {},
+      "order": 5,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [{ "name": "config", "type": "ACESTEP_TRAINING_CONFIG", "links": [11] }],
+      "properties": { "Node name for S&R": "FL_AceStep_TrainingConfig" },
+      "widgets_values": [
+        32,
+        64,
+        0.1,
+        0.0001,
+        250,
+        1,
+        4,
+        50,
+        "./output/acestep/loras",
+        42,
+        "fixed",
+        100,
+        0.01,
+        1.0,
+        "q_proj,k_proj,v_proj,o_proj"
+      ],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    },
+    {
+      "id": 8,
+      "type": "FL_AceStep_Train",
+      "pos": [-1024, -312],
+      "size": [780, 654],
+      "flags": {},
+      "order": 6,
+      "mode": 4,
+      "inputs": [
+        { "name": "model", "type": "MODEL", "link": 10 },
+        { "name": "config", "type": "ACESTEP_TRAINING_CONFIG", "link": 11 }
+      ],
+      "outputs": [
+        { "name": "model", "type": "MODEL", "links": null },
+        { "name": "final_lora_path", "type": "STRING", "links": null },
+        { "name": "status", "type": "STRING", "links": [] }
+      ],
+      "properties": { "Node name for S&R": "FL_AceStep_Train" },
+      "widgets_values": [
+        "./output/acestep/datasets",
+        "emew_style_v1",
+        "",
+        ""
+      ],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    }
+  ],
+  "links": [
+    [1, 6, 0, 1, 0, "ACESTEP_DATASET"],
+    [2, 2, 0, 1, 1, "MODEL"],
+    [3, 2, 2, 1, 2, "VAE"],
+    [4, 4, 0, 1, 3, "ACESTEP_LLM"],
+    [6, 1, 0, 5, 0, "ACESTEP_DATASET"],
+    [7, 2, 0, 5, 1, "MODEL"],
+    [8, 2, 2, 5, 2, "VAE"],
+    [9, 2, 1, 5, 3, "CLIP"],
+    [10, 2, 0, 8, 0, "MODEL"],
+    [11, 7, 0, 8, 1, "ACESTEP_TRAINING_CONFIG"]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Phase 1: Scan → Label → Preprocess (Queue this)",
+      "bounding": [-1960, -860, 1050, 450],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Phase 2: Train (Bypass until restart — then use phase2 json)",
+      "bounding": [-1960, -370, 1720, 730],
+      "color": "#8A5082",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": { "scale": 0.75, "offset": [2600, 1150] },
+    "frontendVersion": "1.44.19",
+    "workflowRendererVersion": "LG"
+  },
+  "version": 0.4
+}

@@ -1,0 +1,153 @@
+{
+  "presets": [
+    {
+      "id": "preset-rich",
+      "name": "Rich Theme",
+      "type": "preset",
+      "description": "Rich and vibrant theme with colorful gradients and effects",
+      "colors": {
+        "primary": "#3b82f6",
+        "secondary": "#8b5cf6",
+        "accent": "#10b981",
+        "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        "surface": "#1e293b",
+        "text": "#ffffff",
+        "textSecondary": "#cbd5e1",
+        "border": "rgba(255, 255, 255, 0.2)",
+        "success": "#22c55e",
+        "warning": "#f59e0b",
+        "error": "#ef4444",
+        "info": "#3b82f6"
+      },
+      "gradients": {
+        "primary": "from-blue-500 to-purple-600",
+        "secondary": "from-purple-500 to-pink-600",
+        "background": "from-indigo-600 via-purple-600 to-pink-600",
+        "button": "from-blue-500 to-purple-600",
+        "card": "from-slate-800/90 to-slate-900/90",
+        "accent": "from-green-500 to-emerald-600",
+        "glow": "from-blue-400/50 to-purple-400/50"
+      },
+      "effects": {
+        "blur": 12,
+        "shadows": true,
+        "shadowIntensity": 0.5,
+        "glow": true,
+        "glowIntensity": 0.5,
+        "borderOpacity": 0.2,
+        "surfaceOpacity": 0.4,
+        "glassmorphism": true,
+        "particles": false
+      },
+      "typography": {
+        "fontFamily": "Inter, system-ui, -apple-system, sans-serif",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeight": 1.5,
+        "headingWeight": 700
+      },
+      "spacing": {
+        "scale": 1.0,
+        "cardPadding": 24,
+        "buttonPadding": 16,
+        "sectionGap": 32,
+        "elementGap": 16
+      },
+      "borders": {
+        "radius": 12,
+        "width": 1,
+        "style": "solid",
+        "cardRadius": 16,
+        "buttonRadius": 10,
+        "inputRadius": 8
+      },
+      "animation": {
+        "duration": 200,
+        "easing": "ease-in-out",
+        "hoverScale": 1.02,
+        "activeScale": 0.98
+      },
+      "metadata": {
+        "author": "EliteEW",
+        "version": "1.0.0",
+        "category": "Preset",
+        "tags": ["preset", "rich", "colorful", "gradient"]
+      }
+    },
+    {
+      "id": "preset-minimalist",
+      "name": "Minimalist Theme",
+      "type": "preset",
+      "description": "Clean and minimal theme with subtle colors and effects",
+      "colors": {
+        "primary": "#000000",
+        "secondary": "#6b7280",
+        "accent": "#3b82f6",
+        "background": "#ffffff",
+        "surface": "#f9fafb",
+        "text": "#111827",
+        "textSecondary": "#6b7280",
+        "border": "rgba(0, 0, 0, 0.1)",
+        "success": "#22c55e",
+        "warning": "#f59e0b",
+        "error": "#ef4444",
+        "info": "#3b82f6"
+      },
+      "gradients": {
+        "primary": "from-gray-900 to-gray-800",
+        "secondary": "from-gray-700 to-gray-600",
+        "background": "from-white to-gray-50",
+        "button": "from-gray-900 to-gray-800",
+        "card": "from-white to-gray-50",
+        "accent": "from-blue-500 to-blue-600",
+        "glow": null
+      },
+      "effects": {
+        "blur": 8,
+        "shadows": true,
+        "shadowIntensity": 0.2,
+        "glow": false,
+        "glowIntensity": 0.0,
+        "borderOpacity": 0.1,
+        "surfaceOpacity": 0.3,
+        "glassmorphism": false,
+        "particles": false
+      },
+      "typography": {
+        "fontFamily": "Inter, system-ui, -apple-system, sans-serif",
+        "fontSize": 16,
+        "fontWeight": 400,
+        "lineHeight": 1.6,
+        "headingWeight": 600
+      },
+      "spacing": {
+        "scale": 1.0,
+        "cardPadding": 20,
+        "buttonPadding": 12,
+        "sectionGap": 24,
+        "elementGap": 12
+      },
+      "borders": {
+        "radius": 8,
+        "width": 1,
+        "style": "solid",
+        "cardRadius": 12,
+        "buttonRadius": 6,
+        "inputRadius": 6
+      },
+      "animation": {
+        "duration": 150,
+        "easing": "ease-in-out",
+        "hoverScale": 1.01,
+        "activeScale": 0.99
+      },
+      "metadata": {
+        "author": "EliteEW",
+        "version": "1.0.0",
+        "category": "Preset",
+        "tags": ["preset", "minimalist", "clean", "simple"]
+      }
+    }
+  ]
+}
+

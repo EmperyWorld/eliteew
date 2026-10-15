@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-sealed-peer-load"
+description = "Enables the sealed_peer_load command without any pre-configured scope."
+commands.allow = ["sealed_peer_load"]
+
+[[permission]]
+identifier = "deny-sealed-peer-load"
+description = "Denies the sealed_peer_load command without any pre-configured scope."
+commands.deny = ["sealed_peer_load"]

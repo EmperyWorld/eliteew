@@ -1,0 +1,10 @@
+# Optional GPU wheel pins — only for legacy/dev `ml-gpu` compile (see trash/stack0-build-legacy/ml-gpu.in).
+# Default stack0 targets (api, queue-worker, celery-*) do not pass this file.
+
+torch==2.11.0
+torchvision==0.26.0+cu128
+torchaudio==2.11.0
+
+huggingface-hub<2.0.0
+sentence-transformers<5
+spacy<3.9

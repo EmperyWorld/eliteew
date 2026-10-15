@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ebrowser-get-location"
+description = "Enables the ebrowser_get_location command without any pre-configured scope."
+commands.allow = ["ebrowser_get_location"]
+
+[[permission]]
+identifier = "deny-ebrowser-get-location"
+description = "Denies the ebrowser_get_location command without any pre-configured scope."
+commands.deny = ["ebrowser_get_location"]

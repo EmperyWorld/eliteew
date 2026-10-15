@@ -1,0 +1,201 @@
+# EliteEW kiosk — local nginx (portal WireGuard)
+#
+# Purpose:
+#   Serve baked SPA static files on the kiosk and reverse-proxy API / Socket.IO / WS
+#   to production through the portal tunnel (wg-portal → edge 10.88.89.1:443 SNI).
+#
+# Wrong (do not use):
+#   proxy_pass http://10.88.89.1:8000;   # no FastAPI on portal edge :8000
+#
+# Correct upstream:
+#   HTTPS to 10.88.89.1 with Host / SNI = app.eliteew.ru
+#   (same path the portal split-DNS uses for app.eliteew.ru)
+#
+# Auth (Keycloak) — hybrid:
+#   1) SPA discovery fetch → same-origin /auth-proxy (REQUIRED; avoids CORS)
+#      Issuer in JSON must remain https://auth.eliteew.ru (no sub_filter to loopback;
+#      SPA also restores public issuer — callback iss= must match).
+#   2) Browser login page → https://auth.eliteew.ru via host-resolver-rules
+#   Do NOT launch with --app=… (blocks cross-origin navigation to IdP).
+#
+# Launch (cage + Chromium kiosk) — correct:
+#   exec cage -- /usr/bin/chromium-browser --kiosk --no-first-run \
+#     --host-resolver-rules="MAP auth.eliteew.ru 10.88.89.1,MAP app.eliteew.ru 10.88.89.1" \
+#     http://127.0.0.1/
+# Wrong: --app=http://127.0.0.1/  (Keycloak redirect never leaves the app origin)
+#
+# Valid redirect URIs for empery-web MUST include the kiosk origin, e.g.:
+#     http://127.0.0.1/*
+#     http://localhost/*
+#   Via KEYCLOAK_WEB_EXTRA_REDIRECT_URIS + keycloak-harden-empery-realm.sh
+#   Web origins: same origins for CORS to IdP if needed.
+#
+# Preconditions on kiosk:
+#   - wg-portal up (AllowedIPs = 10.88.89.1/32, DNS = 10.88.89.1)
+#   - curl -fsS --resolve app.eliteew.ru:443:10.88.89.1 https://app.eliteew.ru/api/health
+#   - curl -fsS --resolve auth.eliteew.ru:443:10.88.89.1 \
+#       https://auth.eliteew.ru/realms/empery/.well-known/openid-configuration
+#
+# Install (Fedora example):
+#   sudo cp kiosk-nginx.conf.example /etc/nginx/nginx.conf   # or include from conf.d
+#   sudo mkdir -p /var/www/eliteew-spa
+#   # copy SPA dist (index.html + assets) into /var/www/eliteew-spa
+#   sudo nginx -t && sudo systemctl reload nginx
+#
+# Related:
+#   documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+#   documentation/platform/docker-re_doc/KEYCLOAK-ELITEEW.md
+#   shared/web/frontend/nginx.prod.conf (path shapes: /api/, /socket.io/, /ws/health)
+
+user nginx;
+worker_processes auto;
+error_log /var/log/nginx/error.log notice;
+pid /run/nginx.pid;
+
+include /usr/share/nginx/modules/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    sendfile      on;
+    tcp_nopush    on;
+    keepalive_timeout 65;
+    client_max_body_size 100M;
+
+    # WebSocket upgrade only when client asks for it (do not force on all /api/).
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        ''      close;
+    }
+
+    # Portal edge (wg-portal). HTTPS :443 + SNI — not :8000.
+    # Fixed IP avoids depending on kiosk stub resolver for nginx workers.
+    upstream eliteew_portal_edge {
+        server 10.88.89.1:443;
+        keepalive 16;
+    }
+
+    server {
+        listen 80;
+        # Prefer a stable origin you register in Keycloak (127.0.0.1 is fine for pilot).
+        server_name 127.0.0.1 localhost;
+
+        root /var/www/eliteew-spa;
+        index index.html;
+
+        # --- SPA (React Router) ---
+        location / {
+            try_files $uri $uri/ /index.html;
+            add_header Cache-Control "no-cache, no-store, must-revalidate" always;
+        }
+
+        # Immutable hashed assets (optional; adjust if your dist uses /assets/)
+        location /assets/ {
+            try_files $uri =404;
+            add_header Cache-Control "public, max-age=31536000, immutable" always;
+        }
+
+        # --- Keycloak discovery proxy (REQUIRED on kiosk loopback SPA) ---
+        # Same-origin fetch for discovery JSON. Prefer NOT rewriting issuer to
+        # loopback (SPA restores public https://auth.eliteew.ru for iss= callback).
+        # Login HTML/CSS still use https://auth.eliteew.ru in the browser.
+        location ~ ^/auth-proxy/(.*)$ {
+            proxy_pass https://eliteew_portal_edge/$1$is_args$args;
+            proxy_http_version 1.1;
+
+            proxy_ssl_server_name on;
+            proxy_ssl_name auth.eliteew.ru;
+            proxy_set_header Host auth.eliteew.ru;
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-Host auth.eliteew.ru;
+            proxy_set_header X-Forwarded-Prefix /auth-proxy;
+            proxy_set_header X-Forwarded-Port 443;
+
+            # Do not gzip so operators can inspect JSON; SPA undoes any accidental rewrite.
+            proxy_set_header Accept-Encoding "";
+
+            proxy_buffering off;
+            proxy_connect_timeout 15s;
+            proxy_send_timeout 60s;
+            proxy_read_timeout 60s;
+        }
+
+        # --- API (relative /api from production SPA build) ---
+        location ^~ /api/ {
+            proxy_pass https://eliteew_portal_edge;
+            proxy_http_version 1.1;
+
+            proxy_ssl_server_name on;
+            proxy_ssl_name app.eliteew.ru;
+            proxy_set_header Host app.eliteew.ru;
+
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            # Edge/prod expect https public surface; keep proto honest for the tunnel hop.
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-Host app.eliteew.ru;
+            proxy_set_header Authorization $http_authorization;
+
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+
+            proxy_buffering off;
+            proxy_request_buffering off;
+            proxy_connect_timeout 60s;
+            proxy_send_timeout 1800s;
+            proxy_read_timeout 1800s;
+        }
+
+        # --- Socket.IO (desktop realtime; path is /socket.io/ not only /ws/) ---
+        # Engine.IO checks browser Origin. SPA is http://127.0.0.1 but API only
+        # allowlists https://app.eliteew.ru → rewrite Origin or WS get 403
+        # ("http://127.0.0.1 is not an accepted origin").
+        location ^~ /socket.io/ {
+            proxy_pass https://eliteew_portal_edge;
+            proxy_http_version 1.1;
+
+            proxy_ssl_server_name on;
+            proxy_ssl_name app.eliteew.ru;
+            proxy_set_header Host app.eliteew.ru;
+
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-Host app.eliteew.ru;
+            proxy_set_header Origin https://app.eliteew.ru;
+            proxy_set_header Authorization $http_authorization;
+
+            proxy_buffering off;
+            proxy_connect_timeout 7d;
+            proxy_send_timeout 7d;
+            proxy_read_timeout 7d;
+        }
+
+        # --- Probe only (legacy catch-all /ws/ retired 2026-07-28) ---
+        location = /ws/health {
+            proxy_pass https://eliteew_portal_edge;
+            proxy_http_version 1.1;
+
+            proxy_ssl_server_name on;
+            proxy_ssl_name app.eliteew.ru;
+            proxy_set_header Host app.eliteew.ru;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-Host app.eliteew.ru;
+
+            proxy_connect_timeout 10s;
+            proxy_send_timeout 10s;
+            proxy_read_timeout 10s;
+        }
+    }
+}

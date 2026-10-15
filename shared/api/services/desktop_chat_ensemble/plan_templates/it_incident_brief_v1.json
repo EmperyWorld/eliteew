@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "id": "it_incident_brief_v1",
+  "version": 1,
+  "title": "Incident recovery brief",
+  "description": "Краткий brief инцидента: симптом → слой отказа → evidence → mitigation → blast radius / prevent. Не длинный postmortem-роман.",
+  "artifact_type": "it_incident_brief",
+  "required_context": [
+    "symptom",
+    "impact_window",
+    "current_status"
+  ],
+  "quality_rubric": [
+    "Симптом отделён от гипотезы о причине",
+    "Слой отказа назван (UI/API/job/auth/deploy/data)",
+    "Evidence и false greens учтены",
+    "Mitigation и prevent конкретны"
+  ],
+  "output_sections": [
+    "Симптом и слой",
+    "Mitigation path",
+    "Blast radius и prevent"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "inc1",
+      "title": "Симптом и слой",
+      "instruction_for_model": "Incident brief: симптом (что видит пользователь/оператор), timeline кратко, гипотеза слоя отказа (UI|API|job|auth|deploy|data), evidence vs false green (health≠полный путь). Неизвестное маркируй. Без «просто рестарт». Без ##.",
+      "required_slots": {
+        "operations": 3,
+        "research": 2
+      },
+      "scope_fence": "Только symptom/layer/evidence; не полный prevent backlog.",
+      "output_format": [
+        "Symptom",
+        "Layer hypothesis",
+        "Evidence"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "inc2",
+      "title": "Mitigation path",
+      "instruction_for_model": "Mitigation/deploy path: безопасные шаги сдерживания, rollback если нужен, что проверить после. Без build на prod-runtime. Без ##.",
+      "required_slots": {
+        "operations": 3,
+        "engineering": 2
+      },
+      "scope_fence": "Только mitigation/rollback/verify.",
+      "output_format": [
+        "Contain",
+        "Rollback?",
+        "Verify after"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "inc3",
+      "title": "Blast radius и prevent",
+      "instruction_for_model": "Blast radius (кто задет), ближайший prevent (1–3 пункта), что не делать сейчас. Без театра и без длинного RCA-романа. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только blast radius + short prevent.",
+      "output_format": [
+        "Blast radius",
+        "Prevent now",
+        "Defer"
+      ],
+      "min_roster": 1
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Симптом и слой",
+      "step_ids": [
+        "inc1"
+      ]
+    },
+    {
+      "heading": "Mitigation path",
+      "step_ids": [
+        "inc2"
+      ]
+    },
+    {
+      "heading": "Blast radius и prevent",
+      "step_ids": [
+        "inc3"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-video-call-meet-stage-close"
+description = "Enables the video_call_meet_stage_close command without any pre-configured scope."
+commands.allow = ["video_call_meet_stage_close"]
+
+[[permission]]
+identifier = "deny-video-call-meet-stage-close"
+description = "Denies the video_call_meet_stage_close command without any pre-configured scope."
+commands.deny = ["video_call_meet_stage_close"]

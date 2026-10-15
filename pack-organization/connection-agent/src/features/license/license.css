@@ -1,0 +1,95 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: License activation — fluid split; 3-col status/help from 1600px.
+ * Invariants: One primary Activate CTA; status visible.
+ * Related: documentation/product/desktop/DESKTOP-TAURI-CONNECTED-CLIENT.md
+ */
+
+.license-panel {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.license-main,
+.license-aside {
+  min-width: 0;
+}
+
+.license-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1rem 1.05rem;
+  border-radius: 14px;
+  border: 1px solid var(--dc-border-soft);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.03), transparent 50%),
+    rgba(10, 16, 24, 0.55);
+}
+
+.license-status,
+.license-help {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.license-aside .status {
+  margin: 0;
+}
+
+@media (min-width: 720px) {
+  .license-panel {
+    grid-template-columns: minmax(0, 1.35fr) minmax(14rem, 0.85fr);
+    align-items: start;
+    gap: 1.15rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .license-panel {
+    grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 0.75fr);
+    gap: 1.35rem 1.85rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .license-panel {
+    grid-template-columns: minmax(0, 1.55fr) minmax(18rem, 0.7fr);
+    gap: 1.5rem 2rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  /* Ultrawide: form + aside spanning status|help (landmarks preserved). */
+  .license-panel {
+    grid-template-columns: minmax(22rem, 1.35fr) minmax(0, 1.8fr);
+    gap: 1.35rem 1.5rem;
+  }
+
+  .license-aside {
+    display: grid;
+    grid-template-columns: minmax(14rem, 0.85fr) minmax(16rem, 0.95fr);
+    gap: 1.35rem 1.5rem;
+    align-items: start;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .license-status,
+  .license-help {
+    padding: 1rem 1.05rem;
+    border-radius: 14px;
+    border: 1px solid var(--dc-border-soft);
+    background:
+      linear-gradient(165deg, rgba(255, 255, 255, 0.03), transparent 50%),
+      rgba(10, 16, 24, 0.55);
+  }
+}

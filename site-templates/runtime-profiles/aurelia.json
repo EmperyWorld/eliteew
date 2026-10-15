@@ -1,0 +1,28 @@
+{
+  "profile_id": "aurelia-v1",
+  "site_settings": {
+    "siteTitle": "{brand}",
+    "siteDescription": "{brand} - премиальная витрина: {topic}",
+    "defaultTheme": "nocturnal-bloom",
+    "contactEmail": "{admin_email}",
+    "contactPhone": "+7 (900) 000-70-70",
+    "contactAddress": "Онлайн + встречи по записи",
+    "workingHours": "Пн-Сб 10:00-20:00"
+  },
+  "blocks": [
+    { "page": "home", "section": "hero", "key": "badge", "value": "Премиальный формат под ключ" },
+    { "page": "home", "section": "hero", "key": "headline_1", "value": "{brand}" },
+    { "page": "home", "section": "hero", "key": "headline_2", "value": "Сайт, который уверенно продает ваш опыт" },
+    { "page": "home", "section": "hero", "key": "lead", "value": "Мы соединяем витрину, услуги и личный бренд в единый сценарий: посетитель сразу видит ценность, офферы и понятный путь к заявке." },
+    { "page": "home", "section": "hero", "key": "cta_shop", "value": "Смотреть предложения" },
+    { "page": "home", "section": "hero", "key": "cta_consultation", "value": "Записаться на встречу" },
+    { "page": "home", "section": "about_preview", "key": "title", "value": "{brand}: системный подход к росту" },
+    { "page": "home", "section": "about_preview", "key": "description_1", "value": "Витрина построена вокруг доверия: короткий путь от первого экрана к доказательствам, портфолио и действию." },
+    { "page": "about", "section": "hero", "key": "title", "value": "Почему клиенты выбирают {brand}" },
+    { "page": "about", "section": "hero", "key": "description", "value": "Мы проектируем сайт как рабочий инструмент продаж: четкая упаковка оффера, прозрачный путь пользователя и контент, который закрывает вопросы до звонка." },
+    { "page": "home", "section": "value_block", "key": "badge", "value": "Как мы работаем" },
+    { "page": "home", "section": "value_block", "key": "paragraph_1", "value": "Стартуем с диагностики: фиксируем аудиторию, оффер и критерии результата." },
+    { "page": "about", "section": "cta_section", "key": "title", "value": "Готовы запустить {brand} в новом формате?" },
+    { "page": "about", "section": "cta_section", "key": "button_consultation", "value": "Записаться на консультацию" }
+  ]
+}

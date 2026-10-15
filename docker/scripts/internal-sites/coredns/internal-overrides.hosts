@@ -1,0 +1,8 @@
+# Все имена ниже → публичный IP edge-VM (трафик: edge nginx → reverse SSH → punisher).
+# При смене edge: bash docker/scripts/yandex-tunnel/migrate-to-new-edge.sh <NEW_IP>
+93.77.165.185 eliteew.ru
+93.77.165.185 app.eliteew.ru
+93.77.165.185 auth.eliteew.ru
+93.77.165.185 admin.eliteew.ru
+93.77.165.185 meet.eliteew.ru
+93.77.165.185 sites.eliteew.ru

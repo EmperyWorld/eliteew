@@ -1,0 +1,23 @@
+{
+	"title": "Choose files",
+	"subtitle": "From your Unified Content library",
+	"searchPlaceholder": "Search by name or description…",
+	"searchPending": "Searching…",
+	"typeContent": "Content type",
+	"allTypes": "All types",
+	"selectAll": "Select all",
+	"deselectAll": "Clear selection",
+	"selectedCounter": "{{count}} / {{max}} selected",
+	"loading": "Loading…",
+	"errorTitle": "Could not load files",
+	"retry": "Retry",
+	"emptyFiltered": "No files match your filters.",
+	"emptyLibrary": "No files in the library yet.",
+	"resetFilters": "Reset filters",
+	"filesFound": "{{count}} file(s) found",
+	"cancel": "Cancel",
+	"confirm": "Choose ({{count}})",
+	"maxSelection": "You can select at most {{max}} file(s).",
+	"selectionSuccess": "Files added",
+	"selectionSuccessDetail": "{{count}} file(s) selected"
+}

@@ -1,0 +1,79 @@
+{
+  "product": "desktop_ai_chat",
+  "manifest": "ops_gates",
+  "status": "ok",
+  "gates": [
+    {
+      "id": "desktop-ai-chat-ops-manifest",
+      "script": "dewa-ops-desktop-ai-chat-ops-manifest.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-routing-smoke",
+      "script": "dewa-ops-desktop-ai-chat-routing-smoke.sh",
+      "requires_token": true,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-offline-eval",
+      "script": "dewa-ops-desktop-ai-chat-offline-eval.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-offline-eval-json",
+      "script": "dewa-ops-desktop-ai-chat-offline-eval-json.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-assert-done-context",
+      "script": "dewa-ops-desktop-ai-chat-assert-done-context.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-vault-replay",
+      "script": "dewa-ops-desktop-ai-chat-vault-replay.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-routing-smoke-json-check",
+      "script": "dewa-ops-desktop-ai-chat-routing-smoke-json-check.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-ops-manifest-gate-contract",
+      "script": "dewa-ops-desktop-ai-chat-ops-manifest-gate-contract.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-offline-eval-sh",
+      "script": "desktop-ai-chat-offline-eval.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-routing-smoke-sh",
+      "script": "desktop-ai-chat-ensemble-routing-smoke.sh",
+      "requires_token": true,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-routing-smoke-json",
+      "script": "desktop-ai-chat-ensemble-routing-smoke.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    },
+    {
+      "id": "desktop-ai-chat-routing-smoke-json-check-sh",
+      "script": "desktop-ai-chat-routing-smoke-json-check.sh",
+      "requires_token": false,
+      "dry_run_status": "ok"
+    }
+  ]
+}

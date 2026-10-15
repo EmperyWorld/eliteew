@@ -1,0 +1,18 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "ops-system-wg-main",
+  "description": "Ops-only system WireGuard commands for the main launcher (feature ops-system-wg).",
+  "local": true,
+  "windows": [
+    "main"
+  ],
+  "permissions": [
+    "allow-wg-status",
+    "allow-wg-validate-handoff",
+    "allow-wg-install-handoff",
+    "allow-wg-bring-up",
+    "allow-wg-bring-down",
+    "allow-wg-reveal-staged",
+    "allow-seat-channel-bring-up"
+  ]
+}

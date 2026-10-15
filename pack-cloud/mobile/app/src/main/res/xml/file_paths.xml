@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Устаревший каталог; новые вложения — во внутреннем filesDir (см. files-path ниже). -->
+    <cache-path
+        name="chat_attachments"
+        path="gaf_attachments/" />
+    <cache-path
+        name="gaf_upload_prep"
+        path="gaf_upload_prep/" />
+    <files-path
+        name="gaf_attachment_cache"
+        path="gaf_attachment_cache/" />
+    <external-files-path
+        name="downloads"
+        path="Download/" />
+    <external-path
+        name="downloads_public"
+        path="Download/Empery/" />
+    <external-files-path
+        name="apk_updates"
+        path="Download/updates/" />
+</paths>

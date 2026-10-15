@@ -1,0 +1,2056 @@
+#!/usr/bin/env bash
+# ---
+# EliteEW · Empery World
+# https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Live-media install apply (root). Product SoT = Buildroot rootfs.tar.gz only.
+# disk-install: safety → wipe/GPT (ESP+root+state) → LUKS2 state → extract → PIN + device keys → grub.
+set -euo pipefail
+
+LOG="${ELITEEW_TS_INSTALL_LOG:-/var/log/eliteew-ts-install.log}"
+ROOTFS_ARCHIVE="${ELITEEW_TS_ROOTFS_ARCHIVE:-/opt/eliteew-ts-install/rootfs.tar.gz}"
+ROOTFS_HASH="${ELITEEW_TS_ROOTFS_HASH:-${ROOTFS_ARCHIVE}.sha256}"
+COMPLETE_FLAG="${ELITEEW_TS_INSTALL_COMPLETE:-/etc/eliteew-trusted-substrate/INSTALL-COMPLETE}"
+LIVE_FLAG="${ELITEEW_TS_LIVE_FLAG:-/etc/eliteew-trusted-substrate/live-installer}"
+FLOCK_PATH="${ELITEEW_TS_INSTALL_LOCK:-/run/eliteew-ts-install.lock}"
+MNT="${ELITEEW_TS_INSTALL_MNT:-/mnt/eliteew-ts-install}"
+NETWORK_DIR="${ELITEEW_TS_NETWORK_DIR:-/etc/systemd/network}"
+WPA_DIR="${ELITEEW_TS_WPA_DIR:-/etc/wpa_supplicant}"
+INSTALL_STATE_DIR="${ELITEEW_TS_INSTALL_STATE_DIR:-/run/eliteew-ts-installer}"
+REGIONAL_FILE="${INSTALL_STATE_DIR}/regional"
+WIFI_INTERFACE_FILE="${INSTALL_STATE_DIR}/wifi-interface"
+STATIC_OK_FILE="${INSTALL_STATE_DIR}/network-static-ok"
+WIFI_UNIT="${ELITEEW_TS_WIFI_UNIT:-/etc/systemd/system/empiieros-wifi@.service}"
+
+mkdir -p "$(dirname "$LOG")" /run 2>/dev/null || true
+exec 9>"$FLOCK_PATH"
+if ! flock -n 9; then
+  echo "another install apply is running" >&2
+  exit 75
+fi
+
+log() {
+  # stderr + file only. stdout is pin-reveal / recovery-reveal /
+  # recovery="$(resolve_state_recovery)" — a log line on stdout would
+  # become the LUKS passphrase.
+  printf 'unix=%s [APPLY] %s\n' "$(date -u +%s)" "$*" | tee -a "$LOG" >&2
+}
+
+die() {
+  log "ERROR: $*"
+  exit 1
+}
+
+require_live_media() {
+  [[ -e "$LIVE_FLAG" ]] || die "refused: requires live-installer stamp ($LIVE_FLAG)"
+}
+
+allow_disk() {
+  local d="$1"
+  if [[ "${ELITEEW_TS_ALLOW_LOOP:-}" == 1 && "$d" =~ ^/dev/loop[0-9]+$ ]]; then
+    [[ -b "$d" ]] || die "not a block device: $d"
+    return 0
+  fi
+  [[ "$d" =~ ^/dev/(sd[a-z]+|vd[a-z]+|hd[a-z]+|nvme[0-9]+n[0-9]+)$ ]] || die "disk not allowlisted: $d"
+  [[ -b "$d" ]] || die "not a block device: $d"
+}
+
+disk_part() {
+  local disk="$1" n="$2"
+  case "$disk" in
+    *nvme*|*mmcblk*|*loop*) printf '%sp%s\n' "$disk" "$n" ;;
+    *) printf '%s%s\n' "$disk" "$n" ;;
+  esac
+}
+
+disk_identity() {
+  local disk="$1" name="${1##*/}" dev sectors serial="none"
+  [[ -d "/sys/class/block/${name}" ]] || return 1
+  dev="$(cat "/sys/class/block/${name}/dev")"
+  sectors="$(cat "/sys/class/block/${name}/size")"
+  if [[ -f "/sys/class/block/${name}/device/serial" ]]; then
+    serial="$(cat "/sys/class/block/${name}/device/serial")"
+    serial="${serial#"${serial%%[![:space:]]*}"}"
+    serial="${serial%"${serial##*[![:space:]]}"}"
+    [[ -n "$serial" ]] || serial="none"
+  fi
+  printf '%s|%s|%s\n' "$dev" "$sectors" "$serial"
+}
+
+verify_rootfs_archive() {
+  local expected observed
+  [[ -f "$ROOTFS_ARCHIVE" && ! -L "$ROOTFS_ARCHIVE" ]] \
+    || die "rootfs archive missing or unsafe: $ROOTFS_ARCHIVE"
+  [[ -f "$ROOTFS_HASH" && ! -L "$ROOTFS_HASH" ]] \
+    || die "rootfs archive hash missing: $ROOTFS_HASH"
+  expected="$(awk 'NR==1 {print $1}' "$ROOTFS_HASH")"
+  [[ "$expected" =~ ^[0-9a-f]{64}$ ]] || die "rootfs archive hash is malformed"
+  observed="$(sha256sum "$ROOTFS_ARCHIVE" | awk '{print $1}')"
+  [[ "$observed" == "$expected" ]] || die "rootfs archive hash mismatch"
+  log "rootfs archive verified sha256=${observed}"
+}
+
+proof_path_allowed() {
+  local path="$1"
+  [[ "$path" != *..* ]] || return 1
+  case "$path" in
+    /opt/eliteew-ts-install/*|/mnt/e2e-payload/*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+read_dmi_uuid() {
+  local path value
+  for path in \
+    /sys/class/dmi/id/product_uuid \
+    /sys/class/dmi/id/board_serial \
+    /sys/class/dmi/id/product_serial; do
+    [[ -f "$path" ]] || continue
+    value="$(tr -d '\r\n' <"$path" 2>/dev/null || true)"
+    value="${value#"${value%%[![:space:]]*}"}"
+    value="${value%"${value##*[![:space:]]}"}"
+    [[ -n "$value" ]] || continue
+    case "${value,,}" in
+      none|unknown|"to be filled by o.e.m.") continue ;;
+    esac
+    printf '%s\n' "$value"
+    return 0
+  done
+  printf '%s\n' "no-hw-uuid"
+}
+
+fingerprint_v2() {
+  local hostname="$1" machine_id="$2" hardware_uuid="$3" digest
+  digest="$(printf '%s' "eliteew-desktop-client|v2|${hostname}|${machine_id}|${hardware_uuid}" \
+    | sha256sum | awk '{print $1}')"
+  [[ "$digest" =~ ^[0-9a-f]{64}$ ]] || return 1
+  printf 'fp_v2_%s\n' "$(printf '%s' "$digest" | cut -c1-32)"
+}
+
+# SoT ships an empty /etc/machine-id. systemd-machine-id-setup fills it on
+# first boot. The PIN hash must use that committed id, not "no-machine-id".
+commit_target_machine_id() {
+  local target="$1"
+  local path="${target}/etc/machine-id"
+  local dbus="${target}/var/lib/dbus/machine-id"
+  local current id
+  current="$(tr -d '\r\n' <"$path" 2>/dev/null || true)"
+  current="${current#"${current%%[![:space:]]*}"}"
+  current="${current%"${current##*[![:space:]]}"}"
+  if [[ "$current" =~ ^[0-9a-f]{32}$ ]]; then
+    printf '%s\n' "$current"
+    return 0
+  fi
+  id="$(dd if=/dev/urandom bs=16 count=1 status=none | od -An -tx1 | tr -d ' \n')"
+  [[ "$id" =~ ^[0-9a-f]{32}$ ]] || return 1
+  mkdir -p "${target}/etc" "${target}/var/lib/dbus"
+  printf '%s\n' "$id" >"$path"
+  chmod 0444 "$path"
+  printf '%s\n' "$id" >"$dbus"
+  chmod 0444 "$dbus"
+  printf '%s\n' "$id"
+}
+
+hash_first_boot_pin() {
+  local salt_hex="$1" fingerprint="$2" pin="$3"
+  printf '%s' "empiieros-first-boot-pin-v1|${salt_hex}|${fingerprint}|${pin}" \
+    | sha256sum | awk '{print $1}'
+}
+
+is_trivial_pin() {
+  case "$1" in
+    0000|1111|2222|3333|4444|5555|6666|7777|8888|9999|1234|4321) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+generate_first_boot_pin() {
+  local raw n digits attempt
+  for ((attempt = 0; attempt < 32; attempt++)); do
+    raw="$(od -An -tu2 -N2 /dev/urandom | tr -d '[:space:]')"
+    [[ "$raw" =~ ^[0-9]+$ ]] || continue
+    n=$((10#$raw))
+    if (( n >= 65536 - (65536 % 10000) )); then
+      continue
+    fi
+    digits=$((n % 10000))
+    printf -v digits '%04d' "$digits"
+    if is_trivial_pin "$digits"; then
+      continue
+    fi
+    printf '%s\n' "$digits"
+    return 0
+  done
+  return 1
+}
+
+# 128-bit recovery for LUKS2. Never the 4-digit PIN. Never logged.
+generate_state_recovery() {
+  local raw grouped
+  raw="$(dd if=/dev/urandom bs=16 count=1 status=none | od -An -tx1 | tr -d ' \n')"
+  [[ "$raw" =~ ^[0-9a-f]{32}$ ]] || return 1
+  grouped="$(printf '%s' "$raw" | sed 's/..../&-/g; s/-$//')"
+  [[ "$grouped" =~ ^[0-9a-f]{4}(-[0-9a-f]{4}){7}$ ]] || return 1
+  printf '%s\n' "$grouped"
+}
+
+valid_state_recovery() {
+  [[ "$1" =~ ^[0-9a-f]{4}(-[0-9a-f]{4}){7}$ ]]
+}
+
+# Operator-chosen LUKS secret. Never a 4-digit PIN. Never logged.
+valid_state_user_secret() {
+  local secret="$1"
+  local n="${#secret}"
+  (( n >= 12 && n <= 128 )) || return 1
+  [[ "$secret" != *$'\n'* && "$secret" != *$'\r'* ]] || return 1
+  [[ "$secret" =~ [[:cntrl:]] ]] && return 1
+  [[ "$secret" =~ ^[0-9]{1,8}$ ]] && return 1
+  is_trivial_pin "$secret" && return 1
+  return 0
+}
+
+valid_state_unlock_secret() {
+  valid_state_recovery "$1" || valid_state_user_secret "$1"
+}
+
+# WPA passphrase is 8–63 ASCII octets. Live installer LANG is ru_RU.UTF-8;
+# bash bracket ranges follow collation there and reject "12345678".
+valid_wifi_psk() {
+  local psk="$1"
+  (
+    export LC_ALL=C LANG=C
+    [[ ${#psk} -ge 8 && ${#psk} -le 63 && "$psk" =~ ^[\ -~]+$ ]]
+  )
+}
+
+valid_wifi_country() {
+  local country="$1"
+  [[ "$country" == "00" ]] && return 0
+  (
+    export LC_ALL=C LANG=C
+    [[ "$country" =~ ^[A-Z]{2}$ ]]
+  )
+}
+
+prepare_install_state_dir() {
+  mkdir -p "$INSTALL_STATE_DIR"
+  chmod 0750 "$INSTALL_STATE_DIR"
+  chgrp eliteew-ts "$INSTALL_STATE_DIR" 2>/dev/null || true
+}
+
+# stdin: first line auto|user; user mode then one secret line. Not argv.
+cmd_state_recovery_stage() {
+  require_live_media
+  local mode secret
+  IFS= read -r mode || die "state recovery mode missing"
+  prepare_install_state_dir
+  case "$mode" in
+    auto)
+      printf 'auto\n' >"${INSTALL_STATE_DIR}/state-recovery-mode"
+      chmod 0644 "${INSTALL_STATE_DIR}/state-recovery-mode"
+      rm -f -- "${INSTALL_STATE_DIR}/state-recovery-input"
+      log "state recovery staged mode=auto"
+      ;;
+    user)
+      IFS= read -r secret || die "user state recovery missing"
+      secret="${secret#"${secret%%[![:space:]]*}"}"
+      secret="${secret%"${secret##*[![:space:]]}"}"
+      valid_state_user_secret "$secret" || die "user state recovery is malformed"
+      printf 'user\n' >"${INSTALL_STATE_DIR}/state-recovery-mode"
+      chmod 0644 "${INSTALL_STATE_DIR}/state-recovery-mode"
+      printf '%s\n' "$secret" >"${INSTALL_STATE_DIR}/state-recovery-input"
+      chmod 0600 "${INSTALL_STATE_DIR}/state-recovery-input"
+      secret=""
+      log "state recovery staged mode=user"
+      ;;
+    *)
+      die "state recovery mode is not auto|user"
+      ;;
+  esac
+}
+
+resolve_state_recovery() {
+  local mode="auto" secret=""
+  local mode_file="${INSTALL_STATE_DIR}/state-recovery-mode"
+  local input_file="${INSTALL_STATE_DIR}/state-recovery-input"
+  if [[ -f "$mode_file" && ! -L "$mode_file" ]]; then
+    mode="$(tr -d '\r\n' <"$mode_file")"
+  fi
+  case "$mode" in
+    auto)
+      secret="$(generate_state_recovery)" || return 1
+      log "state recovery mode=auto"
+      ;;
+    user)
+      [[ -f "$input_file" && ! -L "$input_file" ]] || die "user state recovery is missing"
+      secret="$(tr -d '\r\n' <"$input_file")"
+      secret="${secret#"${secret%%[![:space:]]*}"}"
+      secret="${secret%"${secret##*[![:space:]]}"}"
+      valid_state_user_secret "$secret" || die "user state recovery is malformed"
+      log "state recovery mode=user"
+      ;;
+    *)
+      die "state recovery mode is not auto|user"
+      ;;
+  esac
+  printf '%s\n' "$secret"
+}
+
+# FoFline V2 wipe ticket: product family only. Living Capsule v3 is
+# consume after first-boot unlock — never install media.
+INSTALL_PROOF_BODY='{"v":1,"kind":"empiieros-install-proof-v1","product_id":"eliteew-fofline"}'
+
+verify_install_proof() {
+  local proof="${ELITEEW_TS_INSTALL_PROOF:-/opt/eliteew-ts-install/install-proof.json}"
+  local body
+  proof_path_allowed "$proof" || die "install proof path is not allowlisted: $proof"
+  [[ -f "$proof" && ! -L "$proof" ]] || die "install proof missing or unsafe: $proof"
+  [[ "$(stat -c '%s' "$proof")" -le 128 ]] || die "install proof is too large"
+  body="$(tr -d '\r\n' <"$proof")"
+  [[ "$body" == "$INSTALL_PROOF_BODY" ]] || die "install proof is malformed"
+  log "install proof verified product=eliteew-fofline"
+}
+
+issue_target_first_boot_pin() {
+  local target="$1"
+  local hostname machine_id hardware_uuid fingerprint salt_hex pin pin_hash epoch
+  local seat stamp reveal
+  hostname="$(tr -d '\r\n' <"${target}/etc/hostname" 2>/dev/null || true)"
+  hostname="${hostname#"${hostname%%[![:space:]]*}"}"
+  hostname="${hostname%"${hostname##*[![:space:]]}"}"
+  [[ -n "$hostname" ]] || hostname="unknown-host"
+  machine_id="$(commit_target_machine_id "$target")" \
+    || die "target machine-id commit failed"
+  [[ "$machine_id" =~ ^[0-9a-f]{32}$ ]] || die "target machine-id is malformed"
+  hardware_uuid="$(read_dmi_uuid)"
+  fingerprint="$(fingerprint_v2 "$hostname" "$machine_id" "$hardware_uuid")" \
+    || die "hardware fingerprint failed"
+  [[ "$fingerprint" =~ ^fp_v2_[0-9a-f]{32}$ ]] || die "hardware fingerprint is malformed"
+  salt_hex="$(dd if=/dev/urandom bs=16 count=1 status=none | od -An -tx1 | tr -d '[:space:]')"
+  [[ "$salt_hex" =~ ^[0-9a-f]{32}$ ]] || die "pin salt failed"
+  pin="$(generate_first_boot_pin)" || die "pin rng failed"
+  pin_hash="$(hash_first_boot_pin "$salt_hex" "$fingerprint" "$pin")"
+  [[ "$pin_hash" =~ ^[0-9a-f]{64}$ ]] || die "pin hash failed"
+  epoch="$(date -u +%s)"
+  seat="${target}/var/lib/empiieros-runtime/seat"
+  mkdir -p "${target}/var/lib/empiieros-runtime" "$seat" "${target}/etc/empiieros"
+  chmod 0700 "${target}/var/lib/empiieros-runtime" "$seat"
+  printf '%s\n' \
+    "{\"v\":1,\"fingerprint\":\"${fingerprint}\",\"salt_hex\":\"${salt_hex}\",\"pin_hash\":\"${pin_hash}\",\"issued_epoch\":${epoch},\"unlocked\":false,\"unlocked_epoch\":0,\"failed_attempts\":0,\"locked_until_epoch\":0}" \
+    >"${seat}/first_boot_pin.json"
+  printf 'issued\n' >"${seat}/first_boot_pin.issued"
+  chmod 0600 "${seat}/first_boot_pin.json" "${seat}/first_boot_pin.issued"
+  if grep -q '"pin":' "${seat}/first_boot_pin.json"; then
+    rm -f -- "${seat}/first_boot_pin.json" "${seat}/first_boot_pin.issued"
+    die "pin record contained a pin field"
+  fi
+  stamp="${target}/etc/empiieros/hardware-stamp"
+  {
+    printf 'v=1\n'
+    printf 'scheme=fp_v2\n'
+    printf 'fingerprint=%s\n' "$fingerprint"
+    printf 'hostname=%s\n' "$hostname"
+    printf 'machine_id=%s\n' "$machine_id"
+  } >"$stamp"
+  chmod 0644 "$stamp"
+  mkdir -p "$INSTALL_STATE_DIR"
+  chmod 0750 "$INSTALL_STATE_DIR"
+  chgrp eliteew-ts "$INSTALL_STATE_DIR" 2>/dev/null || true
+  reveal="${INSTALL_STATE_DIR}/first-boot-pin"
+  printf '%s\n' "$pin" >"$reveal"
+  chmod 0640 "$reveal"
+  chgrp eliteew-ts "$reveal" 2>/dev/null || true
+  pin=""
+  log "first-boot PIN issued fingerprint=${fingerprint}"
+  log "hardware stamp persisted"
+  log "target first-boot PIN record planted"
+}
+
+issue_target_device_keys() {
+  # Recipient SK for air/file consume. Production Runtime has device.keys.*
+  # compiled out; without this file launcher.air_activate is immediately
+  # device_keys_missing. Plant on the opened LUKS volume. Never log the SK.
+  # PIN is not this key.
+  local target="$1"
+  local dir sk path
+  dir="${target}/var/lib/empiieros-runtime/device_keys"
+  mkdir -p "${target}/var/lib/empiieros-runtime" "$dir"
+  chmod 0700 "${target}/var/lib/empiieros-runtime" "$dir"
+  sk="$(dd if=/dev/urandom bs=32 count=1 status=none | od -An -tx1 | tr -d '[:space:]')"
+  [[ "$sk" =~ ^[0-9a-f]{64}$ ]] || die "device recipient key rng failed"
+  path="${dir}/recipient.sk.hex"
+  printf '%s\n' "$sk" >"$path"
+  chmod 0600 "$path"
+  sk=""
+  if [[ ! -f "$path" || -L "$path" ]]; then
+    rm -f -- "$path"
+    die "device recipient key plant failed"
+  fi
+  [[ "$(stat -c '%a' "$path")" == "600" ]] || die "device recipient key mode is not 0600"
+  [[ "$(tr -d '\r\n' <"$path")" =~ ^[0-9a-f]{64}$ ]] || die "device recipient key is malformed"
+  log "target device recipient key planted"
+}
+
+STATE_MAPPER="empiieros-state"
+STATE_MIB=2048
+
+issue_state_recovery_reveal() {
+  local recovery="$1"
+  local reveal
+  valid_state_unlock_secret "$recovery" || die "state recovery is malformed"
+  mkdir -p "$INSTALL_STATE_DIR"
+  chmod 0750 "$INSTALL_STATE_DIR"
+  chgrp eliteew-ts "$INSTALL_STATE_DIR" 2>/dev/null || true
+  reveal="${INSTALL_STATE_DIR}/state-recovery"
+  printf '%s\n' "$recovery" >"$reveal"
+  chmod 0640 "$reveal"
+  chgrp eliteew-ts "$reveal" 2>/dev/null || true
+  log "state recovery issued (plaintext not logged)"
+}
+
+format_state_luks() {
+  local part="$1" recovery="$2"
+  valid_state_unlock_secret "$recovery" || die "state recovery is malformed"
+  command -v cryptsetup >/dev/null 2>&1 || die "cryptsetup missing; cannot create state LUKS"
+  printf '%s' "$recovery" | cryptsetup luksFormat \
+    --type luks2 \
+    --batch-mode \
+    --key-file=- \
+    --pbkdf argon2id \
+    "$part" || die "luksFormat failed on state slot"
+  cryptsetup isLuks "$part" || die "state slot is not LUKS after format"
+  log "state luks formatted"
+}
+
+open_state_luks() {
+  local part="$1" recovery="$2"
+  printf '%s' "$recovery" | cryptsetup luksOpen \
+    --key-file=- \
+    "$part" "$STATE_MAPPER" || die "luksOpen failed on state slot"
+  [[ -b "/dev/mapper/${STATE_MAPPER}" ]] || die "state mapper missing after luksOpen"
+}
+
+close_state_luks() {
+  umount "/dev/mapper/${STATE_MAPPER}" 2>/dev/null || true
+  cryptsetup luksClose "$STATE_MAPPER" 2>/dev/null || true
+}
+
+enroll_state_tpm() {
+  local part="$1" recovery="$2"
+  if [[ ! -c /dev/tpmrm0 && ! -c /dev/tpm0 ]]; then
+    log "state tpm=no"
+    return 1
+  fi
+  if ! command -v systemd-cryptenroll >/dev/null 2>&1; then
+    log "state tpm=no"
+    return 1
+  fi
+  if printf '%s' "$recovery" | systemd-cryptenroll --unlock-key-file=- --tpm2-device=auto "$part"; then
+    log "state tpm=yes"
+    return 0
+  fi
+  log "state tpm=no"
+  return 1
+}
+
+write_target_state_unlock() {
+  local target="$1" luks_uuid="$2" tpm="$3"
+  local extra=""
+  [[ "$tpm" == yes ]] && extra=",tpm2-device=auto"
+  mkdir -p "$target/etc" "$target/etc/systemd/system/empiieros-runtime.service.d"
+  printf 'empiieros-state UUID=%s none luks,discard%s\n' "$luks_uuid" "$extra" \
+    >"${target}/etc/crypttab"
+  chmod 0644 "${target}/etc/crypttab"
+  touch "${target}/etc/fstab"
+  if ! grep -q '/var/lib/empiieros-runtime' "${target}/etc/fstab"; then
+    printf '/dev/mapper/%s /var/lib/empiieros-runtime ext4 defaults 0 2\n' "$STATE_MAPPER" \
+      >>"${target}/etc/fstab"
+  fi
+  cat >"${target}/etc/systemd/system/empiieros-runtime.service.d/state-luks.conf" <<'EOF'
+[Unit]
+RequiresMountsFor=/var/lib/empiieros-runtime
+EOF
+  chmod 0644 "${target}/etc/systemd/system/empiieros-runtime.service.d/state-luks.conf"
+}
+
+write_gpt_esp_root_state() {
+  local disk="$1"
+  local disk_sectors start esp_sectors state_sectors p2_start p2_size p3_size min_root
+  disk_sectors="$(cat "/sys/class/block/${disk##*/}/size")"
+  [[ "$disk_sectors" =~ ^[0-9]+$ ]] || die "cannot read disk size for $disk"
+  start=2048
+  esp_sectors=$((512 * 2048))
+  state_sectors=$((STATE_MIB * 2048))
+  p2_start=$((start + esp_sectors))
+  p3_size=$state_sectors
+  p2_size=$((disk_sectors - p2_start - p3_size - 2048))
+  min_root=$((4 * 1024 * 2048))
+  [[ "$p2_size" -ge "$min_root" ]] || die "root would be smaller than 4 GiB after state slot"
+  sfdisk --wipe always "$disk" <<EOF || die "partition table creation failed on $disk"
+label: gpt
+unit: sectors
+${start},${esp_sectors},U
+${p2_start},${p2_size},L
+,${p3_size},L
+EOF
+}
+
+allow_iface() {
+  local iface="$1"
+  [[ "$iface" =~ ^[a-zA-Z][a-zA-Z0-9_-]*$ ]] || die "iface not allowlisted: $iface"
+  [[ -e "/sys/class/net/${iface}" ]] || die "iface missing: $iface"
+}
+
+valid_ipv4() {
+  local raw="$1" a b c d extra
+  IFS=. read -r a b c d extra <<<"$raw"
+  [[ -z "${extra:-}" && -n "${a:-}" && -n "${b:-}" && -n "${c:-}" && -n "${d:-}" ]] || return 1
+  local octet
+  for octet in "$a" "$b" "$c" "$d"; do
+    [[ "$octet" =~ ^[0-9]{1,3}$ ]] || return 1
+    ((10#$octet >= 0 && 10#$octet <= 255)) || return 1
+  done
+}
+
+valid_ipv4_cidr() {
+  local raw="$1" address prefix extra
+  IFS=/ read -r address prefix extra <<<"$raw"
+  [[ -z "${extra:-}" && "${prefix:-}" =~ ^[0-9]{1,2}$ ]] || return 1
+  ((10#$prefix >= 1 && 10#$prefix <= 32)) || return 1
+  valid_ipv4 "$address"
+}
+
+select_installer_iface() {
+  local path iface fallback=""
+  for path in /sys/class/net/*; do
+    [[ -e "$path" ]] || continue
+    iface="${path##*/}"
+    [[ "$iface" == "lo" ]] && continue
+    [[ -n "$fallback" ]] || fallback="$iface"
+    if [[ "$(cat "$path/carrier" 2>/dev/null || true)" == "1" ]]; then
+      printf '%s\n' "$iface"
+      return 0
+    fi
+  done
+  [[ -n "$fallback" ]] || return 1
+  printf '%s\n' "$fallback"
+}
+
+clear_installer_network_configs() {
+  local path
+  for path in "$NETWORK_DIR"/20-eliteew-ts-install-*.network \
+              "$NETWORK_DIR"/10-eliteew-ts-install-*.network; do
+    [[ -f "$path" ]] && rm -f -- "$path"
+  done
+  # A non-matching literal glob leaves the final [[ -f ... ]] false. Under
+  # `set -e`, returning that status aborts network setup before a config exists.
+  return 0
+}
+
+clear_installer_wifi_config() {
+  local conf iface
+  for conf in "$WPA_DIR"/wpa_supplicant-*.conf; do
+    [[ -f "$conf" ]] || continue
+    iface="${conf##*/wpa_supplicant-}"
+    iface="${iface%.conf}"
+    if [[ "$iface" =~ ^[a-zA-Z][a-zA-Z0-9_.-]{0,14}$ ]]; then
+      systemctl reset-failed "empiieros-wifi@${iface}.service" >/dev/null 2>&1 || true
+      systemctl stop "empiieros-wifi@${iface}.service" >/dev/null 2>&1 || true
+    fi
+    rm -f -- "$conf"
+  done
+  rm -f -- "$WIFI_INTERFACE_FILE" "$STATIC_OK_FILE"
+  return 0
+}
+
+# Live USB keeps leftover wpa/network from a previous glass or install
+# click. That is not a baked SoT profile — delete it. Never print a PSK.
+forget_live_network_state() {
+  require_live_media
+  clear_installer_wifi_config
+  clear_installer_network_configs
+  networkctl reload >/dev/null 2>&1 || true
+  log "live-network-forget: leftover installer wifi/network profiles removed"
+}
+
+cmd_live_network_forget() {
+  forget_live_network_state
+}
+
+wifi_unit_detail() {
+  local unit="$1"
+  {
+    systemctl show "$unit" -p Result -p ActiveState -p SubState -p NRestarts --no-pager 2>/dev/null || true
+    journalctl -u "$unit" -n 16 --no-pager -o cat 2>/dev/null || true
+  } | tr '\n' ' ' | head -c 280
+}
+
+# Previous SAE/ctrl_interface attempts crash-loop the unit
+# (StartLimitBurst=3). A new operator click must reset that, not inherit it.
+# Type=simple makes `restart` return 0 as soon as exec happens — nl80211
+# can still die immediately. Wait and require a live MainPID.
+start_installer_wifi_unit() {
+  local iface="$1"
+  local unit="empiieros-wifi@${iface}.service"
+  local detail="" pid=""
+  [[ -s "${WPA_DIR}/wpa_supplicant-${iface}.conf" ]] \
+    || die "Wi-Fi profile empty for $iface"
+  ip link set "$iface" up >/dev/null 2>&1 || true
+  systemctl reset-failed "$unit" >/dev/null 2>&1 || true
+  if ! systemctl restart "$unit"; then
+    detail="$(wifi_unit_detail "$unit")"
+    die "wpa_supplicant service failed for $iface${detail:+: $detail}"
+  fi
+  sleep 0.6
+  pid="$(systemctl show "$unit" -p MainPID --value --no-pager 2>/dev/null || true)"
+  if ! systemctl is-active --quiet "$unit" || [[ -z "$pid" || "$pid" == 0 ]]; then
+    detail="$(wifi_unit_detail "$unit")"
+    die "wpa_supplicant died after start for $iface${detail:+: $detail}"
+  fi
+}
+
+# Live installer profiles stay RequiredForOnline=no so the USB session does not
+# block on network-online.target. The installed copy must require IPv4 online.
+rewrite_persisted_network_online_requirement() {
+  awk '
+    BEGIN { changed = 0 }
+    $0 == "RequiredForOnline=no" {
+      print "RequiredForOnline=yes"
+      changed = 1
+      next
+    }
+    { print }
+    END { if (changed == 0) exit 2 }
+  ' "$1"
+}
+
+installer_profile_is_dhcp() {
+  local src="$1"
+  grep -qx 'DHCP=no' "$src" && return 1
+  grep -Eqx 'DHCP=(yes|ipv4)' "$src"
+}
+
+# Lab polygon /30 must never become a product address.
+refuse_polygon_lab_address() {
+  local blob="$1"
+  if printf '%s\n' "$blob" | grep -Eq '192\.168\.8\.(9|10)(/|[[:space:]]|$)'; then
+    die "refusing polygon lab address 192.168.8.10/192.168.8.9"
+  fi
+}
+
+persist_installer_network_profile() {
+  local src="$1"
+  local dest="$2"
+  local tmp
+  [[ -f "$src" && ! -L "$src" ]] || die "installer network profile missing: $src"
+  [[ "$dest" == *.network ]] || die "persisted network destination is unsafe"
+  refuse_polygon_lab_address "$(cat "$src")"
+  tmp="${dest}.tmp"
+  rewrite_persisted_network_online_requirement "$src" >"$tmp" \
+    || die "persisted network profile must rewrite RequiredForOnline=yes"
+  grep -qx 'RequiredForOnline=yes' "$tmp" \
+    || die "persisted network profile lacks RequiredForOnline=yes"
+  if grep -qx 'RequiredForOnline=no' "$tmp"; then
+    rm -f -- "$tmp"
+    die "persisted network profile still has RequiredForOnline=no"
+  fi
+  install -m 0644 -o 0 -g 0 "$tmp" "$dest"
+  rm -f -- "$tmp"
+}
+
+valid_locale() {
+  [[ "$1" == "ru_RU.UTF-8" || "$1" == "en_US.UTF-8" ]]
+}
+
+valid_timezone() {
+  local timezone="$1"
+  [[ "$timezone" =~ ^[A-Za-z][A-Za-z0-9_+-]*/[A-Za-z0-9_+./-]+$ ]] || return 1
+  [[ "$timezone" != *".."* ]] || return 1
+  [[ -f "/usr/share/zoneinfo/${timezone}" ]]
+}
+
+valid_wall_clock() {
+  local value="$1" year month day hour minute
+  [[ "$value" =~ ^([0-9]{4})-([0-9]{2})-([0-9]{2})\ ([0-9]{2}):([0-9]{2})$ ]] || return 1
+  year="${BASH_REMATCH[1]}"
+  month="${BASH_REMATCH[2]#0}"
+  day="${BASH_REMATCH[3]#0}"
+  hour="${BASH_REMATCH[4]#0}"
+  minute="${BASH_REMATCH[5]#0}"
+  [[ "$year" -ge 2024 && "$year" -le 2100 ]] || return 1
+  [[ "$month" -ge 1 && "$month" -le 12 ]] || return 1
+  [[ "$day" -ge 1 && "$day" -le 31 ]] || return 1
+  [[ "$hour" -le 23 ]] || return 1
+  [[ "$minute" -le 59 ]] || return 1
+}
+
+wait_for_ipv4() {
+  local iface="$1" attempt
+  for ((attempt = 0; attempt < 30; attempt++)); do
+    if ip -4 -o address show dev "$iface" scope global 2>/dev/null \
+      | awk '$0 ~ / inet / { found = 1 } END { exit !found }'; then
+      return 0
+    fi
+    sleep 0.5
+  done
+  return 1
+}
+
+escape_wpa_string() {
+  local value="$1"
+  value="${value//\\/\\\\}"
+  value="${value//\"/\\\"}"
+  printf '%s' "$value"
+}
+
+verify_target_install_contract() {
+  local target="$1" expected_locale="$2" expected_timezone="$3" path metadata field
+  awk -F: '$1=="eliteew-ts" && $3=="105" && $4=="113" { found = 1 }
+    END { exit !found }' "$target/etc/passwd" \
+    || die "target kiosk identity is not uid:gid 105:113"
+  awk -F: '$1=="empiieros-maint" && $3=="106" && $4=="114" { found = 1 }
+    END { exit !found }' "$target/etc/passwd" \
+    || die "target maintenance identity is not uid:gid 106:114"
+  for path in \
+    usr/local/bin/empiieros-runtime \
+    usr/local/bin/empiieros-shell-gui \
+    etc/systemd/system/empiieros-runtime.service \
+    etc/systemd/system/empiieros-shell-bridge.socket \
+    etc/systemd/system/empiieros-shell-bridge.service \
+    etc/locale.conf \
+    etc/timezone \
+    etc/empiieros/ui-locale; do
+    [[ -e "$target/$path" && ! -L "$target/$path" ]] \
+      || die "target contract missing or symlinked: /$path"
+  done
+  for path in usr/local/bin/empiieros-runtime usr/local/bin/empiieros-shell-gui; do
+    metadata="$(stat -c '%u:%g:%a:%F' "$target/$path")"
+    [[ "$metadata" == "0:0:755:regular file" ]] \
+      || die "target executable owner/mode invalid: /$path ($metadata)"
+  done
+  verify_seat_shell_trusted "$target/opt/empiieros/shell" \
+    || die "seat shell is not root-owned"
+  field="$(awk -F: '$1=="eliteew-ts"{print $2; exit}' "$target/etc/shadow")"
+  [[ -n "$field" ]] || die "target eliteew-ts shadow missing"
+  case "$field" in
+    '!'*|'*'*) ;;
+    *) die "target eliteew-ts must stay password-locked (no extra VT login)" ;;
+  esac
+  local _tty
+  for _tty in 2 3 4 5 6; do
+    [[ -L "$target/etc/systemd/system/getty@${_tty}.service" ]] \
+      && [[ "$(readlink -f "$target/etc/systemd/system/getty@${_tty}.service")" == "/dev/null" ]] \
+      || die "target getty@${_tty} must be masked to /dev/null"
+    [[ ! -e "$target/etc/systemd/system/getty.target.wants/getty@${_tty}.service" ]] \
+      || die "target getty@${_tty} must not be enabled in getty.target.wants"
+  done
+  [[ ! -e "$target/etc/eliteew-trusted-substrate/live-installer" ]] \
+    || die "target still has live-installer stamp"
+  [[ ! -e "$target/etc/sudoers.d/eliteew-ts-installer" ]] \
+    || die "target still has installer sudo policy"
+  [[ -f "$target/var/lib/empiieros-runtime/seat/first_boot_pin.json" && \
+     ! -L "$target/var/lib/empiieros-runtime/seat/first_boot_pin.json" ]] \
+    || die "target first-boot PIN record missing"
+  [[ "$(stat -c '%a' "$target/var/lib/empiieros-runtime/seat/first_boot_pin.json")" == "600" ]] \
+    || die "target first-boot PIN record mode is not 0600"
+  grep -q '"pin":' "$target/var/lib/empiieros-runtime/seat/first_boot_pin.json" \
+    && die "target first-boot PIN record contains plaintext"
+  grep -q '"pin_hash"' "$target/var/lib/empiieros-runtime/seat/first_boot_pin.json" \
+    || die "target first-boot PIN record lacks pin_hash"
+  [[ -f "$target/var/lib/empiieros-runtime/device_keys/recipient.sk.hex" && \
+     ! -L "$target/var/lib/empiieros-runtime/device_keys/recipient.sk.hex" ]] \
+    || die "target device recipient key missing"
+  [[ "$(stat -c '%a' "$target/var/lib/empiieros-runtime/device_keys")" == "700" ]] \
+    || die "target device_keys dir mode is not 0700"
+  [[ "$(stat -c '%a' "$target/var/lib/empiieros-runtime/device_keys/recipient.sk.hex")" == "600" ]] \
+    || die "target device recipient key mode is not 0600"
+  [[ "$(tr -d '\r\n' <"$target/var/lib/empiieros-runtime/device_keys/recipient.sk.hex")" =~ ^[0-9a-f]{64}$ ]] \
+    || die "target device recipient key is malformed"
+  [[ -f "$target/etc/empiieros/hardware-stamp" && ! -L "$target/etc/empiieros/hardware-stamp" ]] \
+    || die "target hardware stamp missing"
+  grep -qx 'scheme=fp_v2' "$target/etc/empiieros/hardware-stamp" \
+    || die "target hardware stamp scheme is not fp_v2"
+  [[ "$(cat "$target/etc/locale.conf")" == "LANG=${expected_locale}" ]] \
+    || die "target locale does not match installer selection"
+  [[ "$(cat "$target/etc/timezone")" == "$expected_timezone" ]] \
+    || die "target timezone does not match installer selection"
+  [[ -f "$target/etc/empiieros/install-wall-clock" && \
+     ! -L "$target/etc/empiieros/install-wall-clock" ]] \
+    || die "target install wall clock stamp missing"
+  [[ "$(tr -d '\r\n' <"$target/etc/empiieros/install-wall-clock")" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}\ [0-9]{2}:[0-9]{2}$ ]] \
+    || die "target install wall clock stamp is malformed"
+  [[ -f "$target/usr/local/sbin/empiieros-apply-install-clock" && \
+     ! -L "$target/usr/local/sbin/empiieros-apply-install-clock" ]] \
+    || die "target install-clock helper missing"
+  [[ -f "$target/etc/systemd/system/empiieros-apply-install-clock.service" && \
+     ! -L "$target/etc/systemd/system/empiieros-apply-install-clock.service" ]] \
+    || die "target install-clock unit missing"
+  [[ -L "$target/etc/systemd/system/multi-user.target.wants/empiieros-apply-install-clock.service" ]] \
+    || die "target install-clock unit not enabled"
+  [[ -f "$target/etc/crypttab" && ! -L "$target/etc/crypttab" ]] \
+    || die "target crypttab missing"
+  grep -q '^empiieros-state UUID=' "$target/etc/crypttab" \
+    || die "target crypttab lacks state LUKS line"
+  if grep -Eiq '(^|[^0-9a-f-])[0-9]{4}([^0-9a-f-]|$)' "$target/etc/crypttab"; then
+    die "target crypttab looks like it contains a PIN"
+  fi
+  grep -q '/var/lib/empiieros-runtime' "$target/etc/fstab" \
+    || die "target fstab lacks state mount"
+  [[ -f "$target/etc/systemd/system/empiieros-wifi@.service" && \
+     ! -L "$target/etc/systemd/system/empiieros-wifi@.service" ]] \
+    || die "target wifi unit missing"
+  wifi_unit_has_inet "$target/etc/systemd/system/empiieros-wifi@.service" \
+    || die "target wifi unit lacks AF_INET"
+  [[ -f "$target/etc/systemd/system/empiieros-runtime.service.d/state-luks.conf" ]] \
+    || die "target Runtime state-luks drop-in missing"
+  [[ ! -e "$target/run/eliteew-ts-installer/state-recovery" ]] \
+    || die "state recovery leaked onto target"
+  [[ ! -e "$target/var/lib/empiieros-runtime/state-recovery" ]] \
+    || die "state recovery leaked into state volume"
+  [[ -f "$target/usr/local/bin/empiieros-state-unlock-agent" && \
+     ! -L "$target/usr/local/bin/empiieros-state-unlock-agent" ]] \
+    || die "target state unlock agent missing"
+  [[ "$(stat -c '%u:%g:%a:%F' "$target/usr/local/bin/empiieros-state-unlock-agent")" == "0:0:755:regular file" ]] \
+    || die "target state unlock agent owner/mode invalid"
+  for path in \
+    etc/systemd/system/empiieros-state-unlock-agent.path \
+    etc/systemd/system/empiieros-state-unlock-agent.service; do
+    [[ -f "$target/$path" && ! -L "$target/$path" ]] \
+      || die "target state unlock unit missing or symlinked: /$path"
+  done
+  [[ "$(target_path_under_root "$target" etc/systemd/system/cryptsetup.target.wants/empiieros-state-unlock-agent.path 2>/dev/null || true)" \
+        == "$(readlink -f "$target/etc/systemd/system/empiieros-state-unlock-agent.path")" ]] \
+    || die "target state unlock path not enabled for cryptsetup.target"
+  [[ "$(target_symlink_raw "$target" etc/systemd/system/systemd-ask-password-console.path || true)" == "/dev/null" ]] \
+    || die "target systemd-ask-password-console.path must be masked to /dev/null"
+  [[ "$(target_symlink_raw "$target" etc/systemd/system/systemd-ask-password-wall.path || true)" == "/dev/null" ]] \
+    || die "target systemd-ask-password-wall.path must be masked to /dev/null"
+  log "target install contract verified"
+}
+
+target_symlink_raw() {
+  local target="$1" path="$2"
+  [[ -L "$target/$path" ]] || return 1
+  readlink "$target/$path"
+}
+
+target_path_under_root() {
+  # Resolve a symlink recorded on the installed root without following host /etc.
+  local target="$1" link_path="$2"
+  local raw base resolved
+  raw="$(target_symlink_raw "$target" "$link_path")" || return 1
+  case "$raw" in
+    /*) printf '%s%s\n' "$target" "$raw" ;;
+    *)
+      base="$(dirname "$link_path")"
+      resolved="$(cd "$target/$base" && cd "$(dirname "$raw")" && pwd)/$(basename "$raw")"
+      printf '%s\n' "$resolved"
+      ;;
+  esac
+}
+
+wifi_unit_has_inet() {
+  # AF_INET6 must not count as AF_INET.
+  grep -Eq '(^|[[:space:]])AF_INET([[:space:]]|$)' "$1"
+}
+
+plant_installed_wifi_unit() {
+  # Official SoT still ships RestrictAddressFamilies without AF_INET.
+  # This image's wpa nl80211 opens PF_INET; systemd then returns
+  # EAFNOSUPPORT, the AP never sees a probe, and DHCP has no carrier.
+  # Live USB already has the working unit; plant that after extract.
+  local dest="$MNT/etc/systemd/system/empiieros-wifi@.service"
+  [[ -f "$WIFI_UNIT" && ! -L "$WIFI_UNIT" ]] \
+    || die "live wifi unit missing or unsafe"
+  wifi_unit_has_inet "$WIFI_UNIT" \
+    || die "live wifi unit lacks AF_INET; refusing to plant a silent nl80211 unit"
+  mkdir -p "$MNT/etc/systemd/system"
+  install -m 0644 "$WIFI_UNIT" "$dest" || die "failed to plant wifi unit"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest" || die "failed to chown planted wifi unit"
+  fi
+  [[ -f "$dest" && ! -L "$dest" ]] || die "planted wifi unit missing"
+  wifi_unit_has_inet "$dest" || die "planted wifi unit lacks AF_INET"
+  log "planted live wifi unit with AF_INET onto target"
+}
+
+readable_regular() {
+  local p="$1"
+  [[ -n "$p" && -f "$p" && ! -L "$p" && -s "$p" && -r "$p" ]] || return 1
+  # Corrupt ext4 inodes fail here (EUCLEAN / "structure needs cleaning").
+  head -c 1 "$p" >/dev/null 2>&1 || return 1
+}
+
+pick_install_clock_bin() {
+  local p
+  for p in \
+    /usr/local/share/eliteew-ts-installer/empiieros-apply-install-clock \
+    /usr/local/sbin/empiieros-apply-install-clock
+  do
+    if readable_regular "$p"; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+pick_install_clock_unit() {
+  local p
+  for p in \
+    /usr/local/share/eliteew-ts-installer/empiieros-apply-install-clock.service \
+    /etc/systemd/system/empiieros-apply-install-clock.service
+  do
+    if readable_regular "$p"; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+require_install_clock_sources() {
+  pick_install_clock_bin >/dev/null \
+    || die "live install-clock helper missing or unreadable; refuse wipe"
+  pick_install_clock_unit >/dev/null \
+    || die "live install-clock unit missing or unreadable; refuse wipe"
+}
+
+# Official baked SoT may still clamp DPoP iat to local+15. Installer time
+# is minute precision, so that clamp misses Keycloak [now-25, now+15] and
+# PAR returns 400. Live share/bin must be IdP-Date before wipe. After
+# extract: keep dest when it already uses IdP Date (mux SoT). Only plant
+# from live share/bin when the extracted ELF fails that check.
+runtime_uses_idp_date() {
+  local p="$1"
+  readable_regular "$p" || return 1
+  grep -a -q 'oidc dpop iat missing Date' "$p" || return 1
+  grep -a -q 'operator_wall_clock' "$p" || return 1
+  grep -a -q 'portal_hostmap_required' "$p" || return 1
+  grep -a -q 'wall_clock_required' "$p" || return 1
+  grep -a -q 'date_header_missing' "$p" && return 1
+  return 0
+}
+
+pick_idp_date_runtime() {
+  local p
+  for p in \
+    /usr/local/share/eliteew-ts-installer/empiieros-runtime \
+    /usr/local/bin/empiieros-runtime
+  do
+    if runtime_uses_idp_date "$p"; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+require_idp_date_runtime() {
+  pick_idp_date_runtime >/dev/null \
+    || die "live runtime lacks IdP Date DPoP; refuse wipe"
+}
+
+plant_idp_date_runtime() {
+  local src dest
+  dest="$MNT/usr/local/bin/empiieros-runtime"
+  if runtime_uses_idp_date "$dest"; then
+    log "extracted Runtime already IdP Date DPoP; keep SoT"
+    return 0
+  fi
+  src="$(pick_idp_date_runtime)" \
+    || die "live runtime lacks IdP Date DPoP"
+  install -m 0755 "$src" "$dest" || die "failed to plant IdP Date runtime"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest" || die "failed to chown IdP Date runtime"
+  fi
+  runtime_uses_idp_date "$dest" || die "planted runtime lacks IdP Date DPoP"
+  log "planted IdP Date DPoP runtime"
+}
+
+plant_ota_cutover_rw() {
+  local dir dest
+  dir="$MNT/etc/systemd/system/empiieros-runtime.service.d"
+  dest="$dir/ota-cutover.conf"
+  mkdir -p "$dir" || die "failed to mkdir OTA cutover drop-in"
+  cat >"$dest" <<'EOF'
+[Service]
+ReadWritePaths=/usr/local/bin /usr/local/sbin /usr/libexec /opt/empiieros
+EOF
+  chmod 0644 "$dest" || die "failed to chmod OTA cutover drop-in"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest" || die "failed to chown OTA cutover drop-in"
+  fi
+  grep -q '/opt/empiieros' "$dest" || die "OTA cutover drop-in missing /opt/empiieros"
+  log "planted OTA cutover ReadWritePaths"
+}
+
+portal_up_ok() {
+  local p="$1"
+  readable_regular "$p" || return 1
+  grep -a -q 'portal_hostmap_required' "$p" || return 1
+  return 0
+}
+
+pick_portal_up() {
+  local p
+  for p in \
+    /usr/local/share/eliteew-ts-installer/empiieros-portal-up \
+    /usr/local/sbin/empiieros-portal-up
+  do
+    if portal_up_ok "$p"; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+require_portal_up() {
+  pick_portal_up >/dev/null \
+    || die "live portal-up lacks host-map lock; refuse wipe"
+}
+
+plant_portal_up() {
+  local src dest
+  src="$(pick_portal_up)" \
+    || die "live portal-up lacks host-map lock"
+  dest="$MNT/usr/local/sbin/empiieros-portal-up"
+  install -m 0755 "$src" "$dest" || die "failed to plant portal-up"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest" || die "failed to chown portal-up"
+  fi
+  portal_up_ok "$dest" || die "planted portal-up lacks host-map lock"
+  log "planted portal-up host-map lock"
+}
+
+ota_fetch_ok() {
+  local p="$1"
+  readable_regular "$p" || return 1
+  grep -a -q 'ota-fetch.result' "$p" || return 1
+  grep -a -q '/empiieros-ota/v1/attest' "$p" || return 1
+  return 0
+}
+
+pick_ota_fetch() {
+  local p
+  for p in \
+    /usr/local/share/eliteew-ts-installer/empiieros-ota-fetch \
+    /usr/local/sbin/empiieros-ota-fetch
+  do
+    if ota_fetch_ok "$p"; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+pick_ota_fetch_unit() {
+  local p
+  for p in \
+    /usr/local/share/eliteew-ts-installer/empiieros-ota-fetch.service \
+    /etc/systemd/system/empiieros-ota-fetch.service
+  do
+    if readable_regular "$p" && grep -q 'ExecStart=/usr/local/sbin/empiieros-ota-fetch' "$p"; then
+      printf '%s\n' "$p"
+      return 0
+    fi
+  done
+  return 1
+}
+
+plant_ota_fetch() {
+  local src dest unit dest_unit
+  src="$(pick_ota_fetch)" || {
+    log "no live OTA fetch helper; target keeps extract"
+    return 0
+  }
+  dest="$MNT/usr/local/sbin/empiieros-ota-fetch"
+  install -m 0755 "$src" "$dest" || die "failed to plant ota-fetch"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest" || die "failed to chown ota-fetch"
+  fi
+  ota_fetch_ok "$dest" || die "planted ota-fetch lacks VIP attest"
+  unit="$(pick_ota_fetch_unit)" || die "live ota-fetch unit missing"
+  dest_unit="$MNT/etc/systemd/system/empiieros-ota-fetch.service"
+  install -m 0644 "$unit" "$dest_unit" || die "failed to plant ota-fetch unit"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest_unit" || die "failed to chown ota-fetch unit"
+  fi
+  log "planted OTA fetch helper"
+}
+
+seat_shell_src() {
+  printf '%s\n' /usr/local/share/eliteew-ts-installer/seat-shell
+}
+
+seat_shell_bundle_js() {
+  local src rel
+  src="$1"
+  rel="$(grep -oE 'src="\./assets/[^"]+\.js"' "$src/index.html" | head -n 1 | sed 's/^src="\.\///;s/"$//')"
+  [[ -n "$rel" ]] || return 1
+  printf '%s\n' "$src/$rel"
+}
+
+seat_shell_ok() {
+  local src js
+  src="$(seat_shell_src)"
+  readable_regular "$src/index.html" || return 1
+  js="$(seat_shell_bundle_js "$src")" || return 1
+  readable_regular "$js" || return 1
+  grep -q 'Поставить часы' "$js" || return 1
+  grep -qE 'Сначала поставьте часы|Установите время перед активацией' "$js" || return 1
+  return 0
+}
+
+require_seat_shell() {
+  seat_shell_ok || die "live seat shell lacks clock set and portal step; refuse wipe"
+}
+
+# empiieros-shell-gui serves empiier://shell/ only for root-owned regular
+# files with no group/other write. cp -a keeps the USB owner's uid, and
+# that uid is not 0, so the seat draws "Shell asset is not trusted".
+verify_seat_shell_trusted() {
+  local dest="$1" path metadata saw=0
+  [[ -d "$dest" && ! -L "$dest" ]] || return 1
+  if find "$dest" -type l -print -quit | grep -q .; then
+    return 1
+  fi
+  while IFS= read -r -d '' path; do
+    saw=1
+    metadata="$(stat -c '%u:%a:%F' "$path")"
+    case "$metadata" in
+      0:644:regular\ file|0:755:directory) ;;
+      *) return 1 ;;
+    esac
+  done < <(find "$dest" \( -type f -o -type d \) -print0)
+  [[ "$saw" -eq 1 ]]
+}
+
+plant_seat_shell() {
+  local src dest
+  src="$(seat_shell_src)"
+  seat_shell_ok || die "live seat shell lacks clock set and portal step"
+  dest="$MNT/opt/empiieros/shell"
+  [[ -d "$dest" && ! -L "$dest" ]] || die "target shell dir missing"
+  [[ "$(id -u)" -eq 0 ]] || die "seat shell plant requires root"
+  rm -rf "$dest/assets"
+  cp -a "$src/." "$dest/" || die "failed to plant seat shell"
+  chown -R 0:0 "$dest" || die "failed to chown seat shell"
+  find "$dest" -type d -exec chmod 0755 {} + \
+    || die "failed to chmod seat shell dirs"
+  find "$dest" -type f -exec chmod 0644 {} + \
+    || die "failed to chmod seat shell files"
+  verify_seat_shell_trusted "$dest" || die "seat shell is not root-owned"
+  grep -q 'Поставить часы' "$dest"/assets/*.js \
+    || die "planted seat shell missing clock control"
+  log "planted seat shell root-owned"
+}
+
+# Product console is tty1 only (autologin → session-router). Extra VT gettys stay masked.
+plant_target_console_policy() {
+  local _tty
+  mkdir -p "$MNT/etc/systemd/system"
+  for _tty in 2 3 4 5 6; do
+    ln -sfn /dev/null "$MNT/etc/systemd/system/getty@${_tty}.service"
+    rm -f "$MNT/etc/systemd/system/getty.target.wants/getty@${_tty}.service"
+  done
+  log "target console policy: tty1 only; tty2–6 masked"
+}
+
+state_unlock_agent_live_bin() {
+  printf '%s\n' /usr/local/bin/empiieros-state-unlock-agent
+}
+
+state_unlock_unit_live() {
+  printf '%s\n' "/etc/systemd/system/${1}"
+}
+
+state_unlock_agent_ok() {
+  local bin path unit
+  bin="$(state_unlock_agent_live_bin)"
+  readable_regular "$bin" || return 1
+  [[ -x "$bin" ]] || return 1
+  for unit in empiieros-state-unlock-agent.path empiieros-state-unlock-agent.service; do
+    path="$(state_unlock_unit_live "$unit")"
+    readable_regular "$path" || return 1
+  done
+  return 0
+}
+
+require_state_unlock_agent() {
+  state_unlock_agent_ok || die "live state LUKS unlock agent missing; refuse wipe"
+}
+
+# Tar rootfs may lag overlay; always plant the live USB agent + units so boot
+# never falls back to stock systemd-ask-password on the state LUKS slot.
+plant_target_state_unlock_agent() {
+  local bin path unit manifest_src
+  bin="$(state_unlock_agent_live_bin)"
+  state_unlock_agent_ok || die "live state unlock agent missing"
+  install -m 0755 "$bin" "$MNT/usr/local/bin/empiieros-state-unlock-agent" \
+    || die "failed to plant state unlock agent"
+  for unit in empiieros-state-unlock-agent.path empiieros-state-unlock-agent.service; do
+    path="$(state_unlock_unit_live "$unit")"
+    install -m 0644 "$path" "$MNT/etc/systemd/system/$unit" \
+      || die "failed to plant state unlock unit: $unit"
+  done
+  mkdir -p "$MNT/etc/systemd/system/cryptsetup.target.wants"
+  ln -sfn ../empiieros-state-unlock-agent.path \
+    "$MNT/etc/systemd/system/cryptsetup.target.wants/empiieros-state-unlock-agent.path"
+  ln -sfn /dev/null "$MNT/etc/systemd/system/systemd-ask-password-console.path"
+  ln -sfn /dev/null "$MNT/etc/systemd/system/systemd-ask-password-wall.path"
+  manifest_src="/opt/eliteew-ts-state-unlock-agent/build-manifest.json"
+  if [[ -f "$manifest_src" && ! -L "$manifest_src" ]]; then
+    mkdir -p "$MNT/opt/eliteew-ts-state-unlock-agent"
+    install -m 0644 "$manifest_src" "$MNT/opt/eliteew-ts-state-unlock-agent/build-manifest.json" \
+      || die "failed to plant state unlock manifest"
+  fi
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 \
+      "$MNT/usr/local/bin/empiieros-state-unlock-agent" \
+      "$MNT/etc/systemd/system/empiieros-state-unlock-agent.path" \
+      "$MNT/etc/systemd/system/empiieros-state-unlock-agent.service" \
+      || die "failed to chown state unlock agent"
+  fi
+  log "planted state LUKS unlock agent from live media"
+}
+
+seat_time_helper_src() {
+  printf '%s\n' /usr/local/share/eliteew-ts-installer/empiieros-time-sync
+}
+
+seat_time_unit_src() {
+  printf '%s\n' /usr/local/share/eliteew-ts-installer/empiieros-time-sync.service
+}
+
+seat_time_helper_ok() {
+  local bin unit
+  bin="$(seat_time_helper_src)"
+  unit="$(seat_time_unit_src)"
+  readable_regular "$bin" || return 1
+  readable_regular "$unit" || return 1
+  grep -q 'ntp_masked' "$bin" || return 1
+  grep -q 'set-ntp' "$bin" && return 1
+  grep -q 'Do not enable timesyncd' "$unit" || return 1
+  return 0
+}
+
+require_seat_time_helper() {
+  seat_time_helper_ok || die "live time helper still enables NTP; refuse wipe"
+}
+
+plant_seat_time_helper() {
+  local bin unit dest_bin dest_unit
+  seat_time_helper_ok || die "live time helper still enables NTP"
+  bin="$(seat_time_helper_src)"
+  unit="$(seat_time_unit_src)"
+  dest_bin="$MNT/usr/local/sbin/empiieros-time-sync"
+  dest_unit="$MNT/etc/systemd/system/empiieros-time-sync.service"
+  install -m 0755 "$bin" "$dest_bin" || die "failed to plant time helper"
+  install -m 0644 "$unit" "$dest_unit" || die "failed to plant time unit"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest_bin" "$dest_unit" || die "failed to chown time helper"
+  fi
+  grep -q 'ntp_masked' "$dest_bin" || die "planted time helper still enables NTP"
+  log "planted operator wall-clock helper"
+}
+
+plant_install_clock() {
+  # Official SoT wrote install-wall-clock and never consumed it. First boot
+  # must apply that operator stamp when the RTC is implausible. timesyncd
+  # stays masked. Prefer the installer share copy — a dirty USB journal
+  # has already orphaned a newly planted /usr/local/sbin inode.
+  local bin_src unit_src dest_bin dest_unit dest_want
+  bin_src="$(pick_install_clock_bin)" \
+    || die "live install-clock helper missing or unreadable"
+  unit_src="$(pick_install_clock_unit)" \
+    || die "live install-clock unit missing or unreadable"
+  dest_bin="$MNT/usr/local/sbin/empiieros-apply-install-clock"
+  dest_unit="$MNT/etc/systemd/system/empiieros-apply-install-clock.service"
+  dest_want="$MNT/etc/systemd/system/multi-user.target.wants/empiieros-apply-install-clock.service"
+  mkdir -p "$MNT/usr/local/sbin" "$MNT/etc/systemd/system/multi-user.target.wants"
+  install -m 0755 "$bin_src" "$dest_bin" || die "failed to plant install-clock helper"
+  install -m 0644 "$unit_src" "$dest_unit" || die "failed to plant install-clock unit"
+  ln -sfn /etc/systemd/system/empiieros-apply-install-clock.service "$dest_want"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    chown 0:0 "$dest_bin" "$dest_unit" || die "failed to chown install-clock plant"
+  fi
+  [[ -x "$dest_bin" && ! -L "$dest_bin" ]] || die "planted install-clock helper missing"
+  [[ -f "$dest_unit" && ! -L "$dest_unit" ]] || die "planted install-clock unit missing"
+  [[ -L "$dest_want" ]] || die "planted install-clock unit not enabled"
+  log "planted install-clock first-boot apply"
+}
+
+refuse_live_or_mounted_disk() {
+  local d="$1" root_src="" root_disk="" mounts="" line src
+  if command -v findmnt >/dev/null 2>&1; then
+    root_src="$(findmnt -n -o SOURCE / 2>/dev/null || true)"
+  else
+    root_src="$(awk '$2=="/"{print $1; exit}' /proc/mounts 2>/dev/null || true)"
+  fi
+  if [[ -n "$root_src" ]]; then
+    if command -v lsblk >/dev/null 2>&1; then
+      root_disk="$(lsblk -no PKNAME "$root_src" 2>/dev/null | head -n1 || true)"
+    fi
+    if [[ -n "$root_disk" && "/dev/${root_disk}" == "$d" ]]; then
+      die "refusing wipe of live/root disk $d"
+    fi
+    case "$root_src" in
+      "$d"|"${d}"p[0-9]*|"${d}"[0-9]*) die "refusing wipe of live/root disk $d" ;;
+    esac
+    [[ "$root_src" == "$d"* ]] && die "refusing wipe of live/root disk $d (root=$root_src)"
+  fi
+  if command -v lsblk >/dev/null 2>&1; then
+    mounts="$(lsblk -nr -o MOUNTPOINT "$d" 2>/dev/null | awk 'NF' || true)"
+  else
+    while IFS= read -r line; do
+      src="${line%% *}"
+      case "$src" in
+        "$d"|"${d}"p[0-9]*|"${d}"[0-9]*) mounts="yes" ;;
+      esac
+    done </proc/mounts
+  fi
+  [[ -z "$mounts" ]] || die "refusing wipe of mounted disk $d"
+}
+
+require_disk_tools() {
+  local miss=() c
+  for c in sfdisk mkfs.vfat mkfs.ext4 partprobe tar gzip mount umount cryptsetup; do
+    command -v "$c" >/dev/null 2>&1 || miss+=("$c")
+  done
+  command -v grub-install >/dev/null 2>&1 || command -v grub2-install >/dev/null 2>&1 || miss+=("grub-install")
+  [[ ${#miss[@]} -eq 0 ]] || die "missing tools: ${miss[*]}"
+}
+
+grub_install_bin() {
+  command -v grub-install >/dev/null 2>&1 && { echo grub-install; return; }
+  echo grub2-install
+}
+
+release_installer_mounts() {
+  umount "$MNT/var/lib/empiieros-runtime" 2>/dev/null || true
+  umount -l "$MNT/var/lib/empiieros-runtime" 2>/dev/null || true
+  close_state_luks
+  umount "$MNT/proc" 2>/dev/null || true
+  umount -l "$MNT/proc" 2>/dev/null || true
+  umount "$MNT/dev" 2>/dev/null || true
+  umount -l "$MNT/dev" 2>/dev/null || true
+  umount "$MNT/boot/efi" 2>/dev/null || true
+  umount "$MNT" 2>/dev/null || true
+  umount -l "$MNT/boot/efi" 2>/dev/null || true
+  umount -l "$MNT" 2>/dev/null || true
+}
+
+# Fresh BR extract has no device nodes — chroot ssh-keygen MUST see host /dev+/proc.
+ensure_chroot_dev_proc() {
+  mkdir -p "$MNT/dev" "$MNT/proc"
+  if ! mountpoint -q "$MNT/dev"; then
+    mount --bind /dev "$MNT/dev" || die "mount --bind /dev → $MNT/dev failed"
+  fi
+  [[ -c "$MNT/dev/null" ]] || die "no /dev/null after mount --bind /dev"
+  if ! mountpoint -q "$MNT/proc"; then
+    mount --bind /proc "$MNT/proc" || die "mount --bind /proc → $MNT/proc failed"
+  fi
+}
+
+release_chroot_dev_proc() {
+  umount -l "$MNT/dev" 2>/dev/null || true
+  umount -l "$MNT/proc" 2>/dev/null || true
+}
+
+generate_target_ssh_host_keys() {
+  log "ssh-keygen -A (target)"
+  rm -f "$MNT"/etc/ssh/ssh_host_*
+  mkdir -p "$MNT/etc/ssh"
+  # Primary: chroot into extracted root after bind /dev+/proc (unique keys on target tooling).
+  if [[ -x "$MNT/usr/bin/ssh-keygen" ]]; then
+    log "ssh-keygen path: chroot after mount --bind /dev+/proc"
+    ensure_chroot_dev_proc
+    if ! chroot "$MNT" /usr/bin/ssh-keygen -A; then
+      release_chroot_dev_proc
+      die "ssh-keygen -A failed"
+    fi
+    release_chroot_dev_proc
+  elif command -v ssh-keygen >/dev/null 2>&1; then
+    log "ssh-keygen path: live -A -f (fallback — target binary missing)"
+    ssh-keygen -A -f "$MNT" || die "ssh-keygen -A -f failed"
+  else
+    die "ssh-keygen missing on target and live"
+  fi
+  [[ -f "$MNT/etc/ssh/ssh_host_ed25519_key" || -f "$MNT/etc/ssh/ssh_host_rsa_key" ]] \
+    || die "no ssh host keys after ssh-keygen -A"
+}
+
+provision_target_operator_key() {
+  local source=""
+  for source in \
+    /etc/eliteew-trusted-substrate/operator_authorized_keys \
+    /home/eliteew-ts/.ssh/authorized_keys; do
+    [[ -s "$source" ]] && break
+    source=""
+  done
+
+  if [[ -z "$source" ]]; then
+    log "operator SSH key not provisioned; sshd remains masked"
+    return 0
+  fi
+  if ! awk '
+    /^[[:space:]]*($|#)/ { next }
+    $1 ~ /^(ssh-ed25519|sk-ssh-ed25519@openssh[.]com|ecdsa-sha2-nistp(256|384|521)|sk-ecdsa-sha2-nistp256@openssh[.]com|ssh-rsa)$/ &&
+      $2 ~ /^[A-Za-z0-9+\/=]+$/ { valid += 1; next }
+    { invalid = 1 }
+    END { exit !(valid > 0 && invalid == 0) }
+  ' "$source"; then
+    die "operator authorized_keys has no supported public key"
+  fi
+
+  install -d -m 0700 -o 106 -g 114 "$MNT/home/empiieros-maint/.ssh"
+  install -m 0600 -o 106 -g 114 \
+    "$source" "$MNT/home/empiieros-maint/.ssh/authorized_keys"
+  if [[ -L "$MNT/etc/systemd/system/sshd.service" ]] \
+    && [[ "$(readlink "$MNT/etc/systemd/system/sshd.service")" == "/dev/null" ]]; then
+    rm -f "$MNT/etc/systemd/system/sshd.service"
+  fi
+  mkdir -p "$MNT/etc/systemd/system/multi-user.target.wants"
+  if [[ -f "$MNT/usr/lib/systemd/system/sshd.service" ]]; then
+    ln -sfn ../../../../usr/lib/systemd/system/sshd.service \
+      "$MNT/etc/systemd/system/multi-user.target.wants/sshd.service"
+  elif [[ -f "$MNT/lib/systemd/system/sshd.service" ]]; then
+    ln -sfn ../../../../lib/systemd/system/sshd.service \
+      "$MNT/etc/systemd/system/multi-user.target.wants/sshd.service"
+  else
+    die "operator key exists but sshd.service is missing"
+  fi
+  log "operator SSH public key provisioned; key-only sshd enabled"
+}
+
+
+# util-linux only — BusyBox blkid -s/-o poisons PARTUUID.
+read_uuid_field() {
+  local dev="$1" field="$2" raw="" link
+  if command -v lsblk >/dev/null 2>&1; then
+    raw="$(lsblk -n -o "$field" "$dev" 2>/dev/null | head -n1 | tr -d '[:space:]')"
+  fi
+  if [[ -z "$raw" && "$field" == "PARTUUID" ]]; then
+    for link in /dev/disk/by-partuuid/*; do
+      [[ -e "$link" ]] || continue
+      if [[ "$(readlink -f "$link" 2>/dev/null || true)" == "$(readlink -f "$dev" 2>/dev/null || true)" ]]; then
+        raw="${link##*/}"
+        break
+      fi
+    done
+  fi
+  if [[ -z "$raw" && "$field" == "UUID" ]]; then
+    for link in /dev/disk/by-uuid/*; do
+      [[ -e "$link" ]] || continue
+      if [[ "$(readlink -f "$link" 2>/dev/null || true)" == "$(readlink -f "$dev" 2>/dev/null || true)" ]]; then
+        raw="${link##*/}"
+        break
+      fi
+    done
+  fi
+  [[ "$raw" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$ ]] \
+    || die "invalid $field for $dev (got: ${raw:-empty})"
+  printf '%s\n' "$raw"
+}
+
+write_grub_cfg() {
+  local mnt="$1" partuuid="$2" root_uuid="$3" cfg
+  mkdir -p "$mnt/boot/grub" "$mnt/boot/efi/EFI/BOOT" "$mnt/boot/efi/EFI/EliteEW"
+  cfg=$(cat <<EOF
+set default=0
+set timeout=3
+insmod part_gpt
+insmod ext2
+insmod fat
+insmod gzio
+insmod all_video
+menuentry "EliteEW Trusted Substrate" {
+    search --no-floppy --fs-uuid --set=root ${root_uuid}
+    linux /boot/bzImage root=PARTUUID=${partuuid} rootwait rw console=tty1
+}
+EOF
+)
+  printf '%s\n' "$cfg" >"$mnt/boot/grub/grub.cfg"
+  printf '%s\n' "$cfg" >"$mnt/boot/efi/EFI/BOOT/grub.cfg"
+  printf '%s\n' "$cfg" >"$mnt/boot/efi/EFI/EliteEW/grub.cfg"
+}
+
+# --- live GUI helpers (configure live only; never copied into target) ---
+
+cmd_network_dhcp() {
+  require_live_media
+  local iface=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --iface) iface="$2"; shift 2 ;;
+      *) die "unknown network-dhcp arg: $1" ;;
+    esac
+  done
+  [[ -n "$iface" ]] || iface="$(select_installer_iface || true)"
+  [[ -n "$iface" ]] || die "no network interface"
+  allow_iface "$iface"
+  clear_installer_wifi_config
+  mkdir -p "$NETWORK_DIR"
+  clear_installer_network_configs
+  cat >"${NETWORK_DIR}/20-eliteew-ts-install-${iface}.network" <<EOF
+[Match]
+Name=${iface}
+
+[Network]
+DHCP=ipv4
+IPv6AcceptRA=no
+
+[Link]
+RequiredForOnline=no
+EOF
+  command -v networkctl >/dev/null 2>&1 || die "networkctl unavailable"
+  networkctl reload || die "networkctl reload failed"
+  networkctl reconfigure "$iface" || die "networkctl reconfigure failed for $iface"
+  wait_for_ipv4 "$iface" || die "DHCP profile staged but no IPv4 lease observed on $iface"
+  rm -f -- "$STATIC_OK_FILE"
+  log "network-dhcp: ${iface}"
+}
+
+cmd_network_static() {
+  require_live_media
+  local iface="" address="" gateway="" dns=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --iface) iface="$2"; shift 2 ;;
+      --address) address="$2"; shift 2 ;;
+      --gateway) gateway="$2"; shift 2 ;;
+      --dns) dns="$2"; shift 2 ;;
+      *) die "unknown arg: $1" ;;
+    esac
+  done
+  [[ -n "$iface" && -n "$address" ]] || die "iface and address required"
+  allow_iface "$iface"
+  valid_ipv4_cidr "$address" || die "invalid IPv4 CIDR: $address"
+  [[ -z "$gateway" ]] || valid_ipv4 "$gateway" || die "invalid IPv4 gateway: $gateway"
+  [[ -z "$dns" ]] || valid_ipv4 "$dns" || die "invalid IPv4 DNS server: $dns"
+  refuse_polygon_lab_address "$address"
+  refuse_polygon_lab_address "$gateway"
+  clear_installer_wifi_config
+  mkdir -p "$NETWORK_DIR"
+  clear_installer_network_configs
+  {
+    echo "[Match]"
+    echo "Name=${iface}"
+    echo
+    echo "[Network]"
+    echo "DHCP=no"
+    echo "Address=${address}"
+    [[ -n "$gateway" ]] && echo "Gateway=${gateway}"
+    [[ -n "$dns" ]] && echo "DNS=${dns}"
+    echo "IPv6AcceptRA=no"
+    echo
+    echo "[Link]"
+    echo "RequiredForOnline=no"
+  } >"${NETWORK_DIR}/20-eliteew-ts-install-${iface}.network"
+  command -v networkctl >/dev/null 2>&1 || die "networkctl unavailable"
+  networkctl reload || die "networkctl reload failed"
+  networkctl reconfigure "$iface" || die "networkctl reconfigure failed for $iface"
+  ip -4 -o address show dev "$iface" scope global 2>/dev/null \
+    | awk -v expected="$address" '
+        $0 ~ (" inet " expected "([[:space:]]|$)") { found = 1 }
+        END { exit !found }
+      ' || die "static profile staged but address $address was not observed on $iface"
+  mkdir -p "$INSTALL_STATE_DIR"
+  chmod 0700 "$INSTALL_STATE_DIR"
+  : >"$STATIC_OK_FILE"
+  chmod 0600 "$STATIC_OK_FILE"
+  log "network-static: ${iface} ${address}"
+}
+
+cmd_wifi_scan() {
+  require_live_media
+  local iface=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --iface) iface="$2"; shift 2 ;;
+      *) die "unknown wifi-scan arg: $1" ;;
+    esac
+  done
+  [[ -n "$iface" ]] || die "wifi-scan requires --iface"
+  allow_iface "$iface"
+  [[ -d "/sys/class/net/${iface}/wireless" || -d "/sys/class/net/${iface}/phy80211" ]] \
+    || die "$iface is not a Wi-Fi interface"
+  command -v iw >/dev/null 2>&1 || die "iw unavailable"
+  rfkill unblock wifi >/dev/null 2>&1 || true
+  iw dev "$iface" scan
+}
+
+cmd_network_wifi() {
+  require_live_media
+  local iface="" ssid="" country="00" allow_open=0 psk="" escaped_ssid escaped_psk
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --iface) iface="$2"; shift 2 ;;
+      --ssid) ssid="$2"; shift 2 ;;
+      --country) country="$2"; shift 2 ;;
+      --allow-open) allow_open=1; shift ;;
+      *) die "unknown network-wifi arg: $1" ;;
+    esac
+  done
+  [[ -n "$iface" && -n "$ssid" ]] || die "network-wifi requires --iface and --ssid"
+  allow_iface "$iface"
+  [[ -d "/sys/class/net/${iface}/wireless" || -d "/sys/class/net/${iface}/phy80211" ]] \
+    || die "$iface is not a Wi-Fi interface"
+  [[ ${#ssid} -ge 1 && ${#ssid} -le 32 && "$ssid" != *$'\n'* && "$ssid" != *$'\r'* ]] \
+    || die "SSID must be 1..32 bytes without control newlines"
+  valid_wifi_country "$country" || die "country must be 00 or two uppercase letters"
+  IFS= read -r psk || psk=""
+  if [[ -n "$psk" ]]; then
+    valid_wifi_psk "$psk" \
+      || die "Wi-Fi passphrase must be 8..63 printable ASCII characters"
+  elif [[ "$allow_open" -ne 1 ]]; then
+    die "Wi-Fi passphrase is required unless open network was explicitly selected"
+  fi
+
+  mkdir -p "$NETWORK_DIR" "$WPA_DIR" "$INSTALL_STATE_DIR"
+  chmod 0700 "$WPA_DIR" "$INSTALL_STATE_DIR"
+  clear_installer_network_configs
+  clear_installer_wifi_config
+  cat >"${NETWORK_DIR}/20-eliteew-ts-install-${iface}.network" <<EOF
+[Match]
+Name=${iface}
+
+[Network]
+DHCP=ipv4
+IPv6AcceptRA=no
+
+[Link]
+RequiredForOnline=no
+EOF
+  escaped_ssid="$(escape_wpa_string "$ssid")"
+  escaped_psk="$(escape_wpa_string "$psk")"
+  # Same recipe as Runtime wifi_control: this image's wpa_supplicant
+  # rejects `ctrl_interface=` and `SAE`. Mixed WPA2/WPA3 APs still
+  # accept WPA-PSK. Never log the PSK.
+  command -v rfkill >/dev/null 2>&1 && rfkill unblock wifi >/dev/null 2>&1 || true
+  {
+    printf 'update_config=0\ncountry=%s\n\n' "$country"
+    printf 'network={\n    ssid="%s"\n    scan_ssid=1\n' "$escaped_ssid"
+    if [[ -n "$psk" ]]; then
+      printf '    psk="%s"\n    key_mgmt=WPA-PSK\n' "$escaped_psk"
+    else
+      printf '    key_mgmt=NONE\n'
+    fi
+    printf '}\n'
+  } >"${WPA_DIR}/wpa_supplicant-${iface}.conf"
+  chmod 0600 "${WPA_DIR}/wpa_supplicant-${iface}.conf"
+  [[ -s "${WPA_DIR}/wpa_supplicant-${iface}.conf" ]] \
+    || die "Wi-Fi profile write produced an empty file"
+  grep -Fq "ssid=\"${escaped_ssid}\"" "${WPA_DIR}/wpa_supplicant-${iface}.conf" \
+    || die "Wi-Fi profile missing requested SSID"
+  printf '%s\n' "$iface" >"$WIFI_INTERFACE_FILE"
+  chmod 0600 "$WIFI_INTERFACE_FILE"
+
+  networkctl reload || die "networkctl reload failed"
+  log "network-wifi: associating iface=${iface} ssid=${ssid}"
+  start_installer_wifi_unit "$iface"
+  networkctl reconfigure "$iface" || die "networkctl reconfigure failed for $iface"
+  local attempt associated=0
+  for ((attempt = 0; attempt < 40; attempt++)); do
+    if iw dev "$iface" link 2>/dev/null \
+      | awk -v expected="$ssid" '
+          /^[[:space:]]*SSID:[[:space:]]/ {
+            sub(/^[[:space:]]*SSID:[[:space:]]*/, "")
+            if ($0 == expected) found = 1
+          }
+          END { exit !found }
+        '; then
+      associated=1
+      break
+    fi
+    sleep 0.5
+  done
+  if [[ "$associated" -ne 1 ]]; then
+    local link
+    link="$(iw dev "$iface" link 2>/dev/null | tr '\n' ' ' | head -c 180)"
+    die "SSID '${ssid}' on ${iface} was not observed (${link:-not connected})"
+  fi
+  ip -4 addr flush dev "$iface" scope global >/dev/null 2>&1 || true
+  networkctl reconfigure "$iface" >/dev/null 2>&1 || true
+  wait_for_ipv4 "$iface" || die "Wi-Fi associated but no IPv4 lease was observed"
+  log "network-wifi: ${iface} ssid=${ssid}"
+}
+
+cmd_regional() {
+  require_live_media
+  local locale="" timezone="" wall_clock=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --locale) locale="$2"; shift 2 ;;
+      --timezone) timezone="$2"; shift 2 ;;
+      --datetime) wall_clock="$2"; shift 2 ;;
+      *) die "unknown regional arg: $1" ;;
+    esac
+  done
+  valid_locale "$locale" || die "unsupported locale: $locale"
+  valid_timezone "$timezone" || die "unsupported timezone: $timezone"
+  valid_wall_clock "$wall_clock" || die "datetime must be YYYY-MM-DD HH:MM"
+  mkdir -p "$INSTALL_STATE_DIR"
+  chmod 0700 "$INSTALL_STATE_DIR"
+  {
+    printf 'locale=%s\n' "$locale"
+    printf 'timezone=%s\n' "$timezone"
+    printf 'datetime=%s\n' "$wall_clock"
+  } >"$REGIONAL_FILE"
+  chmod 0600 "$REGIONAL_FILE"
+  systemctl stop systemd-timesyncd.service >/dev/null 2>&1 || true
+  timedatectl set-ntp false >/dev/null 2>&1 || true
+  if command -v timedatectl >/dev/null 2>&1; then
+    timedatectl set-timezone "$timezone" >/dev/null 2>&1 \
+      || ln -sfn "/usr/share/zoneinfo/${timezone}" /etc/localtime
+  else
+    ln -sfn "/usr/share/zoneinfo/${timezone}" /etc/localtime
+    printf '%s\n' "$timezone" >/etc/timezone
+  fi
+  TZ="$timezone" date -s "$wall_clock" >/dev/null \
+    || die "failed to set live wall clock"
+  if command -v hwclock >/dev/null 2>&1; then
+    if hwclock --systohc --utc >/dev/null 2>&1; then
+      log "regional: hwclock systohc utc ok"
+    else
+      log "regional: hwclock systohc failed; first-boot stamp remains SoT"
+    fi
+  else
+    log "regional: hwclock missing; first-boot stamp remains SoT"
+  fi
+  log "regional: locale=${locale} timezone=${timezone} datetime=${wall_clock}"
+}
+
+cmd_reboot() {
+  require_live_media
+  # Teardown contract (after GUI stopped labwc): sync → umount leftovers → reboot.
+  log "reboot: sync"
+  sync
+  log "reboot: umount installer mounts"
+  release_installer_mounts
+  umount -R /mnt/eliteew-ts-install 2>/dev/null || true
+  umount -R /mnt/eliteew-ts-repair 2>/dev/null || true
+  sync
+  log "reboot: systemctl reboot"
+  systemctl reboot || reboot -f
+}
+
+# --- disk-install (minimal contract) ---
+
+cmd_disk_install() {
+  require_live_media
+  local disk="" expected_identity="" observed_identity="" commit=0 p1 p2 p3 grubbin partuuid root_uuid
+  local recovery="" luks_uuid="" tpm="no"
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --disk) disk="$2"; shift 2 ;;
+      --expected-identity) expected_identity="$2"; shift 2 ;;
+      --commit) commit=1; shift ;;
+      --dry-run) commit=0; shift ;;
+      *) die "unknown arg: $1" ;;
+    esac
+  done
+  [[ -n "$disk" ]] || die "--disk required"
+  [[ -n "$expected_identity" ]] || die "--expected-identity required"
+  allow_disk "$disk"
+  observed_identity="$(disk_identity "$disk" || true)"
+  [[ "$observed_identity" == "$expected_identity" ]] \
+    || die "disk identity changed after selection; refusing wipe"
+  local disk_sectors
+  disk_sectors="$(cat "/sys/class/block/${disk##*/}/size")"
+  [[ "$disk_sectors" =~ ^[0-9]+$ && "$disk_sectors" -ge 16777216 ]] \
+    || die "target disk is smaller than 8 GiB"
+  [[ "$commit" -eq 1 ]] && release_installer_mounts
+  refuse_live_or_mounted_disk "$disk"
+  verify_install_proof
+
+  if [[ "$commit" -ne 1 ]]; then
+    log "dry-run: would wipe $disk and extract $ROOTFS_ARCHIVE"
+    echo "dry-run: would install onto $disk"
+    exit 0
+  fi
+
+  require_disk_tools
+  verify_rootfs_archive
+  verify_install_proof
+  require_install_clock_sources
+  require_idp_date_runtime
+  require_portal_up
+  require_seat_shell
+  require_seat_time_helper
+  require_state_unlock_agent
+
+  # 1–2. wipe + GPT (ESP + root + state) — wipe must succeed (no silent continue)
+  log "wipe + partition $disk"
+  if command -v wipefs >/dev/null 2>&1; then
+    wipefs -a "$disk" || die "wipefs failed on $disk"
+  else
+    dd if=/dev/zero of="$disk" bs=1M count=4 status=none conv=fsync \
+      || die "dd wipe header failed on $disk"
+  fi
+  write_gpt_esp_root_state "$disk"
+  partprobe "$disk" || die "kernel partition-table reread failed on $disk"
+  udevadm settle --timeout=10 || die "partition devices did not settle"
+  p1="$(disk_part "$disk" 1)"
+  p2="$(disk_part "$disk" 2)"
+  p3="$(disk_part "$disk" 3)"
+  [[ -b "$p1" && -b "$p2" && -b "$p3" ]] || die "partitions missing after sfdisk"
+
+  # 3. mkfs ESP/root only. LUKS waits until the extracted target has cryptsetup.
+  log "mkfs $p1 $p2"
+  mkfs.vfat -F32 -n ELITEEWESP "$p1" || die "EFI filesystem creation failed"
+  mkfs.ext4 -F -L eliteew-root "$p2" || die "root filesystem creation failed"
+
+  # 4. mount + extract reference archive (BusyBox tar: no -z)
+  mkdir -p "$MNT"
+  trap 'release_installer_mounts' EXIT
+  mount "$p2" "$MNT" || die "root filesystem mount failed"
+  mkdir -p "$MNT/boot/efi"
+  mount "$p1" "$MNT/boot/efi" || die "EFI filesystem mount failed"
+  log "extract $ROOTFS_ARCHIVE"
+  # Heartbeats on stdout while gzip|tar is silent — GUI progress + log stay alive.
+  (
+    while true; do
+      sleep 3
+      log "extract … still running" || true
+    done
+  ) &
+  _extract_hb=$!
+  if ! gzip -dc "$ROOTFS_ARCHIVE" | tar -C "$MNT" -x; then
+    kill "${_extract_hb}" 2>/dev/null || true
+    wait "${_extract_hb}" 2>/dev/null || true
+    die "rootfs extract failed"
+  fi
+  kill "${_extract_hb}" 2>/dev/null || true
+  wait "${_extract_hb}" 2>/dev/null || true
+  log "extract complete"
+  [[ -f "$MNT/boot/bzImage" ]] || die "extract incomplete: missing boot/bzImage"
+  [[ -e "$MNT/sbin/init" || -e "$MNT/usr/lib/systemd/systemd" || -e "$MNT/lib/systemd/systemd" ]] \
+    || die "extract incomplete: no init/systemd"
+  # Archive must not carry live-only stamps (session-router).
+  rm -f "$MNT/etc/sudoers.d/eliteew-ts-installer"
+  rm -f "$MNT/etc/eliteew-trusted-substrate/live-installer"
+  mkdir -p "$MNT/etc/eliteew-trusted-substrate"
+  # Live GUI installer stays on USB root; strip from installed metal (C4).
+  rm -f "$MNT/usr/local/bin/eliteew-ts-installer"
+  rm -f "$MNT/usr/local/bin/eliteew-ts-installer-session"
+  rm -rf "$MNT/usr/local/share/eliteew-ts-installer"
+  # Defense: kiosk must never own multi-user (agetty + bash_profile path).
+  rm -f "$MNT/etc/systemd/system/multi-user.target.wants/eliteew-ts-kiosk.service"
+
+  if [[ ! -x "$MNT/usr/sbin/cryptsetup" && ! -x "$MNT/sbin/cryptsetup" ]]; then
+    die "target rootfs has no cryptsetup; refuse to lock state (need BR2_PACKAGE_CRYPTSETUP bake)"
+  fi
+  recovery="$(resolve_state_recovery)" || die "state recovery resolve failed"
+  format_state_luks "$p3" "$recovery"
+  open_state_luks "$p3" "$recovery"
+  mkfs.ext4 -F -L eliteew-state "/dev/mapper/${STATE_MAPPER}" \
+    || die "state filesystem creation failed"
+  if enroll_state_tpm "$p3" "$recovery"; then
+    tpm=yes
+  fi
+  luks_uuid="$(cryptsetup luksUUID "$p3" | tr -d '[:space:]')"
+  [[ "$luks_uuid" =~ ^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$ ]] \
+    || die "state LUKS UUID is malformed"
+  mkdir -p "$MNT/var/lib/empiieros-runtime"
+  mount "/dev/mapper/${STATE_MAPPER}" "$MNT/var/lib/empiieros-runtime" \
+    || die "state volume mount failed"
+  chmod 0700 "$MNT/var/lib/empiieros-runtime"
+  write_target_state_unlock "$MNT" "$luks_uuid" "$tpm"
+  issue_state_recovery_reveal "$recovery"
+  rm -f -- "${INSTALL_STATE_DIR}/state-recovery-input"
+  recovery=""
+
+  # Propagate installer network configuration to installed OS.
+  # DHCP stays on image 20-wired.network — a 10- override freezes the
+  # install-time address and blocks cable DHCP after first boot.
+  mkdir -p "$MNT/etc/systemd/network"
+  local netcfg copied_net=0
+  rm -f "$MNT"/etc/systemd/network/10-eliteew-ts-install-*.network
+  if [[ ! -f "$STATIC_OK_FILE" ]]; then
+    log "no operator-static this session; skip 10- persist"
+  else
+  for netcfg in "$NETWORK_DIR"/20-eliteew-ts-install-*.network; do
+    if [[ -f "$netcfg" ]]; then
+      local bname
+      bname="$(basename "$netcfg")"
+      if installer_profile_is_dhcp "$netcfg"; then
+        log "DHCP installer profile $bname: skip 10- persist; target keeps 20-wired.network"
+        continue
+      fi
+      refuse_polygon_lab_address "$(cat "$netcfg")"
+      log "copying network configuration $bname to target OS as 10-${bname#20-}"
+      persist_installer_network_profile "$netcfg" "$MNT/etc/systemd/network/10-${bname#20-}"
+      copied_net=1
+    fi
+  done
+  fi
+  if [[ "$copied_net" -eq 1 ]]; then
+    local copied_count
+    copied_count="$(find "$MNT/etc/systemd/network" -maxdepth 1 -type f -name '10-eliteew-ts-install-*.network' | wc -l)"
+    [[ "$copied_count" -eq 1 ]] || die "expected exactly one persisted installer network config, got $copied_count"
+    log "installer network configuration successfully persisted to target"
+  else
+    log "no installer network configuration found; keeping default network configuration"
+  fi
+
+  plant_installed_wifi_unit
+  plant_install_clock
+  plant_idp_date_runtime
+  plant_ota_cutover_rw
+  plant_portal_up
+  plant_ota_fetch
+  plant_seat_shell
+  plant_seat_time_helper
+  plant_target_console_policy
+  plant_target_state_unlock_agent
+
+  # Persist an installer-created Wi-Fi profile without exposing its passphrase
+  # in argv or the installer log. The boot restore service validates 0600/root.
+  if [[ -f "$WIFI_INTERFACE_FILE" ]]; then
+    local wifi_iface wifi_source wifi_target
+    wifi_iface="$(cat "$WIFI_INTERFACE_FILE")"
+    allow_iface "$wifi_iface"
+    wifi_source="${WPA_DIR}/wpa_supplicant-${wifi_iface}.conf"
+    [[ -f "$wifi_source" && ! -L "$wifi_source" ]] \
+      || die "staged Wi-Fi profile is missing or unsafe"
+    mkdir -p "$MNT/etc/wpa_supplicant"
+    chmod 0700 "$MNT/etc/wpa_supplicant"
+    wifi_target="$MNT/etc/wpa_supplicant/wpa_supplicant-${wifi_iface}.conf"
+    install -m 0600 -o 0 -g 0 "$wifi_source" "$wifi_target"
+    log "installer Wi-Fi profile persisted for ${wifi_iface}"
+  fi
+
+  # Regional settings are selected before installation and applied to the
+  # installed system, not merely to the live session.
+  local install_locale="ru_RU.UTF-8" install_timezone="Europe/Moscow"
+  local install_datetime=""
+  if [[ -f "$REGIONAL_FILE" && ! -L "$REGIONAL_FILE" ]]; then
+    install_locale="$(awk -F= '$1=="locale" {print substr($0,8); exit}' "$REGIONAL_FILE")"
+    install_timezone="$(awk -F= '$1=="timezone" {print substr($0,10); exit}' "$REGIONAL_FILE")"
+    install_datetime="$(awk -F= '$1=="datetime" {print substr($0,10); exit}' "$REGIONAL_FILE")"
+  fi
+  valid_locale "$install_locale" || die "invalid staged locale"
+  valid_timezone "$install_timezone" || die "invalid staged timezone"
+  [[ -n "$install_datetime" ]] || die "staged wall clock missing"
+  valid_wall_clock "$install_datetime" || die "invalid staged wall clock"
+  # Live clock was set at Regional and has been ticking. Stamp that
+  # current minute, not the original form value from an hour ago.
+  live_now="$(TZ="$install_timezone" date +%Y-%m-%d\ %H:%M)" || true
+  if valid_wall_clock "$live_now"; then
+    install_datetime="$live_now"
+  fi
+  printf 'LANG=%s\n' "$install_locale" >"$MNT/etc/locale.conf"
+  printf '%s\n' "$install_timezone" >"$MNT/etc/timezone"
+  ln -sfn "/usr/share/zoneinfo/${install_timezone}" "$MNT/etc/localtime"
+  mkdir -p "$MNT/etc/empiieros"
+  printf '%s\n' "$install_datetime" >"$MNT/etc/empiieros/install-wall-clock"
+  chmod 0644 "$MNT/etc/empiieros/install-wall-clock"
+  log "target wall clock stamp=${install_datetime} timezone=${install_timezone}"
+  if [[ "$install_locale" == ru_* ]]; then
+    printf 'ru\n' >"$MNT/etc/empiieros/ui-locale"
+  else
+    printf 'en\n' >"$MNT/etc/empiieros/ui-locale"
+  fi
+  chmod 0644 \
+    "$MNT/etc/locale.conf" \
+    "$MNT/etc/timezone" \
+    "$MNT/etc/empiieros/ui-locale"
+  log "regional settings persisted: locale=${install_locale} timezone=${install_timezone}"
+  mkdir -p "$MNT/etc/systemd/timesyncd.conf.d"
+  cat >"$MNT/etc/systemd/timesyncd.conf.d/00-no-public-ntp.conf" <<'EOF'
+[Time]
+NTP=
+FallbackNTP=
+EOF
+  chmod 0644 "$MNT/etc/systemd/timesyncd.conf.d/00-no-public-ntp.conf"
+  rm -f "$MNT/etc/systemd/system/sysinit.target.wants/systemd-timesyncd.service"
+  ln -sfn /dev/null "$MNT/etc/systemd/system/systemd-timesyncd.service"
+  log "target timesyncd masked; public NTP empty"
+
+  issue_target_first_boot_pin "$MNT"
+  issue_target_device_keys "$MNT"
+
+  # 5. unique SSH host keys on target (never bake into rootfs.tar.gz)
+  generate_target_ssh_host_keys
+  provision_target_operator_key
+
+  # 6. bootloader (live grub-install → target ESP; archive has no grub-install)
+  partuuid="$(read_uuid_field "$p2" PARTUUID)"
+  root_uuid="$(read_uuid_field "$p2" UUID)"
+  grubbin="$(grub_install_bin)"
+  log "grub-install $disk"
+  mkdir -p "$MNT/boot/efi" "$MNT/boot/grub"
+  "$grubbin" --target=x86_64-efi \
+    --efi-directory="$MNT/boot/efi" \
+    --boot-directory="$MNT/boot" \
+    --bootloader-id=EliteEW \
+    --recheck \
+    --removable \
+    "$disk" || die "grub-install failed"
+  write_grub_cfg "$MNT" "$partuuid" "$root_uuid"
+  if [[ -f "$MNT/boot/efi/EFI/EliteEW/grubx64.efi" ]]; then
+    cp -a "$MNT/boot/efi/EFI/EliteEW/grubx64.efi" "$MNT/boot/efi/EFI/BOOT/BOOTX64.EFI" 2>/dev/null || true
+  elif [[ -f "$MNT/boot/efi/EFI/BOOT/grubx64.efi" && ! -f "$MNT/boot/efi/EFI/BOOT/BOOTX64.EFI" ]]; then
+    cp -a "$MNT/boot/efi/EFI/BOOT/grubx64.efi" "$MNT/boot/efi/EFI/BOOT/BOOTX64.EFI" 2>/dev/null || true
+  fi
+
+  verify_target_install_contract "$MNT" "$install_locale" "$install_timezone"
+  touch "$MNT$COMPLETE_FLAG"
+
+  # 7. sync + umount
+  sync
+  trap - EXIT
+  release_installer_mounts
+  log "disk-install complete"
+  echo "install complete on $disk"
+}
+
+# Print the live-session PIN to stdout only. Never log the digits.
+cmd_pin_reveal() {
+  local reveal="${INSTALL_STATE_DIR}/first-boot-pin"
+  local pin
+  [[ -f "$reveal" && ! -L "$reveal" ]] || die "first-boot PIN reveal missing"
+  pin="$(tr -d '\r\n' <"$reveal")"
+  [[ "$pin" =~ ^[0-9]{4}$ ]] || die "first-boot PIN reveal is malformed"
+  printf '%s\n' "$pin"
+}
+
+# Print the live-session state recovery to stdout only. Never log it.
+cmd_recovery_reveal() {
+  local reveal="${INSTALL_STATE_DIR}/state-recovery"
+  local recovery
+  [[ -f "$reveal" && ! -L "$reveal" ]] || die "state recovery reveal missing"
+  recovery="$(tr -d '\r\n' <"$reveal")"
+  valid_state_unlock_secret "$recovery" || die "state recovery reveal is malformed"
+  printf '%s\n' "$recovery"
+}
+
+main() {
+  [[ $# -ge 1 ]] || die "usage: eliteew-ts-install-apply <regional|live-network-forget|network-dhcp|network-static|wifi-scan|network-wifi|disk-install|state-recovery-stage|pin-reveal|recovery-reveal|reboot> …"
+  local cmd="$1"
+  shift
+  case "$cmd" in
+    regional) cmd_regional "$@" ;;
+    live-network-forget) cmd_live_network_forget "$@" ;;
+    network-dhcp) cmd_network_dhcp "$@" ;;
+    network-static) cmd_network_static "$@" ;;
+    wifi-scan) cmd_wifi_scan "$@" ;;
+    network-wifi) cmd_network_wifi "$@" ;;
+    disk-install) cmd_disk_install "$@" ;;
+    state-recovery-stage) cmd_state_recovery_stage "$@" ;;
+    pin-reveal) cmd_pin_reveal "$@" ;;
+    recovery-reveal) cmd_recovery_reveal "$@" ;;
+    reboot) cmd_reboot "$@" ;;
+    *) die "unknown command: $cmd" ;;
+  esac
+}
+
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+  main "$@"
+fi

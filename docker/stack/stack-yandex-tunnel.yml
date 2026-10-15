@@ -1,0 +1,115 @@
+# =============================================================================
+# EliteEW · Reverse SSH: хост с EliteEW (punisher) → VM в Yandex Cloud
+# =============================================================================
+# Схема: клиент → https://app.eliteew.ru (DNS → публичный IP VM)
+#        → nginx на VM → 127.0.0.1:29001 (app), 29000 (*.sites), 36000
+#        → обратный SSH (-R) на хост, где слушает stack0 frontend / Keycloak.
+#
+# Meet / Jitsi Web (signaling/UI): клиент → https://meet.eliteew.ru → nginx VM
+#        → 127.0.0.1:13402 → SSH -R на punisher:127.0.0.1:34002 (stack11-jitsi-web-elite HTTP).
+# Медиа JVB (RTP): обратные -R 13400 (UDP-over-TCP relay) и 13401 (TCP harvester) → punisher
+#        127.0.0.1:34000/34001; на VM публичные 0.0.0.0:13400/udp и :13401/tcp — socat (deploy script).
+#        JITSI_JVB_ADVERTISE_IPS: <YANDEX_VM_IP>#13400,<YANDEX_VM_IP>#13401 (+ LAN при необходимости).
+#
+# Запуск из корня репозитория (рекомендуется — подставит ключ из ~/.ssh или keys/):
+#   bash docker/scripts/yandex-tunnel/compose-up.sh
+# Или вручную: задай в docker/env_file/.env.yandex-tunnel абсолютный YANDEX_TUNNEL_KEY_PATH (например $HOME/.ssh/id_ed25519), затем:
+#   docker compose -f docker/stack/stack-yandex-tunnel.yml --env-file docker/env_file/.env.yandex-tunnel up -d
+#
+# Проверка: bash docker/scripts/yandex-tunnel/check-yandex-tunnel.sh
+# Операторский гид: documentation/platform/docker-re_doc/YANDEX-VM-SSH-TUNNEL.md
+#
+# Риск `network_mode: host`: процесс видит сеть хоста (SSH-клиент слушает локально для -R).
+# Ограничивайте исходящее с хоста (nftables/firewalld): минимум TCP/22 к IP VM и нужным сервисам.
+# =============================================================================
+
+name: stack-yandex-tunnel
+
+services:
+  yandex-tunnel:
+    build:
+      context: ../..
+      dockerfile: docker/builders/yandex-tunnel/Dockerfile
+    image: eliteew-yandex-tunnel:${YANDEX_TUNNEL_IMAGE_TAG:-latest}
+    container_name: stack-yandex-tunnel
+    network_mode: host
+    environment:
+      - TZ=Asia/Vladivostok
+      - YANDEX_VM_IP=${YANDEX_VM_IP:?Set YANDEX_VM_IP in env file (see .env.yandex-tunnel.example)}
+      - YANDEX_TUNNEL_USER=${YANDEX_TUNNEL_USER:-tunnel}
+      - YANDEX_TUNNEL_PROXY=${YANDEX_TUNNEL_PROXY:-}
+      # JVB media reverse forwards (see yandex-tunnel-entrypoint.sh + deploy-jvb-media-relay-on-vm.sh)
+      - YANDEX_TUNNEL_JVB_MEDIA=${YANDEX_TUNNEL_JVB_MEDIA:-1}
+      - YANDEX_TUNNEL_JVB_RELAY_TCP_BIND=${YANDEX_TUNNEL_JVB_RELAY_TCP_BIND:-127.0.0.1}
+      - YANDEX_TUNNEL_JVB_RELAY_TCP_PORT=${YANDEX_TUNNEL_JVB_RELAY_TCP_PORT:-13400}
+      - YANDEX_TUNNEL_JVB_UDP_TARGET=${YANDEX_TUNNEL_JVB_UDP_TARGET:-127.0.0.1:34000}
+      - YANDEX_TUNNEL_JVB_UDP_REMOTE_PORT=${YANDEX_TUNNEL_JVB_UDP_REMOTE_PORT:-13400}
+      - YANDEX_TUNNEL_JVB_TCP_REMOTE_PORT=${YANDEX_TUNNEL_JVB_TCP_REMOTE_PORT:-13401}
+      - YANDEX_TUNNEL_JVB_TCP_TARGET_PORT=${YANDEX_TUNNEL_JVB_TCP_TARGET_PORT:-34001}
+    # :z — SELinux (Fedora/RHEL): иначе контейнер не читает ключ из $HOME (лог: Identity file /key not accessible).
+    volumes:
+      - ${YANDEX_TUNNEL_KEY_PATH:-../../keys/yandex_tunnel_key}:/key:ro,z
+      # Публичный host key VM — один раз: ssh-keyscan -H "$YANDEX_VM_IP" >> docker/data/stack-yandex-tunnel/known_hosts (не коммитить подмены).
+      - ${YANDEX_TUNNEL_KNOWN_HOSTS_PATH:-../../docker/data/stack-yandex-tunnel/known_hosts}:/ssh_known_hosts:ro,z
+    command:
+      - -M
+      - "0"
+      - -o
+      - "ServerAliveInterval=15"
+      - -o
+      - "ServerAliveCountMax=5"
+      - -o
+      - "TCPKeepAlive=yes"
+      - -o
+      - "StrictHostKeyChecking=yes"
+      - -o
+      - "UserKnownHostsFile=/ssh_known_hosts"
+      - -N
+      - -R
+      - "29001:127.0.0.1:29001"
+      # RESIDUAL / DANGEROUS RESERVE (DEWA–EWPower soft-retire): edge nginx power/dewa still may point here.
+      # Living Mobile OTA is NOT this mapping — prod-core local :29180 via Meet WG (see WG-HTTP-BACKHAUL / install-prodcore-tcp-proxy).
+      # Do not use 29180→.136:4180 as OTA canon; leave until operator removes edge vhosts (wontfix).
+      - -R
+      - "29173:192.168.1.136:4173"
+      - -R
+      - "29180:192.168.1.136:4180"
+      # Landing (eliteew.ru): edge → 127.0.0.1:29002 → prod-core landing artifact (not command-center).
+      - -R
+      - "29002:127.0.0.1:29002"
+      # Site Studio gateway (*.sites.eliteew.ru на edge nginx → 127.0.0.1:29000).
+      - -R
+      - "29000:127.0.0.1:29000"
+      - -R
+      - "36000:127.0.0.1:36000"
+      # Meet: HTTP к контейнеру jitsi/web (локально только 127.0.0.1:34002). На VM см. nginx meet vhost → 13402.
+      - -R
+      - "13402:127.0.0.1:34002"
+      # JVB: punisher socat TCP:13400 → UDP:34000; на VM UDP:13400 → TCP:127.0.0.1:13400 (см. deploy-jvb-media-relay-on-vm.sh).
+      - -R
+      - "${YANDEX_TUNNEL_JVB_UDP_REMOTE_PORT:-13400}:127.0.0.1:${YANDEX_TUNNEL_JVB_RELAY_TCP_PORT:-13400}"
+      # JVB TCP harvester (fallback ICE).
+      - -R
+      - "${YANDEX_TUNNEL_JVB_TCP_REMOTE_PORT:-13401}:127.0.0.1:${YANDEX_TUNNEL_JVB_TCP_TARGET_PORT:-34001}"
+      - -i
+      - /key
+      - ${YANDEX_TUNNEL_USER:-tunnel}@${YANDEX_VM_IP}
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+    restart: unless-stopped
+    labels:
+      - service=yandex-tunnel
+    healthcheck:
+      # В минимальном образе нет pgrep/ps; используем pidof.
+      test:
+        [
+          "CMD-SHELL",
+          "pidof autossh >/dev/null 2>&1 || pidof ssh >/dev/null 2>&1",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s

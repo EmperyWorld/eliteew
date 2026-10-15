@@ -1,0 +1,201 @@
+# =============================================================================
+# EliteEW · stack0 backend · prod-baked override (immutable API in image)
+# =============================================================================
+# Не затирает текущие stack0-*-prod: другие image tags и container_name.
+#
+# Запуск (из корня репо):
+#   podman compose \
+#     -f docker/stack/stack0_b.yml \
+#     -f docker/stack/stack0_b.prod-baked.override.yml \
+#     --env-file docker/env_file/.env.stack0.backend up -d
+#
+# Перед первым up задайте в env (см. .env.stack0.backend.prod-baked.example):
+#   STACK0_*_BAKED_IMAGE, STACK0_*_BAKED_CONTAINER_NAME, STACK0_PROD_BAKED_TAG
+#
+# Требует compose с поддержкой `!override` для списков (podman-compose 1.x / compose v2.24+).
+# =============================================================================
+
+services:
+  eliteew-api-prod:
+    image: ${STACK0_API_BAKED_IMAGE:?Set STACK0_API_BAKED_IMAGE}
+    container_name: ${STACK0_API_BAKED_CONTAINER_NAME:-stack0-eliteew-api-prod-baked}
+    volumes:
+      !override # start_all + lib must stay paired: start_all invokes scripts/lib/stack0_preflight.py
+      - ../../docker/builders/stack0-api/scripts/start_all.sh:/app/docker/scripts/start_all.sh:ro,z
+      - ../../docker/builders/stack0-api/scripts/lib:/app/docker/scripts/lib:ro,z
+      - ../../local/binaries:/app/mobile-release:ro,z
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../../site-templates/olenti:/app/site-templates/olenti:ro,z
+      - ../../docker/data/stack9/qwen3-tts/voice_contract.json:/app/qwen3-data/voice_contract.json:ro,z
+      - ../../docker/data/stack9/qwen3-tts/voice_profiles.json:/app/qwen3-data/voice_profiles.json:ro,z
+      - ../logs/stack0/eliteew-api-prod-baked:/logs:z
+      # Host egress monitor dir (prod-core owned) → Admin Platform ops egress tab.
+      # Absolute path: podman-compose on .111 does not expand ${VAR} in volume LHS.
+      - /home/owned/.local/state/eliteew:/run/eliteew/egress-state:ro,z
+    environment:
+      - BROWSER_RENDER_SERVICE_URL=${BROWSER_RENDER_SERVICE_URL:-http://stack0-eliteew-api-worker-prod-baked:8095}
+      - SCIENCE_STACK_SERVICE_URL=${SCIENCE_STACK_SERVICE_URL:-http://stack0-eliteew-api-worker-prod-baked:8096}
+      # Fallback hosts when *_SERVICE_URL is empty (unified_config defaults target non-baked name).
+      - BROWSER_RENDER_WORKER_HOST=${BROWSER_RENDER_WORKER_HOST:-stack0-eliteew-api-worker-prod-baked}
+      - SCIENCE_STACK_WORKER_HOST=${SCIENCE_STACK_WORKER_HOST:-stack0-eliteew-api-worker-prod-baked}
+      - ELITEEW_PODMAN_EGRESS_STATUS=/run/eliteew/egress-state/podman-egress-status.json
+
+  # Operator/CI one-shot on baked line (lib already in image; optional bind keeps host scripts fresh).
+  eliteew-api-preflight:
+    image: ${STACK0_API_BAKED_IMAGE:?Set STACK0_API_BAKED_IMAGE}
+    container_name: ${STACK0_API_PREFLIGHT_BAKED_CONTAINER_NAME:-stack0-eliteew-api-preflight-baked}
+    volumes: !override
+      - ../../docker/builders/stack0-api/scripts/lib:/app/docker/scripts/lib:ro,z
+      - ../logs/stack0/eliteew-api-preflight-baked:/logs:z
+
+  eliteew-api-worker-prod:
+    profiles: !override []
+    image: ${STACK0_QUEUE_WORKER_BAKED_IMAGE:?Set STACK0_QUEUE_WORKER_BAKED_IMAGE}
+    container_name: ${STACK0_QUEUE_WORKER_BAKED_CONTAINER_NAME:-stack0-eliteew-api-worker-prod-baked}
+    command:
+      ["/bin/bash", "-lc", "exec /app/docker/scripts/start_queue_worker.sh"]
+    volumes: !override
+      - ../../host/generated_files:/app/generated_files:z
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../data/stack2/airflow/dags:/airflow_dags
+      - ../logs/stack0/eliteew-api-worker-prod-baked:/logs:z
+
+  eliteew-site-studio-worker-prod:
+    image: ${STACK0_SITE_STUDIO_WORKER_BAKED_IMAGE:?Set STACK0_SITE_STUDIO_WORKER_BAKED_IMAGE}
+    container_name: ${STACK0_SITE_STUDIO_WORKER_BAKED_CONTAINER_NAME:-stack0-eliteew-site-studio-worker-prod-baked}
+    volumes: !override
+      - ../../site-templates/olenti:/app/site-templates/olenti:ro,z
+      - ../../host/runtime/user_site_studio:/opt/eliteew/host/runtime/user_site_studio:z
+      - ../../docker/scripts/site-edge-carrier-deploy.sh:/opt/eliteew/docker/scripts/site-edge-carrier-deploy.sh:ro,z
+      - ../../docker/builders/site-edge-carrier:/opt/eliteew/docker/builders/site-edge-carrier:z
+      - /home/owned/.ssh:/home/owned/.ssh:ro,z
+      - /usr/bin/ssh:/usr/bin/ssh:ro
+      - /usr/bin/scp:/usr/bin/scp:ro
+      - /usr/bin/rsync:/usr/bin/rsync:ro
+      - ../logs/stack0/eliteew-site-studio-worker-prod-baked:/logs:z
+      # prod-core rootless uid is 1000; podman-compose 1.x does not expand ${SITE_STUDIO_PODMAN_UID} in mounts.
+      - /run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock
+    environment:
+      - SITE_EDGE_CARRIER_SCRIPT=/opt/eliteew/docker/scripts/site-edge-carrier-deploy.sh
+      - HOME=/home/owned
+      # SSH uses HOME + bind .ssh. Podman uses XDG; do not bind host ~/.config.
+      - XDG_CONFIG_HOME=/var/lib/eliteew/xdg-config
+  # E0 (operator roadmap): split Celery planes so long companion/media jobs cannot
+  # starve agentic ticks or maintenance reapers (Vulnerability Map V-C1).
+  # General worker: short/maintenance/broadcast/reembed only.
+  # Agentic worker: ewa_agentic + ewa_agentic_step (long-doc multi-pass + expert).
+  # Companion worker: ewa_companion (long media/workflow jobs).
+  eliteew-celery-worker-prod:
+    profiles: !override []
+    image: ${STACK0_CELERY_WORKER_BAKED_IMAGE:?Set STACK0_CELERY_WORKER_BAKED_IMAGE}
+    container_name: ${STACK0_CELERY_WORKER_BAKED_CONTAINER_NAME:-stack0-eliteew-celery-worker-prod-baked}
+    command:
+      - python
+      - -m
+      - celery
+      - -A
+      - api.tasks.celery_app
+      - worker
+      - --loglevel=info
+      - -Q
+      - short,maintenance,broadcast,ewa_reembed
+      - --prefetch-multiplier=1
+      - --concurrency=${STACK0_CELERY_GENERAL_CONCURRENCY:-4}
+      - --hostname=worker@%h
+      - --max-tasks-per-child=100
+      - --time-limit=600
+      - --soft-time-limit=540
+    volumes: !override
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../logs/stack0/eliteew-celery-worker-prod-baked:/logs:z
+
+  eliteew-celery-agentic-worker-prod:
+    profiles: !override []
+    image: ${STACK0_CELERY_WORKER_BAKED_IMAGE:?Set STACK0_CELERY_WORKER_BAKED_IMAGE}
+    container_name: ${STACK0_CELERY_AGENTIC_WORKER_BAKED_CONTAINER_NAME:-stack0-eliteew-celery-agentic-worker-prod-baked}
+    command:
+      - python
+      - -m
+      - celery
+      - -A
+      - api.tasks.celery_app
+      - worker
+      - --loglevel=info
+      - -Q
+      - ewa_agentic,ewa_agentic_step,ewa_factory
+      - --prefetch-multiplier=1
+      - --concurrency=${STACK0_CELERY_AGENTIC_CONCURRENCY:-2}
+      - --hostname=agentic-worker@%h
+      - --max-tasks-per-child=100
+      # Long-doc compose: up to 4×90s LLM passes + expert ensemble; keep below companion 600s.
+      - --time-limit=960
+      - --soft-time-limit=900
+    volumes: !override
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../../documentation:/app/documentation:ro,z
+      - ../logs/stack0/eliteew-celery-agentic-worker-prod-baked:/logs:z
+    environment:
+      - ELITEEW_LOG_FILE=/logs/eliteew-celery-agentic-worker.log
+
+  eliteew-celery-companion-worker-prod:
+    profiles: !override []
+    image: ${STACK0_CELERY_WORKER_BAKED_IMAGE:?Set STACK0_CELERY_WORKER_BAKED_IMAGE}
+    container_name: ${STACK0_CELERY_COMPANION_WORKER_BAKED_CONTAINER_NAME:-stack0-eliteew-celery-companion-worker-prod-baked}
+    command:
+      - python
+      - -m
+      - celery
+      - -A
+      - api.tasks.celery_app
+      - worker
+      - --loglevel=info
+      - -Q
+      - ewa_companion
+      - --prefetch-multiplier=1
+      - --concurrency=${STACK0_CELERY_COMPANION_CONCURRENCY:-2}
+      - --hostname=companion-worker@%h
+      - --max-tasks-per-child=100
+      - --time-limit=600
+      - --soft-time-limit=540
+    volumes: !override
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../logs/stack0/eliteew-celery-companion-worker-prod-baked:/logs:z
+    environment:
+      - ELITEEW_LOG_FILE=/logs/eliteew-celery-companion-worker.log
+
+  eliteew-celery-discussion-worker-prod:
+    profiles: !override []
+    image: ${STACK0_CELERY_WORKER_BAKED_IMAGE:?Set STACK0_CELERY_WORKER_BAKED_IMAGE}
+    container_name: ${STACK0_CELERY_DISCUSSION_WORKER_BAKED_CONTAINER_NAME:-stack0-eliteew-celery-discussion-worker-prod-baked}
+    command:
+      - python
+      - -m
+      - celery
+      - -A
+      - api.tasks.celery_app
+      - worker
+      - --loglevel=info
+      - -Q
+      - desktop_discussion
+      - --prefetch-multiplier=1
+      - --concurrency=${STACK0_CELERY_DISCUSSION_CONCURRENCY:-2}
+      - --hostname=discussion-worker@%h
+      - --max-tasks-per-child=100
+      - --time-limit=600
+      - --soft-time-limit=540
+    volumes: !override
+      - ../../host/comfyui:/app/comfyui:ro,z
+      - ../../host/generated_files:/app/generated_files:z
+      - ../logs/stack0/eliteew-celery-discussion-worker-prod-baked:/logs:z
+    environment:
+      - ELITEEW_LOG_FILE=/logs/eliteew-celery-discussion-worker.log
+
+  eliteew-celery-beat-prod:
+    image: ${STACK0_CELERY_BEAT_BAKED_IMAGE:?Set STACK0_CELERY_BEAT_BAKED_IMAGE}
+    container_name: ${STACK0_CELERY_BEAT_BAKED_CONTAINER_NAME:-stack0-eliteew-celery-beat-prod-baked}
+    volumes: !override
+      - ../logs/stack0/eliteew-celery-beat-prod-baked:/logs:z

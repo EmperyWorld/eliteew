@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic EliteEW tunnel/DNS perimeter validation
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=10min
+AccuracySec=1min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

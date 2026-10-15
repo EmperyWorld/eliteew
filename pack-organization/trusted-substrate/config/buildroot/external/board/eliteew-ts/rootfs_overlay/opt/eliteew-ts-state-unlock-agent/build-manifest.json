@@ -1,0 +1,19 @@
+{
+  "component": "empiieros-state-unlock-agent",
+  "outputs": {
+    "usr/local/bin/empiieros-state-unlock-agent": "8d947d2e60ff4576df771de69a011312388008cb448ec4c5c385e8005176a633"
+  },
+  "schema": 1,
+  "source_commit": "71e7fe00b8d0cc89a2c59b4680fad691e5d1eae9",
+  "source_inputs": {
+    "state-unlock-agent/Cargo.lock": "fefb81070f07cbf68cc2409a704db980d40fed8608842ff89d28d8599182622d",
+    "state-unlock-agent/Cargo.toml": "f14c6111f67e56197f56a1223daec221795abbded6fcabdaac7f6390ed896848",
+    "state-unlock-agent/LICENSE": "766d513fab7fab3d2ec2bef5f6c6488b3175e0f14571ed2f12c343f4d2a6f6e9",
+    "state-unlock-agent/src/allowlist.rs": "94457e23fe6a39ceb18342272eecc3acb7cd7890987c84430c92a4bf19e760ea",
+    "state-unlock-agent/src/ask.rs": "33106351711976cf573c17bb4128e7e6d4ed00d640449bbd1a481ea93bb3cb72",
+    "state-unlock-agent/src/main.rs": "5f9fef788ec6dcdc3ccf38ac1bb89f7a2e787b3f94156f9a17534e59d5cdd6f4",
+    "state-unlock-agent/src/reply.rs": "33e019e6e761aba4a5c3c57ea1509c82ddf1200a4fdce764955766d82a50a50f",
+    "state-unlock-agent/src/tty.rs": "e7d01e37000ffb21908b04d5361332f8ce32c8a552ded6bc8caf95c7f2093b58"
+  },
+  "source_tree_dirty": true
+}

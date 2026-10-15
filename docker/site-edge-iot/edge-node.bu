@@ -1,0 +1,101 @@
+# EliteEW Site-Edge Fedora IoT — Butane source of truth.
+# Compile with files-dir = this directory:
+#   butane --pretty --strict --files-dir=. edge-node.bu -o config.ign
+# Prefer: bash docker/scripts/site-edge-iot-provision.sh
+#
+# Placeholders replaced at provision time:
+#   REPLACE_ME_SSH_PUBKEY  — real pubkey(s) from --ssh-pubkey-file
+#   REPLACE_ME_HOSTNAME    — --hostname
+
+variant: fcos
+version: 1.5.0
+
+passwd:
+  users:
+    - name: siteedge
+      groups:
+        - wheel
+      ssh_authorized_keys:
+        - REPLACE_ME_SSH_PUBKEY
+
+storage:
+  directories:
+    - path: /var/lib/eliteew
+      mode: 0755
+    - path: /var/lib/eliteew/site-edge
+      mode: 0755
+      user:
+        name: siteedge
+      group:
+        name: siteedge
+    - path: /var/lib/eliteew/site-edge/images
+      mode: 0755
+      user:
+        name: siteedge
+      group:
+        name: siteedge
+    - path: /etc/eliteew
+      mode: 0755
+    - path: /etc/eliteew/site-edge
+      mode: 0755
+  files:
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: REPLACE_ME_HOSTNAME
+    - path: /etc/ssh/sshd_config.d/99-edge.conf
+      mode: 0644
+      contents:
+        local: files/99-sshd-edge.conf
+    - path: /etc/eliteew/carrier-ready.env
+      mode: 0644
+      contents:
+        local: files/carrier-ready.env.example
+    - path: /etc/NetworkManager/system-connections/edge-lan.nmconnection
+      mode: 0600
+      contents:
+        local: files/edge-lan-dhcp.nmconnection
+    - path: /etc/sudoers.d/siteedge-wheel
+      mode: 0440
+      contents:
+        inline: |
+          siteedge ALL=(ALL) NOPASSWD: ALL
+
+systemd:
+  units:
+    - name: rpm-ostree-edge-packages.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=EliteEW Site-Edge: layer podman/rsync via rpm-ostree (once)
+        ConditionPathExists=!/var/lib/eliteew/.edge-packages-done
+        After=network-online.target
+        Wants=network-online.target
+
+        [Service]
+        Type=oneshot
+        ExecStart=/bin/bash -c 'rpm-ostree install -y --allow-inactive podman rsync || rpm-ostree install -y podman rsync'
+        ExecStart=/bin/mkdir -p /var/lib/eliteew
+        ExecStart=/bin/touch /var/lib/eliteew/.edge-packages-done
+        ExecStart=/usr/bin/systemctl reboot
+        RemainAfterExit=yes
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: edge-podman-linger.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=EliteEW Site-Edge: enable linger for siteedge (rootless Podman)
+        After=local-fs.target systemd-user-sessions.service
+        Requires=local-fs.target
+
+        [Service]
+        Type=oneshot
+        ExecStart=/usr/bin/loginctl enable-linger siteedge
+        ExecStart=/bin/mkdir -p /var/lib/eliteew/site-edge/images
+        ExecStart=/bin/chown -R siteedge:siteedge /var/lib/eliteew/site-edge
+        RemainAfterExit=yes
+
+        [Install]
+        WantedBy=multi-user.target

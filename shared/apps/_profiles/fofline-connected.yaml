@@ -1,0 +1,41 @@
+# EliteEW install profile — FoFline connected surface (same cloud stack0, scoped UI)
+# Aligns with W5 remote-tools families; not cloud-full. See DESKTOP-FOFLINE-EDITION.md §17.5
+# W5 must allow: /api/v1/product-desktop (Handbook assistant+ewdesk+surveys), /api/v1/companies + /projects (ContentManager),
+# /api/v1/gaf-chat + /api/v1/video-calls, /api/v1/friends, /api/v1/kursorina, /api/v1/doc-editor-v2,
+# /api/v1/ewrp, /api/v1/image-studio, /api/v1/professional-worlds, /api/v1/ebrowser.
+# Calendar is already under /api/v1/desktop. Not Marketing / MusicForge / Experts / Admin.
+# Note: `assistant` = FAQ Assistant (`AssistantApp`), not Experts ensemble chat (`desktop_ai_chat` / `DesktopAiChatApp`).
+id: fofline-connected
+title: FoFline connected
+edition: cloud
+mode: allowlist
+access_mode: managed
+seat_activation_required: true
+include_legacy: false
+apps:
+  - notifications
+  - project_about
+  - clipboard
+  - music_player
+  - app_store
+  - assistant
+  - ewdesk
+  - poemma
+  - calendar
+  - social_hub
+  - survey_hub
+  - kursorina
+  - ebrowser
+extra_app_components:
+  - EwaApp
+  - ContentManagerPro
+  - UGS
+  - UGSHubApp
+  - UserProfile
+  - VoiceStudio
+  - GAFChatApp
+  - VideoCallApp
+  - DocEditorV2
+  - EWRP
+  - ImageStudio
+  - ProfessionalWorlds

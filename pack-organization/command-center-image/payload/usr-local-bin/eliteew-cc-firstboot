@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# One-shot first boot for EliteEW command-center golden image.
+set -euo pipefail
+
+STAMP="/var/lib/eliteew-cc-firstboot.done"
+LOG="/var/log/eliteew-cc-firstboot.log"
+exec >>"${LOG}" 2>&1
+
+if [[ -f "${STAMP}" ]]; then
+  echo "already done"
+  exit 0
+fi
+
+echo "=== eliteew-cc-firstboot $(date -Is) ==="
+
+# Static LAN if kickstart NIC name differed
+if command -v nmcli >/dev/null 2>&1; then
+  CON="$(nmcli -t -f NAME,DEVICE connection show --active | awk -F: '$2 != "" {print $1; exit}')"
+  if [[ -n "${CON}" ]]; then
+    nmcli connection modify "${CON}" \
+      ipv4.method manual \
+      ipv4.addresses "192.168.1.136/24" \
+      ipv4.gateway "192.168.1.1" \
+      ipv4.dns "192.168.1.1 1.1.1.1" \
+      ipv4.ignore-auto-dns yes \
+      ipv6.method disabled \
+      connection.autoconnect yes 2>/dev/null || true
+    nmcli connection up "${CON}" 2>/dev/null || true
+  fi
+fi
+
+if command -v tuned-adm >/dev/null 2>&1; then
+  tuned-adm profile throughput-performance 2>/dev/null || tuned-adm profile balanced || true
+fi
+
+dnf install -y hyperfine gh 2>/dev/null || true
+
+if id owned >/dev/null 2>&1; then
+  loginctl enable-linger owned 2>/dev/null || true
+fi
+
+# RPM Fusion + akmod-nvidia for RTX 5060 Ti (Blackwell needs recent driver stack)
+FVER="$(rpm -E %fedora 2>/dev/null || echo 44)"
+if ! rpm -q akmod-nvidia >/dev/null 2>&1; then
+  dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-${FVER}.noarch.rpm" \
+    "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FVER}.noarch.rpm" || true
+  dnf install -y akmod-nvidia xorg-x11-drv-nvidia-cuda libnvidia-fbc || true
+  systemctl enable akmods 2>/dev/null || true
+  akmods --force 2>/dev/null || true
+fi
+
+if [[ -x /opt/eliteew-cc/harden-command-center-host.sh ]]; then
+  ELITEEW_HARDEN_FORCE=1 /opt/eliteew-cc/harden-command-center-host.sh || true
+fi
+
+install -d -m 0755 /var/lib
+touch "${STAMP}"
+systemctl disable eliteew-cc-firstboot.service 2>/dev/null || true
+echo "=== eliteew-cc-firstboot done $(date -Is) ==="

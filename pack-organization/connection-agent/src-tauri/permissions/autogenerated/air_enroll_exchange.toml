@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-air-enroll-exchange"
+description = "Enables the air_enroll_exchange command without any pre-configured scope."
+commands.allow = ["air_enroll_exchange"]
+
+[[permission]]
+identifier = "deny-air-enroll-exchange"
+description = "Denies the air_enroll_exchange command without any pre-configured scope."
+commands.deny = ["air_enroll_exchange"]

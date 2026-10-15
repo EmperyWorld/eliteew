@@ -1,0 +1,97 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Welcome tour (2 slides) — calm brand first-run.
+ * Related: DESKTOP-CLIENT-LAUNCHER-JOURNEY.md §3
+ */
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: min(70vh, 34rem);
+  padding: 2rem var(--dc-shell-pad);
+  text-align: center;
+}
+
+.welcome-mark {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 1.1rem;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(208, 174, 114, 0.35);
+}
+
+.welcome-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.welcome-kicker {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dc-muted);
+}
+
+.welcome-title {
+  margin: 0;
+  font-family: var(--dc-display);
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.welcome-lead {
+  margin: 0;
+  max-width: 28rem;
+  color: var(--dc-muted);
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.welcome-contacts {
+  margin: 0.25rem 0 0;
+  max-width: 28rem;
+  line-height: 1.55;
+}
+
+.welcome-link {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--dc-accent, #c9a66b);
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+}
+
+.welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: center;
+  margin-top: 0.65rem;
+}
+
+.welcome-progress {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--dc-muted);
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .welcome {
+    scroll-behavior: auto;
+  }
+}

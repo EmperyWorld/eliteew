@@ -1,0 +1,552 @@
+{
+  "shell": {
+    "title": "UGS Hub",
+    "subtitle": "Queue, history, and quick-launch generations.",
+    "connectionStatus": "Connection status",
+    "pollInterval": "poll {{seconds}}",
+    "pollUnknown": "poll —",
+    "apiOnline": "Generation service online",
+    "apiOffline": "Generation service offline",
+    "updated": "Updated {{time}}",
+    "updatedUnknown": "Updated —",
+    "refresh": "Refresh",
+    "analyticsLink": "Analytics",
+    "channelsTitle": "AI channels",
+    "channelsOk": "{{healthy}}/{{total}} OK",
+    "channelsDegraded": "Degraded channels: {{count}}",
+    "adminShortcut": "Admin",
+    "ms": "{{ms}} ms",
+    "providersCollapse": "Collapse list",
+    "providersExpand": "Show all ({{count}})"
+  },
+  "quickLaunch": {
+    "title": "Quick launch",
+    "subtitle": "Popular generation scenarios"
+  },
+  "tabs": {
+    "overview": {
+      "label": "Overview",
+      "subtitle": "Summary, stats and quick launch"
+    },
+    "active": {
+      "label": "Active",
+      "subtitle": "Queued and running tasks"
+    },
+    "history": {
+      "label": "History",
+      "subtitle": "Past tasks and filters"
+    },
+    "results": {
+      "label": "Results",
+      "subtitle": "Finished outputs"
+    },
+    "workflows": {
+      "label": "Workflows",
+      "subtitle": "Saved pipelines and runs"
+    },
+    "admin_history": {
+      "label": "Server history",
+      "subtitle": "All server generations (admin)"
+    }
+  },
+  "stats": {
+    "active": {
+      "label": "Active generations",
+      "statusIdle": "Status: no active generations",
+      "statusBusy": "Status: tasks in progress or queued for execution"
+    },
+    "completedToday": {
+      "label": "Completed today",
+      "status": "Status: completions today across providers"
+    },
+    "queue": {
+      "label": "In queue now",
+      "statusIdle": "Status: queue is empty",
+      "statusBusy": "Status: items waiting in the main queue"
+    },
+    "latency": {
+      "label": "Average response time",
+      "valueSeconds": "{{value}} s",
+      "status": "Status: rolling average for recent successes",
+      "statusUnknown": "Status: not enough data yet"
+    }
+  },
+  "overview": {
+    "queueEyebrow": "Queue",
+    "activeTitle": "Active now",
+    "activeEmptyTitle": "No active tasks",
+    "activeEmptyDescription": "The queue is empty — start a new generation.",
+    "feedEyebrow": "Feed",
+    "recentTitle": "Recent generations",
+    "recentEmptyTitle": "No data yet",
+    "recentEmptyDescription": "No generations yet. Launch a scenario from the type list.",
+    "refreshAction": "Refresh",
+    "tariffsEyebrow": "Pricing",
+    "tariffsTitle": "Generation type costs",
+    "tariffsBody": "Energy (⚡) charged per run by type and product area. Open the full zone table.",
+    "tariffsCta": "Open tariff table",
+    "problemsEyebrow": "Issues",
+    "errorsTitle": "Errors",
+    "errorsEmptyTitle": "No errors",
+    "errorsEmptyDescription": "All generations completed successfully."
+  },
+  "generation": {
+    "eyebrow": "Start generation",
+    "fallbackDescription": "Scenario with no extra settings",
+    "closeAria": "Close generation modal",
+    "categoryBadge": "Category: {{label}}",
+    "channelBadge": "Channel: {{label}}",
+    "etaBadge": "~{{seconds}} sec.",
+    "energyBadge": "{{credits}} ⚡ energy",
+    "cancel": "Cancel",
+    "submit": "Start generation",
+    "promptLabel": "Prompt / text",
+    "promptAria": "Prompt text for generation",
+    "webSearchLabel": "Web search for this run",
+    "webSearchHint": "Off by default. When enabled, uses the user’s web-search quota.",
+    "advancedSummary": "Advanced",
+    "jsonLabel": "Input JSON",
+    "jsonAria": "Input JSON for generation",
+    "jsonHint": "You can paste JSON from a previous run. Invalid JSON resets the payload.",
+    "priorityLabel": "Priority (1–10)",
+    "priorityAria": "Task priority from 1 to 10",
+    "priorityHintTitle": "Priority tip",
+    "priorityHintBody": "Priority above 7 speeds up processing. Use for urgent requests within quotas.",
+    "typeKeyLabel": "Type identifier"
+  },
+  "generationDefaults": {
+    "textPrompt": "Share company news in the style of a friendly corporate email",
+    "imagePrompt": "Futuristic city skyline at sunset in neon colors",
+    "audioText": "Welcome to EliteEW. This is a speech synthesis check.",
+    "documentGoal": "Produce a structured summary of the document by key sections",
+    "translationPrompt": "Translate to English: Привет! Это быстрый тест запуска из UGS.",
+    "summarizationPrompt": "Summarize the main ideas of this text: our team completed UGS integration, updated the workflow catalog, and improved result viewing UX.",
+    "codeReviewPrompt": "Review this code and highlight main risks:\n```ts\nasync function loadData(){ return fetch(\"/api/data\") }\n```",
+    "codeGenerationPrompt": "Write a TypeScript function that formats generation history by status."
+  },
+  "queueOps": {
+    "eyebrow": "Generation queue",
+    "title": "Queue snapshot",
+    "warningsCount": "{{count}} warn.",
+    "prefetchActive": "Task prefetch",
+    "loading": "Loading snapshot…",
+    "loadError": "Could not load queue snapshot",
+    "updatedAt": "Updated {{time}}",
+    "refresh": "Refresh",
+    "admin": "UGS Admin",
+    "expand": "Details",
+    "collapse": "Collapse",
+    "metricQueued": "Queued",
+    "metricQueueAge": "Queue age",
+    "metricFailShare": "Fail share",
+    "metricLease": "Worker lock",
+    "metricLeaseFallback": "DB fallback",
+    "metricStale": "Stale candidates",
+    "metricDlq": "Final failures 24h",
+    "staleHorizonsTitle": "Stale horizons (worker)",
+    "logGrepTitle": "Log hints (runbook)",
+    "runbookCanon": "Canon: documentation/platform/docker-re_doc/UGS-QUEUE-OPERATIONS-RUNBOOK.md",
+    "noWarnings": "No warnings — queue looks healthy.",
+    "stripTitle": "Open admin queue snapshot",
+    "stripLabel": "Queue",
+    "stripQueued": "{{count}} queued"
+  },
+  "empty": {
+    "defaultAction": "Refresh"
+  },
+  "taskFilters": {
+    "searchAria": "Search by type, ID, or input data",
+    "searchPlaceholder": "Search by type, ID, or input data…",
+    "statusLabel": "Status",
+    "statusAria": "Filter by status",
+    "categoryLabel": "Category",
+    "categoryAria": "Filter by category",
+    "categoryAll": "All categories",
+    "channelLabel": "Channel",
+    "channelAria": "Filter by generation channel",
+    "channelAll": "All channels",
+    "activeFilters": "Active filters:",
+    "chipSearch": "Search: {{query}}",
+    "chipStatus": "Status: {{label}}",
+    "chipCategory": "Category: {{label}}",
+    "chipChannel": "Channel: {{label}}",
+    "reset": "Reset"
+  },
+  "workflows": {
+    "loading": "Loading workflows…",
+    "title": "My workflows",
+    "titleCountFiltered": "({{filtered}} / {{total}})",
+    "titleCount": "({{count}})",
+    "srDescription": "Manage visual generation pipelines",
+    "autoOnTitle": "Auto-refresh on",
+    "autoOffTitle": "Auto-refresh off",
+    "autoOn": "Auto",
+    "autoOff": "Manual",
+    "refresh": "Refresh",
+    "import": "Import",
+    "create": "Create",
+    "searchAria": "Search workflows by name or description",
+    "searchPlaceholder": "Search…",
+    "visibilityAria": "Filter by workflow visibility",
+    "visibilityAll": "All",
+    "visibilityPublic": "Public",
+    "visibilityPrivate": "Private",
+    "projectAria": "Filter by project",
+    "projectAll": "All projects",
+    "sortAria": "Sort workflows",
+    "sortDate": "By date",
+    "sortName": "By name",
+    "sortExecutions": "By runs",
+    "activeFilters": "Active filters:",
+    "chipSearch": "Search: {{query}}",
+    "chipProject": "Project: {{id}}…",
+    "reset": "Reset",
+    "loadErrorTitle": "Could not load workflows",
+    "loadErrorFallback": "Check the network and your permissions, then try again.",
+    "retryLoad": "Retry load",
+    "staleRefreshError": "Could not refresh the list. Showing previously loaded workflows.",
+    "retry": "Retry",
+    "comfyUnavailableTitle": "Image service is unavailable",
+    "comfyUnavailableBody": "Quick launch is temporarily disabled until the server can reach the image generation node.",
+    "emptySearchTitle": "Nothing found",
+    "emptySearchBody": "Try changing the search query",
+    "clearSearch": "Clear search",
+    "emptyTitle": "No saved workflows",
+    "emptyBody": "Create a visual generation pipeline or import JSON to automate tasks.",
+    "createFirst": "Create first workflow",
+    "importJson": "Import JSON",
+    "toastLoadFailed": "Could not load workflows",
+    "toastDeleteConfirm": "Delete this workflow?",
+    "toastDeleteLabel": "Delete",
+    "toastDeleteDetail": "This action cannot be undone.",
+    "toastDeleted": "Workflow deleted",
+    "toastDeleteError": "Could not delete workflow",
+    "toastQueued": "Request queued",
+    "toastStarted": "Workflow started",
+    "toastExecutionId": "Execution ID: {{id}}",
+    "toastExecuteError": "Could not start workflow",
+    "toastComfyUnavailable": "Image generation service is unavailable. Quick launch is temporarily disabled.",
+    "toastPromptRequired": "Enter a prompt to run the workflow",
+    "toastCopyNameSuffix": "(copy)",
+    "toastDuplicated": "Workflow duplicated",
+    "toastDuplicateError": "Could not duplicate workflow",
+    "toastExported": "Workflow exported",
+    "toastExportError": "Could not export workflow",
+    "toastImportInvalid": "Invalid workflow file format",
+    "toastImported": "Workflow imported",
+    "toastImportError": "Could not import workflow",
+    "estEmpty": "—",
+    "estSeconds": "~{{count}}s",
+    "estMinutes": "~{{count}}m",
+    "estHours": "~{{count}}h",
+    "runtimeNoConnection": "No connection to UGS media node. Technical cause: {{detail}}",
+    "runtimeTimeout": "UGS media node did not respond in time. Technical cause: {{detail}}",
+    "runtimeUnavailable": "UGS media node is temporarily unavailable.",
+    "execStatusCompleted": "Done",
+    "execStatusFailed": "Failed",
+    "execStatusRunning": "Running",
+    "execStatusPending": "Pending",
+    "cardImageServiceUnavailable": "Image service is unavailable",
+    "cardQuickLaunch": "Quick launch",
+    "cardRun": "Run",
+    "cardImageServiceDisabledHint": "Image generation service is unavailable — quick launch is temporarily disabled.",
+    "cardPublic": "Public",
+    "cardPrivate": "Private",
+    "cardSlug": "slug: {{slug}}",
+    "cardStatNodes": "Nodes",
+    "cardStatConnections": "Connections",
+    "cardStatRuns": "Runs",
+    "cardStatSuccessRate": "Success rate",
+    "cardExecutionHistory": "Execution history ({{count}})",
+    "cardExecutionHistoryEmpty": "No runs yet.",
+    "cardUnnamedExecution": "Untitled",
+    "cardDurationSeconds": "{{seconds}}s",
+    "cardCatalogNote": "This template is managed through the UGS Admin DB-first catalog. The visual builder is not used for it.",
+    "cardOpenBuilderAria": "Open in builder: {{name}}",
+    "cardOpen": "Open",
+    "cardAdminOnly": "UGS Admin only",
+    "cardMoreActionsAria": "More actions for workflow",
+    "cardDuplicate": "Duplicate",
+    "cardExport": "Export",
+    "cardHistory": "History",
+    "cardDelete": "Delete",
+    "cardDbFirstActionsNote": "For DB-first templates, actions are performed through UGS Admin and profile generation panels.",
+    "cardDisabledNeedsFile": "File required",
+    "cardDisabledNeedsAudio": "Audio file required",
+    "cardDisabledNeedsForm": "Form required",
+    "cardDisabledCatalogOnly": "Catalog only",
+    "cardExecPending": "Pending",
+    "quickTitle": "Quick launch: {{name}}",
+    "quickSubtitle": "This DB-first workflow will run through the UGS runtime as a generation request.",
+    "quickCloseAria": "Close quick launch dialog",
+    "quickClose": "Close",
+    "quickFooterHint": "After launch, an entry will appear in this workflow's history as a generation request.",
+    "quickCancelAria": "Cancel quick launch",
+    "quickCancel": "Cancel",
+    "quickSubmitAriaSubmitting": "Starting workflow…",
+    "quickSubmitAria": "Start workflow: {{name}}",
+    "quickSubmitting": "Starting…",
+    "quickSubmit": "Start",
+    "quickPromptLabel": "Prompt",
+    "quickPromptPlaceholder": "Describe what to generate…",
+    "quickNegativeLabel": "Negative prompt",
+    "quickNegativePlaceholder": "What to exclude from the result…",
+    "quickWidthLabel": "Width",
+    "quickHeightLabel": "Height",
+    "quickSeedLabel": "Seed",
+    "quickSeedPlaceholder": "Auto",
+    "builderLoadFailed": "Could not load workflow",
+    "builderLoadingTitle": "Loading builder",
+    "builderLoadingBody": "Fetching workflow from the server…",
+    "builderUnavailableTitle": "Workflow builder unavailable",
+    "builderRetry": "Retry",
+    "builderBackToHub": "Back to UGS Hub",
+    "builderCatalogPreviewDescription": "DB-first catalog workflow preview"
+  },
+  "common": {
+    "closeAria": "Close",
+    "download": "Download",
+    "copy": "Copy",
+    "loadMore": "Load more",
+    "loadMoreBatch": "+100"
+  },
+  "tabBar": {
+    "total": "Total: {{count}}",
+    "completed": "Done: {{count}}",
+    "failed": "Failed: {{count}}"
+  },
+  "resultModal": {
+    "eyebrow": "Generation result",
+    "loading": "Loading result…"
+  },
+  "tariffModal": {
+    "eyebrow": "Pricing",
+    "title": "Generation type costs",
+    "colType": "Type",
+    "colEnergy": "⚡",
+    "colEta": "~s"
+  },
+  "productArea": {
+    "marketing": "Marketing cabinet",
+    "presentations": "Presentations",
+    "ugs_hub": "UGS Hub",
+    "desktop": "Desktop and embedded apps",
+    "content": "Content and editors",
+    "other": "Other UGS"
+  },
+  "result": {
+    "imageTitle": "Generated image",
+    "audioTitle": "Generated audio",
+    "textTitle": "Generated text",
+    "jsonTitle": "Generation result",
+    "download": "Download",
+    "copy": "Copy",
+    "copyJson": "Copy JSON",
+    "imageAlt": "Result: {{filename}}",
+    "imageAltFallback": "Generated result",
+    "imageLoadError": "Image failed to load",
+    "imageMissing": "Image not found",
+    "audioMissing": "Audio file not found",
+    "audioCaption": "Generated audio",
+    "textUnavailable": "Text preview is not available for this view.",
+    "tokensUsed": "Tokens used: {{count}}",
+    "nonAdminReady": "Result is ready. Download the file or use the actions above — JSON structure preview is available to admins.",
+    "vttFallbackCue": "Generated UGS audio (transcript unavailable).",
+    "captionsTrackLabel": "Captions"
+  },
+  "status": {
+    "queued": "Queued",
+    "pending": "Queued",
+    "processing": "Running",
+    "retrying": "Retrying",
+    "completed": "Done",
+    "failed": "Failed",
+    "cancelled": "Cancelled"
+  },
+  "statusFilter": {
+    "all": "All statuses",
+    "queued": "Queued",
+    "pending": "Pending",
+    "processing": "Running",
+    "retrying": "Retrying",
+    "completed": "Done",
+    "failed": "Failed",
+    "cancelled": "Cancelled"
+  },
+  "category": {
+    "text": "Text",
+    "image": "Images",
+    "audio": "Audio",
+    "video": "Video",
+    "document": "Documents",
+    "analysis": "Analytics",
+    "composite": "Composite",
+    "workflows": "Workflows",
+    "default": "Other"
+  },
+  "panels": {
+    "active": {
+      "eyebrow": "Queue",
+      "title": "Active tasks",
+      "emptyTitle": "No active tasks",
+      "emptyDescription": "The generation queue is free. Start a scenario from the generation type list."
+    },
+    "history": {
+      "eyebrow": "Archive",
+      "title": "Generation history",
+      "emptyTitle": "History is empty",
+      "emptyDescription": "Completed and failed generations will appear here."
+    },
+    "results": {
+      "eyebrow": "Ready",
+      "title": "Results",
+      "emptyTitle": "No completed generations",
+      "emptyDescription": "Run a scenario to see finished results."
+    },
+    "adminHistory": {
+      "eyebrow": "Admin",
+      "title": "Server generation history",
+      "subtitle": "All users, compact list (as in the API).",
+      "loading": "Loading…",
+      "loadError": "Could not load server history.",
+      "emptyTitle": "No tasks",
+      "emptyDescription": "No generation records on the server yet, or the filter did not match."
+    }
+  },
+  "toolbar": {
+    "filtered": "Filtered: {{filtered}} / {{total}}",
+    "selected": "Selected: {{count}}",
+    "bulkRetry": "Retry ({{count}})",
+    "bulkDelete": "Delete ({{count}})",
+    "clearSelection": "Clear selection",
+    "bulkModeOn": "Cancel selection",
+    "bulkModeOff": "Bulk actions"
+  },
+  "taskRow": {
+    "selectTask": "Select task",
+    "deselectTask": "Deselect task",
+    "unknownError": "Unknown error",
+    "channel": "Channel: {{provider}}",
+    "priority": "Priority:",
+    "project": "Project: {{id}}…",
+    "created": "Created {{time}}",
+    "inProgress": "In progress…",
+    "progress": "Progress: {{pct}}%",
+    "view": "View",
+    "download": "Download",
+    "openEditor": "Open in editor",
+    "cancel": "Cancel",
+    "inputData": "Input data",
+    "metadata": "Metadata",
+    "generationError": "Generation error"
+  },
+  "pagination": {
+    "shown": "Showing {{from}}–{{to}} of {{total}}",
+    "page": "Page {{page}} of {{totalPages}}",
+    "prev": "Back",
+    "next": "Next"
+  },
+  "formatting": {
+    "noData": "No data"
+  },
+  "loading": {
+    "hubSrOnly": "Loading UGS Hub",
+    "preview": "Loading…",
+    "imageError": "Image failed to load"
+  },
+  "workspace": {
+    "loadingSrOnly": "Loading UGS workspace data",
+    "updatedAt": "Updated {{time}}",
+    "refreshing": "Refreshing…",
+    "refresh": "Refresh"
+  },
+  "toast": {
+    "dashboardLoadFailed": "Could not load UGS data",
+    "generationCompleted": "Generation {{type}} completed!",
+    "authRequired": "Authentication required",
+    "generationStarted": "Generation {{type}} started",
+    "generationStartFailed": "Could not start generation",
+    "resultLoadFailed": "Could not load result",
+    "resultNotFound": "Result not found",
+    "textDownloaded": "Text downloaded",
+    "imageNotFound": "Image not found",
+    "imageDownloaded": "Image downloaded",
+    "audioDownloaded": "Audio downloaded",
+    "audioNotFound": "Audio file not found",
+    "resultDownloaded": "Result downloaded",
+    "downloadFailed": "Download failed",
+    "generationCancelled": "Generation cancelled",
+    "cancelFailed": "Could not cancel",
+    "copiedToClipboard": "Copied to clipboard",
+    "copyFailed": "Could not copy",
+    "bulkDeleteConfirm": "Delete {{count}} tasks?",
+    "bulkDeleteLabel": "Delete",
+    "bulkDeleteDetail": "Selected tasks will be removed from the UGS Hub list and cannot be restored.",
+    "bulkDeleted": "Deleted {{count}} tasks",
+    "bulkDeleteFailed": "Could not delete tasks. Changes reverted.",
+    "bulkRetryNoFailed": "Select tasks with Failed status",
+    "bulkRetried": "Retried {{count}} tasks",
+    "bulkRetryFailed": "Could not retry tasks. Changes reverted.",
+    "exportedJson": "Exported {{count}} tasks to JSON",
+    "exportedCsv": "Exported {{count}} tasks to CSV"
+  },
+  "csvExport": {
+    "id": "ID",
+    "type": "Type",
+    "status": "Status",
+    "created": "Created",
+    "completed": "Completed",
+    "channel": "Channel",
+    "priority": "Priority",
+    "error": "Error"
+  },
+  "guide": {
+    "badge": "Guided tour",
+    "kbdHint": "Navigate with arrow keys, Home and End; Escape to close.",
+    "progressAria": "Step {{current}} of {{total}}",
+    "closeDimAria": "Close tour overlay",
+    "closeAria": "Close",
+    "audioToggleAria": "Toggle tour narration",
+    "audioToggleTitle": "Step audio (public/audio/ugs-hub-guide)",
+    "back": "Back",
+    "skip": "Skip",
+    "next": "Next",
+    "finish": "Finish tour",
+    "launchAria": "UGS Hub guided tour",
+    "launchTitle": "In-depth UGS Hub tour",
+    "steps": {
+      "intro": {
+        "title": "UGS Hub",
+        "body": "Unified generation queue: status, history, results, quick launch. This tour covers header, stats, tabs, and the active task list—not every generation type manual."
+      },
+      "header": {
+        "title": "Header and connection status",
+        "body": "The API availability indicator shows whether generation services respond; manual refresh reloads data if polling lags. Jump to related screens via the UGS window toolbar (Analytics / operator tools)."
+      },
+      "stats": {
+        "title": "Four summary cards",
+        "body": "Active, completed today, queued, and average time. Values refresh on poll; hover for exact aria labels."
+      },
+      "tab-rail": {
+        "title": "Scenario tabs",
+        "body": "Overview, Active, History, and Results are the primary user path. Admin history and Workflow tabs appear only for UGS operators. The tour opens Active for filter/list steps."
+      },
+      "quick-launch": {
+        "title": "Quick launch",
+        "body": "On Overview, popular scenario tiles open a prompt-first form. Extra options (JSON, priority) live under Advanced."
+      },
+      "filters": {
+        "title": "Active task filters",
+        "body": "Search, status, category, provider; batch actions when role allows."
+      },
+      "task-list": {
+        "title": "Task list",
+        "body": "Cards with progress, actions, jump to result. New tasks appear at the top."
+      },
+      "outro": {
+        "title": "Done",
+        "body": "Close the tour and work the queue. Restart from header; toggle narration in the step card."
+      }
+    }
+  }
+}

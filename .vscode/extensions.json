@@ -1,0 +1,35 @@
+{
+  "recommendations": [
+    "biomejs.biome",
+    "bradlc.vscode-tailwindcss",
+    "vitest.explorer",
+    "ms-python.python",
+    "ms-python.debugpy",
+    "charliermarsh.ruff",
+    "ms-azuretools.vscode-containers",
+    "redhat.vscode-yaml",
+    "pkief.material-icon-theme",
+    "usernamehw.errorlens",
+    "timonwong.shellcheck",
+    "TypeScriptTeam.native-preview",
+    "EditorConfig.EditorConfig",
+    "bierner.markdown-mermaid",
+    "tamasfe.even-better-toml"
+  ],
+  "unwantedRecommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "foxundermoon.shell-format",
+    "gruntfuggly.todo-tree",
+    "ms-playwright.playwright",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-russian",
+    "davidanson.vscode-markdownlint",
+    "ms-python.black-formatter",
+    "ms-python.isort",
+    "ms-python.flake8",
+    "ms-python.pylint",
+    "ms-python.mypy-type-checker",
+    "ms-python.vscode-python-envs"
+  ]
+}

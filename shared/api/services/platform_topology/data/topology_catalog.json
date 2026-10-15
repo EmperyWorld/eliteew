@@ -1,0 +1,510 @@
+{
+  "schema_version": 1,
+  "source": "documentation/platform/PRODUCTION-TOPOLOGY-STATE.md §Current",
+  "honest_contract": "Edges only from this catalog — no synthetic complete mesh. Health overlay may be unknown without a local probe.",
+  "nodes": [
+    {
+      "id": "edge",
+      "label": "Public edge",
+      "band": "edge",
+      "role": "ingress",
+      "origin": "platform",
+      "features": [
+        "nginx",
+        "meet-wg"
+      ]
+    },
+    {
+      "id": "stack0_api",
+      "label": "stack0 API",
+      "band": "prod_core",
+      "role": "api",
+      "origin": "platform",
+      "features": [
+        "fastapi",
+        "socketio"
+      ]
+    },
+    {
+      "id": "stack0_frontend",
+      "label": "stack0 SPA",
+      "band": "prod_core",
+      "role": "frontend",
+      "origin": "platform",
+      "features": [
+        "static"
+      ]
+    },
+    {
+      "id": "stack0_queue_worker",
+      "label": "queue worker",
+      "band": "prod_core",
+      "role": "worker",
+      "origin": "platform",
+      "features": [
+        "amqp"
+      ]
+    },
+    {
+      "id": "stack0_celery_general",
+      "label": "celery general",
+      "band": "prod_core",
+      "role": "worker",
+      "origin": "platform",
+      "features": [
+        "celery"
+      ]
+    },
+    {
+      "id": "stack0_celery_agentic",
+      "label": "celery agentic",
+      "band": "prod_core",
+      "role": "worker",
+      "origin": "platform",
+      "features": [
+        "celery",
+        "ewa_agentic"
+      ]
+    },
+    {
+      "id": "stack0_celery_companion",
+      "label": "celery companion",
+      "band": "prod_core",
+      "role": "worker",
+      "origin": "platform",
+      "features": [
+        "celery",
+        "ewa_companion"
+      ]
+    },
+    {
+      "id": "stack0_celery_beat",
+      "label": "celery beat",
+      "band": "prod_core",
+      "role": "scheduler",
+      "origin": "platform",
+      "features": [
+        "celery"
+      ]
+    },
+    {
+      "id": "stack1_postgres",
+      "label": "Postgres",
+      "band": "prod_core",
+      "role": "data",
+      "origin": "platform",
+      "features": [
+        "pg"
+      ]
+    },
+    {
+      "id": "stack1_redis",
+      "label": "Redis",
+      "band": "prod_core",
+      "role": "data",
+      "origin": "platform",
+      "features": [
+        "cache"
+      ]
+    },
+    {
+      "id": "stack1_rabbitmq",
+      "label": "RabbitMQ",
+      "band": "prod_core",
+      "role": "bus",
+      "origin": "platform",
+      "features": [
+        "amqp"
+      ]
+    },
+    {
+      "id": "stack1_qdrant",
+      "label": "Qdrant",
+      "band": "prod_core",
+      "role": "data",
+      "origin": "platform",
+      "features": [
+        "vectors"
+      ]
+    },
+    {
+      "id": "stack1_elasticsearch",
+      "label": "Elasticsearch",
+      "band": "prod_core",
+      "role": "data",
+      "origin": "platform",
+      "features": [
+        "search"
+      ]
+    },
+    {
+      "id": "stack1_seaweedfs",
+      "label": "SeaweedFS",
+      "band": "prod_core",
+      "role": "data",
+      "origin": "platform",
+      "features": [
+        "object"
+      ]
+    },
+    {
+      "id": "stack_ewa_postgres",
+      "label": "EWA Postgres",
+      "band": "prod_core",
+      "role": "data",
+      "origin": "platform",
+      "features": [
+        "pg",
+        "ewa"
+      ]
+    },
+    {
+      "id": "stack6_keycloak",
+      "label": "Keycloak",
+      "band": "prod_core",
+      "role": "auth",
+      "origin": "platform",
+      "features": [
+        "oidc"
+      ]
+    },
+    {
+      "id": "stack2_llama_chat",
+      "label": "llama-chat",
+      "band": "prod_core",
+      "role": "inference",
+      "origin": "platform",
+      "features": [
+        "llm"
+      ]
+    },
+    {
+      "id": "stack4_ocr",
+      "label": "stack4 OCR/Tika",
+      "band": "prod_core",
+      "role": "docs",
+      "origin": "platform",
+      "features": [
+        "ocr",
+        "tika"
+      ]
+    },
+    {
+      "id": "stack11_meet",
+      "label": "Jitsi Meet",
+      "band": "prod_core",
+      "role": "meet",
+      "origin": "platform",
+      "features": [
+        "jitsi"
+      ]
+    },
+    {
+      "id": "stack12_dns",
+      "label": "sites DNS",
+      "band": "prod_core",
+      "role": "dns",
+      "origin": "platform",
+      "features": [
+        "coredns"
+      ]
+    },
+    {
+      "id": "landing",
+      "label": "Landing",
+      "band": "prod_core",
+      "role": "frontend",
+      "origin": "platform",
+      "features": [
+        "next"
+      ]
+    },
+    {
+      "id": "mobile_ota",
+      "label": "Mobile OTA",
+      "band": "prod_core",
+      "role": "mobile",
+      "origin": "platform",
+      "features": [
+        "ota"
+      ]
+    },
+    {
+      "id": "kbsew",
+      "label": "KBSEW",
+      "band": "prod_core",
+      "role": "knowledge",
+      "origin": "platform",
+      "features": [
+        "kb"
+      ]
+    },
+    {
+      "id": "gpu141_embed",
+      "label": "embed :8081",
+      "band": "gpu141",
+      "role": "inference",
+      "origin": "platform",
+      "features": [
+        "embed"
+      ]
+    },
+    {
+      "id": "gpu141_rerank",
+      "label": "rerank :8082",
+      "band": "gpu141",
+      "role": "inference",
+      "origin": "platform",
+      "features": [
+        "rerank"
+      ]
+    },
+    {
+      "id": "gpu141_tool_router",
+      "label": "tool-router :8083",
+      "band": "gpu141",
+      "role": "inference",
+      "origin": "platform",
+      "features": [
+        "tools"
+      ]
+    },
+    {
+      "id": "comfyui",
+      "label": "ComfyUI",
+      "band": "command_center",
+      "role": "media",
+      "origin": "platform",
+      "features": [
+        "comfy"
+      ]
+    },
+    {
+      "id": "command_center",
+      "label": "command-center",
+      "band": "command_center",
+      "role": "ops",
+      "origin": "platform",
+      "features": [
+        "git",
+        "bake",
+        "sops"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "edge",
+      "to": "stack0_frontend"
+    },
+    {
+      "from": "edge",
+      "to": "stack0_api"
+    },
+    {
+      "from": "edge",
+      "to": "stack6_keycloak"
+    },
+    {
+      "from": "edge",
+      "to": "stack11_meet"
+    },
+    {
+      "from": "edge",
+      "to": "landing"
+    },
+    {
+      "from": "stack0_frontend",
+      "to": "stack0_api"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack1_postgres"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack1_redis"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack1_rabbitmq"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack1_qdrant"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack1_elasticsearch"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack1_seaweedfs"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack_ewa_postgres"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack6_keycloak"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack2_llama_chat"
+    },
+    {
+      "from": "stack0_api",
+      "to": "gpu141_embed"
+    },
+    {
+      "from": "stack0_api",
+      "to": "gpu141_rerank"
+    },
+    {
+      "from": "stack0_api",
+      "to": "gpu141_tool_router"
+    },
+    {
+      "from": "stack0_api",
+      "to": "comfyui"
+    },
+    {
+      "from": "stack0_api",
+      "to": "stack4_ocr"
+    },
+    {
+      "from": "stack0_api",
+      "to": "kbsew"
+    },
+    {
+      "from": "stack0_queue_worker",
+      "to": "stack1_rabbitmq"
+    },
+    {
+      "from": "stack0_queue_worker",
+      "to": "stack1_postgres"
+    },
+    {
+      "from": "stack0_celery_general",
+      "to": "stack1_rabbitmq"
+    },
+    {
+      "from": "stack0_celery_general",
+      "to": "stack1_postgres"
+    },
+    {
+      "from": "stack0_celery_general",
+      "to": "stack1_elasticsearch"
+    },
+    {
+      "from": "stack0_celery_agentic",
+      "to": "stack1_rabbitmq"
+    },
+    {
+      "from": "stack0_celery_agentic",
+      "to": "stack_ewa_postgres"
+    },
+    {
+      "from": "stack0_celery_companion",
+      "to": "stack1_rabbitmq"
+    },
+    {
+      "from": "stack0_celery_companion",
+      "to": "stack_ewa_postgres"
+    },
+    {
+      "from": "stack0_celery_beat",
+      "to": "stack1_rabbitmq"
+    },
+    {
+      "from": "kbsew",
+      "to": "stack1_postgres"
+    },
+    {
+      "from": "kbsew",
+      "to": "stack1_qdrant"
+    },
+    {
+      "from": "kbsew",
+      "to": "stack1_seaweedfs"
+    },
+    {
+      "from": "kbsew",
+      "to": "gpu141_embed"
+    },
+    {
+      "from": "kbsew",
+      "to": "stack4_ocr"
+    },
+    {
+      "from": "kbsew",
+      "to": "stack6_keycloak"
+    },
+    {
+      "from": "command_center",
+      "to": "stack0_api"
+    },
+    {
+      "from": "mobile_ota",
+      "to": "stack0_api"
+    }
+  ],
+  "event_flows": [
+    {
+      "topic": "amqp.celery.short",
+      "publishers": [
+        "stack0_api",
+        "stack0_celery_beat"
+      ],
+      "subscribers": [
+        "stack0_celery_general"
+      ]
+    },
+    {
+      "topic": "amqp.celery.ewa_agentic",
+      "publishers": [
+        "stack0_api"
+      ],
+      "subscribers": [
+        "stack0_celery_agentic"
+      ]
+    },
+    {
+      "topic": "amqp.celery.ewa_companion",
+      "publishers": [
+        "stack0_api"
+      ],
+      "subscribers": [
+        "stack0_celery_companion"
+      ]
+    },
+    {
+      "topic": "amqp.queue_worker",
+      "publishers": [
+        "stack0_api"
+      ],
+      "subscribers": [
+        "stack0_queue_worker"
+      ]
+    },
+    {
+      "topic": "socketio.client",
+      "publishers": [
+        "stack0_api"
+      ],
+      "subscribers": [
+        "stack0_frontend"
+      ]
+    },
+    {
+      "topic": "oidc.session",
+      "publishers": [
+        "stack6_keycloak"
+      ],
+      "subscribers": [
+        "stack0_api"
+      ]
+    }
+  ]
+}

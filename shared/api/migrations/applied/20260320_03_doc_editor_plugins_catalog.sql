@@ -1,0 +1,126 @@
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS doc_editor_plugins (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL DEFAULT '',
+    version VARCHAR(32) NOT NULL DEFAULT '1.0.0',
+    author TEXT NOT NULL DEFAULT 'Unknown',
+    category TEXT NOT NULL DEFAULT 'productivity',
+    rating NUMERIC(3,2) NOT NULL DEFAULT 0,
+    downloads INTEGER NOT NULL DEFAULT 0,
+    tags JSONB NOT NULL DEFAULT '[]'::jsonb,
+    icon TEXT NOT NULL DEFAULT '🧩',
+    permissions JSONB NOT NULL DEFAULT '[]'::jsonb,
+    is_official BOOLEAN NOT NULL DEFAULT FALSE,
+    is_gpu_accelerated BOOLEAN NOT NULL DEFAULT FALSE,
+    price NUMERIC(10,2) NULL,
+    last_updated TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    is_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    sort_order INTEGER NOT NULL DEFAULT 100,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    CONSTRAINT chk_doc_editor_plugins_rating CHECK (rating >= 0 AND rating <= 5),
+    CONSTRAINT chk_doc_editor_plugins_downloads CHECK (downloads >= 0)
+);
+
+CREATE INDEX IF NOT EXISTS idx_doc_editor_plugins_enabled_sort
+    ON doc_editor_plugins (is_enabled, sort_order, downloads DESC);
+
+INSERT INTO doc_editor_plugins (
+    id,
+    name,
+    description,
+    version,
+    author,
+    category,
+    rating,
+    downloads,
+    tags,
+    icon,
+    permissions,
+    is_official,
+    is_gpu_accelerated,
+    price,
+    last_updated,
+    is_enabled,
+    sort_order
+) VALUES
+    (
+        'advanced-math',
+        'Advanced Math Editor',
+        'LaTeX equation editor with real-time rendering and symbol palette',
+        '2.1.0',
+        'EliteEW Team',
+        'editor',
+        4.8,
+        15420,
+        '["math","latex","equations","stem"]'::jsonb,
+        '📐',
+        '["editor:modify","content:insert"]'::jsonb,
+        TRUE,
+        FALSE,
+        NULL,
+        '2025-10-15T00:00:00Z'::timestamptz,
+        TRUE,
+        10
+    ),
+    (
+        'ai-writer-pro',
+        'AI Writer Pro',
+        'Advanced AI writing assistant with customizable prompts',
+        '3.0.2',
+        'AI Labs Inc',
+        'ai',
+        4.9,
+        45230,
+        '["ai","writing","productivity"]'::jsonb,
+        '🤖',
+        '["ai:generate","content:modify"]'::jsonb,
+        FALSE,
+        TRUE,
+        NULL,
+        '2025-10-18T00:00:00Z'::timestamptz,
+        TRUE,
+        20
+    ),
+    (
+        'code-highlighter',
+        'Code Syntax Highlighter',
+        'Advanced code highlighting with 100+ languages and themes',
+        '1.8.0',
+        'Code Masters',
+        'editor',
+        4.5,
+        52340,
+        '["code","syntax","highlighting","programming"]'::jsonb,
+        '💻',
+        '["content:highlight"]'::jsonb,
+        FALSE,
+        FALSE,
+        NULL,
+        '2025-10-12T00:00:00Z'::timestamptz,
+        TRUE,
+        30
+    )
+ON CONFLICT (id) DO UPDATE
+SET
+    name = EXCLUDED.name,
+    description = EXCLUDED.description,
+    version = EXCLUDED.version,
+    author = EXCLUDED.author,
+    category = EXCLUDED.category,
+    rating = EXCLUDED.rating,
+    downloads = EXCLUDED.downloads,
+    tags = EXCLUDED.tags,
+    icon = EXCLUDED.icon,
+    permissions = EXCLUDED.permissions,
+    is_official = EXCLUDED.is_official,
+    is_gpu_accelerated = EXCLUDED.is_gpu_accelerated,
+    price = EXCLUDED.price,
+    last_updated = EXCLUDED.last_updated,
+    is_enabled = EXCLUDED.is_enabled,
+    sort_order = EXCLUDED.sort_order,
+    updated_at = NOW();
+
+COMMIT;

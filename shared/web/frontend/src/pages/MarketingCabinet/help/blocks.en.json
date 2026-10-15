@@ -1,0 +1,302 @@
+{
+  "overview.metric.readiness": {
+    "title": "Project readiness",
+    "lead": "A quick glance: whether the project has enough foundation to move forward with confidence.",
+    "paragraphs": [
+      "The percentage blends five directions: project base, team work, links between sections, evidence freshness, and strategy logic.",
+      "A low score is not a verdict—it signals which hall block to raise next."
+    ],
+    "related": ["Overview → why readiness looks like this", "Campaign map"],
+    "tips": ["Open the block with gaps below—that shows where to start.", "Add data in any order; the score updates after you save."]
+  },
+  "overview.metric.jtbd": {
+    "title": "Customer jobs",
+    "lead": "How many customer jobs are recorded in the project.",
+    "paragraphs": [
+      "This is the foundation of the offer: without customer jobs it is hard to say honestly who the product is for and why it matters.",
+      "Only jobs tied to the selected project are counted here."
+    ],
+    "related": ["Customer jobs section", "Offer", "Overview → latest customer jobs"],
+    "tips": ["Capture 3–5 pivotal jobs manually or from interviews.", "Set priority—it helps choose focus."]
+  },
+  "overview.metric.value_props": {
+    "title": "Value propositions",
+    "lead": "How many drafts and versions of the promise to the customer.",
+    "paragraphs": [
+      "Each offer rests on customer jobs and is backed by evidence.",
+      "Statuses—draft, review, approved—show how mature the wording is."
+    ],
+    "related": ["Offer section", "Customer jobs", "Evidence and facts"],
+    "tips": ["Pick a customer job first, then create the offer.", "Back the promise with facts from project evidence."]
+  },
+  "overview.metric.evidence": {
+    "title": "Evidence",
+    "lead": "How many evidence units are tied to the project as strategic foundation.",
+    "paragraphs": [
+      "Not just files: evidence confirms promises, conclusions, and team decisions.",
+      "Materials linked to the selected project appear here."
+    ],
+    "related": ["Evidence and facts section", "Evidence for Oracles", "Oracle research"],
+    "tips": ["Upload transcripts, reports, and decks—then reference them in offers and research.", "The “Open content” button leads to full evidence management."]
+  },
+  "overview.readiness_cycle": {
+    "title": "Project readiness cycle",
+    "lead": "A map of what is already aligned in strategy and what is still missing.",
+    "paragraphs": [
+      "The hall follows a simple chain: customer job → offer → audience → promotion → team work.",
+      "The “Gaps” block shows where the chain is still weak."
+    ],
+    "related": ["All sections on the campaign map", "Readiness metric above"],
+    "tips": ["Use the gap list as a guide for your next move.", "You do not have to close everything at once—keep focus on the nearest release or campaign."]
+  },
+  "overview.latest_swot": {
+    "title": "Latest market picture",
+    "lead": "A quick slice of strengths, weaknesses, opportunities, and threats for the project.",
+    "paragraphs": [
+      "Shows strengths, weaknesses, opportunities, and threats from the latest completed or current analysis.",
+      "If there is no analysis yet—go to “Market and competitors” and create one manually or with an Oracle."
+    ],
+    "related": ["Market and competitors section", "Competitors", "Offer and customer jobs"],
+    "tips": ["Refresh the market picture when the market shifts or after major research.", "The short summary on the tile is handy for team syncs."]
+  },
+  "overview.recent_jtbd": {
+    "title": "Latest customer jobs",
+    "lead": "Recently added or current customer jobs.",
+    "paragraphs": [
+      "Shows momentum: what you captured lately in research or by hand.",
+      "The full list and editing live in the Customer jobs section."
+    ],
+    "related": ["Customer jobs section", "Offer"],
+    "tips": ["If the list is empty—start with one sharp pain job.", "Review priorities before drafting an offer."]
+  },
+  "overview.value_props": {
+    "title": "Value propositions on overview",
+    "lead": "A slice of current promise wording.",
+    "paragraphs": [
+      "See headline, status, and the core promise without leaving the section.",
+      "Linked customer jobs show why this promise matters."
+    ],
+    "related": ["Offer section", "Customer jobs", "Evidence and facts"],
+    "tips": ["Keep several versions for different audiences.", "Carry approved wording into content and landing pages."]
+  },
+  "overview.evidence_research": {
+    "title": "Evidence and research",
+    "lead": "Briefs and files that back the strategy.",
+    "paragraphs": [
+      "At the top—research briefs: what you need to learn or what you already found out.",
+      "Below—fragments of project evidence: excerpts and descriptions of attached materials."
+    ],
+    "related": ["Evidence and facts section", "Evidence for Oracles", "Project question"],
+    "tips": ["Create a research question before a deep dive—so the task is not lost.", "Tie research outcomes to project evidence."]
+  },
+  "setup.companies": {
+    "title": "Houses",
+    "lead": "Top level: brand, market, and shared context.",
+    "paragraphs": [
+      "Every project and the whole marketing march live inside the selected house.",
+      "Search helps when you manage a large portfolio of brands or directions."
+    ],
+    "related": ["Projects for this house", "The full hall (house → project)"],
+    "tips": ["Fill in industry and website—Oracles and summaries use this in their work.", "Edit and delete via icons in the list row."]
+  },
+  "setup.company_form": {
+    "title": "Create / edit house",
+    "lead": "Minimum profile to enter the hall.",
+    "paragraphs": [
+      "Name is required; the rest strengthens recommendations and Oracle briefings.",
+      "Website is validated for a correct URL—include a protocol or domain."
+    ],
+    "related": ["House list on the left", "Projects after selecting a house"],
+    "tips": ["In the description, briefly: who the customer is and how you earn.", "Edit mode opens from the pencil in the list."]
+  },
+  "setup.projects": {
+    "title": "Projects",
+    "lead": "Working unit: campaign, study, or initiative inside a house.",
+    "paragraphs": [
+      "Customer jobs, offer, market, competitors, research, and Oracle questions are tied to the selected project.",
+      "Archiving does not delete data—you can restore activity later."
+    ],
+    "related": ["Project overview", "All hall sections"],
+    "tips": ["Before analysis, confirm the header shows the right project.", "Use priority to steer the team’s attention."]
+  },
+  "setup.project_form": {
+    "title": "Create / edit project",
+    "lead": "Sets name, description, category, priority, and which hall sections apply.",
+    "paragraphs": [
+      "Enabled sections determine which hall blocks matter—often set by the default template.",
+      "Editing lets you change name and parameters without changing the project identifier."
+    ],
+    "related": ["Project list", "Overview and readiness metrics"],
+    "tips": ["In the description, state goal and audience—it helps Oracles and summaries.", "After creation, switch to Overview to see the empty project."]
+  },
+  "setup.team": {
+    "title": "Project team",
+    "lead": "Members and lead; invites only among mutual friends.",
+    "paragraphs": [
+      "The lead adds and removes members; removing someone revokes evidence shares issued to them.",
+      "Lead transfer is only to an active member—a separate action after they join the team."
+    ],
+    "related": ["Project list", "House and representative"],
+    "tips": ["Without a selected project this block stays empty.", "Members who are not the lead see the roster but not invite forms."]
+  },
+  "jtbd.list": {
+    "title": "Customer jobs (list)",
+    "lead": "The unified list of customer jobs for the current project.",
+    "paragraphs": [
+      "From here you edit, delete, and mark jobs for use in the offer.",
+      "Search from two characters; CSV export for collaborative work."
+    ],
+    "related": ["“Create manually” block", "Interview extraction", "Offer section"],
+    "tips": ["Choose 1–5 jobs for a focused offer.", "Tags help filter in summaries and with the Oracle."]
+  },
+  "jtbd.manual_create": {
+    "title": "Create a customer job manually",
+    "lead": "Structured form: situation, motivation, and expected outcome.",
+    "paragraphs": [
+      "Situation, motivation, and expected outcome are required for clarity.",
+      "Category and priority help segment offers later."
+    ],
+    "related": ["Customer jobs list", "Offer"],
+    "tips": ["Write from the customer’s view: “when I … I want … so that …”.", "Importance 0–10—for prioritization within the team."]
+  },
+  "jtbd.ai_extract": {
+    "title": "Extraction from interviews",
+    "lead": "Bulk creation of customer jobs from unstructured text.",
+    "paragraphs": [
+      "Paste a transcript or notes (from 100 characters); set the maximum number of jobs.",
+      "The Oracle will suggest wording—you can edit it later in the list."
+    ],
+    "related": ["Customer jobs list", "Evidence and facts"],
+    "tips": ["The richer the interview, the sharper the result.", "Have a human review wording before you lock the offer."]
+  },
+  "value.list": {
+    "title": "Current value propositions",
+    "lead": "All promise versions for the project.",
+    "paragraphs": [
+      "Change status right in the list; delete via the trash icon.",
+      "Each tile shows evidence and linked customer jobs."
+    ],
+    "related": ["“Create offer” form", "Customer job selection", "Market and competitors"],
+    "tips": ["Keep a draft for experiments and a separate one for execution.", "Copy and CSV—for alignment with the team."]
+  },
+  "value.create": {
+    "title": "Create value proposition",
+    "lead": "Assembles the promise from selected customer jobs.",
+    "paragraphs": [
+      "Headlines can stay empty—the hall may generate them from jobs.",
+      "Evidence is an ordered list of supporting points."
+    ],
+    "related": ["“Customer job selection” block", "Offer list"],
+    "tips": ["Mark customer jobs first in the adjacent block on the right.", "A one-line value statement makes client review easier."]
+  },
+  "value.select_jtbd": {
+    "title": "Customer job selection for the offer",
+    "lead": "Explicit link: which customer jobs this offer serves.",
+    "paragraphs": [
+      "Selected jobs are saved together with the offer.",
+      "Several jobs—for a broad product; one job—for tight positioning."
+    ],
+    "related": ["Customer jobs list", "Create offer form"],
+    "tips": ["Do not mix incompatible audiences in one offer without a clear “for whom”.", "Revisit the selection after new interviews."]
+  },
+  "analysis.swot_list": {
+    "title": "Market analysis",
+    "lead": "History of strategic snapshots and creating a new analysis.",
+    "paragraphs": [
+      "Extra description is optional but helps capture market nuance.",
+      "The list uses virtualization when you have many versions."
+    ],
+    "related": ["Manual analysis below", "Competitors", "Project overview"],
+    "tips": ["Refresh after fresh customer jobs or research.", "Export to CSV for presentations."]
+  },
+  "analysis.swot_manual": {
+    "title": "Manual SWOT",
+    "lead": "Enter factors line by line after a joint review.",
+    "paragraphs": [
+      "Each quadrant is its own field; one line = one factor.",
+      "Best when the team already structured material on a board."
+    ],
+    "related": ["Analysis list", "Competitors"],
+    "tips": ["Do not duplicate what you already have—create a new entry with refinements.", "Keep the executive summary brief for leadership."]
+  },
+  "analysis.competitors": {
+    "title": "Competitors",
+    "lead": "Cards for players shaping your market position.",
+    "paragraphs": [
+      "Used in strategy, the offer, and evidence discussions.",
+      "Search and export work like other hall lists."
+    ],
+    "related": ["Add competitor form", "Market and competitors", "Offer"],
+    "tips": ["Record pricing line and competitor promise—it shapes differentiation.", "Update when rivals ship new products."]
+  },
+  "analysis.competitor_form": {
+    "title": "Add competitor",
+    "lead": "Structured card for comparative analysis.",
+    "paragraphs": [
+      "Minimum—name and positioning; strengths, weaknesses, and pricing deepen the value.",
+      "Data joins the shared list and helps Oracles answer more precisely."
+    ],
+    "related": ["Competitor list", "SWOT"],
+    "tips": ["Use objective wording—avoid labels without facts.", "Tie to a specific project so markets do not mix."]
+  },
+  "evidence.research_list": {
+    "title": "Research briefs",
+    "lead": "Registry of “what we need to learn” for the project.",
+    "paragraphs": [
+      "Each brief may reference evidence with the outcome.",
+      "Statuses reflect the lifecycle from draft to archive."
+    ],
+    "related": ["Create research form", "Project evidence", "Project question"],
+    "tips": ["A clear research request saves analyst time.", "List goals explicitly—they are easy to track."]
+  },
+  "evidence.research_create": {
+    "title": "Create research",
+    "lead": "Accept a new brief into the work queue.",
+    "paragraphs": [
+      "Research type sets the frame: market, customer, competitors, or customer jobs.",
+      "Result summary can be filled now if conclusions are already known."
+    ],
+    "related": ["Briefs list", "Evidence / content"],
+    "tips": ["Do not leave the request empty—it is the key field for whoever executes.", "Align priority with the product owner."]
+  },
+  "evidence.unified_content": {
+    "title": "Project evidence",
+    "lead": "Files and materials for the project in the hall’s unified store.",
+    "paragraphs": [
+      "Here you see name, type, update time, and a fragment of extracted text.",
+      "Full management—through the evidence section (“Open content” button)."
+    ],
+    "related": ["Research", "Offer", "Overview"],
+    "tips": ["Refresh the list after uploading new files.", "Use descriptions so Oracles find relevant quotes."]
+  },
+  "evidence.cycle_explainer": {
+    "title": "Evidence cycle",
+    "lead": "How this section fits into the hall.",
+    "paragraphs": [
+      "Research sets questions; project evidence holds answers and facts.",
+      "Oracles use both layers so answers stay grounded in files."
+    ],
+    "related": ["All other evidence blocks", "Project question"],
+    "tips": ["Keep at least one brief in active status for the current focus.", "Sync research outcomes with PDF and document uploads."]
+  },
+  "chat.context": {
+    "title": "Question context",
+    "lead": "What the Oracle actually sees when answering.",
+    "paragraphs": [
+      "The selected house and project from the hall header are applied.",
+      "Example questions suggest wording for strategic decisions."
+    ],
+    "related": ["Header: house and project", "Project data"],
+    "tips": ["Change project in the header if answers feel like the wrong product.", "Copy important answers into the offer or research by hand."]
+  },
+  "chat.dialog": {
+    "title": "Dialog with the Oracle",
+    "lead": "Strategic questions and answers on hall data.",
+    "paragraphs": [
+      "Messages do not replace saving artifacts—use campaign map sections to lock decisions.",
+      "Ctrl/Cmd+Enter sends from the keyboard."
+    ],
+    "related": ["Project data on the left", "Customer jobs, offer, market"],
+    "tips": ["Start by clarifying audience or hypothesis.", "“New conversation” clears history on screen."]
+  }
+}

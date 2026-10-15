@@ -1,0 +1,2158 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/doc-editor-v2)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/doc-editor-v2/health": {
+      "get": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Doc Editor V2 Health",
+        "description": "Return a narrow health contract for the V2 contour.",
+        "operationId": "doc_editor_v2_health_api_v1_doc_editor_v2_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/capabilities": {
+      "get": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Doc Editor V2 Capabilities",
+        "description": "Return the enabled V2 feature surface for frontend rollout decisions.",
+        "operationId": "doc_editor_v2_capabilities_api_v1_doc_editor_v2_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2CapabilitiesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents": {
+      "post": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Create Doc Editor V2 Document",
+        "description": "Create a new V2-owned document in unified_content.",
+        "operationId": "create_doc_editor_v2_document_api_v1_doc_editor_v2_documents_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2CreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2DocumentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}": {
+      "get": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Get Doc Editor V2 Document",
+        "description": "Read a unified_content-backed V2 document projection.",
+        "operationId": "get_doc_editor_v2_document_api_v1_doc_editor_v2_documents__document_id__get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2DocumentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Update Doc Editor V2 Document",
+        "description": "Canonical save for a V2-owned document.",
+        "operationId": "update_doc_editor_v2_document_api_v1_doc_editor_v2_documents__document_id__put",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2UpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2DocumentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/draft": {
+      "get": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Get Doc Editor V2 Draft",
+        "description": "Return the current server draft for a V2 document.",
+        "operationId": "get_doc_editor_v2_draft_api_v1_doc_editor_v2_documents__document_id__draft_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2DraftResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Put Doc Editor V2 Draft",
+        "description": "Store a server draft without changing the canonical document.",
+        "operationId": "put_doc_editor_v2_draft_api_v1_doc_editor_v2_documents__document_id__draft_put",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2DraftRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2DraftResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Delete Doc Editor V2 Draft",
+        "description": "Delete a stored server draft.",
+        "operationId": "delete_doc_editor_v2_draft_api_v1_doc_editor_v2_documents__document_id__draft_delete",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2DraftResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/import": {
+      "post": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Import Doc Editor V2 Document",
+        "description": "Import a supported body/file payload into a V2-owned document.",
+        "operationId": "import_doc_editor_v2_document_api_v1_doc_editor_v2_import_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2ImportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2ImportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/export": {
+      "post": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Export Doc Editor V2 Document",
+        "description": "Export a V2 document projection.",
+        "operationId": "export_doc_editor_v2_document_api_v1_doc_editor_v2_documents__document_id__export_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2ExportRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2ExportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/structure": {
+      "get": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Get Doc Editor V2 Structure",
+        "description": "Return backend-derived document structure.",
+        "operationId": "get_doc_editor_v2_structure_api_v1_doc_editor_v2_documents__document_id__structure_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2StructureResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/ewa/suggest": {
+      "post": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Create Doc Editor V2 Ewa Suggestion",
+        "description": "Create an EWA suggestion without mutating the document.",
+        "operationId": "create_doc_editor_v2_ewa_suggestion_api_v1_doc_editor_v2_documents__document_id__ewa_suggest_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2EwaSuggestRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2SuggestionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/suggestions/{suggestion_id}/apply": {
+      "post": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Apply Doc Editor V2 Ewa Suggestion",
+        "description": "Apply a stored EWA suggestion after explicit user approval.",
+        "operationId": "apply_doc_editor_v2_ewa_suggestion_api_v1_doc_editor_v2_documents__document_id__suggestions__suggestion_id__apply_post",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          },
+          {
+            "name": "suggestion_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Suggestion Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2SuggestionApplyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2SuggestionApplyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/collaboration": {
+      "get": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Get Doc Editor V2 Collaboration State",
+        "description": "Return collaboration room and snapshot metadata.",
+        "operationId": "get_doc_editor_v2_collaboration_state_api_v1_doc_editor_v2_documents__document_id__collaboration_get",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2CollaborationStateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/doc-editor-v2/documents/{document_id}/collaboration/snapshot": {
+      "put": {
+        "tags": [
+          "Document Editor V2 - Unified Content Foundation",
+          "Document Editor V2"
+        ],
+        "summary": "Put Doc Editor V2 Collaboration Snapshot",
+        "description": "Store a compact collaboration snapshot.",
+        "operationId": "put_doc_editor_v2_collaboration_snapshot_api_v1_doc_editor_v2_documents__document_id__collaboration_snapshot_put",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DocEditorV2CollaborationSnapshotRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocEditorV2CollaborationSnapshotResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DocEditorV2HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status",
+            "default": "ok"
+          },
+          "api_version": {
+            "type": "string",
+            "const": "doc-editor-v2",
+            "title": "Api Version",
+            "default": "doc-editor-v2"
+          },
+          "storage_table": {
+            "type": "string",
+            "const": "unified_content",
+            "title": "Storage Table",
+            "default": "unified_content"
+          },
+          "legacy_documents_table_used": {
+            "type": "boolean",
+            "title": "Legacy Documents Table Used",
+            "default": false
+          },
+          "legacy_editor_paths_used": {
+            "type": "boolean",
+            "title": "Legacy Editor Paths Used",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "DocEditorV2HealthResponse",
+        "description": "Liveness and storage-policy contract for the new contour."
+      },
+      "DocEditorV2CapabilitiesResponse": {
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "const": "doc-editor-v2",
+            "title": "Api Version",
+            "default": "doc-editor-v2"
+          },
+          "storage_table": {
+            "type": "string",
+            "const": "unified_content",
+            "title": "Storage Table",
+            "default": "unified_content"
+          },
+          "supports_create": {
+            "type": "boolean",
+            "title": "Supports Create",
+            "default": true
+          },
+          "supports_read": {
+            "type": "boolean",
+            "title": "Supports Read",
+            "default": true
+          },
+          "supports_update": {
+            "type": "boolean",
+            "title": "Supports Update",
+            "default": true
+          },
+          "supports_server_draft": {
+            "type": "boolean",
+            "title": "Supports Server Draft",
+            "default": true
+          },
+          "supports_import": {
+            "type": "boolean",
+            "title": "Supports Import",
+            "default": true
+          },
+          "supports_export": {
+            "type": "boolean",
+            "title": "Supports Export",
+            "default": true
+          },
+          "supports_structure": {
+            "type": "boolean",
+            "title": "Supports Structure",
+            "default": true
+          },
+          "supports_collaboration": {
+            "type": "boolean",
+            "title": "Supports Collaboration",
+            "default": true
+          },
+          "supports_ewa_suggestions": {
+            "type": "boolean",
+            "title": "Supports Ewa Suggestions",
+            "default": true
+          },
+          "supported_source_formats": {
+            "items": {
+              "$ref": "#/components/schemas/DocEditorV2SourceFormat"
+            },
+            "type": "array",
+            "title": "Supported Source Formats"
+          },
+          "supported_export_formats": {
+            "items": {
+              "$ref": "#/components/schemas/DocEditorV2ExportFormat"
+            },
+            "type": "array",
+            "title": "Supported Export Formats"
+          }
+        },
+        "type": "object",
+        "title": "DocEditorV2CapabilitiesResponse",
+        "description": "Static feature surface available in the backend contour."
+      },
+      "DocEditorV2CreateRequest": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Title",
+            "default": "Untitled document"
+          },
+          "editor_format": {
+            "$ref": "#/components/schemas/DocEditorV2EditorFormat",
+            "default": "markdown"
+          },
+          "editor_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Editor Json"
+          },
+          "content_html": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Html"
+          },
+          "content_markdown": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Markdown"
+          },
+          "plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plain Text"
+          },
+          "source_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2SourceFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Tags"
+          }
+        },
+        "type": "object",
+        "title": "DocEditorV2CreateRequest",
+        "description": "Create a V2-owned document in unified_content."
+      },
+      "DocEditorV2DocumentResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "owner_user_id": {
+            "type": "string",
+            "title": "Owner User Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "editor_format": {
+            "$ref": "#/components/schemas/DocEditorV2EditorFormat"
+          },
+          "editor_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Editor Json"
+          },
+          "content_html": {
+            "type": "string",
+            "title": "Content Html"
+          },
+          "content_markdown": {
+            "type": "string",
+            "title": "Content Markdown"
+          },
+          "plain_text": {
+            "type": "string",
+            "title": "Plain Text"
+          },
+          "source_format": {
+            "$ref": "#/components/schemas/DocEditorV2SourceFormat"
+          },
+          "parse_warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Parse Warnings"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Version"
+          },
+          "capabilities": {
+            "$ref": "#/components/schemas/DocEditorV2Capabilities"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "owner_user_id",
+          "title",
+          "editor_format",
+          "content_html",
+          "content_markdown",
+          "plain_text",
+          "source_format",
+          "version",
+          "capabilities",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "DocEditorV2DocumentResponse",
+        "description": "Readable V2 document projection backed by unified_content."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "DocEditorV2UpdateRequest": {
+        "properties": {
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1,
+            "title": "Expected Version"
+          },
+          "force_save": {
+            "type": "boolean",
+            "title": "Force Save",
+            "default": false
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "editor_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2EditorFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "editor_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Editor Json"
+          },
+          "content_html": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Html"
+          },
+          "content_markdown": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Markdown"
+          },
+          "plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plain Text"
+          },
+          "source_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2SourceFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "maxItems": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags"
+          }
+        },
+        "type": "object",
+        "required": [
+          "expected_version"
+        ],
+        "title": "DocEditorV2UpdateRequest",
+        "description": "Canonical save payload with optimistic versioning."
+      },
+      "DocEditorV2DraftResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "empty",
+              "stored",
+              "deleted"
+            ],
+            "title": "Status",
+            "default": "empty"
+          },
+          "base_document_version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Base Document Version"
+          },
+          "draft_version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Draft Version"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "editor_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2EditorFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "editor_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Editor Json"
+          },
+          "content_html": {
+            "type": "string",
+            "title": "Content Html",
+            "default": ""
+          },
+          "content_markdown": {
+            "type": "string",
+            "title": "Content Markdown",
+            "default": ""
+          },
+          "plain_text": {
+            "type": "string",
+            "title": "Plain Text",
+            "default": ""
+          },
+          "source_session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Session Id"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "base_document_version",
+          "draft_version"
+        ],
+        "title": "DocEditorV2DraftResponse",
+        "description": "Stored server draft projection."
+      },
+      "DocEditorV2DraftRequest": {
+        "properties": {
+          "base_document_version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Base Document Version"
+          },
+          "draft_version": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Draft Version"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "editor_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2EditorFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "editor_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Editor Json"
+          },
+          "content_html": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Html"
+          },
+          "content_markdown": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Markdown"
+          },
+          "plain_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plain Text"
+          },
+          "source_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Session Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "base_document_version"
+        ],
+        "title": "DocEditorV2DraftRequest",
+        "description": "Server-side draft payload bound to a canonical document version."
+      },
+      "DocEditorV2ImportRequest": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Filename"
+          },
+          "source_format": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2SourceFormat"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "mime_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mime Type"
+          },
+          "content_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Text"
+          },
+          "content_base64": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Content Base64"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 50,
+            "title": "Tags"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filename"
+        ],
+        "title": "DocEditorV2ImportRequest",
+        "description": "Import a supported file/body into an editable V2 document."
+      },
+      "DocEditorV2ImportResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "imported",
+            "title": "Status",
+            "default": "imported"
+          },
+          "document": {
+            "$ref": "#/components/schemas/DocEditorV2DocumentResponse"
+          },
+          "parse_warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Parse Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document"
+        ],
+        "title": "DocEditorV2ImportResponse",
+        "description": "Imported editable document plus conversion warnings."
+      },
+      "DocEditorV2ExportRequest": {
+        "properties": {
+          "export_format": {
+            "$ref": "#/components/schemas/DocEditorV2ExportFormat"
+          }
+        },
+        "type": "object",
+        "required": [
+          "export_format"
+        ],
+        "title": "DocEditorV2ExportRequest",
+        "description": "Placeholder request for future document export."
+      },
+      "DocEditorV2ExportResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "export_format": {
+            "$ref": "#/components/schemas/DocEditorV2ExportFormat"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "mime_type": {
+            "type": "string",
+            "title": "Mime Type"
+          },
+          "content_base64": {
+            "type": "string",
+            "title": "Content Base64"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "export_format",
+          "filename",
+          "mime_type",
+          "content_base64"
+        ],
+        "title": "DocEditorV2ExportResponse",
+        "description": "Exported document bytes encoded for JSON transport."
+      },
+      "DocEditorV2StructureResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Version"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/DocEditorV2StructureItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "version"
+        ],
+        "title": "DocEditorV2StructureResponse",
+        "description": "Backend-first document structure used by UI and EWA context packets."
+      },
+      "DocEditorV2EwaSuggestRequest": {
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/DocEditorV2EwaAction"
+          },
+          "instruction": {
+            "type": "string",
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Instruction"
+          },
+          "selected_range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2SelectionRange"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "selected_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Text"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 80
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action",
+          "instruction"
+        ],
+        "title": "DocEditorV2EwaSuggestRequest",
+        "description": "Ask EWA for a suggestion without mutating the document."
+      },
+      "DocEditorV2SuggestionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "action": {
+            "$ref": "#/components/schemas/DocEditorV2EwaAction"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DocEditorV2SuggestionStatus"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "replacement_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Replacement Text"
+          },
+          "comment_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment Text"
+          },
+          "selected_range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2SelectionRange"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "base_document_version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Base Document Version"
+          },
+          "context_packet": {
+            "$ref": "#/components/schemas/DocEditorV2EwaContextPacket"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "created_by": {
+            "type": "string",
+            "title": "Created By"
+          },
+          "applied_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applied At"
+          },
+          "applied_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Applied By"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "document_id",
+          "action",
+          "status",
+          "title",
+          "explanation",
+          "base_document_version",
+          "context_packet",
+          "created_at",
+          "created_by"
+        ],
+        "title": "DocEditorV2SuggestionResponse",
+        "description": "Stored EWA suggestion and bounded context/audit payload."
+      },
+      "DocEditorV2SuggestionApplyRequest": {
+        "properties": {
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1,
+            "title": "Expected Version"
+          },
+          "force_save": {
+            "type": "boolean",
+            "title": "Force Save",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "expected_version"
+        ],
+        "title": "DocEditorV2SuggestionApplyRequest",
+        "description": "Explicit user approval for applying one stored suggestion."
+      },
+      "DocEditorV2SuggestionApplyResponse": {
+        "properties": {
+          "suggestion": {
+            "$ref": "#/components/schemas/DocEditorV2SuggestionResponse"
+          },
+          "document": {
+            "$ref": "#/components/schemas/DocEditorV2DocumentResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "suggestion",
+          "document"
+        ],
+        "title": "DocEditorV2SuggestionApplyResponse",
+        "description": "Result of applying a guarded EWA suggestion."
+      },
+      "DocEditorV2CollaborationStateResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "room_id": {
+            "type": "string",
+            "title": "Room Id"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled",
+            "default": true
+          },
+          "persistence": {
+            "type": "string",
+            "enum": [
+              "metadata_snapshot",
+              "redis_yjs_log_pending"
+            ],
+            "title": "Persistence",
+            "default": "metadata_snapshot"
+          },
+          "participants": {
+            "items": {
+              "$ref": "#/components/schemas/DocEditorV2CollaborationParticipant"
+            },
+            "type": "array",
+            "title": "Participants"
+          },
+          "snapshot_version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Snapshot Version"
+          },
+          "last_snapshot_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Snapshot At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "room_id",
+          "snapshot_version"
+        ],
+        "title": "DocEditorV2CollaborationStateResponse",
+        "description": "Collaboration capabilities and snapshot metadata for one document."
+      },
+      "DocEditorV2CollaborationSnapshotRequest": {
+        "properties": {
+          "base_document_version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Base Document Version"
+          },
+          "snapshot_base64": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Snapshot Base64"
+          },
+          "awareness": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Awareness"
+          },
+          "source_session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Session Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "base_document_version",
+          "snapshot_base64"
+        ],
+        "title": "DocEditorV2CollaborationSnapshotRequest",
+        "description": "Persist a compact collaboration snapshot for reconnect/cold start."
+      },
+      "DocEditorV2CollaborationSnapshotResponse": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "snapshot_version": {
+            "type": "integer",
+            "minimum": 1,
+            "title": "Snapshot Version"
+          },
+          "last_snapshot_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Snapshot At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "snapshot_version",
+          "last_snapshot_at"
+        ],
+        "title": "DocEditorV2CollaborationSnapshotResponse",
+        "description": "Stored collaboration snapshot metadata."
+      },
+      "DocEditorV2SourceFormat": {
+        "type": "string",
+        "enum": [
+          "html",
+          "markdown",
+          "text",
+          "docx",
+          "doc",
+          "odt",
+          "rtf",
+          "pdf"
+        ],
+        "title": "DocEditorV2SourceFormat",
+        "description": "Source/import format for the canonical document projections."
+      },
+      "DocEditorV2ExportFormat": {
+        "type": "string",
+        "enum": [
+          "pdf",
+          "docx",
+          "html",
+          "markdown",
+          "text"
+        ],
+        "title": "DocEditorV2ExportFormat",
+        "description": "Requested export target. Implementation will be wired through Stack4/export adapters later."
+      },
+      "DocEditorV2EditorFormat": {
+        "type": "string",
+        "enum": [
+          "prose_mirror_json",
+          "html",
+          "markdown",
+          "text"
+        ],
+        "title": "DocEditorV2EditorFormat",
+        "description": "Canonical editor-source format declared by the V2 service."
+      },
+      "DocEditorV2Capabilities": {
+        "properties": {
+          "can_read": {
+            "type": "boolean",
+            "title": "Can Read",
+            "default": false
+          },
+          "can_edit": {
+            "type": "boolean",
+            "title": "Can Edit",
+            "default": false
+          },
+          "can_comment": {
+            "type": "boolean",
+            "title": "Can Comment",
+            "default": false
+          },
+          "can_collaborate": {
+            "type": "boolean",
+            "title": "Can Collaborate",
+            "default": false
+          },
+          "can_apply_ewa": {
+            "type": "boolean",
+            "title": "Can Apply Ewa",
+            "default": false
+          },
+          "can_export": {
+            "type": "boolean",
+            "title": "Can Export",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "DocEditorV2Capabilities",
+        "description": "Permission matrix returned with every V2 document response."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "DocEditorV2StructureItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "level": {
+            "type": "integer",
+            "maximum": 6,
+            "minimum": 1,
+            "title": "Level"
+          },
+          "start_offset": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Start Offset"
+          },
+          "end_offset": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "End Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "level",
+          "start_offset",
+          "end_offset"
+        ],
+        "title": "DocEditorV2StructureItem",
+        "description": "One backend-derived outline item."
+      },
+      "DocEditorV2EwaAction": {
+        "type": "string",
+        "enum": [
+          "discuss",
+          "rewrite_selection",
+          "summarize_section",
+          "translate_selection",
+          "make_outline",
+          "create_comment"
+        ],
+        "title": "DocEditorV2EwaAction",
+        "description": "Suggestion-first EWA document actions."
+      },
+      "DocEditorV2SelectionRange": {
+        "properties": {
+          "start": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Start"
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "End"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "DocEditorV2SelectionRange",
+        "description": "Character offsets for selected document text."
+      },
+      "DocEditorV2SuggestionStatus": {
+        "type": "string",
+        "enum": [
+          "needs_approval",
+          "applied",
+          "rejected",
+          "blocked"
+        ],
+        "title": "DocEditorV2SuggestionStatus",
+        "description": "Lifecycle status for a stored EWA suggestion."
+      },
+      "DocEditorV2EwaContextPacket": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Document Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Version"
+          },
+          "capabilities": {
+            "$ref": "#/components/schemas/DocEditorV2Capabilities"
+          },
+          "selected_range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DocEditorV2SelectionRange"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "selected_text": {
+            "type": "string",
+            "title": "Selected Text",
+            "default": ""
+          },
+          "nearby_excerpt": {
+            "type": "string",
+            "title": "Nearby Excerpt",
+            "default": ""
+          },
+          "outline": {
+            "items": {
+              "$ref": "#/components/schemas/DocEditorV2StructureItem"
+            },
+            "type": "array",
+            "title": "Outline"
+          },
+          "source_format": {
+            "$ref": "#/components/schemas/DocEditorV2SourceFormat"
+          },
+          "parse_warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Parse Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "document_id",
+          "title",
+          "version",
+          "capabilities",
+          "source_format"
+        ],
+        "title": "DocEditorV2EwaContextPacket",
+        "description": "Bounded context sent to EWA for document work."
+      },
+      "DocEditorV2CollaborationParticipant": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "editor",
+              "reviewer",
+              "viewer"
+            ],
+            "title": "Role"
+          },
+          "can_save": {
+            "type": "boolean",
+            "title": "Can Save",
+            "default": false
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "role"
+        ],
+        "title": "DocEditorV2CollaborationParticipant",
+        "description": "One participant visible in the collaboration state."
+      }
+    }
+  }
+}

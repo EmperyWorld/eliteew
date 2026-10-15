@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "note": "Gate T lite \u2014 update hashes in the same commit when changing templates",
+  "files": {
+    "DesktopAppStub.tsx.tmpl": "8c4b00dade3407f10854a4e4f6cbf0b0b69d74ed403f79727c8ba9105742d696",
+    "app.manifest.yaml.tmpl": "2a72fcd6165028c32408ccb7d933143acb180cc1bbe440bceb4c76cdbbfdc70d"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "js/ts.experimental.useTsgo": true,
+  "typescript.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "node_modules/typescript",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.defaultFormatter": "biomejs.biome",
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "biome.enabled": true,
+  "biome.requireConfiguration": true,
+  "biome.configurationPath": "${workspaceFolder}/biome.json",
+  "biome.lsp.bin": "${workspaceFolder}/node_modules/@biomejs/biome/bin/biome",
+  "css.customData": [".vscode/tailwind-css-v4-custom-data.json"],
+  "css.validate": false,
+  "tailwindCSS.experimental.configFile": "src/styles/index.css",
+  "tailwindCSS.classFunctions": ["cn", "clsx", "cva", "twMerge"],
+  "tailwindCSS.classAttributes": ["class", "className", "classList", "ngClass"],
+  "vitest.enable": true,
+  "vitest.rootConfig": "${workspaceFolder}/vitest.config.ts",
+  "vitest.vitestPackagePath": "./node_modules/vitest/package.json",
+  "vitest.ignoreWorkspace": true,
+  "vitest.applyDiagnostic": true,
+  "vitest.showInlineConsoleLog": true
+}

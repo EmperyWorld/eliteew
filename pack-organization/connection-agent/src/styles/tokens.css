@@ -1,0 +1,42 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Design tokens (:root --dc-*) for desktop-client launcher.
+ * Invariants: Gold/blue-on-ink brand; professional full chrome; fluid --dc-shell-max.
+ * Related: documentation/product/desktop/DESKTOP-TAURI-CONNECTED-CLIENT.md
+ */
+
+:root {
+  color-scheme: dark;
+  --dc-bg: #080e16;
+  --dc-surface: rgba(14, 22, 34, 0.94);
+  --dc-surface-soft: rgba(18, 28, 42, 0.78);
+  --dc-border: #2f4058;
+  --dc-border-soft: #243248;
+  --dc-fg: #eef3fa;
+  --dc-muted: #9aabbf;
+  --dc-accent: #d0ae72;
+  --dc-accent-soft: #93b9d8;
+  --dc-ok: #7dba8e;
+  --dc-warn: #e0a88a;
+  --dc-danger: #e08a8a;
+  --dc-radius: 16px;
+  --dc-shell-pad: clamp(0.95rem, 2.2vw, 2.35rem);
+  /* Narrow phones keep a soft cap; from 720px chrome.css expands to full stage. */
+  --dc-shell-max: min(100%, 90rem);
+  --dc-font: "Segoe UI Variable", "Segoe UI", "IBM Plex Sans", "Source Sans 3",
+    ui-sans-serif, sans-serif;
+  --dc-display: "Segoe UI Variable Display", "Segoe UI", "IBM Plex Sans",
+    ui-sans-serif, sans-serif;
+  font-family: var(--dc-font);
+  line-height: 1.45;
+  font-weight: 400;
+  color: var(--dc-fg);
+  background: var(--dc-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}

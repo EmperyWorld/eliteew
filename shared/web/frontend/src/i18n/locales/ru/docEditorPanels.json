@@ -1,0 +1,1307 @@
+{
+	"ai": {
+		"errorTitle": "Ошибка ИИ",
+		"title": "ИИ ассистент",
+		"subtitle": "Контекст документа",
+		"close": "Закрыть ИИ ассистент",
+		"streamStatus": "Генерация ответа, получено около {{count}} символов",
+		"streamStarting": "Генерация ответа…",
+		"streamDone": "Ответ сформирован",
+		"errors": {
+			"generic": "Ассистент не смог выполнить запрос. Попробуйте позже.",
+			"network": "Ошибка сети. Проверьте подключение и повторите.",
+			"unavailable": "Сервис ИИ недоступен. Обратитесь к оператору или в поддержку.",
+			"timeout": "Запрос занял слишком много времени. Сократите выделение или повторите.",
+			"aborted": "Генерация остановлена.",
+			"savePromptGeneric": "Не удалось сохранить запрос"
+		},
+		"voiceErrors": {
+			"micDenied": "Доступ к микрофону запрещён. Разрешите доступ в настройках браузера.",
+			"micNotFound": "Микрофон не найден. Подключите устройство и повторите.",
+			"micBusy": "Микрофон занят другим приложением.",
+			"transcribeFailed": "Не удалось распознать речь. Повторите или введите текст вручную.",
+			"emptyTranscript": "Речь не распознана. Говорите ближе к микрофону."
+		},
+		"savePrompt": {
+			"title": "Сохранить запрос",
+			"nameLabel": "Название запроса",
+			"namePlaceholder": "Введите название",
+			"cancel": "Отмена",
+			"confirm": "Сохранить"
+		},
+		"fileManagerContext": {
+			"banner": "Контекст из списка файлов: «{{title}}» (документ ещё не открыт в поле редактора).",
+			"clear": "Вернуться к открытому документу",
+			"seedPrompt": "Кратко опиши содержание и назначение документа «{{title}}» по приведённому фрагменту текста."
+		},
+		"actionPrefix": {
+			"rewrite": "Перепиши текст в более ясной и структурированной форме.",
+			"expand": "Расширь текст деталями и примерами, сохраняя смысл.",
+			"summarize": "Сделай краткое резюме ключевых мыслей.",
+			"translate": "Переведи текст на русский или английский в зависимости от исходного языка.",
+			"free": ""
+		},
+		"compose": {
+			"contextHeader": "Контекст ({{scope}}):"
+		},
+		"scopeShort": {
+			"selection": "выделение",
+			"section": "секция",
+			"document": "документ"
+		},
+		"labels": {
+			"contextWithLabel": "Контекст: {{label}}",
+			"actionWithLabel": "Действие: {{label}}"
+		},
+		"actionShort": {
+			"free": "свободно",
+			"rewrite": "переписать",
+			"expand": "расширить",
+			"summarize": "сократить",
+			"translate": "перевести"
+		},
+		"aborted": {
+			"stoppedByUserInline": "остановлено пользователем",
+			"stoppedByUserOnly": "Остановлено пользователем."
+		},
+		"quickPrompts": {
+			"summarize": "Кратко изложите следующий текст в 2-3 предложениях:",
+			"improve": "Улучшите качество и ясность написания этого текста:",
+			"correct": "Исправьте любые грамматические, орфографические или пунктуационные ошибки в этом тексте:",
+			"translate": "Переведите этот текст на английский (или на русский, если он уже на английском):",
+			"expand": "Расширьте этот текст дополнительными деталями и примерами:",
+			"simplify": "Упростите этот текст, чтобы его было легче понять:"
+		},
+		"toast": {
+			"promptSavedTitle": "Запрос сохранён",
+			"promptSavedBody": "«{{name}}» сохранён в вашей библиотеке запросов",
+			"promptSaveFailedTitle": "Сохранение не удалось",
+			"draftRestoredTitle": "Черновик восстановлен",
+			"draftRestoredBody": "Сообщения добавлены в чат ассистента",
+			"voiceAddedTitle": "Голосовой ввод",
+			"voiceAddedBody": "Распознанный текст добавлен в запрос"
+		},
+		"recovery": {
+			"banner": "Найден локальный черновик прерванной генерации (другая вкладка, закрытие панели или обрыв сети). Можно восстановить текст в чат или удалить сохранение.",
+			"restore": "Восстановить в чат",
+			"dismiss": "Удалить черновик",
+			"noteFromDraft": "черновик восстановлен из локального сохранения",
+			"noteNoAnswer": "Ответ не был получен или пуст. Можно отправить тот же запрос снова."
+		},
+		"policy": {
+			"blockedTitle": "Блокировка по правилам ИИ",
+			"blockedBody": "Контент не прошёл policy-check",
+			"reviewTitle": "Проверка контента ИИ",
+			"reviewBody": "Проверьте контент: {{warnings}}",
+			"unavailableTitle": "Проверка недоступна",
+			"unavailableBody": "Не удалось выполнить проверку контента ИИ"
+		},
+		"voice": {
+			"statusTranscribing": "Распознаю голос…",
+			"statusRecording": "Запись идёт: {{time}}",
+			"statusIdle": "Микрофон вставляет текст в поле запроса"
+		},
+		"quickActions": {
+			"summarize": "Кратко",
+			"improve": "Улучшить",
+			"correct": "Исправить",
+			"translate": "Перевести",
+			"expand": "Расширить",
+			"simplify": "Упростить",
+			"needSelection": "Выберите текст"
+		},
+		"select": {
+			"contextAria": "Контекст для запроса к ИИ",
+			"actionAria": "Действие ИИ над текстом"
+		},
+		"quickActionsHint": "Выберите текст для быстрых действий",
+		"tokenBudget": "Оценка токен-бюджета: ~{{count}}",
+		"diff": {
+			"previewTitle": "Предпросмотр замены (выделение → ИИ)",
+			"stats": "{{before}} → {{after}} симв. ({{delta}})",
+			"before": "До:",
+			"after": "После:",
+			"replaceStrict": "Строго заменить выделение",
+			"insertAsProposal": "Вставить как предложение",
+			"addTracked": "Добавить в отслеживаемые предложения",
+			"chars": "симв."
+		},
+		"emptyChat": {
+			"title": "Начните диалог",
+			"description": "Выберите быстрое действие сверху или опишите задачу в поле ввода. Ctrl+Enter — отправить."
+		},
+		"message": {
+			"insert": "Вставить",
+			"replace": "Заменить",
+			"toSuggestions": "В предложения",
+			"metaLine": "ИИ: {{model}} • действие: {{action}} • контекст: {{context}}"
+		},
+		"suggestions": {
+			"heading": "Отслеживаемые предложения ({{pending}} ожидают)",
+			"statusPending": "Ожидает решения",
+			"statusAccepted": "Принято",
+			"statusRejected": "Отклонено",
+			"accept": "Принять",
+			"reject": "Отклонить"
+		},
+		"streaming": {
+			"label": "Генерация…"
+		},
+		"savedPrompts": {
+			"summary": "Запросы ({{count}})"
+		},
+		"composer": {
+			"placeholder": "Запрос… (Ctrl+Enter)",
+			"stop": "Остановить",
+			"transcribingShort": "Распознавание…",
+			"stopRecording": "Остановить запись",
+			"voiceInput": "Голосовой ввод",
+			"sendShort": "Отпр."
+		},
+		"footer": {
+			"selectionChars": "Контекст: {{count}} симв.",
+			"latestReply": "Последний ответ: {{model}} • {{action}} • {{context}}"
+		}
+	},
+	"voice": {
+		"title": "Голосовая обработка",
+		"subtitle": "Транскрипция речи и синтез",
+		"close": "Закрыть панель голоса",
+		"tabRecord": "Запись и транскрипция",
+		"tabUpload": "Загрузка аудио",
+		"tabSynth": "Синтез речи",
+		"errors": {
+			"micDenied": "Не удалось получить доступ к микрофону. Проверьте разрешения браузера.",
+			"micNotFound": "Микрофон не обнаружен.",
+			"transcribeFailed": "Ошибка транскрипции. Попробуйте более чёткое аудио или короче фрагмент.",
+			"synthFailed": "Ошибка синтеза речи. Повторите позже.",
+			"playFailed": "Не удалось воспроизвести аудио.",
+			"synthNeedsText": "Введите текст для синтеза.",
+			"generic": "Ошибка голосового сервиса. Повторите или обратитесь в поддержку.",
+			"pickAudioFile": "Выберите аудиофайл (MP3, WAV, OGG, WebM и др.).",
+			"fileTooBig": "Файл слишком большой. Максимум {{mb}} МБ."
+		},
+		"toasts": {
+			"recordingCompleted": "Запись завершена",
+			"recordingStarted": "Идёт запись…",
+			"transcriptionCompleted": "Транскрипция готова",
+			"synthSuccess": "Речь синтезирована",
+			"transcriptionInserted": "Транскрипция вставлена в документ",
+			"audioElementInserted": "Аудиоблок вставлен в документ",
+			"audioUploaded": "Аудиофайл загружен"
+		},
+		"models": {
+			"sileroDescription": "Канонический TTS stack9 для русского голоса"
+		},
+		"languages": {
+			"ru": "Русский",
+			"en": "Английский",
+			"es": "Испанский",
+			"fr": "Французский",
+			"de": "Немецкий"
+		},
+		"aria": {
+			"processingNoRecord": "Обработка аудио, запись недоступна",
+			"stopRecording": "Остановить запись",
+			"startRecording": "Начать запись"
+		},
+		"empty": {
+			"recordingsTitle": "Записей пока нет",
+			"recordingsDesc": "Начните запись или загрузите аудиофайл, чтобы увидеть историю.",
+			"uploadTitle": "Загрузка аудио",
+			"uploadDesc": "Загрузите файл для транскрипции на stack9.",
+			"uploadChoose": "Выбрать файлы",
+			"synthListTitle": "Пока нет синтезированных аудио",
+			"synthListDesc": "Введите текст и запустите синтез, чтобы увидеть результаты."
+		},
+		"synth": {
+			"languageLabel": "Язык",
+			"voiceModelLabel": "Модель голоса",
+			"voicePresetLabel": "Голос",
+			"presetDefault": "По умолчанию",
+			"presetMale": "Мужской",
+			"presetFemale": "Женский",
+			"presetChild": "Детский",
+			"inputPlaceholder": "Текст для синтеза UGS…",
+			"synthesize": "Синтезировать речь",
+			"synthesizing": "Синтез…",
+			"historyTitle": "Синтезированное аудио"
+		},
+		"actions": {
+			"insert": "Вставить",
+			"transcribe": "Транскрибировать",
+			"insertToDocument": "Вставить в документ"
+		},
+		"labels": {
+			"transcription": "Транскрипция",
+			"currentRecording": "Текущая запись"
+		},
+		"history": {
+			"recordings": "История записей"
+		},
+		"embed": {
+			"title": "Синтезированное аудио",
+			"audioUnsupported": "Ваш браузер не воспроизводит этот аудиоэлемент."
+		},
+		"status": {
+			"processing": "Обработка…",
+			"recording": "Запись…",
+			"idle": "Ожидание"
+		},
+		"languageSelectAria": "Язык распознавания речи",
+		"uploadAudioInputAria": "Выбор аудиофайлов для транскрипции"
+	},
+	"collab": {
+		"title": "Совместная работа",
+		"subtitle": "Приглашения и активность в документе",
+		"close": "Закрыть панель совместной работы",
+		"participantsHeading": "Сейчас в документе",
+		"statusInDoc": "В документе",
+		"statusEditing": "Редактирует",
+		"statusEditingLine": "Редактирует, блок {{block}}",
+		"cursorBlockShort": "блок {{block}}",
+		"cursorBlockTitle": "Номер блока в структуре документа (не визуальная строка переноса)",
+		"participantFallback": "Участник",
+		"inviteRequiresConnect": "Сначала нажмите «Подключиться» в шапке редактора, чтобы отправлять приглашения.",
+		"inviteRequiresOwner": "Приглашать друзей может только владелец документа. Вы подключены как соавтор.",
+		"kickParticipant": "Отключить",
+		"kickParticipantTitle": "Отключить участника от совместной сессии",
+		"connection": {
+			"srOnlyConnected": "Соединение активно",
+			"srOnlyConnecting": "Идёт подключение к совместному редактированию",
+			"badgeConnected": "Подключено",
+			"badgeConnecting": "Подключение…",
+			"yjsSynced": "Текст синхронизирован",
+			"yjsConnecting": "Синхронизация текста…",
+			"yjsReconnecting": "Переподключение текста…",
+			"yjsOffline": "Синхронизация текста недоступна"
+		},
+		"errors": {
+			"genericTitle": "Ошибка",
+			"acceptInviteFailed": "Не удалось принять приглашение",
+			"declineInviteFailed": "Не удалось отклонить",
+			"sendInviteFailed": "Не удалось отправить приглашение",
+			"revokeInviteFailed": "Не удалось отозвать",
+			"noDocumentTitle": "Нет документа",
+			"noDocumentBody": "Сначала сохраните документ.",
+			"contactBlockedTitle": "Контакт заблокирован",
+			"contactBlockedBody": "Снимите блокировку в приложении «Друзья», чтобы отправить приглашение."
+		},
+		"toasts": {
+			"inviteAcceptedTitle": "Приглашение принято",
+			"inviteAcceptedBody": "Документ открыт. Совместная работа активна.",
+			"inviteDeclinedTitle": "Приглашение отклонено",
+			"inviteSentTitle": "Приглашение отправлено",
+			"inviteSentBody": "{{name}} получит приглашение в разделе «Совместная работа».",
+			"inviteRevokedTitle": "Приглашение отозвано",
+			"linkCopiedTitle": "Ссылка скопирована",
+			"linkCopiedBody": "Отправьте другу — он сможет открыть документ и работать вместе с вами"
+		},
+		"incoming": {
+			"heading": "Входящие приглашения",
+			"loading": "Загрузка…",
+			"emptyTitle": "Нет новых приглашений",
+			"emptyDescription": "Приглашения от друзей появятся здесь, когда они пришлют вам доступ к документу.",
+			"documentLabel": "Документ: {{title}}",
+			"untitled": "Без названия",
+			"accept": "Принять",
+			"decline": "Отклонить",
+			"userFallback": "Пользователь"
+		},
+		"share": {
+			"copied": "Ссылка скопирована",
+			"copyLink": "Скопировать ссылку на документ",
+			"hint": "Или пригласите друга через блок «Пригласить друзей» (доступно после «Подключиться» в шапке) — он увидит приглашение здесь."
+		},
+		"inviteFriends": {
+			"heading": "Пригласить друзей",
+			"needOpenDoc": "Создайте или откройте документ, чтобы приглашать друзей к совместному редактированию.",
+			"intro": "Отправьте приглашение другу — он увидит его в разделе «Совместная работа» и сможет принять или отклонить. После принятия откроется этот документ и начнётся совместное редактирование.",
+			"allowSaveLabel": "Разрешить другу сохранять документ",
+			"allowSaveHint": "— если выключено, приглашённый правит только в сессии; в ваш файл на сервере сохраняете вы.",
+			"friendsListTitle": "Друзья",
+			"noFriendsTitle": "Нет друзей в списке",
+			"noFriendsDescription": "Добавьте друзей в Контенте или в профиле, чтобы отправлять приглашения.",
+			"friendPickerEmpty": "Добавьте друзей в приложении «Друзья», чтобы отправлять приглашения.",
+			"helperBlocked": "Заблокирован для взаимодействий",
+			"helperMuted": "Уведомления по контакту приглушены",
+			"invite": "Пригласить",
+			"connectFirst": "Сначала подключитесь",
+			"ownerOnly": "Только владелец",
+			"revoke": "Отозвать",
+			"friendFallback": "Друг"
+		},
+		"participantsEmpty": {
+			"title": "Пока никого нет",
+			"description": "Скопируйте ссылку выше или пригласите друга из списка."
+		},
+		"activity": {
+			"heading": "Активность",
+			"join": " присоединился",
+			"leave": " вышел",
+			"edit": " внёс изменения",
+			"participantFallback": "Участник",
+			"emptyTitle": "Пока нет активности",
+			"emptyDescription": "События совместной работы появятся здесь."
+		},
+		"relative": {
+			"hoursAgo": "{{count}} ч. назад",
+			"minutesAgo": "{{count}} мин. назад",
+			"secondsAgo": "{{count}} сек. назад",
+			"justNow": "только что"
+		},
+		"footer": {
+			"liveRealtime": "Совместная работа в реальном времени",
+			"online": "Онлайн",
+			"srStatusOnline": "Статус: в сети"
+		}
+	},
+	"comments": {
+		"title": "Комментарии и рецензирование",
+		"loadErrorTitle": "Не удалось загрузить комментарии",
+		"loadErrorHint": "Проверьте сеть или права доступа, затем нажмите «Повторить».",
+		"retry": "Повторить",
+		"emptyWithError": "Комментарии недоступны, пока загрузка не завершится успешно.",
+		"reviewStatus": {
+			"draft": "Черновик",
+			"in_review": "На рассмотрении",
+			"approved": "Одобрено",
+			"rejected": "Отклонено",
+			"changes_requested": "Требуются изменения"
+		},
+		"roles": {
+			"owner": "Владелец",
+			"reviewer": "Рецензент",
+			"viewer": "Наблюдатель"
+		},
+		"relative": {
+			"daysAgo": "{{count}} дн. назад",
+			"hoursAgo": "{{count}} ч. назад",
+			"minutesAgo": "{{count}} мин. назад",
+			"justNow": "только что"
+		},
+		"errors": {
+			"needSavedDoc": "Комментарии доступны только для сохранённого документа.",
+			"insufficientRightsTitle": "Недостаточно прав",
+			"noCommentWriteBody": "Нет права на создание комментариев в этом документе.",
+			"capabilitiesUnavailableBody": "Права комментариев ещё не загружены. Обновите панель или подождите.",
+			"cannotCreateThreadTitle": "Невозможно создать комментарий",
+			"saveDocumentFirstBody": "Сначала сохраните документ.",
+			"createThreadFailedTitle": "Не удалось создать комментарий",
+			"tryAgainRefreshBody": "Попробуйте ещё раз или обновите панель.",
+			"noResolveThreadsBody": "Нет права на разрешение потоков в этом документе.",
+			"cannotResolveTitle": "Невозможно разрешить поток",
+			"resolveFailedTitle": "Не удалось разрешить поток",
+			"tryAgainBody": "Попробуйте ещё раз.",
+			"noReopenThreadsBody": "Нет права на переоткрытие потоков в этом документе.",
+			"cannotReopenTitle": "Невозможно переоткрыть поток",
+			"reopenFailedTitle": "Не удалось переоткрыть поток",
+			"noReplyThreadsBody": "Нет права на ответы в тредах в этом документе.",
+			"cannotAddReplyTitle": "Невозможно добавить ответ",
+			"addReplyFailedTitle": "Не удалось добавить ответ",
+			"cannotUpdateThreadTitle": "Невозможно обновить поток",
+			"pinUpdateFailedTitle": "Не удалось обновить закрепление",
+			"followUpdateFailedTitle": "Не удалось обновить подписку",
+			"noAssignReviewersBody": "Нет права на назначение рецензентов в этом документе.",
+			"cannotAssignReviewerTitle": "Невозможно назначить рецензента",
+			"assignReviewerFailedTitle": "Не удалось назначить рецензента",
+			"assignReviewerCheckBody": "Проверьте данные и повторите.",
+			"viewerBulkBody": "Роль viewer не может выполнять массовые операции.",
+			"cannotBulkOpTitle": "Невозможно выполнить операцию",
+			"bulkResolvePartialTitle": "Часть потоков не удалось разрешить",
+			"bulkResolvePartialBody": "Успешно: {{succeeded}}, ошибок: {{failed}}.",
+			"bulkReopenPartialTitle": "Часть потоков не удалось переоткрыть",
+			"viewerReviewStatusBody": "Роль viewer не может менять статус рецензии."
+		},
+		"toasts": {
+			"threadResolved": "Поток комментариев разрешён",
+			"threadReopened": "Поток снова открыт",
+			"commentAddedSelectionTitle": "Комментарий привязан к выделению",
+			"commentAddedTitle": "Комментарий добавлен",
+			"commentAddedSelectionDesc": "Новый тред создан для выбранного фрагмента.",
+			"commentAddedGeneralDesc": "Новый общий тред добавлен к документу.",
+			"replyAdded": "Ответ добавлен",
+			"bulkResolvedTitle": "Потоки разрешены",
+			"bulkResolvedBody": "Разрешено потоков: {{count}}.",
+			"bulkReopenedTitle": "Потоки снова открыты",
+			"bulkReopenedBody": "Переоткрыто потоков: {{count}}.",
+			"reviewStatusUpdated": "Статус рецензии обновлён: {{status}}"
+		},
+		"header": {
+			"loading": "Загрузка…",
+			"subtitleCounts": "{{unresolved}} нерешённых • {{total}} всего",
+			"limitedMode": "Ограниченный режим",
+			"capabilitiesUnavailable": "права не загружены",
+			"capabilitiesUnavailableTitle": "Права комментариев с сервера ещё не получены — действия заблокированы",
+			"capabilitiesMatrixTitle": "Матрица прав комментариев",
+			"hotkeysShow": "Показать горячие клавиши",
+			"hotkeysHide": "Скрыть горячие клавиши",
+			"closeTitle": "Закрыть",
+			"closeAria": "Закрыть панель комментариев"
+		},
+		"tabs": {
+			"comments": "Комментарии ({{count}})",
+			"review": "Статус рецензии"
+		},
+		"filters": {
+			"searchPlaceholder": "Поиск комментариев…",
+			"queueAria": "Очередь рецензирования",
+			"queueAll": "Очередь: все",
+			"queueAssignedToMe": "Очередь: назначено мне",
+			"queueUnresolvedInSelection": "Очередь: нерешённые в текущем фрагменте",
+			"queueRecentlyChanged": "Очередь: недавно изменённые",
+			"authorFilterAria": "Фильтр по автору комментариев",
+			"allAuthors": "Все авторы",
+			"showAllCommentsTitle": "Показать все комментарии",
+			"hideResolvedTitle": "Скрыть решённые комментарии",
+			"sortAria": "Сортировка потоков комментариев",
+			"sortRecent": "Сначала новые",
+			"sortOldest": "Сначала старые",
+			"sortOpenFirst": "Сначала открытые"
+		},
+		"bulk": {
+			"nextActionableTitle": "Перейти к следующему рабочему треду (Alt+L)",
+			"nextActionable": "Следующий рабочий",
+			"noPermissionTitle": "Недостаточно прав",
+			"noOpenThreadsTitle": "Нет видимых открытых потоков",
+			"resolveVisibleTitle": "Разрешить видимые потоки ({{count}})",
+			"resolving": "Разрешаем…",
+			"resolveAll": "Разрешить все ({{count}})",
+			"noResolvedThreadsTitle": "Нет полностью решённых видимых потоков",
+			"reopenVisibleTitle": "Переоткрыть видимые потоки ({{count}})",
+			"reopen": "Переоткрыть ({{count}})"
+		},
+		"hotkeysInline": "Горячие клавиши: Alt+J — следующий тред, Alt+K — предыдущий, Alt+L — следующий рабочий, Alt+R — разрешить, Alt+Shift+R — переоткрыть, Alt+N — новый комментарий, Alt+M — ответ в открытом треде.",
+		"composer": {
+			"selectedRange": "Выбранный текст: {{start}}–{{end}}",
+			"jumpToFragment": "К фрагменту",
+			"generalThread": "Общий тред",
+			"hint": "Выделите текст в редакторе, чтобы привязать комментарий к конкретному фрагменту. Без выделения будет создан общий тред документа.",
+			"placeholderSelection": "Комментировать выделение…",
+			"placeholderGeneral": "Добавить общий комментарий…"
+		},
+		"empty": {
+			"noneFoundTitle": "Комментарии не найдены",
+			"noneFoundDesc": "Попробуйте изменить запрос.",
+			"noCommentsTitle": "Комментариев пока нет",
+			"noCommentsDesc": "Добавьте первый комментарий к документу."
+		},
+		"thread": {
+			"newBadge": "Новое",
+			"pinnedBadge": "Закреплено",
+			"reviewer": "Рецензент: {{name}}",
+			"reviewerUnassigned": "Рецензент: не назначен",
+			"pinRemoveTitle": "Снять закрепление",
+			"pinAddTitle": "Закрепить тред",
+			"unfollowTitle": "Отключить подписку",
+			"followTitle": "Подписаться на тред",
+			"assignReviewerAria": "Назначить рецензента",
+			"noReviewerOption": "Без рецензента",
+			"resolvedBadge": "Решено",
+			"selectedTextInThread": "Выбранный текст: {{start}}–{{end}}",
+			"assignMe": "Назначить меня",
+			"reply": "Ответить",
+			"resolve": "Разрешить",
+			"reopen": "Переоткрыть",
+			"replyPlaceholder": "Написать ответ…"
+		},
+		"reviewTab": {
+			"statusHeading": "Статус рецензии",
+			"summaryHeading": "Сводка рецензии",
+			"totalComments": "Всего комментариев:",
+			"resolved": "Решено:",
+			"unresolved": "Нерешено:",
+			"reviewers": "Рецензенты:",
+			"exportHeading": "Экспорт",
+			"exportPdf": "Экспортировать комментарии в PDF",
+			"exportReport": "Экспортировать отчёт рецензии",
+			"comingSoonTitle": "Функция готовится к подключению"
+		}
+	},
+	"panels": {
+		"imageGen": {
+			"title": "Генерация изображений",
+			"subtitle": "Через подключённую студию изображений",
+			"close": "Закрыть панель генерации изображений",
+			"progressConnect": "Подключение к сервису…",
+			"progressRunning": "Идёт генерация…",
+			"cancelWait": "Перестать ждать",
+			"cancelHint": "Убирает этот запуск из списка. На сервере задача может ещё завершиться.",
+			"generating": "Генерация…",
+			"generate": "Сгенерировать",
+			"pipelineHint": "UGS · генерация изображений · workflow",
+			"promptLabel": "Запрос",
+			"promptPlaceholder": "Опишите изображение…",
+			"promptCharCount": "{{count}} симв.",
+			"resultsHeading": "Результаты ({{count}})",
+			"clear": "Очистить",
+			"generatingAria": "Генерация изображения",
+			"genErrorAria": "Ошибка генерации",
+			"generatingFallback": "Генерация…",
+			"generationFailed": "Не удалось сгенерировать",
+			"pending": "Ожидание",
+			"insert": "Вставить",
+			"downloadTitle": "Скачать изображение",
+			"downloadAria": "Скачать сгенерированное изображение",
+			"copyPromptTitle": "Копировать запрос",
+			"copyPromptAria": "Копировать текст запроса в буфер обмена",
+			"firstResultAria": "Ожидание первого результата генерации",
+			"firstResultHint": "Результат появится в галерее ниже.",
+			"emptyTitle": "Пока нет изображений",
+			"emptyDescription": "Введите запрос и нажмите «Сгенерировать».",
+			"previewLoadError": "Не удалось загрузить превью (проверьте сеть и доступ к API)",
+			"previewLoadingAria": "Загрузка превью",
+			"toast": {
+				"missingPromptTitle": "Отсутствует запрос",
+				"missingPromptBody": "Пожалуйста, введите запрос для генерации изображения",
+				"startedTitle": "Генерация изображения начата",
+				"startedBody": "Ваше изображение генерируется. Это может занять минуту…",
+				"genFailedTitle": "Генерация не удалась",
+				"genFailedFallback": "Не удалось сгенерировать изображение",
+				"insertedTitle": "Изображение вставлено",
+				"insertedBody": "Изображение было вставлено в документ",
+				"insertFailedTitle": "Вставка не удалась",
+				"insertFailedBody": "Не удалось загрузить изображение для вставки (проверьте доступ к API)",
+				"downloadedTitle": "Скачано",
+				"downloadedBody": "Изображение сохранено в папку загрузок",
+				"downloadFailedTitle": "Скачивание не удалось",
+				"downloadFailedBody": "Не удалось получить файл изображения",
+				"copiedTitle": "Скопировано!",
+				"copiedBody": "Запрос скопирован в буфер обмена",
+				"copyFailedTitle": "Копирование не удалось",
+				"copyFailedBody": "Не удалось скопировать запрос в буфер обмена"
+			}
+		},
+		"charts": {
+			"emptyPreview": "Нет данных для графика",
+			"emptyHint": "Добавьте строку с подписью и ненулевым значением или измените существующие строки.",
+			"exportData": "Экспорт данных (CSV)",
+			"exportConfig": "Экспорт графика (HTML)",
+			"title": "Графики и схемы",
+			"subtitle": "График по данным (Recharts) или схема Mermaid — вставка в документ.",
+			"closeTitle": "Закрыть",
+			"closeAria": "Закрыть панель диаграмм",
+			"modeLabel": "Режим",
+			"modeChart": "График по таблице",
+			"modeMermaid": "Схема Mermaid",
+			"chartTypeLabel": "Тип графика",
+			"types": {
+				"bar": "Столбчатая",
+				"line": "Линейная",
+				"pie": "Круговая",
+				"area": "Область"
+			},
+			"chartTitleLabel": "Заголовок",
+			"dataLabel": "Данные",
+			"addRow": "Добавить строку",
+			"nameLabel": "Название",
+			"valueLabel": "Значение",
+			"namePlaceholder": "Название",
+			"valuePlaceholder": "0",
+			"removeRowTitle": "Удалить строку",
+			"removeRowAria": "Удалить строку данных «{{name}}»",
+			"previewLabel": "Предпросмотр",
+			"insertChart": "Вставить график в документ",
+			"noteChartSvg": "В документ вставится не заглушка, а реальная статическая SVG-диаграмма с текущими данными.",
+			"mermaidCodeLabel": "Код Mermaid",
+			"mermaidAria": "Код диаграммы Mermaid",
+			"previewMermaid": "Предпросмотр",
+			"insertMermaid": "Вставить схему в документ",
+			"mermaidBusy": "Рендер…",
+			"noteMermaidSvg": "Схема вставляется как изображение (SVG), как и графики.",
+			"errRenderMermaid": "Не удалось отрисовать схему",
+			"errInsertMermaid": "Не удалось вставить схему",
+			"diagramConfigTitle": "Mermaid",
+			"defaultTitle": "Моя диаграмма",
+			"newRowName": "Элемент {{n}}",
+			"demo": {
+				"jan": "Янв",
+				"feb": "Фев",
+				"mar": "Мар",
+				"apr": "Апр",
+				"may": "Май"
+			},
+			"mermaid": {
+				"defaultSource": "flowchart TD\n  A[Начало] --> B{Условие}\n  B -->|да| C[Да]\n  B -->|нет| D[Нет]"
+			}
+		},
+		"search": {
+			"resultsLabel": "Результаты поиска",
+			"resultsCount": "Найдено документов: {{count}}",
+			"keyboardHint": "Стрелки — выбор, Enter — открыть документ в фокусе.",
+			"title": "Поиск документов",
+			"subtitle": "ES + ChromaDB",
+			"closeTitle": "Закрыть",
+			"closeAria": "Закрыть панель поиска",
+			"typeFulltextLabel": "🔍 Полнотекстовый",
+			"typeFulltextDesc": "Быстрый поиск по ключевым словам",
+			"typeSemanticLabel": "✨ Семантический",
+			"typeSemanticDesc": "Поиск по смыслу с ИИ",
+			"placeholderFulltext": "Ключевые слова… (например, «план проекта»)",
+			"placeholderSemantic": "По смыслу… (например, «документы про маркетинг»)",
+			"searchButton": "Поиск",
+			"searchingButton": "Поиск…",
+			"recentHeading": "Недавние поиски",
+			"clearHistory": "Очистить",
+			"clearResults": "Очистить результаты",
+			"wordCount": "{{count}} слов",
+			"emptyTitle": "Ничего не найдено",
+			"emptyHintWithQuery": "Попробуйте другие слова или семантический поиск",
+			"emptyHintNoQuery": "Введите запрос для поиска документов",
+			"date": {
+				"today": "Сегодня",
+				"yesterday": "Вчера",
+				"daysAgo": "{{count}} дн. назад",
+				"weeksAgo": "{{count}} нед. назад",
+				"monthsAgo": "{{count}} мес. назад"
+			}
+		},
+		"fileLibrary": {
+			"title": "Открыть из библиотеки",
+			"subtitleShort": "Unified Content",
+			"limitHint": "Один файл (макс. {{max}}). Форматы: .docx, .pdf, .txt, .md, изображения и др.",
+			"retryList": "Обновить список",
+			"closeAria": "Закрыть выбор из библиотеки",
+			"footerHint": "Новые файлы — перетащите в редактор или «Импорт»."
+		},
+		"ocr": {
+			"progressTitle": "Идёт распознавание",
+			"cancel": "Отменить пакет",
+			"statusBanner": "Обработка изображений — ниже можно прокручивать результаты.",
+			"title": "Распознавание текста",
+			"subtitleGpu": "OCR через stack4 (Tika)",
+			"closeTitle": "Закрыть",
+			"closeAria": "Закрыть панель OCR",
+			"languageHeading": "Язык распознавания",
+			"languages": {
+				"rus": "Русский",
+				"eng": "English",
+				"rus_eng": "Русский + English",
+				"fra": "Français",
+				"deu": "Deutsch",
+				"spa": "Español"
+			},
+			"dropAria": "Загрузить изображения для OCR",
+			"dropHeadingBusy": "Дождитесь завершения обработки",
+			"dropHeadingRelease": "Отпустите, чтобы добавить файлы",
+			"dropHeadingDefault": "Загрузите изображения для OCR",
+			"dropHintBusy": "Зона выбора файлов временно недоступна",
+			"dropHintDefault": "Перетащите изображения или нажмите для выбора",
+			"filesHeading": "Изображения для обработки ({{count}})",
+			"clearAllTitle": "Очистить список и результаты",
+			"clearAll": "Очистить всё",
+			"removeImageTitle": "Удалить изображение",
+			"progressLine": "{{current}} из {{total}} изображений",
+			"resultsHeading": "Результаты распознавания",
+			"successLine": "Обработано успешно",
+			"confidencePct": "{{pct}}% уверенности",
+			"insert": "Вставить",
+			"insertToDocument": "Вставить в документ",
+			"insertAllToDocument": "Вставить распознанный текст в документ",
+			"copy": "Копировать",
+			"processingShort": "Обработка…",
+			"processCta_one": "Обработать {{count}} изображение",
+			"processCta_few": "Обработать {{count}} изображения",
+			"processCta_many": "Обработать {{count}} изображений",
+			"processCta_other": "Обработать {{count}} изображений",
+			"footerHint": "Распознанный текст появится в блоке «Результаты» ниже — в документ он не попадает сам. Нажмите «Вставить». Движок: stack4 (Tika/Tesseract), не локальный GPU.",
+			"progress": {
+				"initializing": "Подключение к stack4 (Tika)…",
+				"processing": "Распознавание «{{name}}»…",
+				"complete": "Распознавание завершено!"
+			},
+			"errors": {
+				"invalidDropTitle": "Неподходящие файлы",
+				"invalidDropBody": "Для OCR принимаются только изображения PNG, JPG, JPEG, BMP, TIFF и WebP.",
+				"invalidSelectTitle": "Неподдерживаемые файлы",
+				"invalidSelectBody": "Для OCR здесь принимаются только изображения PNG, JPG, JPEG, BMP, TIFF и WebP.",
+				"processFailed": "Не удалось выполнить распознавание"
+			},
+			"toast": {
+				"stoppedTitle": "OCR",
+				"stoppedBody": "Обработка остановлена. Показаны результаты для уже обработанных файлов.",
+				"completeTitle": "Распознавание готово",
+				"complete_one": "Успешно обработано {{count}} изображение",
+				"complete_few": "Успешно обработано {{count}} изображения",
+				"complete_many": "Успешно обработано {{count}} изображений",
+				"complete_other": "Успешно обработано {{count}} изображений",
+				"issuesTitle": "Проблемы OCR",
+				"failed_one": "Не удалось обработать {{count}} изображение",
+				"failed_few": "Не удалось обработать {{count}} изображения",
+				"failed_many": "Не удалось обработать {{count}} изображений",
+				"failed_other": "Не удалось обработать {{count}} изображений",
+				"insertedTitle": "Текст вставлен",
+				"insertedBody": "Текст распознавания вставлен в документ",
+				"insertFailedTitle": "Не удалось вставить",
+				"insertFailedBody": "Нет распознанного текста для вставки",
+				"editorNotReady": "Откройте документ в редакторе и повторите вставку",
+				"copiedTitle": "Скопировано",
+				"copiedBody": "Текст скопирован в буфер обмена",
+				"copyFailedTitle": "Не удалось скопировать",
+				"copyFailedBody": "Не удалось скопировать текст в буфер обмена"
+			},
+			"fileSize": {
+				"bytes": "Б",
+				"kb": "КБ",
+				"mb": "МБ",
+				"gb": "ГБ"
+			}
+		},
+		"import": {
+			"busyHint": "Идёт импорт — прогресс сверху, список файлов можно прокручивать.",
+			"title": "Импорт документов",
+			"subtitleMeta": "GPU • DOC/DOCX",
+			"wordBadge": "Word",
+			"wordDocBadge": "Word DOC/DOCX",
+			"closeTitle": "Закрыть",
+			"closeAria": "Закрыть панель импорта",
+			"dropZoneAria": "Загрузить документы: перетащите файлы или нажмите для выбора",
+			"dropHeadingInvalid": "Неподходящие файлы",
+			"dropHeadingRelease": "Отпустите, чтобы добавить",
+			"dropHeadingDefault": "Загрузка документов",
+			"dropHintInvalid": "Перетащите поддерживаемый формат или выберите файлы кликом по зоне.",
+			"dropHintRelease": "Можно отпустить файлы или целую папку.",
+			"dropHintDefault": "Перетащите файлы или папку сюда либо нажмите для выбора.",
+			"queueEmptyTitle": "Очередь пуста",
+			"queueEmptyDescription": "Добавьте файлы в зону выше — они появятся здесь списком.",
+			"filesHeading": "Файлы к импорту ({{count}})",
+			"viewList": "Список",
+			"viewPreview": "Превью",
+			"clearAll": "Очистить всё",
+			"removeFileTitle": "Удалить файл",
+			"priorityBadge": "Приоритет",
+			"extensionMismatchBadge": "Расширение не совпадает",
+			"detectedAs": "Определено: {{format}}",
+			"formatWithDetection": "{{label}} (определено как {{format}})",
+			"progressAria": "Прогресс импорта",
+			"progressFileLine": "Файл: {{name}}",
+			"progressStep": "Шаг {{current}} из {{total}}",
+			"resultsHeading": "Результаты импорта",
+			"resultSuccess": "Импорт выполнен • {{words}} слов",
+			"importing": "Импорт…",
+			"importButton": "Импортировать ({{count}})",
+			"footerIdleHint": "Обработка на стороне сервера; тяжёлые форматы могут занять чуть больше времени.",
+			"errors": {
+				"noValidTitle": "Нет подходящих файлов",
+				"noValidBody": "В перетащенных элементах не найдено поддерживаемых файлов. Допустимы DOC, DOCX, PDF, TXT, MD, HTML, RTF, ODT и изображения.",
+				"dropFailedTitle": "Ошибка импорта",
+				"dropFailedBody": "Не удалось обработать перетащенные элементы. Попробуйте выбрать файлы по одному.",
+				"unsupportedTitle": "Неподдерживаемые файлы",
+				"unsupportedBody": "Пропущено файлов (неподдерживаемый формат): {{count}}.",
+				"importFailedFallback": "Импорт не удался"
+			},
+			"info": {
+				"folderTitle": "Импорт из папки",
+				"folderBody": "Найдено документов: {{count}} (в перетащенных папках).",
+				"extensionMismatchTitle": "Несовпадение расширений",
+				"extensionMismatchBody": "У части файлов расширение не совпадает с содержимым: {{list}}. Обработка пойдёт по фактическому формату.",
+				"mismatchListItem": "{{name}} (как {{format}})",
+				"filesAddedTitle": "Файлы добавлены",
+				"filesAddedBody": "Добавлено подходящих файлов: {{count}}."
+			},
+			"toast": {
+				"successTitle": "Импорт завершён",
+				"successBody": "Успешно импортировано документов: {{count}}.",
+				"successBodyWord": "Успешно импортировано документов: {{count}} (Word: {{wordCount}}).",
+				"issuesTitle": "Проблемы импорта",
+				"issuesBody": "Не удалось импортировать документов: {{count}}."
+			},
+			"progress": {
+				"starting": "Запуск импорта…",
+				"processingFile": "Обработка {{name}}…",
+				"convertingDoc": "Конвертация старого Word DOC…",
+				"processingDocx": "Обработка Word DOCX…",
+				"complete": "Импорт завершён!"
+			},
+			"formatLabels": {
+				"wordLegacy": "Документ Word (устаревший)",
+				"word": "Документ Word",
+				"pdf": "PDF",
+				"text": "Текстовый файл",
+				"markdown": "Markdown",
+				"html": "HTML",
+				"rtf": "Rich Text (RTF)",
+				"odt": "OpenDocument Text",
+				"pngOcr": "PNG (OCR)",
+				"jpegOcr": "JPEG (OCR)"
+			},
+			"processing": {
+				"doc": "Старый Word — расширенная конвертация",
+				"docx": "Современный Word — разбор XML",
+				"pdf": "PDF — извлечение текста с сохранением вёрстки",
+				"rtf": "RTF — прямой разбор",
+				"odt": "OpenDocument — XML-обработка",
+				"txt": "Простой текст — прямой импорт",
+				"md": "Markdown — форматирование",
+				"html": "HTML — очистка и конвертация",
+				"default": "Стандартная обработка"
+			},
+			"size": {
+				"bytesZero": "0 Б",
+				"bytes": "Б",
+				"kb": "КБ",
+				"mb": "МБ",
+				"gb": "ГБ"
+			}
+		},
+		"math": {
+			"latexTooLong": "LaTeX слишком длинный (больше {{max}} символов). Сократите формулу для стабильности."
+		},
+		"mathFormula": {
+			"title": "Редактор формул",
+			"subtitle": "LaTeX, живой preview, готовые шаблоны и описания функций.",
+			"templatesButton": "Шаблоны",
+			"copyLatexTitle": "Скопировать LaTeX",
+			"copyLatexAria": "Скопировать LaTeX-код формулы",
+			"exportPngTitle": "Экспортировать PNG",
+			"exportPngAria": "Экспортировать предпросмотр формулы в PNG",
+			"closeTitle": "Закрыть",
+			"closeAria": "Закрыть редактор формул",
+			"latexLabel": "LaTeX-код",
+			"latexPlaceholder": "Например: \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+			"katexErrorLabel": "Ошибка LaTeX",
+			"katexErrorHint": "Проверьте скобки и команды — в предпросмотре подсвечен фрагмент с ошибкой.",
+			"snippets": {
+				"fraction": "Дробь",
+				"sqrt": "Корень",
+				"sum": "Сумма",
+				"integral": "Интеграл",
+				"matrix": "Матрица"
+			},
+			"preview": {
+				"label": "Предпросмотр",
+				"rendering": "Рендеринг…",
+				"loadingAria": "Загрузка предпросмотра формулы",
+				"updating": "Обновление предпросмотра…",
+				"renderFailed": "Не удалось отрисовать формулу",
+				"emptyTitle": "Предпросмотр появится здесь",
+				"emptyDescription": "Введите LaTeX-код или выберите шаблон справа."
+			},
+			"templatesPanel": {
+				"title": "Готовые шаблоны",
+				"subtitle": "Быстрые стартовые формулы для частых задач.",
+				"closeTitle": "Закрыть шаблоны",
+				"closeAria": "Закрыть панель шаблонов формул",
+				"useTemplate": "Использовать шаблон"
+			},
+			"reference": {
+				"title": "Ассистент и функции",
+				"subtitle": "Нажмите на символ, чтобы вставить его в код, и ниже увидите описание с примером.",
+				"helpBadge": "Справка",
+				"exampleLabel": "Пример",
+				"emptyTitle": "Нет подсказки",
+				"emptyDescription": "Выберите категорию с доступными символами."
+			},
+			"footerHint": "Используйте LaTeX и готовые подсказки, чтобы быстро собирать аккуратные математические выражения.",
+			"cancel": "Отмена",
+			"insert": "Вставить формулу",
+			"categories": {
+				"algebra": "Алгебра",
+				"analysis": "Анализ",
+				"linearAlgebra": "Линейная алгебра",
+				"probability": "Вероятности",
+				"discrete": "Дискретная математика",
+				"basics": "Основное",
+				"functions": "Функции",
+				"greek": "Греческие",
+				"structures": "Структуры",
+				"operators": "Операторы"
+			},
+			"templates": {
+				"quadratic": {
+					"name": "Квадратное уравнение",
+					"description": "Корни квадратного уравнения через дискриминант."
+				},
+				"sum": {
+					"name": "Сумма ряда",
+					"description": "Суммирование с нижней и верхней границей."
+				},
+				"integral": {
+					"name": "Определённый интеграл",
+					"description": "Шаблон интеграла с пределами и дифференциалом."
+				},
+				"matrix": {
+					"name": "Матрица 2×2",
+					"description": "Быстрый старт для работы с матрицами."
+				},
+				"probability": {
+					"name": "Формула Байеса",
+					"description": "Полезный шаблон для условных вероятностей."
+				},
+				"derivative": {
+					"name": "Производная",
+					"description": "Классическая запись производной."
+				},
+				"logic": {
+					"name": "Логическое выражение",
+					"description": "Импликация, отрицание и дизъюнкция."
+				}
+			},
+			"symbols": {
+				"frac": {
+					"name": "Дробь",
+					"description": "Создаёт числитель и знаменатель. Используйте для формул, вероятностей и отношений."
+				},
+				"sqrt": {
+					"name": "Корень",
+					"description": "Квадратный корень. Для корня n-й степени используйте \\sqrt[n]{x}."
+				},
+				"power": {
+					"name": "Степень",
+					"description": "Верхний индекс для степеней и индексов."
+				},
+				"subscript": {
+					"name": "Нижний индекс",
+					"description": "Нижний индекс для последовательностей, матриц и обозначений."
+				},
+				"sum": {
+					"name": "Суммирование",
+					"description": "Сумма по индексу от нижней до верхней границы."
+				},
+				"integral": {
+					"name": "Интеграл",
+					"description": "Интеграл с пределами. Часто заканчивается на \\;dx или \\,dt."
+				},
+				"limit": {
+					"name": "Предел",
+					"description": "Запись предельного перехода переменной к значению."
+				},
+				"log": {
+					"name": "Логарифм",
+					"description": "Логарифм по основанию a. Для натурального логарифма используйте \\ln x."
+				},
+				"sin": {
+					"name": "Синус",
+					"description": "Тригонометрическая функция. Аналогично можно вставлять \\cos и \\tan."
+				},
+				"partial": {
+					"name": "Частная производная",
+					"description": "Используется для функций нескольких переменных."
+				},
+				"alpha": {
+					"name": "Альфа",
+					"description": "Часто обозначает коэффициенты, углы и параметры."
+				},
+				"lambda": {
+					"name": "Лямбда",
+					"description": "Обозначение интенсивности, собственного значения или параметра."
+				},
+				"pi": {
+					"name": "Пи",
+					"description": "Математическая константа и частое обозначение вероятности."
+				},
+				"matrixTemplate": {
+					"name": "Матрица",
+					"description": "Шаблон матрицы в квадратных скобках."
+				},
+				"piecewise": {
+					"name": "Кусочная функция",
+					"description": "Подходит для систем и функций, заданных по частям."
+				},
+				"autoBrackets": {
+					"name": "Автомасштаб скобок",
+					"description": "Команды \\left и \\right подгоняют размер скобок под содержимое."
+				},
+				"vec": {
+					"name": "Вектор",
+					"description": "Стрелка над символом для обозначения вектора."
+				},
+				"leq": {
+					"name": "Меньше либо равно",
+					"description": "Оператор сравнения. Рядом обычно используют \\geq и \\neq."
+				},
+				"infty": {
+					"name": "Бесконечность",
+					"description": "Обозначает бесконечность и пределы на бесконечности."
+				}
+			},
+			"toast": {
+				"templateTitle": "Шаблон формулы",
+				"templateBody": "Подставлен шаблон «{{name}}»",
+				"copiedTitle": "Скопировано",
+				"copiedBody": "LaTeX-код скопирован в буфер обмена",
+				"copyFailedTitle": "Не удалось скопировать",
+				"copyFailedBody": "Не удалось скопировать LaTeX-код в буфер обмена",
+				"exportTitle": "Экспорт готов",
+				"exportBody": "Формула сохранена в PNG",
+				"insertTitle": "Формула вставлена в документ",
+				"insertBody": "Формула была вставлена в документ"
+			},
+			"errors": {
+				"enterFormulaFirstTitle": "Нет формулы",
+				"enterFormulaFirstBody": "Сначала введите формулу",
+				"exportFailedTitle": "Экспорт не удался",
+				"exportFailedBody": "Не удалось экспортировать формулу",
+				"enterLatexTitle": "Нет LaTeX",
+				"enterLatexBody": "Введите LaTeX-формулу"
+			}
+		},
+		"table": {
+			"formulaInvalid": "Формула не вычисляется",
+			"advanced": {
+				"title": "Расширенный редактор таблиц",
+				"subtitle": "Редактирование таблиц как в Excel",
+				"undoTitle": "Отменить (Ctrl+Z)",
+				"undoAria": "Отменить изменение таблицы",
+				"redoTitle": "Повторить (Ctrl+Y)",
+				"redoAria": "Повторить изменение таблицы",
+				"copyTitle": "Копировать (Ctrl+C)",
+				"copyAria": "Копировать выделенные ячейки",
+				"pasteTitle": "Вставить (Ctrl+V)",
+				"pasteAria": "Вставить ячейки из буфера",
+				"exportCsvTitle": "Экспорт в CSV",
+				"exportCsvAria": "Экспортировать таблицу в CSV",
+				"closeTitle": "Закрыть",
+				"closeAria": "Закрыть редактор таблицы",
+				"addRow": "Добавить строку",
+				"addColumn": "Добавить столбец",
+				"deleteRow": "Удалить строку",
+				"deleteColumn": "Удалить столбец",
+				"cellBadge": "Ячейка {{col}}{{row}}",
+				"deleteColumnAria": "Удалить столбец {{label}}",
+				"deleteRowAria": "Удалить строку {{n}}",
+				"editCellAria": "Редактирование ячейки {{col}}{{row}}",
+				"dimensions": "{{rows}} строк × {{cols}} столбцов",
+				"cancel": "Отмена",
+				"insertTable": "Вставить таблицу",
+				"toast": {
+					"copyTitle": "Скопировано",
+					"copyBody": "Выделенные ячейки добавлены во внутренний буфер",
+					"pasteTitle": "Вставлено",
+					"pasteBody": "Данные вставлены в выбранную область",
+					"exportCsv": "CSV экспортирован",
+					"inserted": "Таблица вставлена в документ"
+				}
+			}
+		},
+		"pdf": {
+			"errors": {
+				"invalidFile": "Пожалуйста, выберите корректный PDF файл",
+				"loadFailedDetail": "Не удалось загрузить PDF. Проверьте файл и попробуйте снова.",
+				"loadFailedShort": "Не удалось загрузить PDF. Попробуйте другой файл.",
+				"renderPageFailed": "Не удалось отобразить страницу. Смените страницу или перезагрузите файл.",
+				"renderPageToast": "Не удалось отобразить страницу PDF",
+				"uploadPageFirst": "Сначала загрузите PDF страницу",
+				"exportFailed": "Не удалось экспортировать PDF"
+			},
+			"toasts": {
+				"uploadSuccess": "PDF загружен успешно!",
+				"insertSuccess": "PDF вставлен в документ!",
+				"exportSuccess": "PDF экспортирован успешно!"
+			},
+			"insert": {
+				"noteSaved": "PDF ({{pages}} стр.) сохранён в вашем хранилище контента. Ссылка ведёт на скачивание с сервера (как и вложения в чате).",
+				"noteSavedUnknown": "PDF сохранён в вашем хранилище контента. Ссылка ведёт на скачивание с сервера (как и вложения в чате).",
+				"noteTemp": "PDF ({{pages}} стр.) — временная ссылка (сессия браузера). Загрузка на сервер не удалась: {{message}}",
+				"noteTempUnknown": "PDF — временная ссылка (сессия браузера). Загрузка на сервер не удалась: {{message}}"
+			},
+			"previewAlt": "Превью: {{name}}",
+			"tools": {
+				"text": "Текст",
+				"highlight": "Выделение",
+				"rectangle": "Прямоугольник",
+				"circle": "Круг",
+				"arrow": "Стрелка",
+				"formText": "Текстовое поле",
+				"checkbox": "Чекбокс",
+				"dropdown": "Выпадающий список",
+				"signature": "Подпись"
+			},
+			"modes": {
+				"view": "Просмотр",
+				"annotate": "Аннотации",
+				"forms": "Формы",
+				"sign": "Подпись",
+				"merge": "Объединение",
+				"split": "Разделение"
+			},
+			"header": {
+				"title": "Обработка PDF",
+				"subtitleIdle": "Просмотр во встроенном просмотрщике и вставка как ссылки на файл",
+				"pagesSubtitle": "{{name}} • {{count}} стр.",
+				"pagesSubtitlePreview": "{{name}} • встроенный просмотр"
+			},
+			"actions": {
+				"export": "Экспорт",
+				"insertLoading": "Загрузка…",
+				"insert": "Вставить",
+				"closePanelAria": "Закрыть панель",
+				"closeTitle": "Закрыть",
+				"dismissErrorAria": "Скрыть сообщение об ошибке"
+			},
+			"steps": {
+				"aria": "Этапы работы с PDF",
+				"viewLoading": "Рендер страницы…",
+				"viewReady": "Просмотр",
+				"toolsWhenNoPdf": "Инструменты",
+				"step1Upload": "Загрузка"
+			},
+			"stageNav": {
+				"view": "Просмотр",
+				"annotate": "Аннотации",
+				"forms": "Формы",
+				"sign": "Подпись",
+				"merge": "Объединение",
+				"split": "Разделение"
+			},
+			"upload": {
+				"pickAria": "Выбрать PDF",
+				"uploadAria": "Загрузить PDF",
+				"uploadTitle": "Загрузить PDF",
+				"uploadButton": "Загрузить PDF"
+			},
+			"lists": {
+				"noAnnotationsTitle": "Нет аннотаций",
+				"noAnnotationsDesc": "Добавьте первую аннотацию на странице.",
+				"noFieldsTitle": "Нет полей",
+				"noFieldsDesc": "Создайте первое поле формы."
+			},
+			"viewer": {
+				"thumbnailsAria": "Переключить миниатюры",
+				"thumbnailsTitle": "Миниатюры",
+				"prevPageAria": "Предыдущая страница",
+				"prevPageTitle": "Предыдущая страница",
+				"nextPageAria": "Следующая страница",
+				"nextPageTitle": "Следующая страница",
+				"zoomOutAria": "Уменьшить масштаб",
+				"zoomOutTitle": "Уменьшить масштаб",
+				"zoomInAria": "Увеличить масштаб",
+				"zoomInTitle": "Увеличить масштаб",
+				"zoomResetAria": "Сбросить масштаб",
+				"zoomResetTitle": "Сбросить масштаб",
+				"pageTitle": "Страница {{n}}",
+				"pageOfUnknown": "{{current}} / {{count}}",
+				"nativeViewerHint": "Переключение страниц использует параметр во встроенном просмотрщике; итого страниц может отличаться. При необходимости пользуйтесь элементами браузера.",
+				"previewFrameTitle": "Просмотр PDF",
+				"zoomResetButton": "Сброс",
+				"pageLoadingOverlay": "Загрузка страницы…"
+			},
+			"sidebar": {
+				"annotateHeading": "Инструменты аннотаций",
+				"annotationsListHeading": "Аннотации",
+				"formsHeading": "Поля формы",
+				"fieldsListHeading": "Поля",
+				"pageAbbrev": "Стр. {{n}}"
+			},
+			"empty": {
+				"title": "Загрузите PDF",
+				"description": "Выберите файл PDF для предпросмотра и вставки в документ ссылкой на скачивание.",
+				"previewHelp": "Точное извлечение текста и рендер по страницам — на сервере; здесь файл сохраняется или добавляется ссылкой.",
+				"pickFile": "Выбрать PDF файл"
+			},
+			"textPrompt": {
+				"title": "Текстовая аннотация",
+				"description": "Введите подпись, которая будет закреплена на текущей странице PDF.",
+				"label": "Текст аннотации",
+				"placeholder": "Например: Проверить формулировку",
+				"submit": "Добавить"
+			}
+		},
+		"templates": {
+			"filterDifficulty": "Сложность",
+			"difficultyAll": "Все уровни",
+			"difficulty": {
+				"easy": "Легко",
+				"medium": "Средне",
+				"hard": "Сложно"
+			},
+			"categories": {
+				"business": "Бизнес",
+				"academic": "Исследования",
+				"creative": "Тексты и markdown",
+				"legal": "Юридические"
+			},
+			"categoryFallback": "Шаблон",
+			"preview": {
+				"loading": "Подготавливаем предпросмотр шаблона…",
+				"error": "Не удалось подготовить предпросмотр шаблона."
+			},
+			"previewModal": {
+				"sourceTitle": "Исходный markdown",
+				"sourceHint": "Можно быстро оценить структуру и использовать как основу для своего документа."
+			},
+			"errors": {
+				"loadCatalog": "Не удалось загрузить серверный каталог шаблонов.",
+				"degradedCatalog": "Каталог шаблонов работает в ограниченном режиме: {{reason}}",
+				"notAppliedTitle": "Шаблон не применён",
+				"notAppliedPreflight": "Серверный preflight запретил применение для выбранного режима.",
+				"createFailed": "Не удалось создать документ из шаблона"
+			},
+			"toasts": {
+				"preflightTitle": "Preflight",
+				"appliedTitle": "Шаблон применён",
+				"appliedBody": "Шаблон «{{name}}» применён ({{mode}})",
+				"createdBody": "Создан документ «{{name}}»"
+			},
+			"applyModeLabels": {
+				"replace": "заменить документ",
+				"insert": "вставить в курсор",
+				"append": "добавить в конец"
+			},
+			"header": {
+				"title": "Шаблоны документов",
+				"subtitle": "Текст шаблона приходит с сервера (Markdown → HTML в редакторе). В каталоге это осознанно «скелет» с подсказками в разделах, а не готовый длинный документ — дополняйте под задачу.",
+				"subtitleFallbackSuffix": " Сейчас показан встроенный каталог-заглушка."
+			},
+			"limitedMode": "Ограниченный режим",
+			"viewList": "Показать списком",
+			"viewGrid": "Показать плиткой",
+			"close": "Закрыть",
+			"searchPlaceholder": "Поиск по названию, тегам и содержимому…",
+			"applyModeAria": "Режим применения шаблона",
+			"applyOptionReplace": "Применение: заменить документ",
+			"applyOptionInsert": "Применение: вставить в курсор",
+			"applyOptionAppend": "Применение: добавить в конец",
+			"categoryAria": "Категория шаблонов",
+			"allCategories": "Все категории",
+			"sortAria": "Сортировка шаблонов",
+			"sortName": "Сортировка: по названию",
+			"sortCategory": "Сортировка: по категории",
+			"sortDifficulty": "Сортировка: по сложности",
+			"pillAll": "Все ({{count}})",
+			"loadingTitle": "Загружаем шаблоны",
+			"loadingDesc": "Секунду — подтягиваем каталог с сервера.",
+			"emptyTitle": "Ничего не найдено",
+			"emptyDesc": "Смените поиск, категорию или сортировку — или сбросьте фильтры.",
+			"preview": "Предпросмотр",
+			"use": "Использовать",
+			"footerFound": "Найдено шаблонов: {{count}}",
+			"footerLoading": "Загружаем серверный каталог…",
+			"footerPreflightOk": "Шаблоны применяются с preflight-проверкой.",
+			"footerFallbackCatalog": "Используется fallback-каталог сервера."
+		}
+	},
+	"versions": {
+		"loadFailed": "Не удалось загрузить историю версий",
+		"title": "История версий",
+		"subtitle": "Унифицированный API контента",
+		"close": "Закрыть историю версий",
+		"previewHint": "Снимок выбранной версии (только просмотр). Переключайте записи в списке, чтобы визуально сравнить содержимое.",
+		"restoreLabel": "Восстановить эту версию",
+		"restoreConfirmTitle": "Документ вернётся к версии {{n}}. Текущее содержимое будет сохранено новой версией.",
+		"restoring": "Восстановление…",
+		"restoreConfirm": "Подтвердить восстановление",
+		"restoreFailed": "Не удалось восстановить версию",
+		"compareHint": "Выберите другую версию в ленте — превью ниже обновится для сравнения.",
+		"dash": "—",
+		"timeUnknown": "неизвестно",
+		"relativeDaysAgo": "{{count}} дн. назад",
+		"relativeHoursAgo": "{{count}} ч. назад",
+		"relativeMinutesAgo": "{{count}} мин. назад",
+		"relativeJustNow": "только что",
+		"currentVersionHeading": "Текущая версия",
+		"versionNumberLine": "Версия {{n}}",
+		"totalVersionsCount": "{{count}} всего версий",
+		"loadingTitle": "Загрузка версий",
+		"loadingDesc": "История подгружается из API контента.",
+		"noFileTitle": "Документ не выбран",
+		"noFileDesc": "Сначала откройте или сохраните документ — тогда появится лента версий.",
+		"emptyHistoryTitle": "История версий отсутствует",
+		"emptyHistoryDesc": "Сохраните документ — появятся снимки для отката.",
+		"badgeCurrent": "Текущая",
+		"cancel": "Отмена",
+		"previewPickHint": "Выберите версию в ленте слева — здесь появится снимок.",
+		"footerAutoVersioning": "Автоверсионирование",
+		"footerTotal": "всего: {{count}}"
+	}
+}

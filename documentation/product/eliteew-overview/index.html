@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EliteEW — обзор продукта</title>
+  <meta name="description" content="EliteEW: интегрированная рабочая среда — описание, функционал, пользовательский и технический слой по областям. GitHub-style overview." />
+  <link href="../eliteew-product-card/vendor/fonts.css" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg2: #0d1324;
+      --surface: rgba(18, 26, 48, 0.72);
+      --border: rgba(148, 163, 184, 0.14);
+      --text: #e8edf7;
+      --muted: #94a3b8;
+      --accent: #8b5cf6;
+      --accent2: #22d3ee;
+      --accent3: #f59e0b;
+      --good: #34d399;
+      --radius: 18px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+      --font: "Manrope", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --nav-h: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background:
+        radial-gradient(ellipse 90% 55% at 15% -5%, rgba(109, 40, 217, 0.22), transparent 55%),
+        radial-gradient(ellipse 70% 45% at 95% 15%, rgba(8, 145, 178, 0.16), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(99, 102, 241, 0.1), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
+      background-image: radial-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, #000 20%, transparent 75%);
+    }
+
+    .glow-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.32;
+      z-index: 0;
+      pointer-events: none;
+      animation: floatOrb 18s ease-in-out infinite;
+    }
+    .glow-orb.a { width: 420px; height: 420px; background: #6d28d9; top: -80px; left: -60px; }
+    .glow-orb.b { width: 360px; height: 360px; background: #0891b2; bottom: 10%; right: -40px; animation-delay: -6s; }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 25px) scale(0.95); }
+    }
+
+    nav.top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 1.25rem;
+      background: rgba(7, 11, 20, 0.78);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav.top-nav.scrolled {
+      background: rgba(7, 11, 20, 0.92);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 55%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.35rem;
+      overflow-x: auto;
+      flex: 1;
+      scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(139, 92, 246, 0.18);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+      background-size: 200% 100%;
+      z-index: 101;
+      transition: width 0.1s linear;
+    }
+
+    main { position: relative; z-index: 1; padding-top: var(--nav-h); }
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
+    section { padding: 4rem 0; }
+
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      padding: 2.5rem 0 3.5rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent2), transparent);
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin: 0 0 1.1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 42%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      font-size: 1.12rem;
+      line-height: 1.7;
+      color: #b8c5d9;
+      max-width: 58ch;
+      margin: 0 0 1.75rem;
+    }
+
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      margin-bottom: 1.75rem;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.9rem 1.15rem;
+      min-width: 110px;
+      backdrop-filter: blur(12px);
+    }
+    .stat .num {
+      font-size: 1.55rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .stat .lbl { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+    .btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 0.55rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: 0.2s;
+    }
+    .btn:hover { background: rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.45); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      border-color: transparent;
+      box-shadow: 0 4px 24px rgba(139, 92, 246, 0.35);
+    }
+
+    .section-head { margin-bottom: 1.75rem; }
+    .section-head h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin: 0 0 0.45rem;
+      letter-spacing: -0.02em;
+    }
+    .section-head h2::after {
+      content: "";
+      display: block;
+      width: 64px;
+      height: 3px;
+      margin-top: 0.55rem;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .section-head p { color: var(--muted); margin: 0.75rem 0 0; max-width: 62ch; }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .value-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      backdrop-filter: blur(12px);
+    }
+    .value-card h3 { margin: 0 0 0.45rem; font-size: 1rem; }
+    .value-card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+    .pill-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .pill {
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      transition: 0.2s;
+    }
+    .pill:hover, .pill.active {
+      color: var(--text);
+      border-color: rgba(139, 92, 246, 0.5);
+      background: rgba(139, 92, 246, 0.15);
+    }
+    .pill-n {
+      opacity: 0.65;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      margin-left: 0.2rem;
+    }
+
+    .search-wrap { position: relative; display: inline-block; width: 100%; max-width: 360px; margin-bottom: 1.25rem; }
+    .search-wrap::before {
+      content: "⌕";
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-58%);
+      color: var(--muted);
+    }
+    .search-box {
+      width: 100%;
+      padding: 0.7rem 1rem 0.7rem 2.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .search-box:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
+    }
+
+    .meta-line {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+    }
+    .meta-line strong { color: var(--text); }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.15rem;
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, linear-gradient(90deg, var(--accent), var(--accent2)));
+    }
+    .card[data-cat="platform"] { --card-accent: linear-gradient(90deg, #8b5cf6, #6366f1); }
+    .card[data-cat="business"] { --card-accent: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .card[data-cat="content"] { --card-accent: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .card[data-cat="ai"] { --card-accent: linear-gradient(90deg, #a78bfa, #22d3ee); }
+    .card[data-cat="social"] { --card-accent: linear-gradient(90deg, #34d399, #10b981); }
+    .card[data-cat="sites"] { --card-accent: linear-gradient(90deg, #06b6d4, #0891b2); }
+    .card[data-cat="creative"] { --card-accent: linear-gradient(90deg, #ec4899, #8b5cf6); }
+    .card[data-cat="mobile"] { --card-accent: linear-gradient(90deg, #22d3ee, #38bdf8); }
+    .card[data-cat="ops"] { --card-accent: linear-gradient(90deg, #f97316, #fb923c); }
+    .card.visible:hover {
+      transform: translateY(-3px);
+      border-color: rgba(139, 92, 246, 0.45);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.65rem;
+    }
+    .tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent2);
+    }
+    .card-id {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+    }
+    .card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
+    .tagline { margin: 0; color: var(--muted); font-size: 0.88rem; }
+    .card-hint {
+      margin: 0.85rem 0 0;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(34, 211, 238, 0.85);
+    }
+    .empty { color: var(--muted); }
+
+    .stack-grid {
+      display: grid;
+      gap: 0.55rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.15rem;
+    }
+    .stack-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+    }
+    .stack-row:last-child { border-bottom: 0; }
+    .stack-k { font-weight: 700; font-size: 0.82rem; color: var(--accent2); }
+    .stack-v {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: #c7d2e5;
+      white-space: normal;
+      word-break: break-word;
+    }
+
+    .repo-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .repo-table th,
+    .repo-table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      font-size: 0.88rem;
+    }
+    .repo-table th {
+      background: rgba(0,0,0,0.25);
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .repo-table code {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent2);
+    }
+    .repo-table tr:last-child td { border-bottom: 0; }
+
+    .limits {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .limit-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem;
+    }
+    .limit-card h3 { margin: 0 0 0.4rem; font-size: 0.95rem; color: var(--accent3); }
+    .limit-card p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+    .note-box {
+      margin-top: 1.25rem;
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius);
+      border: 1px dashed rgba(148, 163, 184, 0.25);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .note-box a { color: var(--accent2); }
+
+    .pack-pointer {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 0.75rem 1.25rem;
+      background: rgba(34, 211, 238, 0.08);
+      border-bottom: 1px solid rgba(34, 211, 238, 0.28);
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+    .pack-pointer a { color: var(--accent2); font-weight: 700; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Modal */
+    .modal[hidden] { display: none; }
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 1.25rem;
+    }
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 6, 14, 0.72);
+      backdrop-filter: blur(8px);
+    }
+    .modal-panel {
+      position: relative;
+      width: min(720px, 100%);
+      max-height: min(86vh, 900px);
+      overflow: auto;
+      background: linear-gradient(165deg, rgba(18, 26, 48, 0.98), rgba(10, 14, 28, 0.98));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 1.5rem 1.5rem 1.75rem;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.85rem;
+      right: 0.85rem;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      width: 2.1rem;
+      height: 2.1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .modal-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin: 0 0 0.35rem;
+    }
+    .modal-panel h2 { margin: 0 0 0.5rem; font-size: 1.45rem; }
+    .modal-summary { color: var(--muted); margin: 0 0 1.25rem; }
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 700px) {
+      .split { grid-template-columns: 1fr; }
+      .stack-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    }
+    .pane {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+    .pane h3 {
+      margin: 0 0 0.65rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--good);
+    }
+    .pane.tech h3 { color: var(--accent2); }
+    .pane ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: #c5d0e2;
+      font-size: 0.88rem;
+    }
+    .pane li { margin-bottom: 0.45rem; }
+    .pane code {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-orb a" aria-hidden="true"></div>
+  <div class="glow-orb b" aria-hidden="true"></div>
+
+  <p class="pack-pointer">
+    Основной публичный обзор (RU/EN · MIT):
+    <a href="../product-overview/export/html/index.html">product-overview HTML</a>
+    ·
+    <a href="../product-overview/README.md">README пакета</a>
+    · эта страница — каталог областей (вторичный)
+  </p>
+
+  <nav class="top-nav" aria-label="Разделы">
+    <a class="brand" href="#top">EliteEW</a>
+    <div class="nav-links">
+      <a href="#about">О продукте</a>
+      <a href="#pillars-sec">Принципы</a>
+      <a href="#catalog">Области</a>
+      <a href="#stack">Стек</a>
+      <a href="#repo">Репозиторий</a>
+      <a href="#limits-sec">Ограничения</a>
+    </div>
+  </nav>
+  <div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Area catalog · secondary to product-overview pack</p>
+        <h1>EliteEW</h1>
+        <p class="lead">
+          Интегрированная рабочая среда: стол с окнами и магазином приложений,
+          единая библиотека файлов, маркетинг на данных проекта, документы и презентации,
+          общение и несколько контуров ИИ. Ниже — что делает продукт для пользователя
+          и как это устроено технически, по областям.
+        </p>
+        <div class="stats-row">
+          <div class="stat"><div class="num">1</div><div class="lbl">workspace</div></div>
+          <div class="stat"><div class="num">3</div><div class="lbl">editions</div></div>
+          <div class="stat"><div class="num">2</div><div class="lbl">ИИ-контура</div></div>
+          <div class="stat"><div class="num">22</div><div class="lbl">области каталога</div></div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn primary" href="../product-overview/export/html/index.html">Обзорный пакет RU/EN</a>
+          <a class="btn" href="#catalog">Каталог областей</a>
+          <a class="btn" href="#stack">Техстек</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <h2>Что это</h2>
+          <p>
+            EliteEW — платформа <strong>Kernel + Desktop apps</strong>, а не набор независимых SaaS.
+            Состав иконок на столе зависит от роли, магазина и install-profile организации.
+            Editions: <strong>cloud</strong> (hosted), <strong>onprem</strong> (изолированный контур заказчика),
+            <strong>client</strong> (устройство / offline-capable + scoped remote tools).
+          </p>
+        </div>
+        <div class="note-box">
+          Этот HTML — обзор для людей и для README-контекста репозитория.
+          Операционный SoT (hosts, deploy, stacks) — в
+          <a href="../../platform/PRODUCTION-TOPOLOGY-STATE.md">PRODUCTION-TOPOLOGY-STATE.md</a>
+          и living product docs под <code>documentation/product/</code>.
+          Partner deck с research-бандлом —
+          <a href="../eliteew-product-card/ELITEEW-PRODUCT-PRESENTATION.html">ELITEEW-PRODUCT-PRESENTATION.html</a>
+          (другой жанр, не дублировать сюда).
+        </div>
+      </div>
+    </section>
+
+    <section id="pillars-sec">
+      <div class="container">
+        <div class="section-head">
+          <h2>Принципы</h2>
+          <p>Коротко — чем продукт отличается от «ещё одного чата» или «ещё одного диска».</p>
+        </div>
+        <div class="pillars" id="pillars"></div>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="container">
+        <div class="section-head">
+          <h2>Области продукта</h2>
+          <p>
+            Каждая карточка открывает два слоя: <strong>для пользователя</strong> и
+            <strong>технический</strong> (пути в monorepo / API / living canon).
+          </p>
+        </div>
+        <div class="pill-row" id="cat-pills" role="tablist" aria-label="Категории"></div>
+        <div class="search-wrap">
+          <input class="search-box" id="search" type="search" placeholder="Поиск по названию, user, tech…" autocomplete="off" />
+        </div>
+        <p class="meta-line">Показано: <strong id="area-count">0</strong></p>
+        <div class="grid-3" id="area-grid"></div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="container">
+        <div class="section-head">
+          <h2>Стек (высокий уровень)</h2>
+          <p>Без hosts/IP и без секретов — только слои, которые нужны, чтобы ориентироваться в коде.</p>
+        </div>
+        <div class="stack-grid" id="stack-grid"></div>
+      </div>
+    </section>
+
+    <section id="repo">
+      <div class="container">
+        <div class="section-head">
+          <h2>Карта репозитория</h2>
+          <p>Где лежит код. Pack doors не смешивать в одной задаче без явного scope.</p>
+        </div>
+        <table class="repo-table">
+          <thead>
+            <tr><th>Путь</th><th>Назначение</th></tr>
+          </thead>
+          <tbody id="repo-map"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="limits-sec">
+      <div class="container">
+        <div class="section-head">
+          <h2>Честные ограничения</h2>
+          <p>То, что важно сказать в README / онбординге, чтобы не обещать лишнего.</p>
+        </div>
+        <div class="limits" id="limits"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      EliteEW overview · <span id="year"></span> · living product facts · not ops topology SoT ·
+      visual system adapted from <code>eliteew-product-card</code>
+    </div>
+  </footer>
+
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button type="button" class="modal-close" id="modal-close" aria-label="Закрыть">×</button>
+      <p class="modal-cat" id="modal-cat"></p>
+      <h2 id="modal-title"></h2>
+      <p class="modal-summary" id="modal-summary"></p>
+      <div class="split">
+        <div class="pane">
+          <h3>Пользователь</h3>
+          <ul id="modal-user"></ul>
+        </div>
+        <div class="pane tech">
+          <h3>Технически</h3>
+          <ul id="modal-tech"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="overview.js"></script>
+</body>
+</html>

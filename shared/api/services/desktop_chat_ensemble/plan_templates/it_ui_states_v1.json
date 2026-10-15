@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "it_ui_states_v1",
+  "version": 1,
+  "title": "Journey и честные UI-состояния",
+  "description": "Практичный UI pack: пользовательский journey, empty/loading/error/offline, нужный data contract и non-goals.",
+  "artifact_type": "it_ui_states",
+  "required_context": [
+    "user_goal",
+    "surface_or_screen",
+    "data_dependency"
+  ],
+  "quality_rubric": [
+    "Journey читается как путь пользователя, не admin console",
+    "Empty/loading/error/offline явны",
+    "Нужный data contract без выдуманных полей",
+    "Non-goals отсекают scope creep"
+  ],
+  "output_sections": [
+    "Journey и состояния",
+    "Data contract",
+    "Scope и non-goals"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "ui1",
+      "title": "Journey и состояния",
+      "instruction_for_model": "Опиши user journey экрана/фичи: вход → действие → успех. Для каждого ключевого узла — empty, loading, error, offline (что видит пользователь, один следующий шаг). Без raw HTTP-кодов в user copy. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "creative": 2
+      },
+      "scope_fence": "Только journey и UI states; не серверная архитектура.",
+      "output_format": [
+        "Journey steps",
+        "Empty",
+        "Loading",
+        "Error",
+        "Offline"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "ui2",
+      "title": "Data contract",
+      "instruction_for_model": "Какой минимальный data contract нужен journey: поля, nullability, ошибки. Помечай TBD. Не проектируй весь backend. Без ##.",
+      "required_slots": {
+        "engineering": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только клиентский data contract для этого journey.",
+      "output_format": [
+        "Required fields",
+        "Errors",
+        "TBD"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "ui3",
+      "title": "Scope и non-goals",
+      "instruction_for_model": "Зафиксируй scope этой UI-работы и явные non-goals. Что проверить до merge (Vitest/browser smoke). Без ##.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только scope/non-goals/verify; не дублируй journey.",
+      "output_format": [
+        "In scope",
+        "Non-goals",
+        "Verify"
+      ],
+      "min_roster": 1
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Journey и состояния",
+      "step_ids": [
+        "ui1"
+      ]
+    },
+    {
+      "heading": "Data contract",
+      "step_ids": [
+        "ui2"
+      ]
+    },
+    {
+      "heading": "Scope и non-goals",
+      "step_ids": [
+        "ui3"
+      ]
+    }
+  ]
+}

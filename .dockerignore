@@ -1,0 +1,286 @@
+# 🔥💎 ELITEEW BROTHERHOOD DOCKER IGNORE 💎🔥
+# Optimize Docker build by excluding unnecessary files
+
+# =============================================================================
+# GIT AND VERSION CONTROL
+# =============================================================================
+.git/
+.gitignore
+.gitattributes
+.gitmodules
+*.orig
+*.rej
+
+# =============================================================================
+# PYTHON
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff (if using Django)
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff (if using Flask)
+instance/
+.webassets-cache
+
+# Scrapy stuff
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# =============================================================================
+# NODE.JS / FRONTEND
+# =============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.node_repl_history
+*.tgz
+.yarn-integrity
+.next
+.nuxt
+dist
+.cache
+.parcel-cache
+
+# =============================================================================
+# DOCKER
+# =============================================================================
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+.docker/
+
+# =============================================================================
+# IDE AND EDITORS
+# =============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+
+# =============================================================================
+# LOGS AND TEMP FILES
+# =============================================================================
+*.log
+logs/
+*.tmp
+*.temp
+temp/
+tmp/
+
+# =============================================================================
+# DATABASE FILES
+# =============================================================================
+*.db
+*.sqlite
+*.sqlite3
+backup_*.sql
+
+# =============================================================================
+# DEVELOPMENT AND TESTING
+# =============================================================================
+tests/
+test/
+*test*
+spec/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =============================================================================
+# DOCUMENTATION
+# =============================================================================
+README.md
+MIGRATION_PLAN_DETAILED.md
+DOCKER_DEVELOPMENT_GUIDE.md
+*.md
+docs/
+documentation/
+# Product Assistant KB → baked api layer (Dockerfile.prod-baked); rest of documentation/ stays excluded
+!documentation/product/
+!documentation/product/handbook-kb-articles/
+!documentation/product/handbook-kb-articles/**
+
+# =============================================================================
+# CONFIGURATION AND SCRIPTS
+# =============================================================================
+Makefile
+start-development.sh
+stop.sh
+.github/
+.gitlab-ci.yml
+# Note: *.sh not excluded — some images COPY scripts; runtime uses volume mount
+
+# =============================================================================
+# DATA AND UPLOADS
+# =============================================================================
+data/
+uploads/
+media/
+static/
+staticfiles/
+
+# =============================================================================
+# AI AND MODELS
+# =============================================================================
+models/
+*.model
+*.pkl
+*.h5
+*.pb
+
+# =============================================================================
+# ELITEEW SPECIFIC
+# =============================================================================
+# Migration files (included in image via specific COPY)
+database/migrations/
+
+# API virtual environment
+api/venv/
+api/env/
+
+# Development containers data
+eliteew_dev_data/
+eliteew_dev_logs/
+
+# Repo root: stack data dirs and env (when build context is repo root)
+stack1/
+stack2/
+stack6/
+stack9/
+stack11/
+elasticsearch_config/
+docker/env_file/
+
+# =============================================================================
+# SECURITY
+# =============================================================================
+.env
+.env.*
+secrets/
+*.key
+*.pem
+*.p12
+*.crt
+*.cer
+
+# =============================================================================
+# BACKUP AND ARCHIVE
+# =============================================================================
+backup/
+archives/
+*.zip
+*.tar
+*.tar.gz
+*.rar
+
+# =============================================================================
+# MONITORING AND PROFILING
+# =============================================================================
+*.prof
+*.profile
+monitoring/
+metrics/

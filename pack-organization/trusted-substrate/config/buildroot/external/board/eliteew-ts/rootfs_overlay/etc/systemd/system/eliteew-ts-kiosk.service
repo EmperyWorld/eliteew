@@ -1,0 +1,12 @@
+[Unit]
+Description=EliteEW Trusted Substrate kiosk (legacy system unit — disabled)
+Documentation=file:///opt/eliteew-trusted-substrate/README-FIRST.txt
+# Product path: agetty --autologin on tty1 + ~/.bash_profile → /usr/local/bin/eliteew-ts-kiosk.
+# This unit is kept only so an accidental enable is a no-op (ConditionPathExists missing).
+# No [Install] WantedBy — Buildroot finalize must not enable multi-user.wants (agetty owns tty1).
+ConditionPathExists=/etc/eliteew-trusted-substrate/ENABLE-SYSTEM-KIOSK-UNIT
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes

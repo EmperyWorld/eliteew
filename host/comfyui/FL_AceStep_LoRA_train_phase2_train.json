@@ -1,0 +1,106 @@
+{
+  "id": "emew-acestep-lora-train-phase2-train",
+  "revision": 0,
+  "last_node_id": 8,
+  "last_link_id": 11,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [-2325, -308],
+      "size": [420, 98],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        { "name": "MODEL", "type": "MODEL", "links": [10] },
+        { "name": "CLIP", "type": "CLIP", "links": null },
+        { "name": "VAE", "type": "VAE", "links": null }
+      ],
+      "properties": { "Node name for S&R": "CheckpointLoaderSimple" },
+      "widgets_values": ["ace_step_1.5_turbo_aio.safetensors"],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 7,
+      "type": "FL_AceStep_TrainingConfig",
+      "pos": [-1394, -296],
+      "size": [340, 394],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [{ "name": "config", "type": "ACESTEP_TRAINING_CONFIG", "links": [11] }],
+      "properties": { "Node name for S&R": "FL_AceStep_TrainingConfig" },
+      "widgets_values": [
+        32,
+        64,
+        0.1,
+        0.0001,
+        250,
+        1,
+        4,
+        50,
+        "./output/acestep/loras",
+        42,
+        "fixed",
+        100,
+        0.01,
+        1.0,
+        "q_proj,k_proj,v_proj,o_proj"
+      ],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    },
+    {
+      "id": 8,
+      "type": "FL_AceStep_Train",
+      "pos": [-1024, -312],
+      "size": [780, 654],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        { "name": "model", "type": "MODEL", "link": 10 },
+        { "name": "config", "type": "ACESTEP_TRAINING_CONFIG", "link": 11 }
+      ],
+      "outputs": [
+        { "name": "model", "type": "MODEL", "links": null },
+        { "name": "final_lora_path", "type": "STRING", "links": null },
+        { "name": "status", "type": "STRING", "links": [] }
+      ],
+      "properties": { "Node name for S&R": "FL_AceStep_Train" },
+      "widgets_values": [
+        "./output/acestep/datasets",
+        "emew_style_v1",
+        "",
+        ""
+      ],
+      "color": "#16727c",
+      "bgcolor": "#4F0074"
+    }
+  ],
+  "links": [
+    [10, 2, 0, 8, 0, "MODEL"],
+    [11, 7, 0, 8, 1, "ACESTEP_TRAINING_CONFIG"]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Phase 2: Train only (after preprocess + Comfy restart)",
+      "bounding": [-2340, -380, 2100, 750],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": { "scale": 0.85, "offset": [2500, 900] },
+    "frontendVersion": "1.44.19",
+    "workflowRendererVersion": "LG"
+  },
+  "version": 0.4
+}

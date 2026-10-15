@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/ewa/ewa_atom_v1.json",
+  "title": "EWA Atom v1",
+  "description": "Discriminated knowledge-graph atom (Star | Comet | Nebula) for EWA Postgres + APIs.",
+  "type": "object",
+  "required": ["particle_kind", "payload"],
+  "properties": {
+    "api_version": { "type": "string", "const": "1" },
+    "atom": { "$ref": "#/$defs/AnyAtomV1" }
+  },
+  "$defs": {
+    "AffectiveInfluenceV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nebula_id", "weight_delta"],
+      "properties": {
+        "nebula_id": { "type": "string", "format": "uuid" },
+        "weight_delta": { "type": "number", "minimum": -1, "maximum": 1 }
+      }
+    },
+    "AtomBaseV1": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["particle_kind", "payload"],
+      "properties": {
+        "id": { "type": "string", "format": "uuid" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "importance": { "type": "number", "minimum": 0, "maximum": 1 },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "payload": {
+          "oneOf": [{ "type": "string" }, { "type": "object" }]
+        },
+        "affective_overlay": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/AffectiveInfluenceV1" }
+        },
+        "episode_id": { "type": "string", "maxLength": 128 }
+      }
+    },
+    "StarAtomV1": {
+      "allOf": [
+        { "$ref": "#/$defs/AtomBaseV1" },
+        {
+          "type": "object",
+          "required": ["particle_kind", "origin_source", "stability_index", "veracity_score"],
+          "properties": {
+            "particle_kind": { "type": "string", "const": "star" },
+            "origin_source": { "type": "string", "minLength": 1, "maxLength": 120 },
+            "stability_index": { "type": "number", "const": 1 },
+            "veracity_score": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        }
+      ]
+    },
+    "CometAtomV1": {
+      "allOf": [
+        { "$ref": "#/$defs/AtomBaseV1" },
+        {
+          "type": "object",
+          "required": ["particle_kind", "duration_iso", "impact_magnitude", "trajectory_vector"],
+          "properties": {
+            "particle_kind": { "type": "string", "const": "comet" },
+            "duration_iso": { "type": "string", "minLength": 2, "maxLength": 32, "pattern": "^P" },
+            "impact_magnitude": { "type": "number", "minimum": 0, "maximum": 1 },
+            "trajectory_vector": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": { "type": "number" }
+            }
+          }
+        }
+      ]
+    },
+    "NebulaAtomV1": {
+      "allOf": [
+        { "$ref": "#/$defs/AtomBaseV1" },
+        {
+          "type": "object",
+          "required": ["particle_kind", "valence", "arousal", "color_hex"],
+          "properties": {
+            "particle_kind": { "type": "string", "const": "nebula" },
+            "valence": { "type": "number", "minimum": -1, "maximum": 1 },
+            "arousal": { "type": "number", "minimum": 0, "maximum": 1 },
+            "color_hex": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" }
+          }
+        }
+      ]
+    },
+    "AnyAtomV1": {
+      "oneOf": [
+        { "$ref": "#/$defs/StarAtomV1" },
+        { "$ref": "#/$defs/CometAtomV1" },
+        { "$ref": "#/$defs/NebulaAtomV1" }
+      ],
+      "discriminator": {
+        "propertyName": "particle_kind",
+        "mapping": {
+          "star": "#/$defs/StarAtomV1",
+          "comet": "#/$defs/CometAtomV1",
+          "nebula": "#/$defs/NebulaAtomV1"
+        }
+      }
+    }
+  }
+}

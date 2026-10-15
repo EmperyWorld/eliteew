@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_oidc_network_error">Could not reach the sign-in server. Check your network and try again.</string>
+    <string name="auth_oidc_server_unavailable">Sign-in server is temporarily unavailable. Try again later.</string>
+    <string name="auth_oidc_try_later">Sign-in is unavailable right now. Try again shortly.</string>
+    <string name="auth_oidc_state_mismatch">Sign-in session expired or was interrupted. Start sign-in again.</string>
+    <string name="auth_oidc_session_invalid">Sign-in session is invalid. Sign out and sign in again.</string>
+    <string name="auth_oidc_generic_failed">Could not complete sign-in. Try again.</string>
+    <string name="auth_sso_webview_title">Sign in to EliteEW</string>
+    <string name="auth_sso_webview_cancel">Cancel</string>
+    <string name="auth_sso_browser_picker_title">Choose browser for sign-in</string>
+    <string name="auth_sso_browser_picker_subtitle">Pick a browser for Keycloak SSO — it opens the sign-in page and returns you to the app.</string>
+    <string name="auth_sso_browser_picker_hint">Some devices open the default browser immediately. Pick an app below (prefer Chrome without ad-blocking for the IdP).</string>
+    <string name="auth_sso_browser_picker_fallback">Cannot list browsers; opening the standard app picker.</string>
+    <string name="auth_sso_browser_pick_failed">Could not start the selected browser</string>
+    <string name="auth_sso_browser_picker_cancel">Cancel</string>
+</resources>

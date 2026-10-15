@@ -1,0 +1,15 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/vscode-custom-data/master/schemas/css-custom-data.schema.json",
+	"version": 1.1,
+	"atDirectives": [
+		{
+			"name": "@theme",
+			"description": "Tailwind CSS v4: register theme variables (colors, fonts, breakpoints, etc.)."
+		},
+		{
+			"name": "@utility",
+			"description": "Tailwind CSS v4: define a custom utility class and its declarations."
+		}
+	]
+}
+

@@ -1,0 +1,23 @@
+# EliteEW Trusted Substrate — AMD GPU + HDA codecs (metal laptops).
+# Complements linux-console.fragment (EFI/simpledrm early boot).
+# Cause: AMD APU had simpledrm-only + snd_hda_intel with codecs disabled →
+# software labwc/WebKit lag and silent audio (2026-09-10 readiness).
+
+# AMDGPU (Raven/Picasso/… + discrete where present)
+CONFIG_DRM_AMDGPU=y
+CONFIG_DRM_AMD_DC=y
+CONFIG_DRM_AMDGPU_SI=y
+CONFIG_DRM_AMDGPU_CIK=y
+CONFIG_DRM_AMDGPU_USERPTR=y
+
+# HDA codecs — without these snd_hda_intel loads but "Cannot probe codecs"
+CONFIG_SND_HDA_GENERIC=y
+CONFIG_SND_HDA_CODEC_HDMI=y
+CONFIG_SND_HDA_CODEC_REALTEK=y
+CONFIG_SND_HDA_CODEC_CIRRUS=y
+CONFIG_SND_HDA_CODEC_CONEXANT=y
+CONFIG_SND_HDA_CODEC_SIGMATEL=y
+CONFIG_SND_HDA_CODEC_VIA=y
+CONFIG_SND_HDA_CODEC_ANALOG=y
+CONFIG_SND_HDA_CODEC_CA0132=y
+CONFIG_SND_HDA_PATCH_LOADER=y

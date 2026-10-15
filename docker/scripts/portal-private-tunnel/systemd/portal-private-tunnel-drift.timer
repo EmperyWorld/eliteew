@@ -1,0 +1,13 @@
+[Unit]
+Description=EliteEW Portal Private Tunnel drift notify timer
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+
+[Timer]
+OnBootSec=4min
+OnUnitActiveSec=10min
+AccuracySec=1min
+Persistent=true
+Unit=portal-private-tunnel-drift.service
+
+[Install]
+WantedBy=timers.target

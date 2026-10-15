@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schema/amka/desktop_observation_v1.json",
+  "title": "AMKA desktop observation payload v1",
+  "description": "Draft: client-reported events for orchestrator loop.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["observation_kind"],
+  "properties": {
+    "observation_kind": {
+      "type": "string",
+      "enum": [
+        "window_list_snapshot",
+        "active_app_changed",
+        "intent_execution_failed",
+        "user_cancelled"
+      ]
+    },
+    "windows": { "type": "array", "items": { "type": "object" } },
+    "app_component": { "type": ["string", "null"] },
+    "window_id": { "type": ["string", "null"] },
+    "intent_kind": { "type": ["string", "null"] },
+    "reason": { "type": ["string", "null"] },
+    "detail": { "type": ["object", "null"] }
+  }
+}

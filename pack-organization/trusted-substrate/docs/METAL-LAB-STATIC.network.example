@@ -1,0 +1,18 @@
+# Optional operator snippet for MikroTik ether8 / br-trusted8 when that
+# link has no DHCP. Do not bake this into the image overlay or persist it
+# as 10-eliteew-ts-install-*.network on a DHCP seat.
+# Canon: documentation/platform/KEENETIC-MIKROTIK-RUNBOOK.md
+[Match]
+Name=en*
+Type=ether
+
+[Network]
+DHCP=no
+Address=192.168.8.10/30
+Gateway=192.168.8.9
+DNS=192.168.1.1
+LLMNR=no
+MulticastDNS=no
+
+[Link]
+RequiredForOnline=no

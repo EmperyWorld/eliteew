@@ -1,0 +1,54 @@
+# ---
+# EliteEW · Empery World · https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose:
+# Prometheus alerting rules for KBSEW (ingest + worker queue).
+# Load into an existing Prometheus / Alertmanager contour when present —
+# this file does not stand up a monitoring stack by itself.
+# Related:
+# - KBSEW/api/monitoring/metrics.py
+# - documentation/product/KBSEW.md §Metrics
+# ---
+
+groups:
+  - name: kbsew
+    rules:
+      - alert: KbsewActiveJobsHigh
+        expr: kbsew_active_jobs > 50
+        for: 15m
+        labels:
+          severity: warning
+          service: kbsew
+        annotations:
+          summary: KBSEW ingestion queue backlog is high
+          description: >-
+            kbsew_active_jobs has stayed above 50 for 15m
+            (queued + running). Check stack-kbsew worker logs,
+            Qdrant/embed reachability, and SeaweedFS capacity.
+
+      - alert: KbsewIngestFailuresRising
+        expr: increase(kbsew_ingest_failure_total[15m]) > 5
+        for: 5m
+        labels:
+          severity: warning
+          service: kbsew
+        annotations:
+          summary: KBSEW ingest failures are rising
+          description: >-
+            More than 5 kbsew_ingest_failure_total increments in 15m.
+            Inspect job messages in kbsew.ingestion_jobs and
+            stack4/embed/Qdrant dependency health.
+
+      - alert: KbsewDown
+        expr: up{job="kbsew"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: kbsew
+        annotations:
+          summary: KBSEW scrape target is down
+          description: >-
+            Prometheus cannot scrape the kbsew job. Verify
+            stack-kbsew is running and /metrics is reachable
+            on the localhost-bound port (default 28030).

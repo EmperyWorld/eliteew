@@ -1,0 +1,116 @@
+{
+  "title": "Operations dashboard",
+  "subtitle": "Live queue, generation channels, and your UGS tasks for today.",
+  "loading": "Loading dashboard…",
+  "error": "Could not load dashboard data.",
+  "retry": "Retry",
+  "stats": {
+    "active": {
+      "label": "Active",
+      "hint": "Queued and in progress"
+    },
+    "completedToday": {
+      "label": "Done today",
+      "hint": "Completed successfully"
+    },
+    "failedToday": {
+      "label": "Failed today",
+      "hint": "Unsuccessful runs"
+    },
+    "queue": {
+      "label": "In queue",
+      "hint": "Waiting for worker"
+    },
+    "total": {
+      "label": "Total tasks",
+      "hint": "Lifetime for your account"
+    },
+    "latency": {
+      "label": "Avg time",
+      "hint": "Successful runs, last hour"
+    },
+    "successRate": {
+      "label": "Success rate",
+      "hint": "From UGS metrics"
+    }
+  },
+  "providers": {
+    "title": "Generation channels",
+    "healthy": "{{healthy}} of {{total}} available",
+    "degraded": "Degraded: {{count}}",
+    "openAdmin": "UGS Admin"
+  },
+  "activeTasks": {
+    "title": "In progress now",
+    "empty": "No active tasks — queue is idle.",
+    "openHub": "Open Hub"
+  },
+  "popularTypes": {
+    "title": "Popular types",
+    "empty": "No type statistics yet."
+  },
+  "shortcuts": {
+    "title": "Quick links",
+    "ugsHub": {
+      "label": "UGS Hub",
+      "description": "Tasks, filters, and launches"
+    },
+    "analytics": {
+      "label": "Analytics",
+      "description": "24h success, types, and errors"
+    },
+    "workflowBuilder": {
+      "label": "Builder",
+      "description": "Workflow editor"
+    },
+    "ugsAdmin": {
+      "label": "UGS Admin",
+      "description": "Providers, types, and routes"
+    }
+  },
+  "guide": {
+    "badge": "Tour",
+    "kbdHint": "Navigate: Left/Right arrows, Home/End; close with Escape.",
+    "progressAria": "Step {{current}} of {{total}}",
+    "closeDimAria": "Close tour hint",
+    "closeAria": "Close",
+    "audioToggleAria": "Toggle tour narration",
+    "audioToggleTitle": "Step audio (public/audio/ugs-dashboard-guide)",
+    "back": "Back",
+    "skip": "Skip",
+    "next": "Next",
+    "finish": "Finish tour",
+    "launchAria": "UGS Dashboard tour",
+    "launchTitle": "In-depth UGS Dashboard tour",
+    "steps": {
+      "intro": {
+        "title": "Operations dashboard",
+        "body": "Live UGS picture: queue, channels, active tasks, and quick links. Operator summary in one screen."
+      },
+      "header": {
+        "title": "Header and refresh",
+        "body": "Title, last poll time, and Refresh. Data is fetched from the UGS API automatically."
+      },
+      "stats": {
+        "title": "Key metrics",
+        "body": "Active tasks, today totals, queue, lifetime volume, and average time. User-scoped only."
+      },
+      "providers": {
+        "title": "Generation channels",
+        "body": "Status per channel. On degradation, open UGS Admin."
+      },
+      "tasks": {
+        "title": "Active tasks",
+        "body": "Short list of pending/processing work. Full list lives in UGS Hub."
+      },
+      "shortcuts": {
+        "title": "Quick links",
+        "body": "Hub, analytics, workflow builder, and admin — without leaving the UGS window."
+      },
+      "outro": {
+        "title": "Done",
+        "body": "Switch to Analytics for 24h detail or open Hub for queue work."
+      }
+    }
+  }
+}

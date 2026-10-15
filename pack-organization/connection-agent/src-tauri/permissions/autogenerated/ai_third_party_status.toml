@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ai-third-party-status"
+description = "Enables the ai_third_party_status command without any pre-configured scope."
+commands.allow = ["ai_third_party_status"]
+
+[[permission]]
+identifier = "deny-ai-third-party-status"
+description = "Denies the ai_third_party_status command without any pre-configured scope."
+commands.deny = ["ai_third_party_status"]

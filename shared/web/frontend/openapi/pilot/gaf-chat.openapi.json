@@ -1,0 +1,2895 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/gaf-chat)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/gaf-chat/me": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Текущий пользователь GAF Chat",
+        "description": "Текущий пользователь: ``user_id`` (DB id) для сопоставления с ``sender_id`` в сообщениях.",
+        "operationId": "get_me_api_v1_gaf_chat_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GafChatMeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Список чатов",
+        "description": "Список чатов: собеседник, превью, ``last_message_at``, ``unread_count``.",
+        "operationId": "list_chats_api_v1_gaf_chat_chats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ChatListItem"
+                  },
+                  "type": "array",
+                  "title": "Response List Chats Api V1 Gaf Chat Chats Get"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/lite": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Список чатов (облегчённый)",
+        "description": "Те же чаты и порядок, что GET ``/chats``, но без bio и прочих тяжёлых полей карточки партнёра.",
+        "operationId": "list_chats_lite_api_v1_gaf_chat_chats_lite_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ChatListItemLite"
+                  },
+                  "type": "array",
+                  "title": "Response List Chats Lite Api V1 Gaf Chat Chats Lite Get"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/by-username": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Найти или создать чат по username",
+        "description": "Найти или создать личный чат по нику собеседника.\n\nТело: ``{\"username\": \"nick\"}``. Ответ: ``chat_id``, ``partner`` (карточка пользователя).",
+        "operationId": "get_or_create_chat_by_username_api_v1_gaf_chat_chats_by_username_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ByUsernameBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatByUsernameResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/e2ee": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Статус взаимного согласия GAF E2EE",
+        "operationId": "get_e2ee_status_api_v1_gaf_chat_chats__chat_id__e2ee_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/E2eeConsentStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/e2ee/propose": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Предложить включить GAF E2EE",
+        "operationId": "propose_e2ee_api_v1_gaf_chat_chats__chat_id__e2ee_propose_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/E2eeConsentStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/e2ee/accept": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Принять предложение GAF E2EE",
+        "operationId": "accept_e2ee_api_v1_gaf_chat_chats__chat_id__e2ee_accept_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/E2eeConsentStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/e2ee/decline": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Отклонить предложение GAF E2EE",
+        "operationId": "decline_e2ee_api_v1_gaf_chat_chats__chat_id__e2ee_decline_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/E2eeConsentStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/e2ee/disable": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Отключить будущие GAF E2EE сообщения",
+        "operationId": "disable_e2ee_api_v1_gaf_chat_chats__chat_id__e2ee_disable_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/E2eeConsentStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/messages": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Сообщения чата (пагинация)",
+        "description": "Сообщения с курсорной пагинацией: ``before`` / ``after`` (id сообщения).",
+        "operationId": "list_messages_api_v1_gaf_chat_chats__chat_id__messages_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Messages per page; router default `=50`; range 1..100 (GET `/gaf-chat/chats/{{chat_id}}/messages`).",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Messages per page; router default `=50`; range 1..100 (GET `/gaf-chat/chats/{{chat_id}}/messages`)."
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Before"
+            }
+          },
+          {
+            "name": "after",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "After"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageItem"
+                  },
+                  "title": "Response List Messages Api V1 Gaf Chat Chats  Chat Id  Messages Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Отправить сообщение",
+        "description": "Отправить сообщение (plain или E2E ciphertext).\n\nЛимит отправки: переменная окружения ``GAF_CHAT_RATE_LIMIT_PER_MIN`` (см.\n``api.gaf_chat.rate_limit``): по умолчанию 60 сообщений в минуту на пользователя,\nзначение после разбора ограничивается диапазоном 30–120.",
+        "operationId": "send_message_api_v1_gaf_chat_chats__chat_id__messages_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Превышен лимит отправки сообщений."
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/partner-desktop-apps": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Приложения рабочего стола собеседника (админ)",
+        "description": "Admin-only: catalog apps the chat partner may open (by app access group).",
+        "operationId": "list_partner_desktop_apps_for_admin_api_v1_gaf_chat_chats__chat_id__partner_desktop_apps_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GafPartnerDesktopAppsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/messages/desktop-app-link": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Отправить ссылку на приложение (админ)",
+        "description": "Admin-only: send partner-visible desktop app open button in chat.",
+        "operationId": "send_desktop_app_link_message_api_v1_gaf_chat_chats__chat_id__messages_desktop_app_link_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendDesktopAppLinkBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Превышен лимит отправки сообщений."
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/read": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Отметить сообщения прочитанными",
+        "description": "Отметить прочитанным до ``up_to_message_id`` (опционально в теле). Ответ: ``{\"status\": \"ok\"}``.",
+        "operationId": "mark_read_api_v1_gaf_chat_chats__chat_id__read_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/MarkReadBody"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/messages/{message_id}": {
+      "patch": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Редактировать своё сообщение",
+        "description": "Редактирование собственного сообщения.",
+        "operationId": "edit_message_api_v1_gaf_chat_chats__chat_id__messages__message_id__patch",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditMessageBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "409": {
+            "description": "Конфликт (например, действие доступно только автору)."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Удалить сообщение",
+        "description": "Мягкое удаление; ``for_me_only=true`` — скрыть только у текущего пользователя.",
+        "operationId": "delete_message_api_v1_gaf_chat_chats__chat_id__messages__message_id__delete",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          },
+          {
+            "name": "for_me_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "For Me Only"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "409": {
+            "description": "Конфликт (например, действие доступно только автору)."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/messages/{message_id}/accept-attachment": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Сохранить вложение в файловый менеджер (получатель)",
+        "description": "Копирует файл из сообщения в «Без папки» как контент текущего пользователя.",
+        "operationId": "accept_attachment_api_v1_gaf_chat_chats__chat_id__messages__message_id__accept_attachment_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AcceptAttachmentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/messages/{message_id}/attachment": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Скачать вложение сообщения (участник чата)",
+        "description": "Отдаёт байты вложения участнику чата без опоры на content_shares.\n\nНужен для предпросмотра/воспроизведения у получателя (GAF voice и др.).",
+        "operationId": "download_message_attachment_api_v1_gaf_chat_chats__chat_id__messages__message_id__attachment_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          },
+          {
+            "name": "message_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Message Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Бинарное тело файла (тот же поток, что и unified_content download).",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/clear": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Очистить историю для себя",
+        "description": "Очистить историю чата для текущего пользователя.\n\nСообщения помечаются удалёнными только для него; у собеседника история сохраняется.",
+        "operationId": "clear_history_api_v1_gaf_chat_chats__chat_id__clear_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/archive": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Архивировать чат",
+        "description": "Скрыть чат из списка для текущего пользователя (архив).\n\nИстория для него помечается как очищенная; запись чата остаётся в БД.",
+        "operationId": "archive_chat_api_v1_gaf_chat_chats__chat_id__archive_post",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}": {
+      "delete": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Полностью удалить чат",
+        "description": "Полное удаление чата и истории для обоих участников.\n\nПри следующем обращении по нику будет создан новый чат.",
+        "operationId": "hard_delete_chat_api_v1_gaf_chat_chats__chat_id__delete",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/users/search": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Поиск пользователей для нового чата",
+        "description": "Поиск пользователей по username / full_name для нового чата (безопасные поля).",
+        "operationId": "search_users_api_v1_gaf_chat_users_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Non-empty search string; matched against username / full_name (GET `/gaf-chat/users/search`).",
+              "examples": [
+                "alice",
+                "ivan petrov"
+              ],
+              "title": "Q"
+            },
+            "description": "Non-empty search string; matched against username / full_name (GET `/gaf-chat/users/search`)."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 50,
+              "minimum": 1,
+              "description": "Max search results; router default `=20`; range 1..50 (GET `/gaf-chat/users/search`).",
+              "default": 20,
+              "title": "Limit"
+            },
+            "description": "Max search results; router default `=20`; range 1..50 (GET `/gaf-chat/users/search`)."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserSearchItem"
+                  },
+                  "title": "Response Search Users Api V1 Gaf Chat Users Search Get"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/keys/public": {
+      "post": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Сохранить публичный ключ E2E",
+        "description": "Сохранить или обновить публичный ключ текущего пользователя (E2E).\n\nНа сервере только PEM и алгоритм; приватный ключ не передаётся.",
+        "operationId": "upload_public_key_api_v1_gaf_chat_keys_public_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublicKeyUploadBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicKeyInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/keys/public/me": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Мой публичный ключ",
+        "description": "Публичный ключ текущего пользователя; без ключа — ``has_key: false``.",
+        "operationId": "get_my_public_key_api_v1_gaf_chat_keys_public_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicKeyInfo"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/keys/public/{user_id}": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Публичный ключ пользователя",
+        "description": "Публичный ключ указанного пользователя (для шифрования сессионного ключа).",
+        "operationId": "get_user_public_key_api_v1_gaf_chat_keys_public__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicKeyInfo"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/gaf-chat/chats/{chat_id}/session-key": {
+      "get": {
+        "tags": [
+          "GAF Chat",
+          "GAF Chat"
+        ],
+        "summary": "Конверт сессионного ключа для участника",
+        "description": "Последняя «посылка» с зашифрованным сессионным ключом для текущего участника чата.\n\nСодержимое ключа сервер не расшифровывает.",
+        "operationId": "get_session_key_envelope_api_v1_gaf_chat_chats__chat_id__session_key_get",
+        "parameters": [
+          {
+            "name": "chat_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Chat Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/SessionKeyEnvelope"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Get Session Key Envelope Api V1 Gaf Chat Chats  Chat Id  Session Key Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Неверный запрос или доменная ошибка."
+          },
+          "403": {
+            "description": "Нет доступа (не участник чата или запрещено)."
+          },
+          "404": {
+            "description": "Ресурс не найден."
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GafChatMeResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id",
+            "description": "DB user id for GAF Chat / matching `sender_id` on messages.",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id"
+        ],
+        "title": "GafChatMeResponse",
+        "description": "Response for GET `/gaf-chat/me` (current content user id).",
+        "examples": [
+          {
+            "user_id": "11111111-2222-3333-4444-555555555555"
+          }
+        ]
+      },
+      "ChatListItem": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id",
+            "description": "1:1 chat id.",
+            "examples": [
+              "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            ]
+          },
+          "partner": {
+            "$ref": "#/components/schemas/ChatPartner",
+            "description": "The other participant."
+          },
+          "last_message_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Message At",
+            "description": "ISO timestamp of last message."
+          },
+          "last_message_preview": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Message Preview",
+            "description": "Short preview of last message."
+          },
+          "unread_count": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Unread Count",
+            "description": "Unread count for current user in this chat."
+          },
+          "partner_last_read_message_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Last Read Message Id",
+            "description": "Watermark: latest message id the partner has read (for read receipts on your messages)."
+          },
+          "e2ee_status": {
+            "type": "string",
+            "enum": [
+              "off",
+              "pending",
+              "active",
+              "declined"
+            ],
+            "title": "E2Ee Status",
+            "description": "Chat-level E2EE mutual-consent state.",
+            "default": "off"
+          },
+          "e2ee_requested_by_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2Ee Requested By User Id",
+            "description": "User id that requested E2EE, if pending."
+          },
+          "e2ee_ready": {
+            "type": "boolean",
+            "title": "E2Ee Ready",
+            "description": "True when both participants have trusted-device GAF keys.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "partner",
+          "unread_count"
+        ],
+        "title": "ChatListItem",
+        "description": "Single row in GET `/gaf-chat/chats` (partner card + preview + unread).",
+        "examples": [
+          {
+            "chat_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+            "last_message_at": "2026-03-24T12:00:00+00:00",
+            "last_message_preview": "See you tomorrow",
+            "partner": {
+              "avatar_url": "https://cdn.example/avatars/alice.png",
+              "bio": "On-site this week",
+              "blocked_by_partner": false,
+              "full_name": "Alice Example",
+              "id": "11111111-2222-3333-4444-555555555555",
+              "is_blocked": false,
+              "is_muted": false,
+              "is_system_account": false,
+              "is_trusted": false,
+              "username": "alice"
+            },
+            "unread_count": 3
+          }
+        ]
+      },
+      "ChatListItemLite": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id",
+            "description": "1:1 chat id.",
+            "examples": [
+              "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            ]
+          },
+          "partner": {
+            "$ref": "#/components/schemas/ChatPartnerLite",
+            "description": "Other participant (trimmed fields)."
+          },
+          "last_message_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Message At",
+            "description": "ISO timestamp of last message."
+          },
+          "last_message_preview": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Message Preview",
+            "description": "Short preview of last message."
+          },
+          "unread_count": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "Unread Count",
+            "description": "Unread count for current user in this chat."
+          },
+          "partner_last_read_message_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Partner Last Read Message Id",
+            "description": "Watermark: latest message id the partner has read."
+          },
+          "e2ee_status": {
+            "type": "string",
+            "enum": [
+              "off",
+              "pending",
+              "active",
+              "declined"
+            ],
+            "title": "E2Ee Status",
+            "description": "Chat-level E2EE mutual-consent state.",
+            "default": "off"
+          },
+          "e2ee_requested_by_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2Ee Requested By User Id",
+            "description": "User id that requested E2EE, if pending."
+          },
+          "e2ee_ready": {
+            "type": "boolean",
+            "title": "E2Ee Ready",
+            "description": "True when both participants have trusted-device GAF keys.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "partner",
+          "unread_count"
+        ],
+        "title": "ChatListItemLite",
+        "description": "Single row in GET `/gaf-chat/chats/lite` — same ordering as `/chats`, smaller partner object."
+      },
+      "ByUsernameBody": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 1,
+            "title": "Username",
+            "description": "Partner login; leading/trailing whitespace is stripped before lookup.",
+            "examples": [
+              "alice"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "username"
+        ],
+        "title": "ByUsernameBody",
+        "description": "Body for POST `/gaf-chat/chats/by-username` (resolve partner by login).",
+        "examples": [
+          {
+            "username": "partner_nick"
+          }
+        ]
+      },
+      "ChatByUsernameResponse": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id",
+            "description": "1:1 chat id (UUID string).",
+            "examples": [
+              "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            ]
+          },
+          "partner": {
+            "$ref": "#/components/schemas/ChatPartner",
+            "description": "Partner profile (Friends/search-shaped dict, validated)."
+          },
+          "e2ee_status": {
+            "type": "string",
+            "enum": [
+              "off",
+              "pending",
+              "active",
+              "declined"
+            ],
+            "title": "E2Ee Status",
+            "description": "Chat-level E2EE mutual-consent state.",
+            "default": "off"
+          },
+          "e2ee_requested_by_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2Ee Requested By User Id",
+            "description": "User id that requested E2EE, if pending."
+          },
+          "e2ee_ready": {
+            "type": "boolean",
+            "title": "E2Ee Ready",
+            "description": "True when both participants have trusted-device GAF keys.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "partner"
+        ],
+        "title": "ChatByUsernameResponse",
+        "description": "Response for POST `/gaf-chat/chats/by-username`.",
+        "examples": [
+          {
+            "chat_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+            "partner": {
+              "avatar_url": "https://cdn.example/avatars/alice.png",
+              "bio": "On-site this week",
+              "blocked_by_partner": false,
+              "full_name": "Alice Example",
+              "id": "11111111-2222-3333-4444-555555555555",
+              "is_blocked": false,
+              "is_muted": false,
+              "is_system_account": false,
+              "is_trusted": false,
+              "username": "alice"
+            }
+          }
+        ]
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "E2eeConsentStatusResponse": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id",
+            "description": "Chat id.",
+            "examples": [
+              "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "off",
+              "pending",
+              "active",
+              "declined"
+            ],
+            "title": "Status",
+            "description": "Current mutual-consent state."
+          },
+          "requested_by_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested By User Id",
+            "description": "User that requested E2EE, if pending."
+          },
+          "user_1_consented_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User 1 Consented At",
+            "description": "User 1 consent timestamp, if any."
+          },
+          "user_2_consented_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User 2 Consented At",
+            "description": "User 2 consent timestamp, if any."
+          },
+          "activated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Activated At",
+            "description": "When both participants accepted E2EE."
+          },
+          "declined_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Declined At",
+            "description": "When the request was declined."
+          },
+          "disabled_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Disabled At",
+            "description": "When future E2EE was disabled."
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At",
+            "description": "Last E2EE state update."
+          },
+          "ready": {
+            "type": "boolean",
+            "title": "Ready",
+            "description": "Both participants currently have trusted-device GAF keys.",
+            "default": false
+          },
+          "current_user_consented": {
+            "type": "boolean",
+            "title": "Current User Consented",
+            "description": "Current user has accepted the current request.",
+            "default": false
+          },
+          "partner_consented": {
+            "type": "boolean",
+            "title": "Partner Consented",
+            "description": "Partner has accepted the current request.",
+            "default": false
+          },
+          "partner_user_id": {
+            "type": "string",
+            "title": "Partner User Id",
+            "description": "Other participant user id."
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "status",
+          "partner_user_id"
+        ],
+        "title": "E2eeConsentStatusResponse",
+        "description": "Chat-level E2EE mutual-consent status."
+      },
+      "MessageItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Message id.",
+            "examples": [
+              "66666666-7777-8888-9999-aaaaaaaaaaaa"
+            ]
+          },
+          "chat_id": {
+            "type": "string",
+            "title": "Chat Id",
+            "description": "Owning chat id.",
+            "examples": [
+              "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            ]
+          },
+          "sender_id": {
+            "type": "string",
+            "title": "Sender Id",
+            "description": "Author user id.",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
+          },
+          "body": {
+            "type": "string",
+            "title": "Body",
+            "description": "Decrypted or placeholder body for the client."
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At",
+            "description": "Creation time (ISO)."
+          },
+          "edited_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Edited At",
+            "description": "Last edit time (ISO), if edited."
+          },
+          "deleted_for_sender": {
+            "type": "boolean",
+            "title": "Deleted For Sender",
+            "description": "Hidden for sender (soft delete)."
+          },
+          "deleted_for_recipient": {
+            "type": "boolean",
+            "title": "Deleted For Recipient",
+            "description": "Hidden for recipient (soft delete)."
+          },
+          "algorithm": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Algorithm",
+            "description": "Storage / encryption algorithm tag."
+          },
+          "encryption_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Encryption Version",
+            "description": "Encryption scheme version."
+          },
+          "body_ciphertext": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body Ciphertext",
+            "description": "Ciphertext when not returned as plain body."
+          },
+          "nonce": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nonce",
+            "description": "Nonce for ciphertext."
+          },
+          "attachment_content_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Content Id",
+            "description": "Sender's unified_content id when message carries a file."
+          },
+          "attachment_mime_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Mime Type",
+            "description": "MIME type of attached file (metadata)."
+          },
+          "attachment_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Name",
+            "description": "Original file name for display."
+          },
+          "attachment_size": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Size",
+            "description": "Attachment size in bytes."
+          },
+          "attachment_recipient_saved_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Recipient Saved Id",
+            "description": "Recipient's unified_content id after «accept» (their copy)."
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Metadata",
+            "description": "Structured payload for system messages (e.g. onboarding steps, app actions)."
+          },
+          "reply_to_message_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reply To Message Id",
+            "description": "When set, this message is a reply to another message in the same chat."
+          },
+          "e2ee_session_key_envelope": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2Ee Session Key Envelope",
+            "description": "RSA-wrapped AES session key for the current viewer and this message (E2EE)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "chat_id",
+          "sender_id",
+          "body",
+          "created_at",
+          "deleted_for_sender",
+          "deleted_for_recipient"
+        ],
+        "title": "MessageItem",
+        "description": "One message in list/detail responses.",
+        "examples": [
+          {
+            "algorithm": "v1",
+            "body": "Hello",
+            "chat_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+            "created_at": "2026-03-24T12:00:00+00:00",
+            "deleted_for_recipient": false,
+            "deleted_for_sender": false,
+            "encryption_version": "v1",
+            "id": "66666666-7777-8888-9999-aaaaaaaaaaaa",
+            "sender_id": "11111111-2222-3333-4444-555555555555"
+          }
+        ]
+      },
+      "SendMessageBody": {
+        "properties": {
+          "body": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Body",
+            "description": "Plaintext body (server-side encryption path); max 10000 chars after trim."
+          },
+          "attachment_content_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Attachment Content Id",
+            "description": "Optional unified_content id (sender's file) to attach; allowed with E2E ciphertext send."
+          },
+          "reply_to_message_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reply To Message Id",
+            "description": "Optional id of an existing message in this chat to reply to (quote)."
+          },
+          "e2e_ciphertext": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2E Ciphertext",
+            "description": "Pre-encrypted message payload (base64 or transport encoding used by client)."
+          },
+          "e2e_nonce": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2E Nonce",
+            "description": "Nonce / IV for E2E ciphertext."
+          },
+          "e2e_algorithm": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2E Algorithm",
+            "description": "E2E algorithm identifier."
+          },
+          "e2e_encryption_version": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 32
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2E Encryption Version",
+            "description": "Client E2E format version string."
+          },
+          "e2e_session_key_for_recipient": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 65536
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2E Session Key For Recipient",
+            "description": "Optional encrypted session key envelope for the recipient (handshake)."
+          },
+          "e2e_session_key_for_self": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 65536
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "E2E Session Key For Self",
+            "description": "Optional encrypted session key envelope for the sender (multi-device read-back)."
+          }
+        },
+        "type": "object",
+        "title": "SendMessageBody",
+        "description": "Body for POST `/gaf-chat/chats/{chat_id}/messages`.\n\nPlaintext: set ``body``. E2E: you may omit ``body`` and send ``e2e_ciphertext`` (and related fields).\nAt least one of non-empty ``body`` or ``e2e_ciphertext`` is required — enforced in the router (HTTP 400).",
+        "examples": [
+          {
+            "body": "Hello!"
+          },
+          {
+            "e2e_algorithm": "x25519-xsalsa20",
+            "e2e_ciphertext": "base64-or-client-encoding",
+            "e2e_encryption_version": "1",
+            "e2e_nonce": "QUJD",
+            "e2e_session_key_for_recipient": "optional-envelope-for-recipient"
+          }
+        ]
+      },
+      "GafPartnerDesktopAppsResponse": {
+        "properties": {
+          "apps": {
+            "items": {
+              "$ref": "#/components/schemas/GafPartnerDesktopAppOption"
+            },
+            "type": "array",
+            "title": "Apps"
+          }
+        },
+        "type": "object",
+        "title": "GafPartnerDesktopAppsResponse",
+        "description": "GET `/gaf-chat/chats/{chat_id}/partner-desktop-apps` (admin only)."
+      },
+      "SendDesktopAppLinkBody": {
+        "properties": {
+          "app_id": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "App Id",
+            "description": "Partner-visible catalog app_id."
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note",
+            "description": "Optional short note appended under the app line in message body."
+          }
+        },
+        "type": "object",
+        "required": [
+          "app_id"
+        ],
+        "title": "SendDesktopAppLinkBody",
+        "description": "POST `/gaf-chat/chats/{chat_id}/messages/desktop-app-link` (admin only)."
+      },
+      "MarkReadBody": {
+        "properties": {
+          "up_to_message_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Up To Message Id",
+            "description": "Mark read through this message id; omit or null for latest visible message.",
+            "examples": [
+              "66666666-7777-8888-9999-aaaaaaaaaaaa"
+            ]
+          }
+        },
+        "type": "object",
+        "title": "MarkReadBody",
+        "description": "Optional body for POST `/gaf-chat/chats/{chat_id}/read`. Omitted or `{}` marks read through latest.",
+        "examples": [
+          {},
+          {
+            "up_to_message_id": "66666666-7777-8888-9999-aaaaaaaaaaaa"
+          }
+        ]
+      },
+      "OkStatusResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status",
+            "description": "Operation succeeded.",
+            "default": "ok"
+          }
+        },
+        "type": "object",
+        "title": "OkStatusResponse",
+        "description": "Success envelope for mutating endpoints (`{\"status\": \"ok\"}`).",
+        "examples": [
+          {
+            "status": "ok"
+          }
+        ]
+      },
+      "EditMessageBody": {
+        "properties": {
+          "body": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Body",
+            "description": "New plaintext; max 10000 characters after trim."
+          }
+        },
+        "type": "object",
+        "required": [
+          "body"
+        ],
+        "title": "EditMessageBody",
+        "description": "Body for PATCH `/gaf-chat/chats/{chat_id}/messages/{message_id}`.",
+        "examples": [
+          {
+            "body": "Corrected text"
+          }
+        ]
+      },
+      "AcceptAttachmentResponse": {
+        "properties": {
+          "content_id": {
+            "type": "string",
+            "title": "Content Id",
+            "description": "Recipient's new unified_content id (unfiled)."
+          },
+          "already_saved": {
+            "type": "boolean",
+            "title": "Already Saved",
+            "description": "True if the file was already imported earlier.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "content_id"
+        ],
+        "title": "AcceptAttachmentResponse",
+        "description": "POST `/gaf-chat/chats/{chat_id}/messages/{message_id}/accept-attachment`."
+      },
+      "UserSearchItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "User id."
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username",
+            "description": "Username match."
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name",
+            "description": "Short display label."
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url",
+            "description": "Avatar URL."
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name",
+            "description": "Full name."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "UserSearchItem",
+        "description": "One user row from GET `/gaf-chat/users/search`.",
+        "examples": [
+          {
+            "display_name": "Alice",
+            "full_name": "Alice Example",
+            "id": "11111111-2222-3333-4444-555555555555",
+            "username": "alice"
+          }
+        ]
+      },
+      "PublicKeyUploadBody": {
+        "properties": {
+          "public_key_pem": {
+            "type": "string",
+            "maxLength": 32768,
+            "minLength": 1,
+            "title": "Public Key Pem",
+            "description": "PEM-encoded public key."
+          },
+          "algorithm": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Algorithm",
+            "description": "Key algorithm label (e.g. curve or RSA variant)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "public_key_pem",
+          "algorithm"
+        ],
+        "title": "PublicKeyUploadBody",
+        "description": "Body for POST `/gaf-chat/keys/public` (E2E public key).",
+        "examples": [
+          {
+            "algorithm": "ed25519",
+            "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA…\n-----END PUBLIC KEY-----"
+          }
+        ]
+      },
+      "PublicKeyInfo": {
+        "properties": {
+          "has_key": {
+            "type": "boolean",
+            "title": "Has Key",
+            "description": "Whether a public key is stored."
+          },
+          "algorithm": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Algorithm",
+            "description": "Stored algorithm, if any."
+          },
+          "public_key_pem": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Public Key Pem",
+            "description": "Stored PEM, if any."
+          }
+        },
+        "type": "object",
+        "required": [
+          "has_key"
+        ],
+        "title": "PublicKeyInfo",
+        "description": "Response for `/gaf-chat/keys/public`, `/keys/public/me`, `/keys/public/{user_id}`.",
+        "examples": [
+          {
+            "has_key": false
+          },
+          {
+            "algorithm": "ed25519",
+            "has_key": true,
+            "public_key_pem": "-----BEGIN PUBLIC KEY-----\n…\n-----END PUBLIC KEY-----"
+          }
+        ]
+      },
+      "SessionKeyEnvelope": {
+        "properties": {
+          "chat_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Chat Id",
+            "description": "Chat id this envelope belongs to.",
+            "examples": [
+              "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            ]
+          },
+          "encrypted_key_payload": {
+            "type": "string",
+            "maxLength": 65536,
+            "minLength": 1,
+            "title": "Encrypted Key Payload",
+            "description": "Opaque encrypted session key bytes (client encoding)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "chat_id",
+          "encrypted_key_payload"
+        ],
+        "title": "SessionKeyEnvelope",
+        "description": "Response for GET `/gaf-chat/chats/{chat_id}/session-key` (opaque envelope for the current user).",
+        "examples": [
+          {
+            "chat_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+            "encrypted_key_payload": "base64-or-client-opaque-payload"
+          }
+        ]
+      },
+      "ChatPartner": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "User id (UUID string).",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username",
+            "description": "Public username."
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url",
+            "description": "Avatar URL if set."
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name",
+            "description": "Display name."
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bio",
+            "description": "Profile tagline / bio when visible to viewer (privacy + friendship)."
+          },
+          "is_trusted": {
+            "type": "boolean",
+            "title": "Is Trusted",
+            "description": "Admin-granted trusted badge.",
+            "default": false
+          },
+          "admin_badge_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Badge Label",
+            "description": "Admin-set custom badge label."
+          },
+          "admin_badge_hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Admin Badge Hint",
+            "description": "Tooltip for custom badge."
+          },
+          "is_system_account": {
+            "type": "boolean",
+            "title": "Is System Account",
+            "description": "Internal system user (service messages).",
+            "default": false
+          },
+          "is_muted": {
+            "type": "boolean",
+            "title": "Is Muted",
+            "description": "Current user muted this partner.",
+            "default": false
+          },
+          "is_blocked": {
+            "type": "boolean",
+            "title": "Is Blocked",
+            "description": "Current user blocked this partner.",
+            "default": false
+          },
+          "blocked_by_partner": {
+            "type": "boolean",
+            "title": "Blocked By Partner",
+            "description": "Partner blocked current user.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ChatPartner",
+        "description": "Other participant in a 1:1 chat (list payload).",
+        "examples": [
+          {
+            "avatar_url": "https://cdn.example/avatars/alice.png",
+            "bio": "On-site this week",
+            "blocked_by_partner": false,
+            "full_name": "Alice Example",
+            "id": "11111111-2222-3333-4444-555555555555",
+            "is_blocked": false,
+            "is_muted": false,
+            "is_system_account": false,
+            "is_trusted": false,
+            "username": "alice"
+          }
+        ]
+      },
+      "ChatPartnerLite": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "User id (UUID string).",
+            "examples": [
+              "11111111-2222-3333-4444-555555555555"
+            ]
+          },
+          "username": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Username",
+            "description": "Public username."
+          },
+          "avatar_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Avatar Url",
+            "description": "Avatar URL if set."
+          },
+          "full_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Full Name",
+            "description": "Display name."
+          },
+          "is_system_account": {
+            "type": "boolean",
+            "title": "Is System Account",
+            "description": "Internal system user (service messages).",
+            "default": false
+          },
+          "is_muted": {
+            "type": "boolean",
+            "title": "Is Muted",
+            "description": "Current user muted this partner.",
+            "default": false
+          },
+          "is_blocked": {
+            "type": "boolean",
+            "title": "Is Blocked",
+            "description": "Current user blocked this partner.",
+            "default": false
+          },
+          "blocked_by_partner": {
+            "type": "boolean",
+            "title": "Blocked By Partner",
+            "description": "Partner blocked current user.",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ChatPartnerLite",
+        "description": "Smaller partner card for GET `/gaf-chat/chats/lite` (polling / mobile)."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "GafPartnerDesktopAppOption": {
+        "properties": {
+          "app_id": {
+            "type": "string",
+            "title": "App Id",
+            "description": "Catalog app_id slug."
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Display name from catalog."
+          },
+          "app_component": {
+            "type": "string",
+            "title": "App Component",
+            "description": "Desktop React component to open."
+          },
+          "category": {
+            "type": "string",
+            "title": "Category",
+            "description": "Store category label.",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "app_id",
+          "name",
+          "app_component"
+        ],
+        "title": "GafPartnerDesktopAppOption",
+        "description": "One desktop catalog app visible to the chat partner (admin GAF link picker)."
+      }
+    }
+  }
+}

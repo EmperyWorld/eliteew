@@ -1,0 +1,32 @@
+# Trusted Substrate — local ignores (binaries / build out)
+
+# Payload binaries (pin via config/*.env — do not commit installers)
+payload/**
+!payload/.gitkeep
+
+# Factory output (ISO / images / signatures)
+out/**
+!out/.gitkeep
+
+# Build staging
+work/
+
+# Operator-filled pin (example stays tracked)
+config/payload-electron.env
+config/payload-tauri.env
+config/payload-tauri-runtime.env
+config/image-profile.env
+config/config.env
+config/work-root.env
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# First-party installer — build from source only (scripts/build-installer-from-source.sh)
+installer/target/
+installer/target-*/
+state-unlock-agent/target/
+config/buildroot/external/board/eliteew-ts/rootfs_overlay/usr/local/bin/eliteew-ts-installer

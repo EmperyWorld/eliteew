@@ -1,0 +1,305 @@
+#!/usr/bin/env bash
+# ---
+# EliteEW · Empery World
+# https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Live-media installer session: labwc + first-party GUI (same bring-up path as kiosk).
+# HARD: never exit cleanly — getty@tty1 Restart=always would otherwise loop.
+set -u
+
+tty_msg() {
+  local line
+  for line in "$@"; do
+    printf 'eliteew-ts-installer-session: %s\n' "${line}" >&2 || true
+    printf '\r\neliteew-ts-installer-session: %s\n' "${line}" >/dev/tty1 2>/dev/null || true
+  done
+}
+
+export HOME="${HOME:-/home/eliteew-ts}"
+export USER="${USER:-eliteew-ts}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+# The image generates this locale explicitly; it provides UTF-8, Compose data,
+# Cyrillic diagnostics, and valid dosfstools codepage conversion.
+export LANG=ru_RU.UTF-8
+export LC_ALL=ru_RU.UTF-8
+# Same XKB as the product kiosk. Done asks for ЗАПИСАЛ; Wi-Fi PSK is ASCII.
+export XKB_DEFAULT_LAYOUT="${XKB_DEFAULT_LAYOUT:-us,ru}"
+export XKB_DEFAULT_OPTIONS="${XKB_DEFAULT_OPTIONS:-grp:alt_shift_toggle,grp_led:scroll}"
+# Live getty session has no systemd --user manager. labwc otherwise runs
+# `systemctl --user import-environment` (session.c) → dbus systemd1 fail spam.
+export LABWC_UPDATE_ACTIVATION_ENV=0
+export NO_AT_BRIDGE=1
+export GTK_A11Y=none
+
+# Log somewhere the autologin user can write (not /var/log).
+if [[ -z "${ELITEEW_TS_INSTALL_LOG:-}" ]]; then
+  ELITEEW_TS_INSTALL_LOG="${HOME}/eliteew-ts-install.log"
+fi
+export ELITEEW_TS_INSTALL_LOG
+mkdir -p "$(dirname "$ELITEEW_TS_INSTALL_LOG")" 2>/dev/null || true
+if ! exec >>"$ELITEEW_TS_INSTALL_LOG" 2>&1; then
+  ELITEEW_TS_INSTALL_LOG="/tmp/eliteew-ts-install.log"
+  export ELITEEW_TS_INSTALL_LOG
+  exec >>"$ELITEEW_TS_INSTALL_LOG" 2>&1 || true
+fi
+echo "unix=$(date -u +%s) [SESSION] start uid=$(id -u) HOME=$HOME"
+
+if [[ -w /proc/sys/kernel/sysrq ]]; then
+  echo 0 >/proc/sys/kernel/sysrq || true
+fi
+
+# Buildroot often has no writable /run/user/$UID — same fallback as kiosk.
+runtime_uid="$(id -u)"
+if [[ -z "${XDG_RUNTIME_DIR:-}" ]]; then
+  if mkdir -p "/run/user/${runtime_uid}" 2>/dev/null; then
+    XDG_RUNTIME_DIR="/run/user/${runtime_uid}"
+  else
+    XDG_RUNTIME_DIR="/tmp/runtime-${runtime_uid}"
+    mkdir -p "${XDG_RUNTIME_DIR}"
+  fi
+else
+  mkdir -p "${XDG_RUNTIME_DIR}" 2>/dev/null || {
+    XDG_RUNTIME_DIR="/tmp/runtime-${runtime_uid}"
+    mkdir -p "${XDG_RUNTIME_DIR}"
+  }
+fi
+export XDG_RUNTIME_DIR
+chmod 700 "${XDG_RUNTIME_DIR}" 2>/dev/null || true
+mkdir -p "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_CACHE_HOME" 2>/dev/null || true
+
+# Seat: wait briefly for seatd (systemd starts it Before=getty@tty1). Builtin
+# backend cannot open /dev/tty* as non-root — labwc fails with Permission denied.
+if [[ -z "${LIBSEAT_BACKEND:-}" ]]; then
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
+    if [[ -S /run/systemd/seats/seat0 ]]; then
+      export LIBSEAT_BACKEND=logind
+      break
+    fi
+    if [[ -S /run/seatd.sock ]]; then
+      export LIBSEAT_BACKEND=seatd
+      break
+    fi
+    sleep 0.5
+  done
+fi
+# Renderer: ops override wins. With DRM, leave unset for wlroots auto (metal GPU).
+# Without DRM (typical QEMU), default pixman. HARD: never leave unbound refs under set -u
+# (unset + $WLR_RENDERER → script abort → getty@tty1 Restart loop).
+if [[ -n "${ELITEEW_TS_WLR_RENDERER:-}" ]]; then
+  export WLR_RENDERER="${ELITEEW_TS_WLR_RENDERER}"
+elif [[ -z "${WLR_RENDERER:-}" ]]; then
+  if [[ -e /dev/dri/card0 || -e /dev/dri/renderD128 ]]; then
+    # Intentionally unset for auto — all later refs MUST use ${WLR_RENDERER:-…}
+    unset WLR_RENDERER 2>/dev/null || true
+  else
+    export WLR_RENDERER=pixman
+  fi
+fi
+export WLR_LIBINPUT_NO_DEVICES="${WLR_LIBINPUT_NO_DEVICES:-0}"
+export ELITEEW_TS_SESSION=installer
+export XDG_CURRENT_DESKTOP="${XDG_CURRENT_DESKTOP:-labwc:wlroots}"
+if [[ -z "${LIBSEAT_BACKEND:-}" ]]; then
+  tty_msg "WARN: no seatd/logind socket — compositor may fail (need seatd daemon)"
+fi
+
+# Power-on chime (best-effort) before compositor — analog drop → click.
+# Overlay path SoT: /usr/local/share/eliteew-ts-installer/chime.wav
+# Foreground aplay: serialize vs GUI step chimes; flag only after audible success.
+CHIME="${ELITEEW_TS_INSTALL_CHIME:-/usr/local/share/eliteew-ts-installer/chime.wav}"
+if [[ -f "${CHIME}" ]] && command -v aplay >/dev/null 2>&1; then
+  if aplay -q "${CHIME}" >/dev/null 2>&1; then
+    export ELITEEW_TS_CHIME_ALREADY=1
+    echo "unix=$(date -u +%s) [SESSION] chime ok path=${CHIME}"
+  else
+    echo "unix=$(date -u +%s) [SESSION] chime aplay failed path=${CHIME}"
+  fi
+else
+  echo "unix=$(date -u +%s) [SESSION] chime skip (missing aplay or ${CHIME})"
+fi
+
+INSTALLER_BIN="${ELITEEW_TS_INSTALLER_BIN:-/usr/local/bin/eliteew-ts-installer}"
+COMPOSITOR_RESTART_SEC="${ELITEEW_TS_COMPOSITOR_RESTART_SEC:-3}"
+APP_RESTART_SEC="${ELITEEW_TS_APP_RESTART_SEC:-2}"
+MAX_APP_RESTARTS="${ELITEEW_TS_MAX_APP_RESTARTS:-3}"
+MAX_COMPOSITOR_RESTARTS="${ELITEEW_TS_MAX_COMPOSITOR_RESTARTS:-3}"
+
+if [[ ! -x "$INSTALLER_BIN" ]]; then
+  tty_msg "ERROR: missing $INSTALLER_BIN — holding tty1"
+  sleep infinity
+fi
+
+# Live USB must not replay a leftover PSK/address from glass or a prior click.
+if ! sudo -n /usr/local/bin/eliteew-ts-install-apply live-network-forget; then
+  echo "unix=$(date -u +%s) [SESSION] live-network-forget failed"
+fi
+
+
+write_labwc_config() {
+  local cfg="${XDG_CONFIG_HOME}/labwc"
+  mkdir -p "${cfg}"
+  cat >"${cfg}/rc.xml" <<'EOF'
+<?xml version="1.0"?>
+<labwc_config>
+  <core><gap>0</gap></core>
+  <focus><followMouse>no</followMouse></focus>
+  <windowSwitcher><show>no</show></windowSwitcher>
+  <xwayland><enable>no</enable></xwayland>
+  <windowRules>
+    <windowRule identifier="*">
+      <action name="SetDecorations" decorations="none"/>
+      <action name="Maximize"/>
+    </windowRule>
+  </windowRules>
+  <keyboard>
+    <!-- Alt+Shift layout toggle stays in XKB (grp:alt_shift_toggle). -->
+    <!-- Product console is tty1 only; block VT switches at the compositor. -->
+    <keybind key="A-F4">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F1">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F2">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F3">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F4">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F5">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F6">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F7">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F8">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F9">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F10">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F11">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-F12">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-T">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="C-A-Delete">
+      <action name="Execute" command="true"/>
+    </keybind>
+    <keybind key="W">
+      <action name="Execute" command="true"/>
+    </keybind>
+  </keyboard>
+</labwc_config>
+EOF
+  cat >"${cfg}/menu.xml" <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="EliteEW"/>
+</openbox_menu>
+EOF
+  cat >"${cfg}/environment" <<EOF
+XKB_DEFAULT_LAYOUT=${XKB_DEFAULT_LAYOUT:-us,ru}
+XKB_DEFAULT_OPTIONS=${XKB_DEFAULT_OPTIONS:-grp:alt_shift_toggle,grp_led:scroll}
+LABWC_UPDATE_ACTIVATION_ENV=0
+NO_AT_BRIDGE=1
+GTK_A11Y=none
+EOF
+  # Foreground installer loop keeps diagnostics honest; labwc stays as compositor.
+  cat >"${cfg}/autostart" <<EOF
+#!/bin/sh
+# Persist on rootfs (not tmpfs) so metal diag survives unplug.
+APP_LOG="\${HOME:-/home/eliteew-ts}/eliteew-ts-installer-app.log"
+BIN="${INSTALLER_BIN}"
+echo "=== installer autostart \$(date -Is) BIN=\$BIN WAYLAND=\${WAYLAND_DISPLAY:-} XDG_RUNTIME_DIR=\${XDG_RUNTIME_DIR:-} ===" >>"\$APP_LOG"
+attempts=0
+while [ "\${attempts}" -lt "${MAX_APP_RESTARTS}" ]; do
+  attempts=\$((attempts + 1))
+  echo "starting installer" >>"\$APP_LOG"
+  "\$BIN" >>"\$APP_LOG" 2>&1
+  echo "installer exit=\$? — restart in ${APP_RESTART_SEC}s" >>"\$APP_LOG"
+  sleep ${APP_RESTART_SEC}
+done
+echo "installer restart limit reached — holding autostart" >>"\$APP_LOG"
+exec sleep infinity
+EOF
+  chmod 0755 "${cfg}/autostart"
+}
+
+# Reap stale labwc autostart + GUI only. HARD: never pkill substring
+# "eliteew-ts-installer" — that also matches this session script → getty loop.
+reap_stale_installer_apps() {
+  pkill -f '/\.config/labwc/autostart' 2>/dev/null || true
+  local pid cmdline
+  for pid in $(pgrep -f '/usr/local/bin/eliteew-ts-installer' 2>/dev/null || true); do
+    cmdline=""
+    if [[ -r "/proc/${pid}/cmdline" ]]; then
+      cmdline="$(tr '\0' ' ' <"/proc/${pid}/cmdline" 2>/dev/null || true)"
+    fi
+    case "${cmdline}" in
+      *eliteew-ts-installer-session*) continue ;;
+      *) kill "${pid}" 2>/dev/null || true ;;
+    esac
+  done
+  sleep 0.3
+}
+
+run_labwc() {
+  write_labwc_config
+  reap_stale_installer_apps
+  if command -v dbus-run-session >/dev/null 2>&1; then
+    dbus-run-session -- labwc
+  else
+    tty_msg "WARN: dbus-run-session missing"
+    labwc
+  fi
+}
+
+tty_msg "starting live installer (renderer=${WLR_RENDERER:-auto} seat=${LIBSEAT_BACKEND:-auto})"
+_compositor_attempt=0
+while [[ "${_compositor_attempt}" -lt "${MAX_COMPOSITOR_RESTARTS}" ]]; do
+  _compositor_attempt=$((_compositor_attempt + 1))
+  echo "unix=$(date -u +%s) [SESSION] labwc start WLR_RENDERER=${WLR_RENDERER:-auto} LIBSEAT_BACKEND=${LIBSEAT_BACKEND:-} XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR LANG=$LANG LABWC_UPDATE_ACTIVATION_ENV=${LABWC_UPDATE_ACTIVATION_ENV:-}"
+  run_labwc
+  ec=$?
+  echo "unix=$(date -u +%s) [SESSION] labwc exited ec=$ec"
+  if [[ -f "${XDG_RUNTIME_DIR}/eliteew-ts-reboot-requested" ]]; then
+    rm -f "${XDG_RUNTIME_DIR}/eliteew-ts-reboot-requested"
+    tty_msg "ordered reboot after clean compositor exit"
+    echo "unix=$(date -u +%s) [SESSION] ordered reboot: compositor closed → sync → apply reboot"
+    # Kill orphaned autostart loops and installer processes to prevent TTY1 loop
+    pkill -f '/\.config/labwc/autostart' 2>/dev/null || true
+    pkill -f '^/usr/local/bin/eliteew-ts-installer([[:space:]]|$)' 2>/dev/null || true
+    # GUI already sent labwc --exit; DRM/libseat released. sync here, then apply does umount+reboot.
+    sync
+    sleep 0.3
+    if [[ -x /usr/local/bin/eliteew-ts-install-apply ]]; then
+      sudo -n /usr/local/bin/eliteew-ts-install-apply reboot \
+        || /usr/local/bin/eliteew-ts-install-apply reboot \
+        || reboot -f \
+        || true
+    fi
+    sleep 2
+    reboot -f 2>/dev/null || true
+    sleep infinity
+  fi
+  tty_msg "display session ended (ec=$ec) — restarting… (log: $ELITEEW_TS_INSTALL_LOG)"
+  sleep "$COMPOSITOR_RESTART_SEC"
+done
+tty_msg "display restart limit reached — holding tty1; see $ELITEEW_TS_INSTALL_LOG"
+exec sleep infinity

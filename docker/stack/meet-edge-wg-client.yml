@@ -1,0 +1,27 @@
+# Meet WG: punisher → edge (исходящий). network_mode: host — wg0 и JVB :34000 на одном хосте.
+services:
+  meet-edge-wg:
+    image: alpine:3.20
+    container_name: meet-edge-wg
+    network_mode: host
+    restart: unless-stopped
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun
+    command:
+      - sh
+      - -c
+      - |
+        apk add --no-cache wireguard-tools
+        for i in 1 2 3 4 5 6 7 8 9 10; do
+          [ -f /etc/wireguard/wg0.conf ] && break
+          sleep 1
+        done
+        wg-quick up wg0
+        trap 'wg-quick down wg0' EXIT
+        sleep infinity
+    volumes:
+      - ${MEET_EDGE_WG_CONFIG_DIR:-../data/meet-edge-wg}/home-wg-client.conf:/etc/wireguard/wg0.conf:ro,z

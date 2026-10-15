@@ -1,0 +1,61 @@
+#!/bin/sh
+# Operator wall clock. timesyncd stays masked. No public NTP.
+set -eu
+
+REQ=/run/empiieros/time-sync.request
+RESULT=/run/empiieros/time-sync.result
+TZFILE=/etc/timezone
+
+[ -f "$REQ" ] || {
+  echo "time-sync: request missing" >&2
+  exit 1
+}
+[ ! -L "$REQ" ] || {
+  echo "time-sync: request must not be a symlink" >&2
+  exit 1
+}
+
+action=
+datetime=
+while IFS='=' read -r key value; do
+  case "$key" in
+    action) action=$value ;;
+    datetime) datetime=$value ;;
+    ''|\#*) ;;
+    *)
+      echo "time-sync: unknown field" >&2
+      exit 1
+      ;;
+  esac
+done <"$REQ"
+
+[ "$action" = "set" ] || {
+  echo "time-sync: ntp_masked" >&2
+  exit 1
+}
+
+case "$datetime" in
+  [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\ [0-9][0-9]:[0-9][0-9]) ;;
+  [0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]\ [0-9][0-9]:[0-9][0-9]:[0-9][0-9]) ;;
+  *)
+    echo "time-sync: datetime invalid" >&2
+    exit 1
+    ;;
+esac
+
+tz=UTC
+if [ -f "$TZFILE" ] && [ ! -L "$TZFILE" ]; then
+  tz=$(tr -d '\r\n' <"$TZFILE")
+fi
+
+TZ="$tz" date -s "$datetime" >/dev/null
+if command -v hwclock >/dev/null 2>&1; then
+  hwclock --systohc --utc || echo "time-sync: hwclock systohc failed" >&2
+fi
+
+{
+  printf 'action=set\n'
+  printf 'applied=1\n'
+  printf 'datetime=%s\n' "$datetime"
+} >"$RESULT"
+chmod 0600 "$RESULT"

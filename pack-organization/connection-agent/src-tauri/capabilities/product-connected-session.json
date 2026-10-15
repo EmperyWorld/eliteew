@@ -1,0 +1,46 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "product-connected-session",
+  "description": "Connected product origin may invoke product session refresh/logout only. FoFline pack stays on the local product capability.",
+  "local": true,
+  "remote": {
+    "urls": [
+      "https://app.eliteew.ru",
+      "https://app.eliteew.ru/*"
+    ]
+  },
+  "windows": [
+    "product"
+  ],
+  "permissions": [
+    "core:default",
+    "core:event:allow-listen",
+    "core:event:allow-unlisten",
+    "allow-product-session-refresh",
+    "allow-product-session-logout",
+    "allow-host-network-link-snapshot",
+    "allow-video-call-meet-stage-open",
+    "allow-video-call-meet-stage-set-bounds",
+    "allow-video-call-meet-stage-close",
+    "allow-ebrowser-open",
+    "allow-ebrowser-navigate",
+    "allow-ebrowser-refresh-policy",
+    "allow-ebrowser-get-location",
+    "allow-ebrowser-get-chrome-snapshot",
+    "allow-ebrowser-reload",
+    "allow-ebrowser-history-back",
+    "allow-ebrowser-history-forward",
+    "allow-ebrowser-set-bounds",
+    "allow-ebrowser-close",
+    "allow-ebrowser-get-downloads",
+    "allow-ebrowser-tabs-list",
+    "allow-ebrowser-tab-create",
+    "allow-ebrowser-tab-activate",
+    "allow-ebrowser-tab-close",
+    "allow-ebrowser-set-media-toggles",
+    "allow-ebrowser-get-media-toggles",
+    "allow-ebrowser-find",
+    "allow-ebrowser-set-zoom",
+    "allow-ebrowser-get-zoom"
+  ]
+}

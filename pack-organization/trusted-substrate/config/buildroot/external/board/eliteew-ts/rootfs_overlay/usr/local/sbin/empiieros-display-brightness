@@ -1,0 +1,71 @@
+#!/bin/sh
+# Allowlisted sysfs backlight writer. Runtime validates the request first.
+set -eu
+
+REQ=/run/empiieros/display-brightness.request
+ROOT=/sys/class/backlight
+
+[ -f "$REQ" ] || {
+  echo "display-brightness: request missing" >&2
+  exit 1
+}
+[ ! -L "$REQ" ] || {
+  echo "display-brightness: request must not be a symlink" >&2
+  exit 1
+}
+
+name=
+percent=
+while IFS='=' read -r key value; do
+  case "$key" in
+    name) name=$value ;;
+    percent) percent=$value ;;
+    ''|\#*) ;;
+    *)
+      echo "display-brightness: unknown field" >&2
+      exit 1
+      ;;
+  esac
+done <"$REQ"
+
+case "$name" in
+  ''|*[!A-Za-z0-9._-]*|*/*|*\\*|*\.\.*)
+    echo "display-brightness: invalid name" >&2
+    exit 1
+    ;;
+esac
+case "$percent" in
+  ''|*[!0-9]*)
+    echo "display-brightness: invalid percent" >&2
+    exit 1
+    ;;
+esac
+[ "$percent" -ge 10 ] && [ "$percent" -le 100 ] || {
+  echo "display-brightness: percent out of range" >&2
+  exit 1
+}
+
+device="$ROOT/$name"
+[ -e "$device/max_brightness" ] && [ -e "$device/brightness" ] || {
+  echo "display-brightness: sysfs nodes missing" >&2
+  exit 1
+}
+[ ! -L "$device/max_brightness" ] && [ ! -L "$device/brightness" ] || {
+  echo "display-brightness: sysfs nodes must not be symlinks" >&2
+  exit 1
+}
+
+max=$(cat "$device/max_brightness")
+case "$max" in
+  ''|*[!0-9]*)
+    echo "display-brightness: invalid max_brightness" >&2
+    exit 1
+    ;;
+esac
+[ "$max" -gt 0 ] || {
+  echo "display-brightness: max_brightness is zero" >&2
+  exit 1
+}
+
+value=$((percent * max / 100))
+printf '%s\n' "$value" >"$device/brightness"

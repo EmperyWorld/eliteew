@@ -1,0 +1,11 @@
+# =============================================================================
+# EliteEW · stack2 · prod-core baked override (llama-chat image pre-loaded on .111)
+# =============================================================================
+# Сборка/ pull — только на command-center; на prod-core: compose up без build/pull.
+# Env: STACK2_LLAMA_CHAT_BAKED_IMAGE (eliteew-llama-chat:prod-runtime-…)
+# =============================================================================
+
+services:
+  llama-chat:
+    image: ${STACK2_LLAMA_CHAT_BAKED_IMAGE:?Set STACK2_LLAMA_CHAT_BAKED_IMAGE}
+    pull_policy: never

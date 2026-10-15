@@ -1,0 +1,48 @@
+[Unit]
+Description=EmpiierOS Wi-Fi association on %I
+After=sys-subsystem-net-devices-%i.device
+BindsTo=sys-subsystem-net-devices-%i.device
+Before=systemd-networkd.service
+ConditionPathExists=/etc/wpa_supplicant/wpa_supplicant-%i.conf
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/wpa_supplicant -i%i -c/etc/wpa_supplicant/wpa_supplicant-%i.conf -Dnl80211,wext
+Restart=on-failure
+RestartSec=3
+
+User=root
+Group=root
+UMask=0077
+RuntimeDirectory=wpa_supplicant
+RuntimeDirectoryMode=0750
+RuntimeDirectoryPreserve=yes
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectHostname=true
+ProtectClock=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+RestrictNamespaces=true
+SystemCallArchitectures=native
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_RAW
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_RAW
+# nl80211 opens PF_INET SOCK_DGRAM during driver init. Without AF_INET
+# systemd returns EAFNOSUPPORT, wpa exits 255, and the AP never sees a
+# probe. iw scan is not in this unit, so scan can succeed while connect
+# is silent.
+RestrictAddressFamilies=AF_UNIX AF_NETLINK AF_PACKET AF_INET AF_INET6
+ReadWritePaths=/run/wpa_supplicant
+
+[Install]
+WantedBy=multi-user.target

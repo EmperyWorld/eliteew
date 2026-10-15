@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Wrapper для backup-powered-by-emperyworld-full-to-up-back.sh (sudo …/scripts/eebackupfull).
+set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]:-$0}")")" && pwd)"
+exec bash "$SCRIPT_DIR/backup-powered-by-emperyworld-full-to-up-back.sh" "$@"

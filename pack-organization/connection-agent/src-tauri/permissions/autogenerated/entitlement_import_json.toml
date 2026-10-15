@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-entitlement-import-json"
+description = "Enables the entitlement_import_json command without any pre-configured scope."
+commands.allow = ["entitlement_import_json"]
+
+[[permission]]
+identifier = "deny-entitlement-import-json"
+description = "Denies the entitlement_import_json command without any pre-configured scope."
+commands.deny = ["entitlement_import_json"]

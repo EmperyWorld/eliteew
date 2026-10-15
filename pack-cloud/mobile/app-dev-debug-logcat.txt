@@ -1,0 +1,232 @@
+--------- beginning of system
+04-11 07:04:00.997 D/ActivityThread(29710): Attach thread to application
+04-11 07:04:01.010 I/ActivityThread(29710): Init compatible state: true
+04-11 07:04:02.215 I/ActivityThread(29710): finishPreloaded preloadStatus 0
+04-11 07:04:02.215 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:04:02.234 V/ActivityThread(29710): callActivityOnCreate
+04-11 07:04:02.264 D/ActivityThread(29710): add activity client record, r= ActivityRecord{624778a token=android.os.BinderProxy@d6c94ed {world.empery.mobile.dev/world.empery.mobile.MainActivity}} token= android.os.BinderProxy@d6c94ed
+04-11 07:04:02.278 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:04:02.298 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:02.631 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:04.315 W/HwApsManager(29710): HwApsManagerService, registerCallback, start !
+04-11 07:04:10.819 D/ActivityThread(29710): Won't deliver top position change in state=5
+04-11 07:04:10.843 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:10.844 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:04:10.894 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:12.355 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:12.383 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:13.284 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:13.506 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:13.625 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:13.660 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:13.683 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:15.531 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:15.769 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:23.423 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:23.755 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:38.465 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:39.086 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:39.428 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:39.842 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:42.250 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:42.570 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:04:56.218 D/ActivityThread(29710): Won't deliver top position change in state=5
+04-11 07:04:56.262 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:04:56.265 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:04.451 D/ActivityThread(29710): Won't deliver top position change in state=5
+04-11 07:05:04.486 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:05:04.488 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+--------- beginning of main
+04-11 07:05:06.284 D/DecorView(29710): showOrHideHighlightView: hasFocus=false; winMode=1; isMrgNull=true
+04-11 07:05:06.406 W/libEGL  (29710): EGLNativeWindowType 0x77afe9e410 disconnect failed
+04-11 07:05:06.406 D/OpenGLRenderer(29710): endAllActiveAnimators on 0x77d22d0200 (UnprojectedRipple) with handle 0x77ad73eea0
+04-11 07:05:06.485 I/RmeSchedManager(29710): init Rme, version is: v1.0
+04-11 07:05:06.487 D/ZrHung.AppEyeUiProbe(29710): not watching, wait.
+04-11 07:05:11.279 I/AwareBitmapCacher(29710): handleReleaseCache: pid=29710
+04-11 07:05:11.279 I/AwareBitmapCacher(29710): init lrucache size: 2097152 pid=29710
+04-11 07:05:14.262 D/ActivityThread(29710): Won't deliver top position change in state=5
+04-11 07:05:14.267 D/ZrHung.AppEyeUiProbe(29710): restart watching
+04-11 07:05:14.270 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:14.279 D/mali_winsys(29710): EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+04-11 07:05:14.295 I/RmeSchedManager(29710): init Rme, version is: v1.0
+04-11 07:05:14.295 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:05:14.295 I/HwViewRootImpl(29710): removeInvalidNode all the node in jank list is out of time
+04-11 07:05:14.296 D/DecorView(29710): showOrHideHighlightView: hasFocus=true; winMode=1; isMrgNull=true
+04-11 07:05:14.297 W/InputMethodManager(29710): startInputReason = 1
+04-11 07:05:14.297 W/HwRemoteInputMethodManager(29710): isCasting false because IHwDistributedWindowManager is invalid.
+04-11 07:05:15.531 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:15.590 I/okhttp.OkHttpClient(29710): --> GET https://app.eliteew.ru/api/v1/gaf-chat/chats
+04-11 07:05:15.623 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:15.624 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:15.677 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:15.746 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:15.810 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:15.863 I/okhttp.OkHttpClient(29710): <-- 200 https://app.eliteew.ru/api/v1/gaf-chat/chats (272ms, unknown-length body)
+04-11 07:05:15.879 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:15.902 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:15.978 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:16.042 I/chatty  (29710): uid=10133(world.empery.mobile.dev) RenderThread identical 10 lines
+04-11 07:05:16.112 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:16.178 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:16.876 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:16.947 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:16.983 I/okhttp.OkHttpClient(29710): --> GET https://app.eliteew.ru/api/v1/gaf-chat/chats
+04-11 07:05:17.024 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:17.033 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.096 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.164 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.228 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.259 I/okhttp.OkHttpClient(29710): <-- 200 https://app.eliteew.ru/api/v1/gaf-chat/chats (275ms, unknown-length body)
+04-11 07:05:17.303 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:17.321 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.381 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.450 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.514 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.581 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.809 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.884 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.953 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:17.968 I/okhttp.OkHttpClient(29710): --> GET https://app.eliteew.ru/api/v1/gaf-chat/chats
+04-11 07:05:17.995 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:18.029 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.101 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.167 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.233 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.266 I/okhttp.OkHttpClient(29710): <-- 200 https://app.eliteew.ru/api/v1/gaf-chat/chats (298ms, unknown-length body)
+04-11 07:05:18.303 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:18.324 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.447 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.518 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:18.584 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:19.353 D/DecorView(29710): showOrHideHighlightView: hasFocus=false; winMode=1; isMrgNull=true
+04-11 07:05:19.373 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:19.554 I/RmeSchedManager(29710): init Rme, version is: v1.0
+04-11 07:05:25.996 W/DisplayEventDispatcher(29710): dispatcher 0x7842b6b3c0 ~ ignoring unknown event type 0x736f6674
+04-11 07:05:26.281 D/ZrHung.AppEyeUiProbe(29710): not watching, wait.
+04-11 07:05:26.444 W/libEGL  (29710): EGLNativeWindowType 0x77afe9f810 disconnect failed
+04-11 07:05:27.641 D/ActivityThread(29710): Won't deliver top position change in state=5
+04-11 07:05:27.663 D/ZrHung.AppEyeUiProbe(29710): restart watching
+04-11 07:05:27.666 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:27.668 I/RmeSchedManager(29710): init Rme, version is: v1.0
+04-11 07:05:27.668 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:05:27.675 D/mali_winsys(29710): EGLint new_window_surface(egl_winsys_display *, void *, EGLSurface, EGLConfig, egl_winsys_surface **, EGLBoolean) returns 0x3000
+04-11 07:05:27.685 D/DecorView(29710): showOrHideHighlightView: hasFocus=true; winMode=1; isMrgNull=true
+04-11 07:05:27.685 W/InputMethodManager(29710): startInputReason = 1
+04-11 07:05:27.686 W/HwRemoteInputMethodManager(29710): isCasting false because IHwDistributedWindowManager is invalid.
+04-11 07:05:29.000 W/DisplayEventDispatcher(29710): dispatcher 0x7842b6b3c0 ~ ignoring unknown event type 0x736f6674
+04-11 07:05:30.130 D/DecorView(29710): showOrHideHighlightView: hasFocus=false; winMode=1; isMrgNull=true
+04-11 07:05:30.330 I/RmeSchedManager(29710): init Rme, version is: v1.0
+04-11 07:05:34.535 D/DecorView(29710): showOrHideHighlightView: hasFocus=true; winMode=1; isMrgNull=true
+04-11 07:05:34.537 W/HwRemoteInputMethodManager(29710): isCasting false because IHwDistributedWindowManager is invalid.
+04-11 07:05:34.538 I/RmeSchedManager(29710): init Rme, version is: v1.0
+04-11 07:05:34.538 I/RtgSchedEvent(29710): current pid:29710 AppType:-1
+04-11 07:05:34.827 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:34.893 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:34.961 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.094 I/chatty  (29710): uid=10133(world.empery.mobile.dev) identical 15 lines
+04-11 07:05:35.161 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.229 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.295 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.362 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.494 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.562 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.628 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.696 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.762 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.833 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.898 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:35.964 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.030 I/HwViewRootImpl(29710): removeInvalidNode all the node in jank list is out of time
+04-11 07:05:36.076 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.156 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.256 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.313 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.397 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.495 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.642 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.714 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.780 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.853 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.915 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:36.988 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.125 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.208 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.345 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.399 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.491 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.658 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.717 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.784 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.851 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:37.943 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.001 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.085 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.153 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.218 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.286 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.353 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.418 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.596 V/InputMethodManager(29710): dispatchInputEvent
+04-11 07:05:38.608 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.669 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.744 V/InputMethodManager(29710): dispatchInputEvent
+04-11 07:05:38.780 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.909 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:38.977 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.177 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.235 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.306 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.445 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.507 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.573 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.641 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.657 I/okhttp.OkHttpClient(29710): --> GET https://app.eliteew.ru/api/v1/gaf-chat/chats
+04-11 07:05:39.679 I/HwViewRootImpl(29710): removeInvalidNode all the node in jank list is out of time
+04-11 07:05:39.684 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:39.725 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.793 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.858 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.925 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:39.976 I/okhttp.OkHttpClient(29710): <-- 200 https://app.eliteew.ru/api/v1/gaf-chat/chats (318ms, unknown-length body)
+04-11 07:05:40.016 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.016 D/HwCustConnectivityManagerImpl(29710): isBlockNetworkRequestByNonAis, INVALID_SUBSCRIPTION_ID
+04-11 07:05:40.146 I/chatty  (29710): uid=10133(world.empery.mobile.dev) RenderThread identical 4 lines
+04-11 07:05:40.213 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.281 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.345 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.549 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.604 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.672 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.739 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.806 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.873 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:40.940 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.006 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.072 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.607 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.674 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.741 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.808 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.874 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:41.941 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.008 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.074 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.208 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.276 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.342 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.409 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.475 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.542 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.676 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.743 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.809 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:42.942 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.009 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.077 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.143 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.210 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.277 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.411 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.477 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.544 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60
+04-11 07:05:43.677 I/RmeSchedManager(29710): SetMarginData, input:3, animation:4, traversal:4, util:600, frameRate:60

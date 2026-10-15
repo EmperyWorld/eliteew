@@ -1,0 +1,26 @@
+{
+  "name": "@eliteew/kernel-offline-policy",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "description": "EliteEW Kernel-offline mount policy helpers (Wave K8). SoT JSON remains EliteEW/shared/kernel-offline/.",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "files": [
+    "src"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "~7.0.2",
+    "vitest": "^5.0.1"
+  }
+}

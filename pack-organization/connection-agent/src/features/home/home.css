@@ -1,0 +1,64 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Activation drop body — single-column import; mode legend retired from this phase.
+ * Invariants: Drop zone is sole primary; secondary = device-request prepare.
+ * Related: DESKTOP-CLIENT-LAUNCHER-JOURNEY.md §3 B Activation
+ */
+
+.home-panel {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.home-panel-activation {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.home-main {
+  min-width: 0;
+}
+
+.home-prepare-request {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.home-prepare-btn {
+  align-self: flex-start;
+}
+
+.home-hint {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--dc-muted);
+  line-height: 1.4;
+}
+
+.home-advanced {
+  grid-column: 1 / -1;
+}
+
+.drop-zone-primary {
+  min-height: 8.5rem;
+}
+
+@media (min-width: 1024px) {
+  .drop-zone-primary {
+    min-height: 9.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .drop-zone-primary {
+    min-height: 11rem;
+  }
+}

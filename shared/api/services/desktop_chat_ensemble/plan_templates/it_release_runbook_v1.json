@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "id": "it_release_runbook_v1",
+  "version": 1,
+  "title": "Runbook релиза / hotfix",
+  "description": "Проверяемый runbook: порядок шагов, rollback, smoke/evidence, go/no-go; без «собери на проде».",
+  "artifact_type": "it_release_runbook",
+  "required_context": [
+    "change_summary",
+    "release_or_hotfix",
+    "rollback_expectation"
+  ],
+  "quality_rubric": [
+    "Порядок шагов исполняем и упорядочен",
+    "Rollback явен до старта",
+    "Smoke = observable evidence, не «health=ok» как единственное доказательство",
+    "Go/no-go критерии бинарны",
+    "Секреты/env boundary при ростере ≥4"
+  ],
+  "output_sections": [
+    "Шаги и rollback",
+    "Smoke и evidence",
+    "Go / no-go",
+    "Секреты и env"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "rel1",
+      "title": "Шаги и rollback",
+      "instruction_for_model": "Собери runbook: нумерованные шаги релиза или hotfix (build host vs runtime host — обобщённо, без выдуманных IP). Обязателен rollback до старта. Запрещено: «собери на проде», «просто рестарт». Неизвестное — «нужно подтвердить». Без ##.",
+      "required_slots": {
+        "operations": 3,
+        "engineering": 2
+      },
+      "scope_fence": "Только порядок шагов и rollback; не полный threat model.",
+      "output_format": [
+        "Steps",
+        "Rollback",
+        "Confirm unknowns"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "rel2",
+      "title": "Smoke и evidence",
+      "instruction_for_model": "Для каждого критичного шага — что проверить (evidence на входе/выходе). health≠полный путь. Симптом → слой → проверка. Без ##.",
+      "required_slots": {
+        "operations": 3,
+        "research": 2
+      },
+      "scope_fence": "Только smoke/evidence; не переписывай весь runbook.",
+      "output_format": [
+        "Checks",
+        "Evidence",
+        "False greens to avoid"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "rel3",
+      "title": "Go / no-go",
+      "instruction_for_model": "Бинарные критерии go/no-go и кто принимает решение. Что блокирует выкат. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только decision gate.",
+      "output_format": [
+        "Go if",
+        "No-go if",
+        "Owner"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "rel4",
+      "title": "Секреты и env",
+      "instruction_for_model": "Проверь границу секретов/env для этого выката: что не должно попасть в образ/логи, что требует config plane. Без значений секретов. Без ##.",
+      "required_slots": {
+        "legal_edge": 2,
+        "rigor": 3
+      },
+      "scope_fence": "Только secrets/env boundary.",
+      "output_format": [
+        "Must not leak",
+        "Config owner",
+        "Verify"
+      ],
+      "min_roster": 4
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Шаги и rollback",
+      "step_ids": [
+        "rel1"
+      ]
+    },
+    {
+      "heading": "Smoke и evidence",
+      "step_ids": [
+        "rel2"
+      ]
+    },
+    {
+      "heading": "Go / no-go",
+      "step_ids": [
+        "rel3"
+      ]
+    },
+    {
+      "heading": "Секреты и env",
+      "step_ids": [
+        "rel4"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+	"actions": {
+		"cancel": "Cancel",
+		"clear": "Clear",
+		"close": "Close",
+		"confirm": "Confirm",
+		"copy": "Copy",
+		"hide": "Hide",
+		"open": "Open",
+		"retry": "Try again",
+		"save": "Save",
+		"search": "Search",
+		"show": "Show"
+	},
+	"states": {
+		"chooseOption": "Choose an option",
+		"empty": "Nothing here yet",
+		"error": "Something went wrong",
+		"loading": "Loading…",
+		"noResults": "No results",
+		"offline": "Offline",
+		"permissionDenied": "No access",
+		"ready": "Ready",
+		"saving": "Saving…",
+		"syncing": "Syncing…"
+	},
+	"workspace": {
+		"advancedDetails": "Details and support",
+		"nextAction": "Next step",
+		"primaryActions": "Primary actions",
+		"secondaryActions": "More actions"
+	},
+	"singleTab": {
+		"eyebrow": "EliteEW · one active tab",
+		"followerTitle": "{{context}} is already open in another tab",
+		"followerDescription": "This tab does not load the desktop or call the API until it becomes the primary tab. If the active tab has a live channel open, it will ask for confirmation for up to 60 seconds.",
+		"followerStatus": "Waiting tab",
+		"followerFootnote": "Both tabs must use the same app address (for example app.eliteew.ru).",
+		"handoffTitle": "Waiting for the other tab",
+		"handoffDescription": "Confirmation was requested on the active EliteEW tab. If there is no reply within a minute, the request will be declined.",
+		"handoffStatus": "Waiting for the other tab",
+		"handoffFootnote": "You can wait here or close this tab — the primary tab keeps working.",
+		"useThisTab": "Use this tab",
+		"closeTab": "Close tab"
+	}
+}

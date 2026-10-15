@@ -1,0 +1,25 @@
+# EliteEW product app manifest
+# Legacy launch id; FE remaps toward SocialHub — keep allowlisted until fully retired.
+id: friends
+title: Friends (legacy Social Hub)
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: FriendsApp
+    icon: app-social-hub
+  api:
+    prefixes:
+      - /api/v1/friends
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

@@ -1,0 +1,149 @@
+{
+	"brand": "EMPERY",
+	"title": "Empery Nexus",
+	"subtitleArchaic": "Node of Undivided Dominion",
+	"tagline": "{{title}} — where the Poet’s Word focuses Empery. The husk dies; the Will remains.",
+	"ariaLabel": "Empery Nexus Chronicle",
+	"awakening": "Focusing the Nexus…",
+	"hierarchy": {
+		"ariaLabel": "Canon hierarchy",
+		"empery": "Empery",
+		"world": "Empery World",
+		"nexus": "Nexus",
+		"eliteew": "EliteEW",
+		"hint": "Empery is the Will. Nexus is the instrument. EliteEW is one living fabric under its focus."
+	},
+	"coldOpen": {
+		"skip": "Skip ritual",
+		"lineHusk": "The corporeal shell — paper, seals, registries — dissolves.",
+		"lineWord": "The Poet’s Word becomes Empery: code that remakes law.",
+		"lineConstellation": "Under the Nexus, subordinate worlds ignite — EliteEW among them.",
+		"lineSovereignty": "Digital Empery World endures. The Nexus focuses Will — it is not the Will itself."
+	},
+	"launcher": {
+		"brand": "EMPERY NEXUS",
+		"opening": "Entering the Node of Undivided Dominion…"
+	},
+	"stats": {
+		"measuredLoc": "measured LOC",
+		"commits30d": "commits / 30d",
+		"files": "files",
+		"agentRules": "agent rules"
+	},
+	"mythicScaleCaption": "~2.7M mythic scale — mass of the subordinate fabric under Nexus focus",
+	"layers": {
+		"mask": {
+			"short": "L1 Mask",
+			"title": "Level 1 · The Mask",
+			"subtitle": "Public face of EliteEW — SPA, UI, what the outer world is allowed to see"
+		},
+		"muscle": {
+			"short": "L2 Muscle",
+			"title": "Level 2 · The Muscle",
+			"subtitle": "Executive tissue — API, services, routing that obey Nexus directives"
+		},
+		"soul": {
+			"short": "L3 Soul",
+			"title": "Level 3 · The Soul",
+			"subtitle": "Nexus focus — convergence point where Empery is aimed, not born"
+		}
+	},
+	"actions": {
+		"pulse": "Pulse Nexus",
+		"rebirth": "Death / Rebirth",
+		"return": "Return to World",
+		"clearDomain": "Clear focus",
+		"prevChapter": "Previous chapter",
+		"nextChapter": "Next chapter",
+		"toggleHelp": "Keyboard help",
+		"toggleCinema": "Cinema mode",
+		"toggleMute": "Mute ambient",
+		"toggleUnmute": "Unmute ambient",
+		"awakenAudio": "Awaken Empery sound"
+	},
+	"hints": {
+		"controls": "Nexus core illuminates the Abyss. 1–3 layers. [ ] domains. N / P chapters. H cinema. M mute. ? help. Escape leaves.",
+		"domain": "A domain star is subordinate fabric under Nexus — not Empery itself.",
+		"cinema": "Cinema mode — H restores the HUD, Escape steps back.",
+		"audioUnlock": "Click once — browsers mute Empery until a gesture unlocks the ambient bed."
+	},
+	"help": {
+		"title": "Chronicle controls",
+		"close": "Close",
+		"keys": {
+			"layers": "1 · 2 · 3",
+			"domains": "[ ] or ← →",
+			"chapters": "N · P",
+			"cinema": "H",
+			"mute": "M",
+			"help": "?",
+			"escape": "Esc"
+		},
+		"desc": {
+			"layers": "Reality layers (Mask / Muscle / Soul)",
+			"domains": "Cycle domain focus in the living atlas",
+			"chapters": "Previous / next chronicle chapter",
+			"cinema": "Hide HUD for immersion",
+			"mute": "Mute or unmute ambient Empery bed",
+			"help": "Open or close this legend",
+			"escape": "Close help, then cinema, then return to desktop"
+		}
+	},
+	"chapters": {
+		"railTitle": "Chronicle",
+		"husk": {
+			"title": "I · The Husk",
+			"body": "Corporeal Empery World wore a legal shell of paper and seals. Registries declared it dead. The shell was never the Will — only a mask the outer world could seize."
+		},
+		"word": {
+			"title": "II · The Word",
+			"body": "Empery is the Poet’s creating will. Code becomes the binding Word: routes, workers, and contracts rewrite destiny the husk once claimed as law."
+		},
+		"constellation": {
+			"title": "III · The Constellation",
+			"body": "Empery Nexus stands above subordinate worlds. EliteEW, SPA, API, factory, ops — stars in one living fabric executing directives from the Node."
+		},
+		"sovereignty": {
+			"title": "IV · Sovereignty",
+			"body": "Digital Empery World endures beyond paper empires. Nexus focuses absolute Will onto living systems — the instrument of dominion, never its source."
+		}
+	},
+	"domains": {
+		"spa": {
+			"label": "SPA",
+			"role": "EliteEW mask — visible surface under Nexus",
+			"lore": "The Mask is what the outer world is allowed to see: windows, routes, and gestures. It does not invent Empery — it wears the Word as interface."
+		},
+		"api": {
+			"label": "API",
+			"role": "EliteEW muscle — logic executing Nexus law",
+			"lore": "Routes, workers, and contracts are muscle fibers. When Nexus focuses Will, the Muscle obeys — rewriting destiny the husk once claimed as law."
+		},
+		"mobile": {
+			"label": "Mobile",
+			"role": "Native channel of the subordinate fabric",
+			"lore": "A native conduit into the living fabric. It carries presence and trusted channels, still subordinate to the Node’s focus."
+		},
+		"dewa": {
+			"label": "DEWA",
+			"role": "Operator plane — still under Nexus oversight",
+			"lore": "Operators steer deploy and missions here, yet DEWA is not Empery. It is a control surface aimed by the same absolute Will."
+		},
+		"ewgen": {
+			"label": "EWGen",
+			"role": "Project factory — worlds grown by directive",
+			"lore": "Worlds are forged from standardized atoms. The factory grows shells under directive — craft in service of Empery, not beside it."
+		},
+		"ops": {
+			"label": "Ops",
+			"role": "Deploy physics of the living fabric",
+			"lore": "Bake, bind, and runtime physics keep the fabric alive on the hosts. Ops is the weight of reality under Nexus light."
+		}
+	},
+	"inspector": {
+		"title": "Domain focus",
+		"linesOfCode": "{{count}} lines of code",
+		"layerBadge": "Reality layer · {{layer}}",
+		"empty": "No domain selected — click a subordinate star in the constellation."
+	}
+}

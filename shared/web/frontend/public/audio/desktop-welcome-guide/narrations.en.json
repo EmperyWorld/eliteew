@@ -1,0 +1,19 @@
+{
+	"locale": "en",
+	"voice": "companion_ewa",
+	"voiceDescription": "EN narration texts for parity with narrations.ru.json; WAV generation via generate-guide-audio-stack9.sh is RU-only by default (see GUIDED-TOUR-EXCURSION.md §7)",
+	"steps": {
+		"intro": "This is the app tour. We will highlight real parts of the screen — the places you will actually use. Each step says where to click and what opens. Use Next, or close anytime. You can open this tour again from More on the taskbar.",
+		"workspace": "The open area is for shortcuts and windows. Click empty space to clear a selection. Right-click empty space for a menu: new shortcuts, widgets, and appearance.",
+		"widgets-panel": "Along the edge: notes, tasks, music, and similar cards. Click a card to open it. Drag to reorder. Show or hide the panel in Settings, Behavior, or press Windows plus W.",
+		"favorites-widget": "The Favorites card keeps what you open often — documents, apps, links. Tap Add, enter a title and optional link. One click opens an item. The card menu can expand Favorites into its own window.",
+		"icons": "Double-click to open an app or file. Right-click for a menu: open, pin, delete. Drag a shortcut to place it. Tab and arrows move focus. Enter opens the selected shortcut.",
+		"taskbar": "The bar at the bottom is the main starting point. Left: Start and workspaces. Center: pinned apps and open windows. Right: search, notifications, and More. Most everyday actions begin here.",
+		"start": "The EliteEW logo at the bottom left opens Start: the app catalog, recent files, and search. Click an app to open it. The gear in Start is for theme and wallpaper.",
+		"virtual-desktops": "The strip next to Start holds separate workspaces, each with its own windows and shortcuts. Click a workspace to switch, or use Control, Windows, and the left or right arrow. Right-click a name to rename or remove it.",
+		"windows": "The center of the taskbar shows pinned apps and open-window buttons. Click a button to bring a window forward. Drag a window by its title bar. Near a screen edge it snaps to half or quarter. Pin an app: right-click its taskbar button.",
+		"sync-status": "Wallpaper, layout, and settings upload to the cloud on their own. If that fails, a small notice appears above the taskbar on the left: Offline, Saving, or Couldn't save. Tap Retry. Until the cloud is reachable, those desktop changes stay in this browser.",
+		"shortcuts": "The question-mark button on the right of the taskbar opens the shortcut list: windows, workspaces, search. F1 opens the same window. Two useful ones: Windows plus S for quick search, Control plus K for the command palette.",
+		"outro": "You are ready. Start opens an app. Double-click a shortcut to open a file. Widgets and Favorites are for what you use every day. To see this tour again: More on the taskbar, then App tour."
+	}
+}

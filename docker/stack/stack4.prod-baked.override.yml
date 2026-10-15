@@ -1,0 +1,26 @@
+# =============================================================================
+# EliteEW · stack4 · prod-baked override (images pre-loaded on prod-core)
+# =============================================================================
+# Env keys STACK4_*_BAKED_IMAGE — см. build-prod-core-runtime-images.sh
+# =============================================================================
+
+services:
+  tika:
+    image: ${STACK4_TIKA_BAKED_IMAGE:?Set STACK4_TIKA_BAKED_IMAGE}
+    pull_policy: never
+
+  ocrmypdf-api:
+    image: ${STACK4_OCRMYPDF_BAKED_IMAGE:?Set STACK4_OCRMYPDF_BAKED_IMAGE}
+    pull_policy: never
+
+  gotenberg:
+    image: ${STACK4_GOTENBERG_BAKED_IMAGE:?Set STACK4_GOTENBERG_BAKED_IMAGE}
+    pull_policy: never
+
+  tesseract:
+    image: ${STACK4_TESSERACT_BAKED_IMAGE:?Set STACK4_TESSERACT_BAKED_IMAGE}
+    pull_policy: never
+
+  paperless:
+    image: ${STACK4_PAPERLESS_BAKED_IMAGE:?Set STACK4_PAPERLESS_BAKED_IMAGE}
+    pull_policy: never

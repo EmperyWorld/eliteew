@@ -1,0 +1,776 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EliteEW pilot (/api/v1/voice-gateway)",
+    "version": "2.0.0-unified",
+    "description": "Sliced from eliteew-openapi-export.json — regenerate with openapi-extract-pilots.mjs"
+  },
+  "paths": {
+    "/api/v1/voice-gateway/transcribe": {
+      "post": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Transcribe",
+        "description": "Transcribe audio via canonical STT (whisper-fast).",
+        "operationId": "transcribe_api_v1_voice_gateway_transcribe_post",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Language"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Model"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_api_v1_voice_gateway_transcribe_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranscribeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/transcribe/async": {
+      "post": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Transcribe Async",
+        "description": "Queue long-running transcription and return durable transcription_id immediately.\n\n``model`` query is accepted for backward compatibility but ignored as a weight\nswitcher — stack9 STT uses the container-loaded MODEL_SIZE. Metadata stores\n``WHISPER_MODEL_SIZE`` / unified config.",
+        "operationId": "transcribe_async_api_v1_voice_gateway_transcribe_async_post",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Language"
+            }
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Model"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_transcribe_async_api_v1_voice_gateway_transcribe_async_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncTranscribeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/transcribe/status/{transcription_id}": {
+      "get": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Transcribe Async Status",
+        "operationId": "transcribe_async_status_api_v1_voice_gateway_transcribe_status__transcription_id__get",
+        "parameters": [
+          {
+            "name": "transcription_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Transcription Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncTranscribeStatusResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/synthesize": {
+      "post": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Synthesize",
+        "description": "Synthesize speech via canonical TTS (silero). Returns base64 data URL in audio_url.",
+        "operationId": "synthesize_api_v1_voice_gateway_synthesize_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SynthesizeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SynthesizeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/voices": {
+      "get": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Voices",
+        "description": "List available TTS voices (silero only for MVP).",
+        "operationId": "voices_api_v1_voice_gateway_voices_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "array",
+                  "title": "Response Voices Api V1 Voice Gateway Voices Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/process": {
+      "post": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Process Audio",
+        "description": "Full pipeline: audio -> transcribe -> LLM -> TTS. Reuses live voice pipeline.\n\nMerges DB live-voice settings with optional Form overrides (``tts_voice``, ``language``).",
+        "operationId": "process_audio_api_v1_voice_gateway_process_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_process_audio_api_v1_voice_gateway_process_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProcessAudioResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/map-intent": {
+      "post": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Map Intent",
+        "description": "Bounded LLM fallback: map transcript to a known command ID only (no free execution).",
+        "operationId": "map_intent_api_v1_voice_gateway_map_intent_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MapIntentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapIntentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/voice-gateway/health": {
+      "get": {
+        "tags": [
+          "Voice Gateway - Unified STT/TTS (Stack9)",
+          "Voice Gateway - Unified STT/TTS (Stack9)"
+        ],
+        "summary": "Health",
+        "description": "Gateway health (STT + TTS). No auth required for health.",
+        "operationId": "health_api_v1_voice_gateway_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Health Api V1 Voice Gateway Health Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_transcribe_api_v1_voice_gateway_transcribe_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_transcribe_api_v1_voice_gateway_transcribe_post"
+      },
+      "TranscribeResponse": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "language": {
+            "type": "string",
+            "title": "Language"
+          },
+          "duration_ms": {
+            "type": "integer",
+            "title": "Duration Ms",
+            "default": 0
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "default": 0
+          },
+          "segments": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Segments"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "text",
+          "language"
+        ],
+        "title": "TranscribeResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Body_transcribe_async_api_v1_voice_gateway_transcribe_async_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_transcribe_async_api_v1_voice_gateway_transcribe_async_post"
+      },
+      "AsyncTranscribeResponse": {
+        "properties": {
+          "transcription_id": {
+            "type": "string",
+            "title": "Transcription Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transcription_id",
+          "status",
+          "message"
+        ],
+        "title": "AsyncTranscribeResponse"
+      },
+      "AsyncTranscribeStatusResponse": {
+        "properties": {
+          "transcription_id": {
+            "type": "string",
+            "title": "Transcription Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "progress": {
+            "type": "integer",
+            "title": "Progress",
+            "default": 0
+          },
+          "error": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Result"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transcription_id",
+          "status"
+        ],
+        "title": "AsyncTranscribeStatusResponse"
+      },
+      "SynthesizeRequest": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 5000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "voice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Voice",
+            "description": "Qwen3-TTS profile id or legacy alias"
+          },
+          "speed": {
+            "type": "number",
+            "maximum": 2,
+            "minimum": 0.5,
+            "title": "Speed",
+            "default": 1
+          },
+          "volume": {
+            "type": "number",
+            "maximum": 1,
+            "minimum": 0,
+            "title": "Volume",
+            "default": 1
+          }
+        },
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "SynthesizeRequest"
+      },
+      "SynthesizeResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "audio_url": {
+            "type": "string",
+            "title": "Audio Url",
+            "default": ""
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          }
+        },
+        "type": "object",
+        "title": "SynthesizeResponse"
+      },
+      "Body_process_audio_api_v1_voice_gateway_process_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          },
+          "tts_voice": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tts Voice"
+          },
+          "language": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_process_audio_api_v1_voice_gateway_process_post"
+      },
+      "ProcessAudioResponse": {
+        "properties": {
+          "transcription": {
+            "type": "string",
+            "title": "Transcription"
+          },
+          "llm_response": {
+            "type": "string",
+            "title": "Llm Response"
+          },
+          "audio_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Audio Url"
+          },
+          "duration_ms": {
+            "type": "integer",
+            "title": "Duration Ms"
+          },
+          "stages": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Stages"
+          },
+          "task_id": {
+            "type": "string",
+            "title": "Task Id"
+          },
+          "timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transcription",
+          "llm_response",
+          "duration_ms",
+          "stages",
+          "task_id"
+        ],
+        "title": "ProcessAudioResponse"
+      },
+      "MapIntentRequest": {
+        "properties": {
+          "transcript": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Transcript"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transcript"
+        ],
+        "title": "MapIntentRequest"
+      },
+      "MapIntentResponse": {
+        "properties": {
+          "command_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Command Id"
+          }
+        },
+        "type": "object",
+        "title": "MapIntentResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

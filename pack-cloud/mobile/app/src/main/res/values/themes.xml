@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.EmperyMobile" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSurface</item>
+    </style>
+
+    <!-- Stealth Premium cold-start: black canvas + golden-hand brand mark from start_app_mobile.mp4,
+         then Theme.EmperyMobile. Compose PremiumSplashScreen plays the framed MP4 at 3× speed. -->
+    <style name="Theme.EmperyMobile.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@android:color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_golden_hand</item>
+        <item name="postSplashScreenTheme">@style/Theme.EmperyMobile</item>
+    </style>
+
+    <style name="Theme.EmperyMobile.HandEmbed" parent="Theme.EmperyMobile">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+</resources>

@@ -1,0 +1,40 @@
+# Optional local hooks (wave 3 doc drift backlog).
+# Install: bash scripts/eliteew/install-zero-trust-git-hooks.sh
+#          or: pre-commit install
+# CI mirror: .github/workflows/eliteew-pr-gate.yml job `documentation`
+repos:
+  - repo: local
+    hooks:
+      - id: zero-trust-critical-paths
+        name: Zero-Trust critical path atomicity
+        entry: bash scripts/eliteew/zero-trust-pre-commit.sh critical
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      - id: zero-trust-format-lint
+        name: Zero-Trust format and lint (Biome/Ruff/shellcheck)
+        entry: bash scripts/eliteew/zero-trust-pre-commit.sh lint
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      - id: zero-trust-smoke-tests
+        name: Zero-Trust smoke tests (staged vitest/pytest)
+        entry: bash scripts/eliteew/zero-trust-pre-commit.sh tests
+        language: system
+        pass_filenames: false
+        always_run: true
+        stages: [pre-commit]
+      - id: check-doc-drift
+        name: Documentation drift check
+        entry: bash scripts/doc/check-doc-drift.sh
+        language: system
+        pass_filenames: false
+        always_run: true
+      - id: nexus-verify-quick
+        name: Nexus regression bundle (quick)
+        entry: bash nexus-root/scripts/verify-all.sh --quick
+        language: system
+        pass_filenames: false
+        files: ^nexus-root/

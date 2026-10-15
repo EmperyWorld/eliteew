@@ -1,0 +1,2 @@
+# No ambient wheel privilege in the installed image.
+# Live-media installation uses only a stamped, command-specific sudoers file.

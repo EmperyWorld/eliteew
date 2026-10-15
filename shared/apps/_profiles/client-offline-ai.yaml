@@ -1,0 +1,10 @@
+# EliteEW install profile — client / offline-capable (edition_default.client)
+# Kernel-offline mount policy (K2): pack-organization/connection-agent/src/lib/kernel/kernelOfflineMounts.policy.json
+id: client-offline-ai
+title: Client offline AI
+edition: client
+mode: edition_default
+access_mode: managed
+seat_activation_required: true
+include_legacy: false
+apps: []

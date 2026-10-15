@@ -1,0 +1,14 @@
+$ORIGIN sites.eliteew.ru.
+$TTL 60
+
+@       IN SOA  ns1.sites.eliteew.ru. hostmaster.sites.eliteew.ru. (
+                2026032202
+                7200
+                3600
+                1209600
+                60
+)
+        IN NS   ns1.sites.eliteew.ru.
+ns1     IN A    93.77.165.185
+@       IN A    93.77.165.185
+*       IN A    93.77.165.185

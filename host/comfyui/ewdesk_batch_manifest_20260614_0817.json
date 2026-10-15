@@ -1,0 +1,264 @@
+{
+  "posts": [
+    {
+      "id": "2026-06-14-desktop-cold-start",
+      "clip_prompt": "сфера света на рассвете, cyan"
+    },
+    {
+      "id": "2026-06-15-companion-missions",
+      "clip_prompt": "мягкая спираль в тумане, violet"
+    },
+    {
+      "id": "2026-06-16-desktop-explorer-rail",
+      "clip_prompt": "узкая лестница из света"
+    },
+    {
+      "id": "2026-06-17-chat-and-companion-day",
+      "clip_prompt": "две переплетающиеся ленты света"
+    },
+    {
+      "id": "2026-06-18-mobile-push-video",
+      "clip_prompt": "импульс света в ночном небе"
+    },
+    {
+      "id": "2026-06-19-chat-files-mobile-ewa",
+      "clip_prompt": "кристалл в мягком свечении"
+    },
+    {
+      "id": "2026-06-20-companion-tools",
+      "clip_prompt": "стопка светящихся слоёв"
+    },
+    {
+      "id": "2026-06-21-visual-studio-settings",
+      "clip_prompt": "градиентная призма в воздухе"
+    },
+    {
+      "id": "2026-06-22-companion-music-vision",
+      "clip_prompt": "волна звука и света"
+    },
+    {
+      "id": "2026-06-23-ewa-workflow-builder",
+      "clip_prompt": "узлы из света на тёмной воде"
+    },
+    {
+      "id": "2026-06-24-nexus-command-deck",
+      "clip_prompt": "орбиты вокруг яркого ядра"
+    },
+    {
+      "id": "2026-06-25-quiet-polish",
+      "clip_prompt": "тихий рассвет над горизонтом"
+    },
+    {
+      "id": "2026-06-26-quiet-polish-2",
+      "clip_prompt": "ровная поверхность воды, violet"
+    },
+    {
+      "id": "2026-06-27-quiet-polish-3",
+      "clip_prompt": "мягкое свечение в облаке"
+    },
+    {
+      "id": "2026-06-28-quiet-polish-4",
+      "clip_prompt": "два огня на расстоянии"
+    },
+    {
+      "id": "2026-06-29-music-forge-nexus",
+      "clip_prompt": "ноты из света в воздухе"
+    },
+    {
+      "id": "2026-06-30-desktop-shell-sync",
+      "clip_prompt": "зеркальная плоскость с отражением"
+    },
+    {
+      "id": "2026-07-01-sso-tours-spravochnik",
+      "clip_prompt": "арка из света над дорогой"
+    },
+    {
+      "id": "2026-07-02-experts-memory",
+      "clip_prompt": "два переплетённых кольца памяти"
+    },
+    {
+      "id": "2026-07-03-survey-hub",
+      "clip_prompt": "карточки из света на столе"
+    },
+    {
+      "id": "2026-07-04-logout-session",
+      "clip_prompt": "закрывающаяся дверь из света"
+    },
+    {
+      "id": "2026-07-05-companion-agentic",
+      "clip_prompt": "лестница шагов в свете"
+    },
+    {
+      "id": "2026-07-06-companion-replan",
+      "clip_prompt": "компас в тумане"
+    },
+    {
+      "id": "2026-07-07-logout-mission-anchor",
+      "clip_prompt": "якорь из света в воде"
+    },
+    {
+      "id": "2026-07-08-companion-answers",
+      "clip_prompt": "лампочка из мягкого неона"
+    },
+    {
+      "id": "2026-07-09-companion-truth",
+      "clip_prompt": "прозрачный куб со светом внутри"
+    },
+    {
+      "id": "2026-07-10-companion-hitl-files",
+      "clip_prompt": "папка из световых слоёв"
+    },
+    {
+      "id": "2026-07-11-desktop-ia-polish",
+      "clip_prompt": "геометрия из неона"
+    },
+    {
+      "id": "2026-07-12-quiet-weekend",
+      "clip_prompt": "спокойный закат, cyan"
+    },
+    {
+      "id": "2026-07-13-quiet-weekend-2",
+      "clip_prompt": "лунная дорожка на воде"
+    },
+    {
+      "id": "2026-07-14-shell-i18n-offline",
+      "clip_prompt": "два переплетённых шара света"
+    },
+    {
+      "id": "2026-07-15-mobile-stealth-site",
+      "clip_prompt": "силуэт города в тумане"
+    },
+    {
+      "id": "2026-07-16-site-studio-admin",
+      "clip_prompt": "мост из света через пропасть"
+    },
+    {
+      "id": "2026-07-17-desktop-rdp-paint",
+      "clip_prompt": "плоскость без тумана"
+    },
+    {
+      "id": "2026-07-18-docs-canonical",
+      "clip_prompt": "стопка светящихся страниц"
+    },
+    {
+      "id": "2026-07-19-ewdesk-polish",
+      "clip_prompt": "луч через призму"
+    },
+    {
+      "id": "2026-07-20-music-forge-platform",
+      "clip_prompt": "пульсирующая волна, violet"
+    },
+    {
+      "id": "2026-07-21-quiet-midweek",
+      "clip_prompt": "ровный пульс света"
+    },
+    {
+      "id": "2026-07-22-companion-silence",
+      "clip_prompt": "тишина в виде мягкого круга"
+    },
+    {
+      "id": "2026-07-23-desktop-scroll-registry",
+      "clip_prompt": "вертикальная лента света"
+    },
+    {
+      "id": "2026-07-24-studio-gu-voice",
+      "clip_prompt": "звуковая волна в кристалле"
+    },
+    {
+      "id": "2026-07-25-kiosk-login",
+      "clip_prompt": "входная арка из неона"
+    },
+    {
+      "id": "2026-07-26-companion-chat-visible",
+      "clip_prompt": "открытая книга из света"
+    },
+    {
+      "id": "2026-07-27-marketing-site-scores",
+      "clip_prompt": "диаграмма из световых столбов"
+    },
+    {
+      "id": "2026-07-28-shell-auth-polish",
+      "clip_prompt": "северное сияние, абстракт"
+    },
+    {
+      "id": "2026-07-29-experts-full-answers",
+      "clip_prompt": "развёрнутая лента текста из света"
+    },
+    {
+      "id": "2026-07-30-experts-stream-collab",
+      "clip_prompt": "два потока света сходятся"
+    },
+    {
+      "id": "2026-07-31-desktop-context-menu",
+      "clip_prompt": "круговая рябь на воде"
+    },
+    {
+      "id": "2026-08-01-experts-collaboration",
+      "clip_prompt": "сеть узлов, cyan"
+    },
+    {
+      "id": "2026-08-02-experts-memory-cells",
+      "clip_prompt": "кристаллическая соты"
+    },
+    {
+      "id": "2026-08-03-quiet-august",
+      "clip_prompt": "утренний туман над полем"
+    },
+    {
+      "id": "2026-08-04-site-studio-gate",
+      "clip_prompt": "ворота из света"
+    },
+    {
+      "id": "2026-08-05-app-manifests",
+      "clip_prompt": "решётка из световых плиток"
+    },
+    {
+      "id": "2026-08-06-admin-polish-store",
+      "clip_prompt": "шкала из света"
+    },
+    {
+      "id": "2026-08-07-experts-discussion",
+      "clip_prompt": "круг стульев из света"
+    },
+    {
+      "id": "2026-08-08-music-player-offline",
+      "clip_prompt": "нота в кристалле"
+    },
+    {
+      "id": "2026-08-09-desktop-client-offline",
+      "clip_prompt": "широкий горизонт, violet"
+    },
+    {
+      "id": "2026-08-10-desktop-client-updates",
+      "clip_prompt": "замок из света"
+    },
+    {
+      "id": "2026-08-11-research-packs",
+      "clip_prompt": "луч в ночное небо"
+    },
+    {
+      "id": "2026-08-12-desktop-client-security",
+      "clip_prompt": "щит из световых слоёв"
+    },
+    {
+      "id": "2026-08-13-desktop-client-download",
+      "clip_prompt": "пульс через туннель"
+    },
+    {
+      "id": "2026-08-14-native-login",
+      "clip_prompt": "портал из мягкого света"
+    },
+    {
+      "id": "2026-08-15-experts-discussion-live",
+      "clip_prompt": "искры в движении"
+    },
+    {
+      "id": "2026-08-16-personalize-theme-ewa-files",
+      "clip_prompt": "палитра из неоновых лучей"
+    },
+    {
+      "id": "2026-08-17-unified-app-names",
+      "clip_prompt": "единая созвездие иконок"
+    }
+  ]
+}

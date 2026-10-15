@@ -1,0 +1,333 @@
+# =============================================================================
+# EliteEW · stack9 — голос: TTS (CosyVoice3) · STT/legacy TTS по профилям
+# =============================================================================
+# Сборка: podman compose -f docker/stack/stack9.yml build
+# Запуск:  podman compose -f docker/stack/stack9.yml --env-file docker/env_file/.env.stack9 up -d
+#
+# Канонический TTS: CosyVoice3 (Apache-2.0) на :32001
+# Legacy TTS: --profile legacy-f5-tts | legacy-qwen3-tts | legacy-silero
+# Legacy STT:  --profile legacy-whisper (whisper-fast)
+# Prod-core low-VRAM voice (2026-07-28): legacy-whisper + legacy-silero (MIT v5_cis_base_nostress on GPU).
+# Piper (legacy-piper) soft-retired → trash/.
+# License: Silero CIS base = MIT (LICENSE_CIS); do not use CC-NC v5_*_ru on commercial prod.
+#
+# Требуется: NVIDIA CDI (Podman), внешняя сеть ew_net_3365, тома ../data/stack9/*, ../logs/stack9/*
+# =============================================================================
+name: stack9
+services:
+  # TTS — CosyVoice3 zero-shot voice clone (ref WAV + transcript). Apache-2.0.
+  cosyvoice3:
+    build:
+      context: ../builders/stack9-cosyvoice3
+      dockerfile: Dockerfile
+    image: ew_cosyvoice3:0.5b-v1
+    container_name: stack9-cosyvoice3
+    user: "${STACK9_USER:?STACK9_USER not set}"
+    devices:
+      - "nvidia.com/gpu=all"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/cosyvoice3.log", "python3", "main.py"]
+    ports:
+      - "127.0.0.1:32001:8000"
+    volumes:
+      - ../data/stack9/cosyvoice3/models:/app/models:z
+      - ${STACK9_HF_CACHE:-/home/owned/models/huggingface}:/app/hf-cache:z
+      - ../data/stack9/qwen3-tts/voices:/app/voices:ro,z
+      - ../data/stack9/qwen3-tts/voice_profiles.json:/app/voice_profiles.json:ro,z
+      - ../data/stack9/qwen3-tts/voice_contract.json:/app/voice_contract.json:ro,z
+      - ../logs/stack9/cosyvoice3:/logs:z
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro,z
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    environment:
+      - TZ=Asia/Vladivostok
+      - HOME=/app
+      - API_PORT=8000
+      - COSYVOICE_DEVICE=cuda:0
+      - COSYVOICE_MODEL_ID=${COSYVOICE_MODEL_ID:-FunAudioLLM/Fun-CosyVoice3-0.5B-2512}
+      - COSYVOICE_MODEL_DIR=/app/models/Fun-CosyVoice3-0.5B
+      - COSYVOICE_MAX_CHARS=${COSYVOICE_MAX_CHARS:-1200}
+      - COSYVOICE_DEFAULT_SPEED=${COSYVOICE_DEFAULT_SPEED:-1.0}
+      - COSYVOICE_SYNTH_TIMEOUT_SEC=${COSYVOICE_SYNTH_TIMEOUT_SEC:-180}
+      - STACK9_VOICES_DIR=/app/voices
+      - STACK9_VOICE_PROFILES=/app/voice_profiles.json
+      - STACK9_VOICE_CONTRACT=/app/voice_contract.json
+      - HF_HOME=/app/hf-cache
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 12G
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    networks:
+      - ew_net_3365
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 60s
+      timeout: 15s
+      retries: 5
+      start_period: 600s
+
+  # STT (legacy) — Faster-Whisper; включать: --profile legacy-whisper
+  whisper-fast:
+    profiles: ["legacy-whisper"]
+    build:
+      context: ../builders/stack9-whisper-fast
+      dockerfile: Dockerfile
+    image: ew_whisper_fast:large-v3
+    container_name: stack9-whisper-fast
+    user: "${STACK9_USER:?STACK9_USER not set}"
+    devices:
+      - "nvidia.com/gpu=all"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command:
+      [
+        "/logs/whisper-fast.log",
+        "sh",
+        "-c",
+        "python3 -m pip install --break-system-packages requests 2>/dev/null || true && exec python3 main.py",
+      ]
+    ports:
+      - "127.0.0.1:32000:8000"
+    volumes:
+      - ../data/stack9/whisper-fast/models:/app/models:z
+      - ../data/stack9/whisper-fast/cache:/app/.cache:z
+      - ../logs/stack9/whisper-fast:/logs:z
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro,z
+      - ../builders/stack9-whisper-fast/whisper_service.py:/app/whisper_service.py:ro,z
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    environment:
+      - TZ=Asia/Vladivostok
+      - HOME=/app
+      - MODEL_SIZE=${WHISPER_MODEL_SIZE:-large-v3}
+      - COMPUTE_TYPE=${WHISPER_COMPUTE_TYPE:-float16}
+      - LANGUAGE=ru
+      - DEVICE=cuda
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 8G
+    networks:
+      - ew_net_3365
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+
+  # TTS (legacy F5) — --profile legacy-f5-tts
+  f5-tts:
+    profiles: ["legacy-f5-tts"]
+    build:
+      context: ../builders/stack9-f5-tts
+      dockerfile: Dockerfile
+    image: ew_f5_tts:base-v1
+    container_name: stack9-f5-tts
+    user: "${STACK9_USER:?STACK9_USER not set}"
+    devices:
+      - "nvidia.com/gpu=all"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/f5-tts.log", "python3", "main.py"]
+    ports:
+      - "127.0.0.1:32001:8000"
+    volumes:
+      - ../data/stack9/qwen3-tts/cache:/app/.cache:z
+      - ../data/stack9/qwen3-tts/voices:/app/voices:ro,z
+      - ../data/stack9/qwen3-tts/voice_profiles.json:/app/voice_profiles.json:ro,z
+      - ../data/stack9/qwen3-tts/voice_contract.json:/app/voice_contract.json:ro,z
+      - ../logs/stack9/f5-tts:/logs:z
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro,z
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    environment:
+      - TZ=Asia/Vladivostok
+      - HOME=/app
+      - API_PORT=8000
+      - F5_TTS_DEVICE=cuda:0
+      - F5_TTS_MODEL=${F5_TTS_MODEL:-F5TTS_v1_Base}
+      - F5_TTS_CKPT_FILE=${F5_TTS_CKPT_FILE:-hf://Misha24-10/F5-TTS_RUSSIAN/F5TTS_v1_Base_v2/model_last_inference.safetensors}
+      - F5_TTS_VOCAB_FILE=${F5_TTS_VOCAB_FILE:-hf://Misha24-10/F5-TTS_RUSSIAN/F5TTS_v1_Base/vocab.txt}
+      - F5_TTS_NFE_STEP=${F5_TTS_NFE_STEP:-32}
+      - F5_TTS_CFG_STRENGTH=${F5_TTS_CFG_STRENGTH:-2.0}
+      - F5_TTS_SWAY_SAMPLING_COEF=${F5_TTS_SWAY_SAMPLING_COEF:--1.0}
+      - F5_TTS_CROSS_FADE_DURATION=${F5_TTS_CROSS_FADE_DURATION:-0.15}
+      - F5_TTS_TARGET_RMS=${F5_TTS_TARGET_RMS:-0.1}
+      - F5_TTS_REMOVE_SILENCE=${F5_TTS_REMOVE_SILENCE:-0}
+      - F5_TTS_MAX_CHARS=${F5_TTS_MAX_CHARS:-1200}
+      - F5_TTS_CHUNK_MAX_CHARS=${F5_TTS_CHUNK_MAX_CHARS:-180}
+      - F5_TTS_CHUNK_PAUSE_MS=${F5_TTS_CHUNK_PAUSE_MS:-150}
+      - F5_TTS_DEFAULT_SPEED=${F5_TTS_DEFAULT_SPEED:-0.88}
+      - F5_TTS_SYNTH_TIMEOUT_SEC=${F5_TTS_SYNTH_TIMEOUT_SEC:-180}
+      - STACK9_VOICES_DIR=/app/voices
+      - STACK9_VOICE_PROFILES=/app/voice_profiles.json
+      - STACK9_VOICE_CONTRACT=/app/voice_contract.json
+      - HF_HOME=/app/.cache/huggingface
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 10G
+    networks:
+      - ew_net_3365
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 60s
+      timeout: 15s
+      retries: 5
+      start_period: 420s
+
+  # Legacy Qwen3-TTS — --profile legacy-qwen3-tts
+  qwen3-tts:
+    profiles: ["legacy-qwen3-tts"]
+    build:
+      context: ../builders/stack9-qwen3-tts
+      dockerfile: Dockerfile
+    image: ew_qwen3_tts:base-1.7b
+    container_name: stack9-qwen3-tts
+    user: "${STACK9_USER:?STACK9_USER not set}"
+    devices:
+      - "nvidia.com/gpu=all"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/qwen3-tts.log", "python3", "main.py"]
+    ports:
+      - "0.0.0.0:32001:8000"
+    volumes:
+      - ../data/stack9/qwen3-tts/models:/app/models:z
+      - ../data/stack9/qwen3-tts/cache:/app/.cache:z
+      - ../data/stack9/qwen3-tts/voices:/app/voices:ro,z
+      - ../data/stack9/qwen3-tts/voice_profiles.json:/app/voice_profiles.json:ro,z
+      - ../data/stack9/qwen3-tts/voice_contract.json:/app/voice_contract.json:ro,z
+      - ../logs/stack9/qwen3-tts:/logs:z
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro,z
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    environment:
+      - TZ=Asia/Vladivostok
+      - HOME=/app
+      - API_PORT=8000
+      - QWEN_TTS_DEVICE=cuda:0
+      - QWEN_TTS_DTYPE=bfloat16
+      - QWEN_TTS_BASE_CHECKPOINT=${QWEN_TTS_BASE_CHECKPOINT:-Qwen/Qwen3-TTS-12Hz-1.7B-Base}
+      - QWEN3_VOICES_DIR=/app/voices
+      - QWEN3_VOICE_PROFILES=/app/voice_profiles.json
+      - QWEN3_VOICE_CONTRACT=/app/voice_contract.json
+      - HF_HOME=/app/.cache/huggingface
+      - MODELSCOPE_CACHE=/app/.cache/modelscope
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+      - CUDA_VISIBLE_DEVICES=0
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 16G
+    networks:
+      - ew_net_3365
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 60s
+      timeout: 15s
+      retries: 5
+      start_period: 600s
+
+  # TTS (Silero MIT v5_cis_base_nostress on GPU) — --profile legacy-silero · port :32001
+  silero-service:
+    profiles: ["legacy-silero"]
+    build:
+      context: ../builders/stack9-silero
+      dockerfile: Dockerfile
+    image: ew_silero_tts:v5_cis
+    container_name: stack9-silero
+    user: "${STACK9_USER:?STACK9_USER not set}"
+    devices:
+      - "nvidia.com/gpu=all"
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+      - label=disable
+    entrypoint: ["/usr/local/bin/log-to-file.sh"]
+    command: ["/logs/silero.log", "python3", "main.py"]
+    ports:
+      - "0.0.0.0:32001:8000"
+    volumes:
+      - ../data/stack9/silero/models:/app/models/silero:z
+      - ../data/stack9/silero/cache:/app/.cache:z
+      - ../logs/stack9/silero-service:/logs:z
+      - ../scripts/log-to-file.sh:/usr/local/bin/log-to-file.sh:ro,z
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "3"
+    environment:
+      - TZ=Asia/Vladivostok
+      - HOME=/app
+      - API_PORT=8000
+      - SILERO_DEVICE=cuda
+      - SILERO_MODEL_ID=v5_cis_base_nostress
+      - SILERO_HUB_FORCE_RELOAD=0
+      - LANGUAGE=ru
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=${NVIDIA_DRIVER_CAPABILITIES:-compute,utility}
+      - CUDA_VISIBLE_DEVICES=0
+      - TORCH_HOME=/app/.cache/torch
+      - XDG_CACHE_HOME=/app/.cache
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 4G
+    networks:
+      - ew_net_3365
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+
+networks:
+  ew_net_3365:
+    external: true

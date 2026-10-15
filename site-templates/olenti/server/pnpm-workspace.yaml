@@ -1,0 +1,12 @@
+allowBuilds:
+  '@prisma/engines': true
+  prisma: true
+  sharp: true
+  '@scarf/scarf': true
+  esbuild: true
+onlyBuiltDependencies:
+  - '@prisma/engines'
+  - prisma
+  - sharp
+  - '@scarf/scarf'
+  - esbuild

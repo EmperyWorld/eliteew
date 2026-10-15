@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-file-grant-pick"
+description = "Enables the file_grant_pick command without any pre-configured scope."
+commands.allow = ["file_grant_pick"]
+
+[[permission]]
+identifier = "deny-file-grant-pick"
+description = "Denies the file_grant_pick command without any pre-configured scope."
+commands.deny = ["file_grant_pick"]

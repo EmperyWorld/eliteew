@@ -1,0 +1,12 @@
+{
+  "product": "WireGuard for Windows",
+  "vendor": "WireGuard LLC / open source",
+  "license_note": "Redistributable MSI from download.wireguard.com; pin sha256 and verify before bundle.",
+  "url": "https://download.wireguard.com/windows-client/wireguard-amd64-1.1.msi",
+  "filename": "wireguard-amd64.msi",
+  "upstream_name": "wireguard-amd64-1.1.msi",
+  "version": "1.1",
+  "arch": "amd64",
+  "sha256": "6daa5d37a9e2950dfb8c48b95ab8e562cb2bad1c785d020f38f97bea4c6a5566",
+  "bytes": 3227648
+}

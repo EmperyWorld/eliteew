@@ -1,0 +1,98 @@
+[
+  {
+    "id": "aurelius-obstacle",
+    "author": "Марк Аврелий",
+    "text": "Препятствие на пути становится путём.",
+    "category": "perseverance"
+  },
+  {
+    "id": "kutuzov-wait",
+    "author": "Михаил Кутузов",
+    "text": "Чтобы победить, надо уметь терпеть и ждать.",
+    "category": "perseverance"
+  },
+  {
+    "id": "churchill-hell",
+    "author": "Уинстон Черчилль",
+    "text": "Если вы идёте сквозь ад, продолжайте идти.",
+    "category": "perseverance"
+  },
+  {
+    "id": "mandela-impossible",
+    "author": "Нельсон Мандела",
+    "text": "Многое кажется невозможным, пока ты этого не сделаешь.",
+    "category": "perseverance"
+  },
+  {
+    "id": "seneca-fate",
+    "author": "Сенека",
+    "text": "Судьба ведёт согласного и тащит сопротивляющегося.",
+    "category": "perseverance"
+  },
+  {
+    "id": "epictetus-control",
+    "author": "Эпиктет",
+    "text": "Не события нас тревожат, а наше отношение к ним.",
+    "category": "perseverance"
+  },
+  {
+    "id": "frankl-choice",
+    "author": "Виктор Франкл",
+    "text": "Когда нельзя изменить ситуацию, можно изменить себя.",
+    "category": "perseverance"
+  },
+  {
+    "id": "edison-fail",
+    "author": "Томас Эдисон",
+    "text": "Я нашёл тысячу способов, которые не работают.",
+    "category": "perseverance"
+  },
+  {
+    "id": "roosevelt-fear",
+    "author": "Франклин Рузвельт",
+    "text": "Единственное, чего стоит бояться, — это сам страх.",
+    "category": "perseverance"
+  },
+  {
+    "id": "lincoln-rise",
+    "author": "Авраам Линкольн",
+    "text": "Падать можно. Подниматься — обязательно.",
+    "category": "perseverance"
+  },
+  {
+    "id": "tolstoy-storm",
+    "author": "Лев Толстой",
+    "text": "Сильный дух выдерживает и бурю, и затишье.",
+    "category": "perseverance"
+  },
+  {
+    "id": "chekhov-road",
+    "author": "Антон Чехов",
+    "text": "Человек должен верить, что дорога не кончилась.",
+    "category": "perseverance"
+  },
+  {
+    "id": "curie-persist",
+    "author": "Мария Кюри",
+    "text": "В жизни нечего бояться — нужно только понимать.",
+    "category": "perseverance"
+  },
+  {
+    "id": "gandhi-step",
+    "author": "Махатма Ганди",
+    "text": "Сначала игнорируют, потом смеются, потом боятся, потом побеждают.",
+    "category": "perseverance"
+  },
+  {
+    "id": "nesterov-no-exit",
+    "author": "Пётр Нестеров",
+    "text": "Нет безвыходного положения — есть безволие.",
+    "category": "perseverance"
+  },
+  {
+    "id": "shackleton-endurance",
+    "author": "Эрнест Шеклтон",
+    "text": "Оптимизм — это моральный долг.",
+    "category": "perseverance"
+  }
+]

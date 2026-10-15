@@ -1,0 +1,25 @@
+# EliteEW product app manifest (SoT for enablement / KNOWN generation)
+id: notifications
+title: Notification Center
+edition_default:
+  cloud: true
+  onprem: true
+  client: true
+requires:
+  - auth
+  - postgres
+  - socketio
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: NotificationsApp
+    icon: app-notifications
+  api:
+    prefixes:
+      - /api/v1/profile/notification-center
+  jobs:
+    queues: []
+client:
+  offline_capable: partial
+  remote_tools_allowlist: []

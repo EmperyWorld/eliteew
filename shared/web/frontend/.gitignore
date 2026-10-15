@@ -1,0 +1,73 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-build
+# Ephemeral TS batch files for parallel fixes (pnpm typecheck bundles)
+.tsc-bundles
+dist-ssr
+*.local
+
+# Editor (фронт: трекаем настройки Tailwind/TS в репозитории)
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tailwind-css-v4-custom-data.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build artifacts
+build/
+.cache/
+.parcel-cache/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+*.lcov
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Brotherhood specific
+emperyworld-config.local.json
+
+# Playwright saved session (Keycloak); never commit
+e2e/.auth/*.json

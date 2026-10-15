@@ -1,0 +1,48 @@
+# syntax=docker/dockerfile:1.7
+# ---
+# EliteEW · Empery World · https://empery.world
+# Author: po&T && TZBrand
+# ---
+# Purpose:
+# Тонкий слой поверх eliteew-frontend-fedora: COPY dist-build и nginx-шаблонов в образ
+# (без bind-mount dist на целевом prod-core). Контекст — корень репозитория.
+# Invariants:
+# - dist-build собирается на хосте до build (pnpm build:react-compiler + verify-app-build-id).
+# - Базовый образ STACK0_FRONTEND_BASE_IMAGE должен существовать.
+# - BUILD_GIT_SHA / BUILD_LOCK_HASH injected at build time for post-mortem traceability.
+# Related:
+# - docker/scripts/build-stack0-prod-baked-images.sh
+# - docker/stack/stack0_f.prod-baked.override.yml
+# ---
+
+ARG BUILD_GIT_SHA=unknown
+ARG BUILD_LOCK_HASH=unknown
+ARG BUILD_QUEUE_WORKER_LOCK_HASH=unknown
+ARG BUILD_DEPLOY_ID=unknown
+ARG BUILD_MANIFEST_SHA256=unknown
+
+ARG STACK0_FRONTEND_BASE_IMAGE=docker.io/library/eliteew-frontend-fedora:latest
+
+FROM ${STACK0_FRONTEND_BASE_IMAGE} AS frontend-baked
+ARG BUILD_GIT_SHA
+ARG BUILD_LOCK_HASH
+ARG BUILD_QUEUE_WORKER_LOCK_HASH
+ARG BUILD_DEPLOY_ID
+ARG BUILD_MANIFEST_SHA256
+
+USER 0:0
+COPY shared/web/frontend/dist-build /usr/share/nginx/html
+COPY shared/web/frontend/nginx.prod.conf /srv/eliteew/nginx.prod.template.conf
+COPY shared/web/frontend/nginx/snippets /etc/nginx/snippets
+USER 1000:1000
+
+ENV BUILD_GIT_SHA=${BUILD_GIT_SHA} \
+    BUILD_LOCK_HASH=${BUILD_LOCK_HASH} \
+    BUILD_QUEUE_WORKER_LOCK_HASH=${BUILD_QUEUE_WORKER_LOCK_HASH} \
+    BUILD_DEPLOY_ID=${BUILD_DEPLOY_ID} \
+    BUILD_MANIFEST_SHA256=${BUILD_MANIFEST_SHA256}
+LABEL org.eliteew.build.git_sha="${BUILD_GIT_SHA}" \
+      org.eliteew.build.lock_hash="${BUILD_LOCK_HASH}" \
+      org.eliteew.build.queue_worker_lock_hash="${BUILD_QUEUE_WORKER_LOCK_HASH}" \
+      org.eliteew.deploy.deploy_id="${BUILD_DEPLOY_ID}" \
+      org.eliteew.deploy.manifest_sha256="${BUILD_MANIFEST_SHA256}"

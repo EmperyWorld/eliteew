@@ -1,0 +1,82 @@
+{
+  "broken_internal_links": 0,
+  "doc_count": 983,
+  "docs_root": "/data/repos/powered_by_emperyworld/documentation",
+  "finished_at": "2026-09-30T22:09:07Z",
+  "generated_at": "2026-09-30T22:09:06Z",
+  "notes": [
+    "Audit artifacts only — not living product canon.",
+    "Path extraction is heuristic (backticks, markdown links, repo-prefix regex).",
+    "Wildcard paths reduced to prefix before first * or ?.",
+    "public-buyer/export mirrors inventoried but skipped for path extraction."
+  ],
+  "outputs": {
+    "broken_links_jsonl": "raw/broken-internal-links.jsonl",
+    "by_section": "by-section/",
+    "docs_with_gaps_jsonl": "raw/docs-with-missing-refs.jsonl",
+    "index_md": "README.md",
+    "inventory_jsonl": "raw/doc-inventory.jsonl",
+    "missing_unique_jsonl": "raw/missing-paths-unique.jsonl",
+    "path_findings_jsonl": "raw/path-findings.jsonl",
+    "structural_json": "raw/structural-checks.json",
+    "summary_md": "SUMMARY.md"
+  },
+  "path_match": 2873,
+  "path_mismatch": 0,
+  "path_ref_checks": 2873,
+  "repo_root": "/data/repos/powered_by_emperyworld",
+  "schema": "eliteew.doc_code_alignment.v1",
+  "section_summary": {
+    "api": {
+      "docs_scanned": 15,
+      "docs_skipped_path_extract": 0,
+      "match": 111,
+      "mismatch": 0,
+      "path_refs": 111
+    },
+    "database": {
+      "docs_scanned": 4,
+      "docs_skipped_path_extract": 0,
+      "match": 9,
+      "mismatch": 0,
+      "path_refs": 9
+    },
+    "platform": {
+      "docs_scanned": 129,
+      "docs_skipped_path_extract": 0,
+      "match": 1069,
+      "mismatch": 0,
+      "path_refs": 1069
+    },
+    "product": {
+      "docs_scanned": 476,
+      "docs_skipped_path_extract": 241,
+      "match": 1465,
+      "mismatch": 0,
+      "path_refs": 1465
+    },
+    "reference": {
+      "docs_scanned": 114,
+      "docs_skipped_path_extract": 0,
+      "match": 163,
+      "mismatch": 0,
+      "path_refs": 163
+    },
+    "root": {
+      "docs_scanned": 3,
+      "docs_skipped_path_extract": 0,
+      "match": 50,
+      "mismatch": 0,
+      "path_refs": 50
+    },
+    "worklog": {
+      "docs_scanned": 1,
+      "docs_skipped_path_extract": 0,
+      "match": 6,
+      "mismatch": 0,
+      "path_refs": 6
+    }
+  },
+  "structural_checks": 25,
+  "unique_missing_paths": 0
+}

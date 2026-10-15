@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+# Purpose: Post-install smoke for Trusted Substrate pilot (labels, kiosk, handoff honesty).
+# Related: docs/POST-INSTALL-SMOKE.md · README-FIRST.txt
+# On device: eliteew-ts-smoke   (also: sudo eliteew-ts-smoke)
+set -euo pipefail
+
+ok() { printf 'OK  %s\n' "$*"; }
+warn() { printf 'WARN %s\n' "$*" >&2; }
+fail() { printf 'FAIL %s\n' "$*" >&2; FAILS=$((FAILS + 1)); }
+
+FAILS=0
+LABELS=/etc/eliteew-trusted-substrate/labels
+PAYLOAD=/opt/eliteew-trusted-substrate/payload
+POST_LOG=/root/eliteew-ts-post.log
+STATUS_FILE=/run/eliteew-ts/network-status
+
+echo "=== eliteew-ts-smoke ==="
+echo "host=$(hostname) user=$(id -un) $(date -Is)"
+
+if [[ -f "${LABELS}" ]]; then
+  ok "labels ${LABELS}"
+  sed 's/^/  /' "${LABELS}" || true
+else
+  fail "missing ${LABELS}"
+fi
+
+if [[ -d "${PAYLOAD}" ]]; then
+  ok "payload dir ${PAYLOAD}"
+  ls -la "${PAYLOAD}" | sed 's/^/  /' || true
+else
+  fail "missing ${PAYLOAD}"
+fi
+
+if [[ -x /usr/local/bin/eliteew-ts-kiosk ]]; then
+  ok "kiosk launcher present"
+else
+  fail "missing /usr/local/bin/eliteew-ts-kiosk"
+fi
+
+if [[ -f /home/eliteew-ts/.bash_profile ]] && grep -q eliteew-ts-kiosk /home/eliteew-ts/.bash_profile; then
+  ok "tty1 session profile → kiosk"
+else
+  fail "missing /home/eliteew-ts/.bash_profile kiosk entry"
+fi
+
+if [[ -f /etc/systemd/system/getty@tty1.service.d/autologin.conf ]] \
+  && grep -q -- '--autologin eliteew-ts' /etc/systemd/system/getty@tty1.service.d/autologin.conf; then
+  ok "getty@tty1 autologin drop-in"
+else
+  fail "missing getty@tty1 autologin drop-in"
+fi
+
+systemctl is-enabled --quiet getty@tty1.service 2>/dev/null && ok "getty@tty1 enabled" \
+  || fail "getty@tty1 not enabled"
+
+if systemctl is-enabled eliteew-ts-kiosk.service >/dev/null 2>&1; then
+  warn "eliteew-ts-kiosk system unit enabled (should be disabled — agetty path owns tty1)"
+else
+  ok "system eliteew-ts-kiosk disabled (expected)"
+fi
+
+systemctl is-active --quiet seatd.service 2>/dev/null && ok "seatd active" || warn "seatd not active"
+
+echo "--- getty@tty1 (last 15) ---"
+journalctl -u getty@tty1 -b -n 15 --no-pager 2>/dev/null | sed 's/^/  /' || warn "no getty@tty1 journal"
+
+if [[ -r "${POST_LOG}" ]]; then
+  ok "post log ${POST_LOG}"
+  tail -n 15 "${POST_LOG}" | sed 's/^/  /' || true
+elif [[ -f "${POST_LOG}" ]]; then
+  warn "post log exists but not readable — re-run: sudo eliteew-ts-smoke"
+elif sudo test -f "${POST_LOG}" 2>/dev/null; then
+  ok "post log (via sudo)"
+  sudo tail -n 15 "${POST_LOG}" | sed 's/^/  /' || true
+else
+  warn "no ${POST_LOG} (old install or %post skipped)"
+fi
+
+if [[ -x /usr/local/sbin/eliteew-ts-handoff-status ]]; then
+  echo "--- handoff-status ---"
+  if [[ "$(id -u)" -eq 0 ]]; then
+    /usr/local/sbin/eliteew-ts-handoff-status | sed 's/^/  /' || warn "handoff-status failed"
+  else
+    sudo /usr/local/sbin/eliteew-ts-handoff-status | sed 's/^/  /' || warn "handoff-status failed (need sudo)"
+  fi
+else
+  fail "missing eliteew-ts-handoff-status"
+fi
+
+if [[ -f "${STATUS_FILE}" ]]; then
+  ok "network-status ${STATUS_FILE}"
+  sed 's/^/  /' "${STATUS_FILE}" || true
+  if grep -qx 'connected=1' "${STATUS_FILE}" 2>/dev/null; then
+    if [[ -f /etc/wireguard/wg-portal.conf ]] || [[ -f /etc/wireguard/wg0.conf ]]; then
+      ok "connected=1 with peer file present"
+    else
+      fail "connected=1 without peer file (fake-connected)"
+    fi
+  else
+    ok "not fake-connected (expected without peer)"
+  fi
+else
+  warn "no ${STATUS_FILE} yet (ok if handoff never run)"
+fi
+
+echo "=== summary: fails=${FAILS} ==="
+if [[ "${FAILS}" -gt 0 ]]; then
+  exit 1
+fi
+echo "PASS — change password if not done: passwd"
+exit 0

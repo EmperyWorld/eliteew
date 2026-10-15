@@ -1,0 +1,22 @@
+# Публичная витрина: сборка в builder; в рантайме только node + dist (без npm/express).
+# docker build -f docker/Dockerfile.frontend-public -t site-studio-olenti-frontend:local .
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY tsconfig.json vite.config.ts postcss.config.js index.html ./
+COPY src ./src
+COPY scripts/serve-public.mjs ./scripts/serve-public.mjs
+ENV VITE_APP_ENTRY=/src/main.public.tsx
+RUN npm run bundle:storefront
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+RUN rm -rf /usr/local/lib/node_modules/npm \
+  && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack || true
+COPY --from=builder /app/dist ./dist
+COPY docker/serve-storefront-runtime.mjs ./docker/serve-storefront-runtime.mjs
+ENV SHARED_UPLOADS_DIR=/app/shared-uploads
+EXPOSE 4173
+CMD ["node", "docker/serve-storefront-runtime.mjs"]

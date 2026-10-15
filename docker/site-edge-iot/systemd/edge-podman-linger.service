@@ -1,0 +1,15 @@
+[Unit]
+Description=EliteEW Site-Edge: enable linger for siteedge (rootless Podman)
+After=local-fs.target systemd-user-sessions.service
+Requires=local-fs.target
+
+[Service]
+Type=oneshot
+# Linger keeps user services/sockets alive without interactive login.
+ExecStart=/usr/bin/loginctl enable-linger siteedge
+ExecStart=/bin/mkdir -p /var/lib/eliteew/site-edge/images
+ExecStart=/bin/chown -R siteedge:siteedge /var/lib/eliteew/site-edge
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

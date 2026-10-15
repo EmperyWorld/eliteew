@@ -1,0 +1,8 @@
+[Unit]
+Description=EliteEW Trusted Substrate Air enrollment DNS→nft set refresh
+After=network-online.target eliteew-ts-prelicense-nft.service
+Wants=network-online.target eliteew-ts-prelicense-nft.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/eliteew-ts-air-enroll-resolve

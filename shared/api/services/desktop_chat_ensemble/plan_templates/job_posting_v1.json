@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "id": "job_posting_v1",
+  "version": 2,
+  "title": "Вакансия и профиль",
+  "description": "Роль, задачи, требования и условия найма. При ростере 4–6 — hiring bar, scorecard и compensation frame.",
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "jp1",
+      "title": "Роль и миссия",
+      "instruction_for_model": "Название роли (если дано), команда/продукт, зачем этот человек в оргструктуре одним абзацем. Кому отчитывается (если известно). Без дискриминационных формулировок. Без `##`.",
+      "required_slots": {
+        "brand_voice": 2,
+        "rigor": 3
+      }
+    },
+    {
+      "step_id": "jp2",
+      "title": "Задачи и компетенции",
+      "instruction_for_model": "Обязанности маркированным списком (5–10). Must-have и nice-to-have навыки отдельно; уровень (jun/mid/senior) — только если в запросе. Не требуй несуществующие в мире сертификаты. Без `##`.",
+      "required_slots": {
+        "rigor": 3,
+        "engineering": 2
+      }
+    },
+    {
+      "step_id": "jp3",
+      "title": "Условия и процесс",
+      "instruction_for_model": "Формат работы, локация/часовой пояс, этапы отбора (скрининг, техническое, оффер) — из запроса или «уточнить». Зарплатная вилка не придумывай; если нет данных — напиши «обсуждается». Без `##`.",
+      "required_slots": {
+        "rigor": 2,
+        "legal_edge": 2,
+        "brand_voice": 2
+      }
+    },
+    {
+      "step_id": "jp4",
+      "title": "Hiring bar и scorecard",
+      "min_roster": 4,
+      "instruction_for_model": "Собери hiring bar: 4–6 scorecard-критериев, red flags, что проверять на интервью. Без «мы семья». Без `##`, без имён героев.",
+      "required_slots": {
+        "behavioral": 3,
+        "operations": 2
+      },
+      "scope_fence": "Только hiring bar/scorecard.",
+      "output_format": [
+        "Scorecard",
+        "Red flags",
+        "Interview probes"
+      ]
+    },
+    {
+      "step_id": "jp5",
+      "title": "Onboarding and first-90 ownership",
+      "min_roster": 5,
+      "instruction_for_model": "Опиши первые 30/60/90 дни ожиданий и ownership без выдуманных KPI-чисел. Без `##`, без имён героев.",
+      "required_slots": {
+        "operations": 3,
+        "product": 2,
+        "behavioral": 2
+      },
+      "scope_fence": "Только onboarding/first-90.",
+      "output_format": [
+        "Day 30",
+        "Day 60",
+        "Day 90",
+        "Ownership"
+      ]
+    },
+    {
+      "step_id": "jp6",
+      "title": "Compensation and capacity frame",
+      "min_roster": 6,
+      "instruction_for_model": "Задай рамку компенсации/ёмкости: что обсуждать с кандидатом, какие данные нужны для вилки, риск overhire. Не выдумывай зарплату. Без `##`, без имён героев.",
+      "required_slots": {
+        "finance": 3,
+        "operations": 2
+      },
+      "scope_fence": "Только compensation/capacity frame.",
+      "output_format": [
+        "Comp questions",
+        "Capacity risk",
+        "Data to collect"
+      ]
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "О роли",
+      "step_ids": [
+        "jp1"
+      ]
+    },
+    {
+      "heading": "Задачи и требования",
+      "step_ids": [
+        "jp2"
+      ]
+    },
+    {
+      "heading": "Условия",
+      "step_ids": [
+        "jp3"
+      ]
+    },
+    {
+      "heading": "Hiring bar",
+      "step_ids": [
+        "jp4"
+      ]
+    },
+    {
+      "heading": "First 90",
+      "step_ids": [
+        "jp5"
+      ]
+    },
+    {
+      "heading": "Compensation frame",
+      "step_ids": [
+        "jp6"
+      ]
+    }
+  ]
+}

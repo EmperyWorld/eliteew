@@ -1,0 +1,10 @@
+# =============================================================================
+# Stack5 — ОТКЛЮЧЁН (SearXNG, Crawl4AI для чата).
+# Env: docker/env_file/.env.stack5 (переменные закомментированы).
+# Конфиг SearXNG (справочно): docker/stack/stack5/searxng.settings.yml
+# Чтобы снова поднять — восстанови полный compose из истории git и env;
+# в .env.stack0.backend раскомментируй SEARXNG_URL / CRAWL4AI_URL.
+# =============================================================================
+name: stack5-disabled
+
+services: {}

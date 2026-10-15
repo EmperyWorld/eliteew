@@ -1,0 +1,20 @@
+# EliteEW · edge system unit — Portal WireGuard metrics (loopback, wg-portal only)
+# Installed by install-edge-exporter.sh (never on command-center as system unit).
+[Unit]
+Description=EliteEW Portal WireGuard metrics exporter (wg-portal, 127.0.0.1)
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+After=network-online.target wg-quick@wg-portal.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/lib/eliteew-portal/portal_wg_exporter.py --listen 127.0.0.1 --port 9586 --interface wg-portal
+Restart=on-failure
+RestartSec=3
+# Root required for `wg show` (netlink); bind is loopback-only in ExecStart.
+User=root
+Group=root
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

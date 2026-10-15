@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schema/amka/orchestration_v1.json",
+  "title": "AMKA orchestration session payload v1",
+  "description": "Draft: session goal and phase for server-side desktop orchestration.",
+  "$defs": {
+    "UserGoal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "detail": { "type": ["string", "null"] }
+      }
+    },
+    "OrchestrationSessionRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["session_id", "correlation_id"],
+      "properties": {
+        "session_id": { "type": "string", "minLength": 1 },
+        "correlation_id": { "type": "string", "minLength": 1 },
+        "run_id": { "type": ["string", "null"] }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["session", "phase", "goal"],
+  "properties": {
+    "session": { "$ref": "#/$defs/OrchestrationSessionRef" },
+    "phase": { "type": "string", "minLength": 1 },
+    "goal": { "$ref": "#/$defs/UserGoal" }
+  }
+}

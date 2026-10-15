@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ebrowser-history-back"
+description = "Enables the ebrowser_history_back command without any pre-configured scope."
+commands.allow = ["ebrowser_history_back"]
+
+[[permission]]
+identifier = "deny-ebrowser-history-back"
+description = "Denies the ebrowser_history_back command without any pre-configured scope."
+commands.deny = ["ebrowser_history_back"]

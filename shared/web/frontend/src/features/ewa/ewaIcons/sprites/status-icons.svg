@@ -1,0 +1,108 @@
+<!-- EWASolution - Статусные иконки -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <defs>
+    <!-- Градиенты для статусов -->
+    <linearGradient id="successGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="errorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="warningGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="infoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Эффект пульсации для загрузки -->
+    <filter id="pulse" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Success / Успех -->
+  <symbol id="icon-success" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="url(#successGradient)" opacity="0.2"/>
+    <path d="M9 12l2 2 4-4" stroke="url(#successGradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <circle cx="12" cy="12" r="10" stroke="url(#successGradient)" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <!-- Error / Ошибка -->
+  <symbol id="icon-error" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="url(#errorGradient)" opacity="0.2"/>
+    <path d="M15 9l-6 6M9 9l6 6" stroke="url(#errorGradient)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="10" stroke="url(#errorGradient)" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <!-- Warning / Предупреждение -->
+  <symbol id="icon-warning" viewBox="0 0 24 24">
+    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="url(#warningGradient)" opacity="0.2"/>
+    <path d="M12 9v4M12 17h.01" stroke="url(#warningGradient)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="url(#warningGradient)" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <!-- Info / Информация -->
+  <symbol id="icon-info" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" fill="url(#infoGradient)" opacity="0.2"/>
+    <path d="M12 16v-4M12 8h.01" stroke="url(#infoGradient)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="12" r="10" stroke="url(#infoGradient)" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <!-- Loading / Загрузка -->
+  <symbol id="icon-loading" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" stroke="#6366f1" stroke-width="2" stroke-dasharray="31.416" stroke-dashoffset="31.416" fill="none" filter="url(#pulse)">
+      <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416;0 31.416" repeatCount="indefinite"/>
+      <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416;-31.416" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate" dur="2s" values="0 12 12;360 12 12" repeatCount="indefinite"/>
+    </circle>
+  </symbol>
+
+  <!-- Online / В сети -->
+  <symbol id="icon-online" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8" fill="url(#successGradient)" opacity="0.3"/>
+    <circle cx="12" cy="12" r="4" fill="url(#successGradient)">
+      <animate attributeName="opacity" values="0.7;1;0.7" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </symbol>
+
+  <!-- Offline / Не в сети -->
+  <symbol id="icon-offline" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8" fill="#64748b" opacity="0.3"/>
+    <circle cx="12" cy="12" r="4" fill="#64748b"/>
+    <path d="M4 4l16 16" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- Processing / Обработка (static — no SMIL animation) -->
+  <symbol id="icon-processing" viewBox="0 0 24 24">
+    <g fill="currentColor">
+      <circle cx="6" cy="12" r="2" opacity="0.4"/>
+      <circle cx="12" cy="12" r="2" opacity="0.7"/>
+      <circle cx="18" cy="12" r="2" opacity="1"/>
+    </g>
+  </symbol>
+
+  <!-- Connected / Подключено -->
+  <symbol id="icon-connected" viewBox="0 0 24 24">
+    <path d="M4.93 4.93a10 10 0 0114.14 0M8.05 8.05a6 6 0 018.9 0M12 12a2 2 0 012 2" stroke="url(#successGradient)" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="16" r="2" fill="url(#successGradient)"/>
+  </symbol>
+
+  <!-- Disconnected / Отключено -->
+  <symbol id="icon-disconnected" viewBox="0 0 24 24">
+    <path d="M4.93 4.93a10 10 0 0114.14 0M8.05 8.05a6 6 0 018.9 0" stroke="#64748b" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="12" cy="16" r="2" fill="#64748b"/>
+    <path d="M4 4l16 16" stroke="#ef4444" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+</svg>

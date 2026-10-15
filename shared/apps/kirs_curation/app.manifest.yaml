@@ -1,0 +1,24 @@
+# EliteEW product app manifest
+id: kirs_curation
+title: Kirs Curation
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: KirsCuration
+    icon: app-kirs
+  api:
+    prefixes:
+      - /api/v1/desktop/kirs
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

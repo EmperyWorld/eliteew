@@ -1,0 +1,16 @@
+[Unit]
+Description=EliteEW Trusted Substrate WireGuard bringup (peer must exist)
+Documentation=file:///opt/eliteew-trusted-substrate/README-FIRST.txt
+ConditionPathExists=/etc/wireguard/wg-portal.conf
+After=network-online.target
+Wants=network-online.target
+Before=eliteew-ts-kiosk.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/eliteew-ts-tunnel-up
+TimeoutStartSec=60
+
+[Install]
+WantedBy=multi-user.target

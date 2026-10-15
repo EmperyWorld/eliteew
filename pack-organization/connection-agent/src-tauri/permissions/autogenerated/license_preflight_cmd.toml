@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-license-preflight-cmd"
+description = "Enables the license_preflight_cmd command without any pre-configured scope."
+commands.allow = ["license_preflight_cmd"]
+
+[[permission]]
+identifier = "deny-license-preflight-cmd"
+description = "Denies the license_preflight_cmd command without any pre-configured scope."
+commands.deny = ["license_preflight_cmd"]

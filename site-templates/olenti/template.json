@@ -1,0 +1,10 @@
+{
+  "template_key": "olenti",
+  "display_name": "Olenti",
+  "runtime": {
+    "public_build_command": "npm run build:public",
+    "public_serve_command": "npm run serve:public",
+    "site_api_port": 3000,
+    "public_port": 4173
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "profile_id": "allenti-v1",
+  "site_settings": {
+    "siteTitle": "{brand}",
+    "siteDescription": "{brand} - гибкая витрина: {topic}",
+    "contactEmail": "{admin_email}"
+  },
+  "blocks": [
+    { "page": "home", "section": "hero", "key": "headline_1", "value": "{brand}" },
+    { "page": "home", "section": "hero", "key": "lead", "value": "Гибкий стартовый сценарий для проекта «{topic}»: структура готова к быстрой ручной донастройке." },
+    { "page": "home", "section": "hero", "key": "cta_consultation", "value": "Обсудить проект" },
+    { "page": "home", "section": "about_preview", "key": "title", "value": "Подход {brand}" },
+    { "page": "home", "section": "value_block", "key": "badge", "value": "Гибкая настройка" }
+  ]
+}

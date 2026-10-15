@@ -1,0 +1,184 @@
+[
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "shared/api",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "shared/web/frontend",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "shared/apps",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "shared/packages",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "shared/tools",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "pack-cloud/mobile",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "pack-organization/connection-agent",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "pack-organization/trusted-substrate",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/scripts/eliteew-deploy.sh",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack0_b.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack0_f.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack1.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack2.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack4.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack6.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack11.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "docker/stack/stack12.yml",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "scripts/eliteew/trash-move.sh",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": ".cursor/domain_matrix.json",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": ".cursorrules",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "documentation/INDEX.md",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "documentation/platform/PRODUCTION-TOPOLOGY-STATE.md",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "exists_in_repo": true,
+    "kind": "structural",
+    "path": "documentation/platform/ELITEEW-PACK-LAYOUT.md",
+    "severity": "required_by_pack_layout_or_topology",
+    "status": "match"
+  },
+  {
+    "candidates_existing": [
+      "docker/scripts/eeprodline.sh"
+    ],
+    "claim": "eeprodline implementer alias",
+    "hint_hits": [
+      "docker/scripts/eeprodline.sh"
+    ],
+    "kind": "alias_check",
+    "status": "match"
+  },
+  {
+    "candidates_existing": [
+      "docker/scripts/eliteew-container-control.py",
+      "docker/scripts/eliteew-docker-aliases.sh"
+    ],
+    "claim": "eectl ops CLI",
+    "hint_hits": [],
+    "kind": "alias_check",
+    "status": "match"
+  }
+]

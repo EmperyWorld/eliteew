@@ -1,0 +1,24 @@
+# EliteEW product app manifest
+id: survey_hub
+title: Survey Hub
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: SurveyHubApp
+    icon: app-survey-hub
+  api:
+    prefixes:
+      - /api/v1/product-desktop/surveys
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

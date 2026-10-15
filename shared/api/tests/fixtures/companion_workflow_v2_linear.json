@@ -1,0 +1,79 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_dag_linear_demo",
+  "version": 1,
+  "title_ru": "Linear demo",
+  "title_en": "Linear demo",
+  "enabled": true,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^dag linear demo$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "type": "prompt_gen",
+      "mode": "stateful",
+      "config": {
+        "temperature": 0.2,
+        "max_tokens": 256,
+        "top_p": 1.0
+      },
+      "inputs": {
+        "prompt": "{{turn.user_line}}"
+      },
+      "outputs": {
+        "reply": {
+          "type": "text"
+        }
+      },
+      "title_ru": "Prompt",
+      "title_en": "Prompt"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2",
+      "type": "logic_filter",
+      "mode": "stateless",
+      "inputs": {
+        "text": "{{aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1.reply}}",
+        "contains": "demo"
+      },
+      "outputs": {
+        "matched": {
+          "type": "boolean"
+        }
+      },
+      "title_ru": "Filter",
+      "title_en": "Filter"
+    },
+    {
+      "id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3",
+      "type": "image_gen",
+      "mode": "stateful",
+      "inputs": {
+        "prompt": "{{aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1.reply}}"
+      },
+      "outputs": {
+        "image_url": {
+          "type": "image_url"
+        }
+      },
+      "title_ru": "Image",
+      "title_en": "Image"
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2"
+    },
+    {
+      "source_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1",
+      "target_node_id": "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3"
+    }
+  ],
+  "execution_mode": "sync",
+  "tags": ["fixture", "linear"]
+}

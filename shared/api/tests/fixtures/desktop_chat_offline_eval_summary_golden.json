@@ -1,0 +1,26 @@
+{
+  "product": "desktop_ai_chat",
+  "eval": "offline",
+  "status": "ok",
+  "backend_pytest": "ok",
+  "frontend_vitest": "ok",
+  "assert_cli": {
+    "case": "offline_eval_golden",
+    "done_context_keys": ["chat_rag_requested", "project_vault_requested"],
+    "project_vault_requested": true,
+    "context_policy_applied": true,
+    "chat_rag_chunks": 2,
+    "project_vault_chunks": 4
+  },
+  "ops_manifest": {
+    "ops_manifest": "ok",
+    "gate_count": 12,
+    "required_gate_count": 12,
+    "token_required_gates": [
+      "desktop-ai-chat-routing-smoke",
+      "desktop-ai-chat-routing-smoke-sh"
+    ],
+    "golden_compare": "ok",
+    "golden_fixture": "shared/api/tests/fixtures/desktop_chat_ops_manifest_golden.json"
+  }
+}

@@ -1,0 +1,282 @@
+# Cursor HARD BLOCK — agent cannot Read/Grep/@ these paths.
+# Semantic index exclusion for heavy product trees: .cursorindexingignore (soft block).
+# Sentinel layers: universe_map.md (sessionStart), rules/*.mdc (scoped), skill deep-dive.
+#
+# Syntax: gitignore-style paths from monorepo root powered_by_emperyworld.
+# Last matching pattern wins. A parent directory ignore is not traversed —
+# do not use `keys/` then `!keys/*.pub` (use `keys/*` + exceptions).
+# Nested: shared/web/frontend/.cursorignore (frontend-only workspace).
+# Pack layout: shared/ + pack-cloud/ + pack-organization/ + host/ — EliteEW/ retired.
+#
+# Intentionally readable: .cursor/rules/, .cursor/skills/, .cursor/universe_map.md,
+#   documentation/ (except heavy dumps below), docker/stack/, docker/scripts/,
+#   docker/builders/, docker/env_file/*.example (+ README/SYNC docs; plaintext env blocked),
+#   site-templates/ sources (not node_modules/data/uploads),
+#   scripts/, shared/{api,web,apps,packages}/ sources, host/README.md,
+#   host/kernel-offline/ (policy SoT), keys/*.pub, keys/README.md.
+
+# --- host/ ops-data (Wave Host-1): heavy runtime — not product mid ---
+# Keep host/README.md + host/kernel-offline/ readable (Kernel-offline policy SoT).
+host/comfyui/
+host/comfyui/**
+host/generated_files/
+host/generated_files/**
+host/runtime/
+host/runtime/**
+
+# --- Sentinel hard block (secrets, keys, archives) ---
+# Ignore children, not the directory itself, so *.pub / README stay readable.
+keys/*
+!keys/*.pub
+!keys/README.md
+trash/
+trash/**
+trash_reload/
+trash_reload/**
+brand_config.env
+issledovanie/
+production_release/
+**/production_release/
+# site-templates sources stay readable; heavy paths blocked under deps section
+# --- Android: source is SOFT-blocked in .cursorindexingignore (Read/@path OK).
+#     Do not uncomment a whole-tree pack-cloud/mobile/ hard block.
+*.apk
+pack-cloud/mobile/**/.cxx/
+pack-cloud/mobile/**/build/
+pack-cloud/mobile/.gradle/
+# --- Архивы, бэкапы, личные деревья (не канон documentation/) ---
+*.backup
+*.bak
+*.tar.gz
+*.vsix
+backup/
+backups/
+EliteEW-backup-*.tar
+no_index/
+ssh-key-*.zip
+tg_bot_ip_verif_deploy_READY.tar.gz
+
+# --- Cursor IDE: кэш и расширения (не rules/skills/agents) ---
+#.cursor/ext/
+#.cursor/extensions/
+#.cursor/plans/
+
+# --- Docker: compose/scripts/builders — в индексе; data/logs/env/certs — нет ---
+!docker/
+!docker/**
+.docker/
+docker/data/
+docker/data/**
+# Ignore children, not the directory — keep *.example readable (Config Plane templates).
+docker/env_file/*
+!docker/env_file/*.example
+!docker/env_file/README.md
+!docker/env_file/SYNC_STACK0_STACK1.md
+docker/logs/
+docker/logs/**
+docker/offline/certs/
+docker/offline/certs/**
+docker/whisper-models/
+docker/whisper-models/**
+
+# --- Документация: канон documentation/ в индексе; тяжёлые дампы — нет ---
+documentation/api/eliteew-openapi-export.json
+documentation/archive/
+documentation/archive/**
+# Handoff-логи сессий (~900 md): hard-block children, not the directory
+# (parent-dir ignore is not traversed — same rule as keys/*).
+documentation/worklog/session-summaries/*
+!documentation/worklog/session-summaries/README.md
+!documentation/worklog/session-summaries/AGENT-HANDOFF-INDEX.md
+documentation/worklog/session-summaries-05-2026/
+documentation/worklog/session-summaries-05-2026/**
+
+# --- Build deploy-id (tracked для stack0 gate; не семантический индекс) ---
+shared/web/frontend/src/generated/appBuildId.ts
+shared/web/frontend/public/meta.json
+
+# --- Зависимости и кэши пакетов ---
+.pnpm-store/
+node_modules/
+pnpm-store/
+site-templates/**/node_modules/
+site-templates/**/data/
+site-templates/**/public/uploads/
+
+# --- ИИ: веса и файлы моделей ---
+*.bin
+*.ckpt
+*.h5
+*.onnx
+*.pb
+*.pt
+*.pth
+*.safetensors
+
+shared/api/.huggingface/
+
+# --- ИИ: рантайм, генерация и операционные кэши ---
+#agent_logs/
+ai_outputs/
+brotherhood_data/
+creative_outputs/
+generated/
+!shared/web/frontend/src/generated/
+generation_cache/
+grafana_data/
+modelsee/
+monitoring_data/
+prometheus_data/
+
+# --- Логи ---
+#*.log
+#shared/api/logs/
+#logs/
+
+# --- Локальные данные и рантайм (не mid) ---
+api_backup_*/
+shared/api/ewa_platform/docs/inventory_by_extension/
+temp_promo_dla/
+
+# Soft-retired product trees (DEWA, EWGen, EWPower, EWC, EWCO, nexus-root,
+# tg_bot_ip_verif, …) live under trash/ (hard-blocked above). Do not add
+# living-root un-ignores such as !EWGen/.
+
+# --- MCP и вспомогательные локальные серверы ---
+.playwright-mcp/
+mcrserver/
+
+# --- Медиа (бинарные; исключения — как в .gitignore; last match wins) ---
+# Do not ignore shared/web/frontend/public/ as a directory — that kills
+# SVG/mp4 exceptions. Ignore heavy subdirs and glob binaries instead.
+*.avi
+*.bmp
+*.gif
+*.ico
+*.jpeg
+*.jpg
+*.mkv
+*.mp3
+*.mp4
+*.png
+*.svg
+*.tiff
+*.wav
+*.webm
+!shared/web/frontend/public/*.svg
+!shared/web/frontend/src/assets/*.svg
+!shared/web/frontend/src/**/*.svg
+!shared/web/frontend/src/**/*.png
+!shared/web/frontend/src/**/*.jpg
+!shared/web/landing/logo_empery.png
+!shared/web/landing/logo_gold_free_background.png
+!shared/web/landing/og-landing.png
+!shared/web/landing/og-landing-ru.png
+!shared/web/landing/kuku2.mp4
+!pack-cloud/mobile/app/src/main/res/raw/start_app_mobile.mp4
+shared/web/frontend/public/audio/
+shared/web/frontend/public/desktop-wallpapers/
+shared/web/frontend/public/ewa/*
+!shared/web/frontend/public/ewa/arly_transform.mp4
+
+# --- OS и IDE ---
+.DS_Store
+.idea/
+Thumbs.db
+desktop.ini
+
+# --- Python ---
+**/__pycache__/
+__pycache__/
+*$py.class
+*.py[cod]
+*.pyc
+*.pyo
+.ipynb_checkpoints
+.mypy_cache/
+.pytest_cache/
+.pytype/
+.ruff_cache/
+.venv/
+ENV/
+env/
+venv/
+
+# --- Сборки и артефакты (имя build/ — не docker/builders/) ---
+.cache/
+.next/
+.nuxt/
+.parcel-cache/
+.tsc-bundles/
+*.local
+build/
+coverage/
+dist-ssr/
+dist/
+# Rust/Cargo (connection-agent ~tens of GB) — never agent-read
+**/target/
+pack-organization/connection-agent/src-tauri/target/
+shared/web/frontend/.cache/
+shared/web/frontend/dist-build/
+shared/web/frontend/dist/
+shared/web/frontend/node_modules/
+shared/web/landing/dist/
+pack-organization/connection-agent/node_modules/
+pack-organization/connection-agent/dist/
+out/
+
+# --- Секреты, ключи и локальный env ---
+.env
+.env.*
+!.env.example
+!.env*.example
+.secrets.toml
+*.crt
+*.key
+*.pem
+certificates/
+confidential/
+credentials/
+private/
+secrets/
+sensitive_data/
+settings.local.toml
+
+# --- Стеки и тома Docker на хосте (локальные копии) ---
+elasticsearch_config/
+stack1/
+stack2/
+stack3/
+stack6/
+stack9/
+stack11/
+stack12/
+stack666/
+
+# --- Тесты и покрытие ---
+.nyc_output/
+.tox/
+htmlcov/
+playwright-report/
+playwright/.cache/
+test-results/
+test_all/playwright/
+test_all/playwright-report/
+test_all/test-results/
+test_all/test-results.json
+
+# --- Векторные БД и дампы Redis ---
+appendonly.aof
+chroma_storage/
+dump.rdb
+qdrant_storage/
+vector_db_data/
+
+# --- Личные заметки (не продуктовый канон) ---
+NOTES_*.md
+personal_notes/
+TODO_local.md
+
+# --- Локальные артефакты оператора ---
+local/binaries/
+.local/

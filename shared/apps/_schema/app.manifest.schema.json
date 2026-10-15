@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/app.manifest.schema.json",
+  "title": "EliteEW Desktop App Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "edition_default",
+    "requires",
+    "surfaces"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Stable snake_case app id"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "edition_default": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cloud",
+        "onprem",
+        "client"
+      ],
+      "properties": {
+        "cloud": {
+          "type": "boolean"
+        },
+        "onprem": {
+          "type": "boolean"
+        },
+        "client": {
+          "type": "boolean"
+        }
+      }
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "auth",
+          "postgres",
+          "redis",
+          "llm",
+          "qdrant",
+          "gpu",
+          "comfy",
+          "socketio",
+          "object_store"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "optional_runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "in_process",
+            "process",
+            "container"
+          ]
+        }
+      }
+    },
+    "surfaces": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "desktop"
+      ],
+      "properties": {
+        "desktop": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "app_component"
+          ],
+          "properties": {
+            "app_component": {
+              "type": "string",
+              "pattern": "^[A-Z][A-Za-z0-9]*$"
+            },
+            "icon": {
+              "type": "string"
+            }
+          }
+        },
+        "api": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "prefixes": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^/"
+              }
+            }
+          }
+        },
+        "jobs": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "queues": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "client": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "offline_capable": {
+          "type": "string",
+          "enum": [
+            "none",
+            "partial",
+            "full"
+          ]
+        },
+        "remote_tools_allowlist": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

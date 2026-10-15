@@ -1,0 +1,10 @@
+{
+  "product": "eliteew-command-center-golden-image",
+  "fedora": 44,
+  "hw_profile": "ryzen5950x-rtx5060ti",
+  "role": "command-center",
+  "ip": "192.168.1.136",
+  "hostname": "empery.world",
+  "not_prod_runtime": true,
+  "comfyui_host": "192.168.1.141"
+}

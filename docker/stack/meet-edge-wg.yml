@@ -1,0 +1,30 @@
+# Meet media: WireGuard punisher ↔ eliteew-edge. Не связан со stack-yandex-tunnel / app.
+services:
+  meet-edge-wg:
+    image: alpine:3.20
+    container_name: meet-edge-wg
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Vladivostok
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    devices:
+      - /dev/net/tun
+    command:
+      - sh
+      - -c
+      - |
+        apk add --no-cache wireguard-tools iptables tzdata
+        for i in 1 2 3 4 5 6 7 8 9 10; do
+          [ -f /etc/wireguard/wg0.conf ] && break
+          sleep 1
+        done
+        wg-quick up wg0
+        trap 'wg-quick down wg0' EXIT
+        sleep infinity
+    volumes:
+      - ${MEET_EDGE_WG_CONFIG_DIR:-../data/meet-edge-wg}/wg0.conf:/etc/wireguard/wg0.conf:ro,z
+    ports:
+      - "${MEET_EDGE_WG_PORT:-51821}:51821/udp"

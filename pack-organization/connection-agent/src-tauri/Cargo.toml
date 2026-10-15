@@ -1,0 +1,81 @@
+[package]
+name = "desktop-client"
+version = "0.5.37"
+description = "EliteEW secure connected native desktop client (Tauri 2)"
+authors = ["po&T && TZBrand"]
+edition = "2021"
+license = "MIT"
+
+[workspace]
+members = [".", "crates/w-transport-core", "crates/wg-portal-helper"]
+resolver = "2"
+
+[features]
+default = ["retail"]
+retail = []
+ops-system-wg = []
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "desktop_client_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+serde_json = "1"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+libc = "0.2"
+webkit2gtk = { version = "2", features = ["v2_40"] }
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.52"
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-opener = "2"
+tauri-plugin-updater = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.22"
+getrandom = "0.3"
+url = "2"
+httpdate = "1.0"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls", "stream", "socks", "multipart"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time", "net", "sync"] }
+tokio-tungstenite = { version = "0.26", default-features = false, features = ["connect", "rustls-tls-webpki-roots"] }
+futures-util = "0.3"
+minisign-verify = "0.2"
+tar = "0.4"
+zstd = "0.13"
+memmap2 = "0.9"
+ed25519-dalek = { version = "2", features = ["std"] }
+p256 = { version = "0.13", default-features = false, features = ["ecdsa", "arithmetic"] }
+x25519-dalek = "2"
+chacha20poly1305 = "0.10"
+hkdf = "0.12"
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service", "crypto-rust"] }
+zeroize = "1"
+arboard = "3"
+# Offline MusicPlayer: native decode/playback (cpal via rodio playback feature).
+rodio = { version = "0.22", default-features = true, features = ["playback"] }
+cpal = "0.17"
+# FoFline W-transport core (userspace SOCKS + boringtun) — not tokio-wireguard 0.1.
+w-transport-core = { path = "crates/w-transport-core" }
+tauri-plugin-single-instance = "2.4.3"
+semver = "1.0.28"
+tempfile = "3.27.0"
+# gtk3 (not default xdg-portal): labwc + portal-wlr FileChooser hides *.ecap behind filters.
+# Windows/macOS unaffected by gtk3 feature.
+rfd = { version = "0.15", default-features = false, features = ["gtk3", "tokio"] }
+
+[profile.release]
+lto = true
+opt-level = 3
+codegen-units = 1

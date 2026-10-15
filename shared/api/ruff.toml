@@ -1,0 +1,43 @@
+# Ruff config for EliteEW API (pyproject.toml extends this file)
+target-version = "py314"
+line-length = 120
+src = ["."]
+
+exclude = [
+  ".venv",
+  "venv",
+  "__pycache__",
+  "migrations",
+  "comfyui",
+  "generated_files",
+  "examples",
+  "docs",
+]
+
+[lint]
+select = [
+  "E",   # pycodestyle errors
+  "W",   # pycodestyle warnings
+  "F",   # pyflakes
+  "I",   # isort
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "SIM", # flake8-simplify
+]
+ignore = [
+  "E501", # line length (handled by formatter preference / large strings)
+  "E402", # module import not at top (path/sys/env setup before heavy imports in main/routers)
+  "B008", # FastAPI Depends() in defaults is intentional
+]
+
+[lint.per-file-ignores]
+"tests/**/*.py" = ["B", "SIM"]
+"**/scripts/**/*.py" = ["E402", "T20"]
+# AMKA: module-level helpers/constants live in amka_service_support; star import keeps AmkaService body readable.
+"services/marketing_cabinet/amka_service.py" = ["F405"]
+
+[format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

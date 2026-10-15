@@ -1,0 +1,23 @@
+{
+	"title": "Выбор файлов",
+	"subtitle": "Из библиотеки Unified Content",
+	"searchPlaceholder": "Поиск по имени или описанию…",
+	"searchPending": "Поиск…",
+	"typeContent": "Тип контента",
+	"allTypes": "Все типы",
+	"selectAll": "Выбрать все",
+	"deselectAll": "Снять выделение",
+	"selectedCounter": "{{count}} / {{max}} выбрано",
+	"loading": "Загрузка…",
+	"errorTitle": "Не удалось загрузить файлы",
+	"retry": "Повторить",
+	"emptyFiltered": "Нет файлов по текущим фильтрам.",
+	"emptyLibrary": "В библиотеке пока нет файлов.",
+	"resetFilters": "Сбросить фильтры",
+	"filesFound": "Найдено файлов: {{count}}",
+	"cancel": "Отмена",
+	"confirm": "Выбрать ({{count}})",
+	"maxSelection": "Можно выбрать не больше {{max}} файлов.",
+	"selectionSuccess": "Файлы добавлены",
+	"selectionSuccessDetail": "Выбрано файлов: {{count}}"
+}

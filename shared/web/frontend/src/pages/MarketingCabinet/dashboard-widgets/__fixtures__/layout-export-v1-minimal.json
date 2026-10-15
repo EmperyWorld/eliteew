@@ -1,0 +1,27 @@
+{
+  "_exportSchemaVersion": 1,
+  "exportedAt": "2026-03-30T12:00:00.000Z",
+  "layout": {
+    "id": "aaaaaaaa-bbbb-4ccc-dddd-eeeeeeeeeeee",
+    "name": "Fixture layout",
+    "type": "custom",
+    "widgets": [
+      {
+        "widget_key": "tasks",
+        "widget_title": "Tasks",
+        "widget_config": { "maxItems": 8, "density": "compact", "titleOverride": "My tasks" },
+        "grid_position": { "x": 0, "y": 0, "w": 4, "h": 5, "minW": 3, "minH": 3 },
+        "is_visible": true,
+        "is_locked": false
+      },
+      {
+        "widget_key": "chart_metric",
+        "widget_title": "Trend chart",
+        "widget_config": { "windowDays": 14, "chartKind": "line", "metric": "tasks_completed_daily" },
+        "grid_position": { "x": 4, "y": 0, "w": 6, "h": 5 },
+        "is_visible": true,
+        "is_locked": true
+      }
+    ]
+  }
+}

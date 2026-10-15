@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-11",
+  "verification": "Static method/path comparison; Starlette path converters and trailing slashes normalized.",
+  "limitations": [
+    "Parameter names remain literal; different placeholder names can represent the same matcher.",
+    "Static registration is not runtime OpenAPI. Pilot schemas, fields, response codes and auth still require individual review.",
+    "No exports or generated frontend types were rewritten."
+  ],
+  "pilots": [
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/companies-projects.openapi.json",
+      "operations": 12,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/content.openapi.json",
+      "operations": 64,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/desktop.openapi.json",
+      "operations": 285,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/doc-editor-v2.openapi.json",
+      "operations": 15,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/ebrowser.openapi.json",
+      "operations": 3,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/ewa-companion-admin.openapi.json",
+      "operations": 2,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/ewa-companion-chat.openapi.json",
+      "operations": 3,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/ewa-desktop-orchestration.openapi.json",
+      "operations": 2,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/ewa.openapi.json",
+      "operations": 86,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/friends.openapi.json",
+      "operations": 23,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/gaf-chat.openapi.json",
+      "operations": 26,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/kbsew.openapi.json",
+      "operations": 12,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/live-jobs-summary.openapi.json",
+      "operations": 2,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/marketing-cabinet-full.openapi.json",
+      "operations": 146,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/marketing-cabinet-rag.openapi.json",
+      "operations": 4,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/marketing-cabinet.openapi.json",
+      "operations": 20,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/music-forge.openapi.json",
+      "operations": 31,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/product-desktop.openapi.json",
+      "operations": 62,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/professional-worlds.openapi.json",
+      "operations": 162,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/projects-members.openapi.json",
+      "operations": 4,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/ugs.openapi.json",
+      "operations": 68,
+      "not_in_static_catalog": []
+    },
+    {
+      "pilot": "shared/web/frontend/openapi/pilot/voice-gateway.openapi.json",
+      "operations": 8,
+      "not_in_static_catalog": []
+    }
+  ]
+}

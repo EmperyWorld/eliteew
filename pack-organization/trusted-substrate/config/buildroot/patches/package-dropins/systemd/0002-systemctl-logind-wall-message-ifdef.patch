@@ -1,0 +1,21 @@
+From: EmpiierOS Trusted Substrate
+Subject: [PATCH] systemctl: compile logind_set_wall_message only with ENABLE_LOGIND
+
+When logind is disabled, callers are behind #if ENABLE_LOGIND but the
+static helper remains and triggers -Wunused-function. Gate the helper.
+
+--- a/src/systemctl/systemctl-logind.c
++++ b/src/systemctl/systemctl-logind.c
+@@ -19,3 +19,3 @@
+-static int logind_set_wall_message(sd_bus *bus) {
+ #if ENABLE_LOGIND
++static int logind_set_wall_message(sd_bus *bus) {
+         _cleanup_(sd_bus_error_free) sd_bus_error error = SD_BUS_ERROR_NULL;
+@@ -35,6 +35,6 @@
+         r = bus_call_method(bus, bus_login_mgr, "SetWallMessage", &error, NULL, "sb", m, !arg_no_wall);
+         if (r < 0)
+                 return log_warning_errno(r, "Failed to set wall message, ignoring: %s", bus_error_message(&error, r));
+-#endif
+         return 0;
+ }
++#endif

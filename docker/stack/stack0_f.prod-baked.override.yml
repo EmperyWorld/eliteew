@@ -1,0 +1,21 @@
+# =============================================================================
+# EliteEW · stack0 frontend · prod-baked override (static SPA in image)
+# =============================================================================
+# Запуск (из корня репо):
+#   podman compose \
+#     -f docker/stack/stack0_f.yml \
+#     -f docker/stack/stack0_f.prod-baked.override.yml \
+#     --env-file docker/env_file/.env.stack0.backend up -d
+# =============================================================================
+
+services:
+  eliteew-frontend-prod:
+    image: ${STACK0_FRONTEND_BAKED_IMAGE:?Set STACK0_FRONTEND_BAKED_IMAGE}
+    container_name: ${STACK0_FRONTEND_BAKED_CONTAINER_NAME:-stack0-eliteew-frontend-prod-baked}
+    volumes: !override
+      - ../logs/stack0/eliteew-frontend-prod-baked:/logs:z
+      - ../../docker/builders/stack0-frontend/docker-entrypoint-csp.sh:/docker-entrypoint-csp.sh:ro,z
+      # O2 private updater artifacts on prod-core host path (create empty dir if unset)
+      - /srv/eliteew/desktop-client-updates:/srv/eliteew/desktop-client-updates:ro,z
+      # FoFline OTA channel (W4); empty dir OK until fofline-publish-update.sh stages files
+      - /srv/eliteew/fofline-updates:/srv/eliteew/fofline-updates:ro,z

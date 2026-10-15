@@ -1,0 +1,59 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "EliteEW API: uvicorn (reload)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "main:app",
+        "--reload",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8000"
+      ],
+      "cwd": "${workspaceFolder}/shared/api",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/shared",
+        "UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv"
+      },
+      "justMyCode": false
+    },
+    {
+      "name": "EliteEW API: pytest current file",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": [
+        "${file}",
+        "-q",
+        "--tb=short"
+      ],
+      "cwd": "${workspaceFolder}/shared/api",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/shared",
+        "UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv"
+      },
+      "justMyCode": false
+    },
+    {
+      "name": "EliteEW frontend: Vitest current file",
+      "type": "node",
+      "request": "launch",
+      "autoAttachChildProcesses": true,
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ],
+      "program": "${workspaceFolder}/shared/web/frontend/node_modules/vitest/vitest.mjs",
+      "args": [
+        "run",
+        "${relativeFile}"
+      ],
+      "cwd": "${workspaceFolder}/shared/web/frontend",
+      "console": "integratedTerminal"
+    }
+  ]
+}

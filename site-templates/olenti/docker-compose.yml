@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Frontend - Vite Dev Server
+  frontend:
+    image: node:20-alpine
+    container_name: ollenti-frontend-dev
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "npm install --silent && npm run dev"
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=/api
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    networks:
+      - ollenti-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5173"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+
+  # Postgres database (shared with bot)
+  db:
+    image: postgres:16-alpine
+    container_name: ollenti-db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-wisdom_soul}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-wisdom_consciousness}
+      POSTGRES_INITDB_ARGS: "-E UTF8 --locale=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - ollenti-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  ollenti-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

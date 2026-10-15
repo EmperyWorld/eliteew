@@ -1,0 +1,9 @@
+# EliteEW Trusted Substrate board options.
+menu "EliteEW Trusted Substrate"
+config BR2_PACKAGE_ELITEEW_TS_OVERLAY_HINT
+	bool "EliteEW TS overlay present (informational)"
+	default y
+	help
+	  Rootfs overlay and post-build live under board/eliteew-ts/.
+	  Custom packages (labwc) live under package/.
+endmenu

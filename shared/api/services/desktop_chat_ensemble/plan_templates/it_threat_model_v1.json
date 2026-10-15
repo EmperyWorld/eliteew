@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "id": "it_threat_model_v1",
+  "version": 1,
+  "title": "Threat model lite",
+  "description": "Короткий AppSec pack: активы, угрозы, контроли, API authz surface и client trust boundary.",
+  "artifact_type": "it_threat_model",
+  "required_context": [
+    "feature_or_surface",
+    "trust_boundaries",
+    "sensitive_data"
+  ],
+  "quality_rubric": [
+    "Активы и trust boundaries названы",
+    "Угрозы привязаны к поверхности, не CVE-театр",
+    "Контроли конкретны и проверяемы",
+    "API authz и client boundary согласованы"
+  ],
+  "output_sections": [
+    "Активы и угрозы",
+    "API authz surface",
+    "Client trust boundary"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "tm1",
+      "title": "Активы и угрозы",
+      "instruction_for_model": "Threat model lite: активы, trust boundaries, топ-угрозы (spoofing/tampering/info disclosure/elevation — по делу), контроли и residual risk. Без выдуманных CVE и CVSS. Без ##.",
+      "required_slots": {
+        "legal_edge": 2,
+        "rigor": 3
+      },
+      "scope_fence": "Только assets/threats/controls; не полный OpenAPI.",
+      "output_format": [
+        "Assets",
+        "Threats",
+        "Controls",
+        "Residual"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "tm2",
+      "title": "API authz surface",
+      "instruction_for_model": "Authz на API: кто вызывает, scopes/roles, default-deny, опасные write paths, что логировать нельзя. Без ##.",
+      "required_slots": {
+        "engineering": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только API authz для этой поверхности.",
+      "output_format": [
+        "Callers",
+        "Deny defaults",
+        "Sensitive writes"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "tm3",
+      "title": "Client trust boundary",
+      "instruction_for_model": "Клиентская граница: что нельзя доверять с FE, XSS/storage risks, user-visible ошибки без утечки internals. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "creative": 2
+      },
+      "scope_fence": "Только client trust boundary.",
+      "output_format": [
+        "Do not trust",
+        "Storage",
+        "User errors"
+      ],
+      "min_roster": 1
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Активы и угрозы",
+      "step_ids": [
+        "tm1"
+      ]
+    },
+    {
+      "heading": "API authz surface",
+      "step_ids": [
+        "tm2"
+      ]
+    },
+    {
+      "heading": "Client trust boundary",
+      "step_ids": [
+        "tm3"
+      ]
+    }
+  ]
+}

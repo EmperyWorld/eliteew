@@ -1,0 +1,1 @@
+export { SimplifiedHeader } from './SimplifiedHeader';

@@ -1,0 +1,1 @@
+export { ContentThumbnail } from './ContentThumbnail';

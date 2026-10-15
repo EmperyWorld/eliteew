@@ -1,0 +1,372 @@
+{
+  // --- ОКНО И ОБНОВЛЕНИЯ ---
+  "window.commandCenter": true,
+  "window.titleBarStyle": "native",
+  "update.releaseTrack": "dev",
+  "update.mode": "silentlyApplyOnQuit",
+  "telemetry.telemetryLevel": "off",
+  // --- КУРСОР И AI ---
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.cpp.enablePartialAccepts": true,
+  "cursor.composer.renderDiffInEditor": true,
+  "cursor.terminal.useAi": true,
+  "cursor.composer.cmdPFilePicker2": true,
+  "cursor.composer.editorConversationDensity": "compact-all-grouped",
+  "cursor.general.rulesForAI": "Следуй .cursorrules, openapi-ssot-bridge.mdc, dev-tooling.mdc и documentation/. Стек: TS/React 19, Tailwind v4, Biome, Ruff, uv, pnpm, podman. OpenAPI: thin *OpenApi.ts bridges, не hand DTO. Терминал: rg/fd/bat/eza/uv/pnpm. Git: status/diff/log OK; локальный commit своих изменений когда задача готова; push только по явной просьбе; чужие правки в commit — только по просьбе. Документация только в documentation/.",
+  // --- РЕДАКТОР ---
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.6,
+  "editor.fontLigatures": true,
+  "editor.cursorBlinking": "expand",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.minimap.enabled": true,
+  "editor.minimap.renderCharacters": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.linkedEditing": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "quickfix.biome": "explicit",
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.ruff": "explicit",
+    "source.organizeImports.ruff": "explicit"
+  },
+  "editor.cursorSurroundingLines": 8,
+  "editor.rulers": [
+    120
+  ],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.wordWrap": "off",
+  "emmet.includeLanguages": {
+    "typescriptreact": "html"
+  },
+  // --- ПОИСК ---
+  "search.useIgnoreFiles": true,
+  "search.smartCase": true,
+  "search.followSymlinks": false,
+  // --- ФОРМАТЕРЫ: Biome (frontend) + Ruff (API) ---
+  "editor.defaultFormatter": "biomejs.biome",
+  "prettier.enable": false,
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "vscode.markdown-language-features"
+  },
+  "[kotlin]": {
+    "editor.defaultFormatter": null,
+    "editor.tabSize": 4
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml"
+  },
+  "[shellscript]": {
+    "editor.defaultFormatter": null,
+    "editor.tabSize": 2
+  },
+  "[css]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  // --- Biome (shared/web/frontend/biome.json) ---
+  "biome.enabled": true,
+  "biome.requireConfiguration": true,
+  "biome.configurationPath": "${workspaceFolder}/shared/web/frontend/biome.json",
+  "biome.lsp.bin": "${workspaceFolder}/shared/web/frontend/node_modules/@biomejs/biome/bin/biome",
+  "eslint.enable": false,
+  // --- Ruff (shared/api/ruff.toml) ---
+  "ruff.enable": true,
+  "ruff.nativeServer": true,
+  "ruff.configuration": "${workspaceFolder}/shared/api/ruff.toml",
+  "ruff.configurationPreference": "filesystemFirst",
+  "ruff.importStrategy": "fromEnvironment",
+  "ruff.interpreter": [
+    "${workspaceFolder}/.venv/bin/python"
+  ],
+  "ruff.lineLength": 120,
+  "ruff.organizeImports": true,
+  "ruff.formatAll": true,
+  "ruff.lint.enable": true,
+  // --- Python / Cursor Pyright (not Pylance) ---
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  "python.languageServer": "None",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/shared",
+    "${workspaceFolder}/shared/tools"
+  ],
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.exclude": [
+    "**/node_modules",
+    "**/dist-build",
+    "**/trash",
+    "**/.venv",
+    "**/__pycache__"
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "python.testing.cwd": "${workspaceFolder}/shared/api",
+  "python.envFile": "${workspaceFolder}/.vscode/eliteew-python.env",
+  "python.testing.pytestArgs": [
+    "tests",
+    "-q",
+    "--tb=short"
+  ],
+  "python.testing.autoTestDiscoverOnSaveEnabled": false,
+  "testing.automaticallyOpenTestResults": "neverOpen",
+  "python.linting.enabled": false,
+  "cursorpyright.analysis.extraPaths": [
+    "${workspaceFolder}/shared",
+    "${workspaceFolder}/shared/tools"
+  ],
+  "cursorpyright.analysis.diagnosticMode": "workspace",
+  "cursorpyright.analysis.typeCheckingMode": "basic",
+  "cursorpyright.analysis.venvPath": "${workspaceFolder}",
+  "cursorpyright.analysis.venv": ".venv",
+  "cursorpyright.analysis.exclude": [
+    "**/node_modules",
+    "**/dist-build",
+    "**/trash",
+    "**/.venv",
+    "**/__pycache__",
+    "**/shared/web/frontend/src/generated"
+  ],
+  // --- TypeScript 7 (workspace native / tsgo из EliteEW frontend) ---
+  "js/ts.experimental.useTsgo": true,
+  "typescript.experimental.useTsgo": true,
+  "js/ts.tsdk.path": "shared/web/frontend/node_modules/typescript",
+  "typescript.tsdk": "shared/web/frontend/node_modules/typescript/lib",
+  "typescript.tsserver.maxTsServerMemory": 16384,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.includePackageJsonAutoImports": "on",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  // --- Tailwind CSS v4 (EliteEW frontend) ---
+  "tailwindCSS.experimental.configFile": "shared/web/frontend/src/styles/index.css",
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "classList",
+    "ngClass"
+  ],
+  "tailwindCSS.classFunctions": [
+    "cn",
+    "clsx",
+    "cva",
+    "twMerge"
+  ],
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.files.exclude": [
+    "**/node_modules/**",
+    "**/dist-build/**",
+    "**/dist/**",
+    "**/.pnpm-store/**",
+    "**/trash/**",
+    "**/src/generated/**"
+  ],
+  "css.customData": [
+    "shared/web/frontend/.vscode/tailwind-css-v4-custom-data.json"
+  ],
+  "css.validate": false,
+  "files.associations": {
+    "*.mdc": "markdown",
+    "**/SKILL.md": "markdown",
+    "**/.env*": "properties",
+    "**/docker/stack/*.yml": "yaml",
+    "**/docker/stack/**/*.yml": "yaml"
+  },
+  // --- Vitest (shared/web/frontend) ---
+  "vitest.enable": true,
+  "vitest.rootConfig": "${workspaceFolder}/shared/web/frontend/vitest.config.ts",
+  "vitest.vitestPackagePath": "./shared/web/frontend/node_modules/vitest/package.json",
+  "vitest.ignoreWorkspace": true,
+  "vitest.disableWorkspaceWarning": true,
+  "vitest.applyDiagnostic": true,
+  "vitest.showInlineConsoleLog": true,
+  "vitest.nodeEnv": {
+    "NODE_OPTIONS": "--no-deprecation"
+  },
+  // --- Containers: podman-first (project-and-deploy.mdc) ---
+  "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+  "containers.containerCommand": "podman",
+  "containers.composeCommand": "podman-compose",
+  // --- YAML (docker/stack compose) ---
+  "yaml.schemas": {
+    "docker/schemas/compose-spec.json": [
+      "docker/stack/*.yml",
+      "docker/stack/*.yaml",
+      "docker/stack/**/*.yml",
+      "docker/stack/**/*.yaml"
+    ]
+  },
+  "yaml.customTags": [
+    "!override",
+    "!override scalar",
+    "!override sequence",
+    "!override mapping"
+  ],
+  "yaml.format.enable": true,
+  "yaml.validate": true,
+  "yaml.hover": true,
+  "yaml.completion": true,
+  "redhat.telemetry.enabled": false,
+  // --- TOML (pyproject / uv) ---
+  "evenBetterToml.formatter.alignEntries": false,
+  "evenBetterToml.formatter.columnWidth": 120,
+  "evenBetterToml.schema.enabled": true,
+  // --- Error Lens ---
+  "errorLens.enabled": true,
+  "errorLens.enabledDiagnosticLevels": [
+    "error",
+    "warning"
+  ],
+  "errorLens.delay": 400,
+  "errorLens.excludeBySource": [
+    "cSpell",
+    "Grammarly",
+    "eslint",
+    "prettier"
+  ],
+  "errorLens.excludePatterns": [
+    "**/{node_modules,dist,dist-build,trash,.venv}/**",
+    "**/shared/web/frontend/src/generated/**"
+  ],
+  "cSpell.enabled": false,
+  "markdownlint.enabled": false,
+  "markdown.validate.enabled": true,
+  "markdown.preview.breaks": true,
+  // --- Material Icon Theme ---
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.folders.associations": {
+    "ewa_platform": "graphql",
+    "documentation": "docs",
+    "migrations": "database",
+    "routers": "routes",
+    "stack": "docker",
+    "docker": "docker",
+    "worklog": "log",
+    "openapi": "api",
+    "pilot": "api",
+    "generated": "typescript",
+    "companion": "robot",
+    "hooks": "hook",
+    "skills": "tools"
+  },
+  "material-icon-theme.files.associations": {
+    "*.openapi.json": "json",
+    "ruff.toml": "python",
+    "biome.json": "biome"
+  },
+  "editorconfig.generateAuto": false,
+  // --- ФАЙЛЫ И ИСКЛЮЧЕНИЯ ---
+  "files.autoSave": "off",
+  "files.eol": "\n",
+  "files.encoding": "utf8",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.pnpm-store": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.next": true,
+    "**/__pycache__": true,
+    "**/dist-build": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/dist-build/**": true,
+    "**/.venv/**": true,
+    "**/trash/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist-build": true,
+    "**/dist": true,
+    "**/.pnpm-store": true,
+    "**/__pycache__": true,
+    "**/trash": true,
+    "**/.venv": true,
+    "**/shared/web/frontend/src/generated": true,
+    "documentation/worklog/session-summaries": true
+  },
+  "git.ignoreLimitWarning": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.openRepositoryInParentFolders": "never",
+  // --- ИНТЕРФЕЙС WORKBENCH ---
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.closeEmptyGroups": true,
+  "workbench.list.smoothScrolling": true,
+  "workbench.tree.indent": 12,
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": true,
+  // --- ТЕРМИНАЛ (Android/Java для MobileAndroid) ---
+  "terminal.integrated.scrollback": 20000,
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "shellcheck.enable": true,
+  "shellcheck.run": "onSave",
+  "shellcheck.customArgs": [
+    "-x"
+  ],
+  "shellcheck.exclude": [
+    "SC1091"
+  ],
+  "terminal.integrated.env.linux": {
+    "JAVA_HOME": "/home/owned/android-studio/jbr",
+    "ANDROID_SDK_ROOT": "/home/owned/Android/Sdk",
+    "ANDROID_HOME": "/home/owned/Android/Sdk",
+    "UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv",
+    "PYTHONPATH": "${workspaceFolder}/shared",
+    "PATH": "${env:PATH}:/home/owned/android-studio/jbr/bin:/home/owned/Android/Sdk/platform-tools:/home/owned/Android/Sdk/cmdline-tools/latest/bin"
+  },
+  // --- Java (MobileAndroid) ---
+  "java.jdt.ls.java.home": "/home/owned/android-studio/jbr",
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "/home/owned/android-studio/jbr",
+      "default": true
+    }
+  ],
+  "cursorpyright.analysis.autoImportCompletions": true
+}

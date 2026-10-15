@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "id": "sales_onepager_v1",
+  "version": 3,
+  "title": "Sales one-pager",
+  "description": "ICP, боль, value proposition, доказательства, возражения и следующий коммерческий шаг. При ростере 4–6 — воронка, procurement и ROI proof.",
+  "artifact_type": "sales_onepager",
+  "required_context": [
+    "icp_or_segment",
+    "offer",
+    "proof",
+    "sales_motion"
+  ],
+  "quality_rubric": [
+    "Пиши как sales enablement asset, а не рекламный пост.",
+    "Не придумывай кейсы, логотипы, цифры и обещания без входных данных.",
+    "Каждое ценностное утверждение должно иметь proof point или пометку `нужно доказать`.",
+    "CTA должен соответствовать стадии сделки: intro, demo, pilot, procurement или renewal."
+  ],
+  "output_sections": [
+    "ICP and pain",
+    "Value and proof",
+    "Objections and CTA",
+    "Funnel and accounts",
+    "Procurement path",
+    "ROI proof ask"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "so1",
+      "title": "ICP, боль и trigger event",
+      "instruction_for_model": "Определи ICP/роль покупателя и контекст покупки. Сформулируй боль, trigger event и текущую альтернативу. Затем дай одно ценностное обещание без пустых прилагательных. Если ICP или стадия сделки не заданы, пометь как гипотезу и назови вопросы для sales discovery. Без `##`.",
+      "required_slots": {
+        "brand_voice": 3,
+        "growth": 2,
+        "behavioral": 2
+      },
+      "scope_fence": "Только ICP, боль, trigger, альтернатива и value promise. Не писать proof и возражения.",
+      "output_format": [
+        "ICP",
+        "Pain",
+        "Trigger event",
+        "Current alternative",
+        "Value promise"
+      ]
+    },
+    {
+      "step_id": "so2",
+      "title": "Доказательства и отстройка",
+      "instruction_for_model": "Дай 3–5 proof points. Разделяй `доказано входными данными` и `нужно доказать`. Сравни с альтернативами через критерии выбора клиента, не через голословное «лучше». Не придумывай цифры, кейсы, логотипы, сертификаты и ROI. Без `##`.",
+      "required_slots": {
+        "brand_voice": 3,
+        "rigor": 2,
+        "growth": 2
+      },
+      "scope_fence": "Только proof points и differentiation. Не писать CTA и возражения.",
+      "output_format": [
+        "Proof point",
+        "Evidence status",
+        "Differentiation criterion"
+      ]
+    },
+    {
+      "step_id": "so3",
+      "title": "Возражения и CTA",
+      "instruction_for_model": "Собери objection map: 3–5 возражений, что за ними стоит, короткий ответ без давления, какой proof нужен. Дай один следующий шаг: intro call, demo, pilot, proposal или procurement handoff — выбери по стадии из запроса, иначе предложи безопасный discovery step. Не давай юридические гарантии и не обещай результат без доказательств. Без `##`.",
+      "required_slots": {
+        "brand_voice": 2,
+        "behavioral": 3,
+        "legal_edge": 1,
+        "growth": 2
+      },
+      "scope_fence": "Только objection handling и CTA. Не переписывать весь one-pager.",
+      "output_format": [
+        "Objection",
+        "Underlying concern",
+        "Response",
+        "Proof needed",
+        "CTA"
+      ]
+    },
+    {
+      "step_id": "so4",
+      "title": "Воронка и key accounts",
+      "min_roster": 4,
+      "instruction_for_model": "Добавь sales-motion слой: стадии воронки под этот one-pager, кто key account / champion / economic buyer (как гипотезы, если не дано). Без выдуманных pipeline $. Без `##`, без имён героев.",
+      "required_slots": {
+        "growth": 3,
+        "operations": 3
+      },
+      "scope_fence": "Только funnel/account map.",
+      "output_format": [
+        "Funnel stage",
+        "Buyer roles",
+        "Account motion",
+        "Missing inputs"
+      ]
+    },
+    {
+      "step_id": "so5",
+      "title": "Procurement and risk language",
+      "min_roster": 5,
+      "instruction_for_model": "Опиши путь procurement/legal review без юридических гарантий: типичные blockers, какие документы нужны, какие формулировки опасны. Без `##`, без имён героев.",
+      "required_slots": {
+        "legal_edge": 2,
+        "behavioral": 2,
+        "operations": 2
+      },
+      "scope_fence": "Только procurement path и риск формулировок.",
+      "output_format": [
+        "Procurement steps",
+        "Blockers",
+        "Docs needed",
+        "Wording risks"
+      ]
+    },
+    {
+      "step_id": "so6",
+      "title": "ROI proof ask",
+      "min_roster": 6,
+      "instruction_for_model": "Сформулируй, какие ROI/P&L доказательства клиент должен увидеть до закрытия и какие данные ещё нужно добрать у себя. Не выдумывай цифры. Без `##`, без имён героев.",
+      "required_slots": {
+        "finance": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только ROI proof ask.",
+      "output_format": [
+        "Proof ask",
+        "Buyer metric",
+        "Data gap"
+      ]
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Ценность",
+      "step_ids": [
+        "so1"
+      ]
+    },
+    {
+      "heading": "Доказательства",
+      "step_ids": [
+        "so2"
+      ]
+    },
+    {
+      "heading": "Закрытие шага",
+      "step_ids": [
+        "so3"
+      ]
+    },
+    {
+      "heading": "Воронка и accounts",
+      "step_ids": [
+        "so4"
+      ]
+    },
+    {
+      "heading": "Procurement",
+      "step_ids": [
+        "so5"
+      ]
+    },
+    {
+      "heading": "ROI proof",
+      "step_ids": [
+        "so6"
+      ]
+    }
+  ]
+}

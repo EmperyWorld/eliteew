@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "id": "it_api_change_v1",
+  "version": 1,
+  "title": "Пакет изменения API-контракта",
+  "description": "Практичный pack: новый/изменённый контракт, клиентский impact, миграция совместимости и authz-check.",
+  "artifact_type": "it_api_change",
+  "required_context": [
+    "endpoint_or_resource",
+    "change_intent",
+    "compat_expectation"
+  ],
+  "quality_rubric": [
+    "Контракт явен: метод/путь/поля/коды ошибок",
+    "Идемпотентность и fail path описаны",
+    "FE/client impact и состояния UI названы",
+    "Миграция/совместимость без silent break",
+    "Authz/секреты проверены при ростере ≥4"
+  ],
+  "output_sections": [
+    "Контракт и fail-path",
+    "Клиентский impact",
+    "Миграция и совместимость",
+    "Authz и секреты"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": false,
+  "steps": [
+    {
+      "step_id": "api1",
+      "title": "Контракт и fail-path",
+      "instruction_for_model": "Опиши изменение API как контракт: метод, путь, request/response shape (поля), коды ошибок, идемпотентность, валидация. Явно: что было → что станет. Не выдумывай поля — помечай TBD. Без ##. Без простыни кода без контракта.",
+      "required_slots": {
+        "engineering": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только серверный контракт; не UI journey и не deploy.",
+      "output_format": [
+        "Was → Will",
+        "Errors",
+        "Idempotency"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "api2",
+      "title": "Клиентский impact",
+      "instruction_for_model": "С точки зрения клиента/SPA: какие экраны/хуки ломаются, какие empty/loading/error/offline состояния нужны, где FE/BE mismatch. User-facing copy — без sysadmin dialect. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "creative": 2
+      },
+      "scope_fence": "Только клиентский impact и состояния; не переписывай OpenAPI целиком.",
+      "output_format": [
+        "Broken surfaces",
+        "UI states",
+        "Copy notes"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "api3",
+      "title": "Миграция и совместимость",
+      "instruction_for_model": "План совместимости: versioning/dual-read, порядок выката, что нельзя silent-break, минимальный verify. Не выдумывай топологию. Без ##.",
+      "required_slots": {
+        "product": 3,
+        "rigor": 3
+      },
+      "scope_fence": "Только migration/compat; не authz checklist.",
+      "output_format": [
+        "Compat strategy",
+        "Rollout order",
+        "Verify"
+      ],
+      "min_roster": 1
+    },
+    {
+      "step_id": "api4",
+      "title": "Authz и секреты",
+      "instruction_for_model": "Threat-light check для этого API change: кто вызывает, какие роли/scopes, default-deny, секреты в логах/ответах. Без выдуманных CVE. Без ##.",
+      "required_slots": {
+        "legal_edge": 2,
+        "rigor": 3
+      },
+      "scope_fence": "Только authz/secrets для этого изменения.",
+      "output_format": [
+        "Authz surface",
+        "Default deny",
+        "Secret hygiene"
+      ],
+      "min_roster": 4
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Контракт и fail-path",
+      "step_ids": [
+        "api1"
+      ]
+    },
+    {
+      "heading": "Клиентский impact",
+      "step_ids": [
+        "api2"
+      ]
+    },
+    {
+      "heading": "Миграция и совместимость",
+      "step_ids": [
+        "api3"
+      ]
+    },
+    {
+      "heading": "Authz и секреты",
+      "step_ids": [
+        "api4"
+      ]
+    }
+  ]
+}

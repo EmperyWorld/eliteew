@@ -1,0 +1,23 @@
+# EliteEW product app manifest (SoT for enablement / KNOWN generation)
+id: kursorina
+title: Курсорина
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: KursorinaApp
+    icon: app-kursorina
+  api:
+    prefixes:
+      - /api/v1/kursorina
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

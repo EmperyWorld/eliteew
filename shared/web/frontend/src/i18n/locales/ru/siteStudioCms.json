@@ -1,0 +1,118 @@
+{
+	"_meta": {
+		"wave5Scope": "Wave 5 foundation only: admin shell (route guard, layout, sidebar, header, login) plus Products and Content page aria-labels. Remaining CMS pages (~89) stay on legacy inline copy until a follow-up wave."
+	},
+	"shell": {
+		"routeGuard": {
+			"checkingAccess": "Проверяем доступ…"
+		},
+		"layout": {
+			"defaultSiteTitle": "Шаблон сайта",
+			"proBadge": "Pro"
+		},
+		"login": {
+			"wrongPassword": "Неверный пароль",
+			"authError": "Ошибка авторизации",
+			"adminSuffix": "Admin",
+			"tagline": "Отдельный контур управления сайтом",
+			"packageBadge": "Пакет",
+			"supportBadge": "Сопровождение",
+			"usernameAria": "Имя пользователя",
+			"passwordPlaceholder": "Введите пароль",
+			"submitLoading": "Вход…",
+			"submit": "Войти в панель",
+			"backToSite": "Вернуться на сайт",
+			"footerAccess": "Admin access"
+		},
+		"globalSearch": {
+			"placeholder": "Поиск товаров, заказов, записей…",
+			"searching": "Поиск…",
+			"empty": "Ничего не найдено по запросу «{{query}}»",
+			"clearAria": "Очистить поиск",
+			"resultsLabel": "Результаты поиска",
+			"sectionProducts": "Товары",
+			"sectionOrders": "Заказы",
+			"sectionBookings": "Записи",
+			"bookingFallback": "Запись"
+		},
+		"header": {
+			"openMenu": "Открыть меню",
+			"themeToggle": "Переключить тему оформления",
+			"themeLight": "Светлая",
+			"themeDark": "Тёмная",
+			"themeSystem": "Системная",
+			"themeSite": "Как на сайте",
+			"themePickAria": "Выбрать тему {{label}}",
+			"notifications": "Уведомления",
+			"notificationsHeading": "Уведомления",
+			"notificationsWithCount": "Уведомления, {{count}} новых",
+			"notificationsClose": "Закрыть панель уведомлений",
+			"notificationsLoading": "Загрузка…",
+			"notificationsEmpty": "Нет новых уведомлений",
+			"notificationsNew_one": "{{count}} новое уведомление",
+			"notificationsNew_few": "{{count}} новых уведомления",
+			"notificationsNew_many": "{{count}} новых уведомлений",
+			"notificationsNew_other": "{{count}} новых уведомлений",
+			"allBookings": "Все записи",
+			"greetingMorning": "Доброе утро",
+			"greetingAfternoon": "Добрый день",
+			"greetingEvening": "Добрый вечер",
+			"avatarTitleEmbedded": "Admin — Администратор",
+			"roleAdministrator": "Администратор",
+			"displayNameShort": "Admin"
+		},
+		"nav": {
+			"groups": {
+				"overview": "Обзор",
+				"sales": "Продажи",
+				"catalog": "Каталог",
+				"content": "Контент",
+				"system": "Система"
+			},
+			"items": {
+				"dashboard": "Обзор",
+				"orders": "Заказы",
+				"bookings": "Записи",
+				"schedule": "Расписание",
+				"products": "Товары",
+				"consultations": "Консультации",
+				"masterclasses": "Мастер-классы",
+				"gallery": "Галерея",
+				"contentPage": "Контент",
+				"presentations": "Презентации",
+				"customization": "Кастомизация",
+				"settings": "Настройки",
+				"config": "Конфиг"
+			}
+		},
+		"sidebar": {
+			"adminPanel": "Админ-панель",
+			"packageBadge": "Пакет",
+			"supportBadge": "Сопровождение",
+			"expandNav": "Развернуть панель навигации",
+			"collapseNav": "Свернуть панель навигации",
+			"expandSidebar": "Развернуть панель",
+			"collapseSidebar": "Свернуть панель",
+			"closeMenu": "Закрыть меню",
+			"closeOverlay": "Закрыть меню",
+			"openSite": "Открыть сайт",
+			"logout": "Выйти из панели"
+		}
+	},
+	"products": {
+		"a11y": {
+			"searchProducts": "Поиск товаров",
+			"filterCollection": "Фильтр по коллекции",
+			"filterStock": "Фильтр по наличию",
+			"sort": "Сортировка",
+			"gridView": "Вид сетки",
+			"listView": "Вид списка",
+			"selectAll": "Выбрать все"
+		}
+	},
+	"content": {
+		"a11y": {
+			"pageTab": "Страница: {{name}}"
+		}
+	}
+}

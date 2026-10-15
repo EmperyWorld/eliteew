@@ -1,0 +1,14 @@
+# EliteEW · Portal Private Tunnel — command-center metrics timer (every 5 min)
+[Unit]
+Description=EliteEW Portal Private Tunnel metrics scrape timer
+Documentation=file://%h/powered_by_emperyworld/documentation/platform/docker-re_doc/PORTAL-PRIVATE-TUNNEL-EDGE.md
+
+[Timer]
+OnBootSec=3min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=true
+Unit=portal-private-tunnel-metrics.service
+
+[Install]
+WantedBy=timers.target

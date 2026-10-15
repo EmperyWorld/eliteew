@@ -1,0 +1,25 @@
+# EliteEW install profile — on-prem team core (no marketing / admin / customer cabinet)
+id: onprem-team-core
+title: On-prem team core
+edition: onprem
+mode: allowlist
+access_mode: community
+seat_activation_required: false
+include_legacy: false
+apps:
+  - notifications
+  - calendar
+  - project_about
+  - clipboard
+  - music_player
+  - app_store
+  - assistant
+  - desktop_ai_chat
+  - ewdesk
+  - poemma
+  - feedback_hub
+  - survey_hub
+  - social_hub
+  - user_site_studio
+  - kirs_curation
+  - local_service_iframe

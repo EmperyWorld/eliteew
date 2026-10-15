@@ -1,0 +1,422 @@
+{
+  "schema_version": 1,
+  "templates": [
+    {
+      "id": "code_architecture_audit_v1",
+      "file": "code_architecture_audit_v1.json",
+      "keywords": [
+        "code architecture audit",
+        "аудит архитектуры кода",
+        "архитектурный каркас",
+        "сверка с кодом",
+        "inventory before invent",
+        "exists partial missing",
+        "keep/change/kill",
+        "keep change kill",
+        "execution path",
+        "execution paths",
+        "workflowruntimekind",
+        "dual runtime",
+        "двухуровнев",
+        "stable path",
+        "experimental path",
+        "domain lock",
+        "fidelity scorecard",
+        "не изобретать уже",
+        "already done",
+        "уже реализован",
+        "companion vs ensemble",
+        "task_run vs ensemble"
+      ],
+      "example_command": "Сверьте архитектурный каркас с кодом: domain lock, inventory EXISTS/PARTIAL/MISSING, Keep/Change/Kill, MVP только по пробелам."
+    },
+    {
+      "id": "tech_plan_v1",
+      "file": "tech_plan_v1.json",
+      "keywords": [
+        "технический план",
+        "техплан",
+        "архитектура решения",
+        "system design",
+        "backend architecture",
+        "рефакторинг архитектуры"
+      ],
+      "example_command": "Соберите технический план для backend/API: целевая архитектура, риски реализации и проверки готовности."
+    },
+    {
+      "id": "marketing_brief_v1",
+      "file": "marketing_brief_v1.json",
+      "keywords": [
+        "маркетинговый бриф",
+        "marketing brief",
+        "jtbd бриф",
+        "позиционирование продукта",
+        "ценностное предложение",
+        "messaging brief"
+      ],
+      "example_command": "Соберите маркетинговый бриф: цель, аудитория, JTBD, ценностное предложение и риски позиционирования."
+    },
+    {
+      "id": "project_audit_v1",
+      "file": "project_audit_v1.json",
+      "keywords": [
+        "полноценный аудит",
+        "полный аудит",
+        "аудит проекта",
+        "проведите аудит",
+        "проведи аудит",
+        "project audit",
+        "комплексный аудит проекта",
+        "с аудита",
+        "начнём с аудита",
+        "начнем с аудита",
+        "давайте с аудита",
+        "давайте аудит"
+      ],
+      "example_command": "Проведите полноценный аудит проекта: основания, диагностика, риски и приоритетные решения."
+    },
+    {
+      "id": "strategy_options_v1",
+      "file": "strategy_options_v1.json",
+      "keywords": [
+        "портфель стратегий",
+        "варианты стратегии",
+        "стратегические варианты",
+        "стратегические гипотезы",
+        "3–5 стратегических гипотез",
+        "3-5 стратегических гипотез",
+        "3–5 гипотез",
+        "3-5 гипотез"
+      ],
+      "example_command": "Предложите 3–5 различающихся стратегических гипотез, посчитайте ICE и рекомендуйте порядок проверки."
+    },
+    {
+      "id": "product_spec_v1",
+      "file": "product_spec_v1.json",
+      "keywords": [
+        "prd",
+        "mvp",
+        "продукт",
+        "требован",
+        "фича",
+        "пользовательск",
+        "сценари",
+        "приёмк",
+        "acceptance",
+        "спецификац",
+        "user story",
+        "юзкейс"
+      ],
+      "example_command": "Подготовьте PRD для MVP: пользовательские сценарии, границы scope и критерии приёмки."
+    },
+    {
+      "id": "business_plan_v1",
+      "file": "business_plan_v1.json",
+      "keywords": [
+        "бизнес план",
+        "бизнес-план",
+        "бизнес-модель",
+        "монетизац",
+        "юнит-эконом",
+        "unit economics",
+        "финансовая модель",
+        "финмодель",
+        "go-to-market",
+        "gtm",
+        "выход на рынок",
+        "стратегия развития бизнеса",
+        "30/60/90",
+        "30 60 90"
+      ],
+      "example_command": "Нужен бизнес-план с unit economics, GTM и финмоделью."
+    },
+    {
+      "id": "meeting_notes_v1",
+      "file": "meeting_notes_v1.json",
+      "keywords": [
+        "протокол встречи",
+        "протокол рабочей",
+        "протокол совещания",
+        "meeting notes",
+        "резюме встречи",
+        "итоги встречи",
+        "action items",
+        "follow-up встречи",
+        "стендап",
+        "планёрк",
+        "планерк"
+      ],
+      "example_command": "Соберите протокол встречи: контекст, принятые решения, владельцы и follow-up."
+    },
+    {
+      "id": "content_brief_v1",
+      "file": "content_brief_v1.json",
+      "keywords": [
+        "контент",
+        "пост",
+        "лендинг",
+        "рассылк",
+        "email",
+        "копирайт",
+        "заголовок",
+        "текст для",
+        "публикац",
+        "сторис",
+        "reels",
+        "seo"
+      ],
+      "example_command": "Подготовьте контент-бриф для лендинга: аудитория, ключевой тезис, структура и CTA."
+    },
+    {
+      "id": "incident_postmortem_v1",
+      "file": "incident_postmortem_v1.json",
+      "keywords": [
+        "постмортем",
+        "postmortem",
+        "разбор инцидента",
+        "root cause",
+        "incident review",
+        "разбор сбоя"
+      ],
+      "example_command": "Подготовьте postmortem инцидента: таймлайн, root cause, влияние и предотвращающие меры."
+    },
+    {
+      "id": "release_checklist_v1",
+      "file": "release_checklist_v1.json",
+      "keywords": [
+        "чеклист релиза",
+        "release checklist",
+        "go-live checklist",
+        "предрелизовая проверка",
+        "rollback plan"
+      ],
+      "example_command": "Соберите чеклист релиза: scope, регресс, go-live, rollback и коммуникации."
+    },
+    {
+      "id": "sales_onepager_v1",
+      "file": "sales_onepager_v1.json",
+      "keywords": [
+        "продаж",
+        "питч",
+        "one-pager",
+        "onepager",
+        "коммерческ",
+        "предложен",
+        "кп",
+        "b2b",
+        "возражен",
+        "демо",
+        "пилот"
+      ],
+      "example_command": "Соберите B2B sales one-pager: ICP, боль клиента, ценность, доказательства, возражения и CTA."
+    },
+    {
+      "id": "onboarding_guide_v1",
+      "file": "onboarding_guide_v1.json",
+      "keywords": [
+        "онбординг",
+        "onboarding",
+        "первые шаги",
+        "быстрый старт",
+        "гайд",
+        "туториал",
+        "подсказк",
+        "welcome",
+        "знакомств с продукт"
+      ],
+      "example_command": "Подготовьте онбординг-гайд: первые шаги пользователя, материалы поддержки и критерий успешного запуска."
+    },
+    {
+      "id": "knowledge_faq_v1",
+      "file": "knowledge_faq_v1.json",
+      "keywords": [
+        "faq",
+        "чаво",
+        "вопрос ответ",
+        "база знаний",
+        "knowledge base",
+        "поддержк",
+        "справк",
+        "документац для клиент",
+        "статья помощ"
+      ],
+      "example_command": "Соберите FAQ для поддержки: темы обращений, ответы, пробелы знаний и статьи, которые нужно дописать."
+    },
+    {
+      "id": "job_posting_v1",
+      "file": "job_posting_v1.json",
+      "keywords": [
+        "ваканс",
+        "найм",
+        "рекрут",
+        "job description",
+        "hh",
+        "headhunter",
+        "соискател",
+        "роль в команд"
+      ],
+      "example_command": "Подготовьте вакансию: миссия роли, задачи, требования, процесс отбора и честные ожидания."
+    },
+    {
+      "id": "workshop_program_v1",
+      "file": "workshop_program_v1.json",
+      "keywords": [
+        "воркшоп",
+        "workshop",
+        "тренинг",
+        "обучающ",
+        "программа занят",
+        "модул",
+        "тайминг",
+        "ведущ"
+      ],
+      "example_command": "Соберите программу воркшопа: цель, аудитория, модули, тайминг, материалы и результат для участников."
+    },
+    {
+      "id": "research_plan_v1",
+      "file": "research_plan_v1.json",
+      "keywords": [
+        "исследован",
+        "research",
+        "custdev",
+        "интервью",
+        "респондент",
+        "гипотез",
+        "юзабилити",
+        "опрос",
+        "фокус-групп"
+      ],
+      "example_command": "Подготовьте план исследования: вопросы, гипотезы, метод, выборка, скрипт интервью и критерии решения."
+    },
+    {
+      "id": "interview_prep_v1",
+      "file": "interview_prep_v1.json",
+      "keywords": [
+        "подготовка к интервью",
+        "подготовьтесь к интервью",
+        "тема интервью",
+        "цель интервью",
+        "пройти интервью",
+        "карточка интервью",
+        "interview prep",
+        "interview topic",
+        "interview goal",
+        "founder interview",
+        "параметры комнаты интервью"
+      ],
+      "example_command": "Подготовьте карточку интервью: тема, цель и гайд вопросов для панели."
+    },
+    {
+      "id": "campaign_plan_v1",
+      "file": "campaign_plan_v1.json",
+      "keywords": [
+        "кампан",
+        "campaign",
+        "медиаплан",
+        "медиа план",
+        "запуск реклам",
+        "performance",
+        "воронк",
+        "креатив",
+        "кросс-канал"
+      ],
+      "example_command": "Соберите campaign plan: цель, KPI, аудитория, каналы, креативы, бюджетная рамка и измерение результата."
+    },
+    {
+      "id": "integration_spec_v1",
+      "file": "integration_spec_v1.json",
+      "keywords": [
+        "интеграц",
+        "integration",
+        "api контракт",
+        "webhook",
+        "обмен данными",
+        "синхронизац",
+        "партнёрск api",
+        "endpoint",
+        "идемпотент"
+      ],
+      "example_command": "Подготовьте спецификацию интеграции: стороны обмена, API-контракт, webhook, ошибки и идемпотентность."
+    },
+    {
+      "id": "it_adr_v1",
+      "file": "it_adr_v1.json",
+      "keywords": [
+        "adr",
+        "architecture decision record",
+        "архитектурное решение",
+        "decision record",
+        "зафиксировать adr",
+        "выбрать вариант архитектуры"
+      ],
+      "example_command": "Напишите ADR: зафиксируйте архитектурное решение со вариантами, trade-offs и откатом."
+    },
+    {
+      "id": "it_api_change_v1",
+      "file": "it_api_change_v1.json",
+      "keywords": [
+        "изменение api",
+        "api change pack",
+        "breaking api change",
+        "пакет изменения контракта",
+        "was→will контракт",
+        "was will api",
+        "клиентский impact api",
+        "миграция совместимости api"
+      ],
+      "example_command": "Соберите пакет изменения API: was→will контракт, клиентский impact api, миграция совместимости api."
+    },
+    {
+      "id": "it_ui_states_v1",
+      "file": "it_ui_states_v1.json",
+      "keywords": [
+        "ui states",
+        "empty loading error offline",
+        "честные ui-состояния",
+        "user journey экран",
+        "journey и состояния",
+        "fe states pack"
+      ],
+      "example_command": "Опишите user journey и честные UI-состояния: empty, loading, error, offline плюс data contract."
+    },
+    {
+      "id": "it_release_runbook_v1",
+      "file": "it_release_runbook_v1.json",
+      "keywords": [
+        "release runbook",
+        "hotfix runbook",
+        "runbook релиза",
+        "go no-go выкат",
+        "порядок шагов rollback",
+        "baked hotfix runbook"
+      ],
+      "example_command": "Составьте release/hotfix runbook: шаги, rollback, smoke evidence и go/no-go."
+    },
+    {
+      "id": "it_threat_model_v1",
+      "file": "it_threat_model_v1.json",
+      "keywords": [
+        "threat model lite",
+        "threat model",
+        "модель угроз",
+        "appsec surface",
+        "trust boundary authz",
+        "client trust boundary"
+      ],
+      "example_command": "Сделайте threat model lite: активы, угрозы, контроли, API authz и client trust boundary."
+    },
+    {
+      "id": "it_incident_brief_v1",
+      "file": "it_incident_brief_v1.json",
+      "keywords": [
+        "timeline инцидента",
+        "слой отказа",
+        "симптом слой evidence",
+        "recovery brief инцидента",
+        "brief слоя отказа",
+        "mitigation blast radius"
+      ],
+      "example_command": "Соберите recovery brief инцидента: timeline инцидента, симптом слой evidence, слой отказа, mitigation blast radius."
+    }
+  ]
+}

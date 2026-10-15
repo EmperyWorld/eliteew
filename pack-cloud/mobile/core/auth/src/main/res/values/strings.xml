@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="auth_oidc_network_error">Не удалось связаться с сервером входа. Проверьте подключение к сети и попробуйте снова.</string>
+    <string name="auth_oidc_server_unavailable">Сервер входа временно недоступен. Попробуйте позже.</string>
+    <string name="auth_oidc_try_later">Вход сейчас недоступен. Попробуйте чуть позже.</string>
+    <string name="auth_oidc_state_mismatch">Сессия входа устарела или была прервана. Начните вход заново.</string>
+    <string name="auth_oidc_session_invalid">Сессия входа недействительна. Выйдите и войдите снова.</string>
+    <string name="auth_oidc_generic_failed">Не удалось выполнить вход. Попробуйте снова.</string>
+    <string name="auth_sso_webview_title">Вход в EliteEW</string>
+    <string name="auth_sso_webview_cancel">Отмена</string>
+    <string name="auth_sso_browser_picker_title">Браузер для входа (Keycloak)</string>
+    <string name="auth_sso_browser_picker_subtitle">Выберите браузер для Keycloak SSO — он откроет страницу входа и вернёт вас в приложение.</string>
+    <string name="auth_sso_browser_picker_hint">Если сразу открывается один браузер, выберите приложение вручную (лучше Chrome без блокировки рекламы для страницы входа).</string>
+    <string name="auth_sso_browser_picker_fallback">Не удалось получить список браузеров; открывается стандартный выбор приложения.</string>
+    <string name="auth_sso_browser_pick_failed">Не удалось запустить выбранный браузер</string>
+    <string name="auth_sso_browser_picker_cancel">Отмена</string>
+</resources>

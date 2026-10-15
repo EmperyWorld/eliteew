@@ -1,0 +1,106 @@
+[project]
+name = "eliteew-api"
+version = "0.1.0"
+requires-python = ">=3.14"
+description = "EliteEW Brotherhood API"
+license = "MIT"
+dependencies = [
+    "httpx>=0.28.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9",
+    "pytest-asyncio>=1.3",
+    "anyio>=4",
+    "fastapi>=0.135,<0.137",
+    "pydantic>=2.12",
+    "pydantic-settings>=2.8,<3",
+    "sqlalchemy>=2.0",
+]
+
+[tool.ruff]
+# Inherit from ruff.toml
+extend = "ruff.toml"
+
+[tool.mypy]
+# Inherit from mypy.ini
+# Mypy settings are in mypy.ini
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Пакет `api` лежит в родителе каталога с тестами (см. docker: cd /app/api, PYTHONPATH=/app/api).
+pythonpath = [".."]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+# Use /tmp for cache so Docker (read-only /app/api) does not warn
+cache_dir = "/tmp/.pytest_cache"
+# Coverage: `pytest --cov=api --cov-report=term-missing` when pytest-cov is installed.
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-v",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "death_spiral: Release Gate 0 death-spiral / circuit / act-binding regression pack",
+]
+[tool.coverage.run]
+source = ["api"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/__pycache__/*",
+    "*/venv/*",
+    "*/node_modules/*",
+    "*/svodka/*",
+    "*/scripts/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.pyright]
+include = ["."]
+exclude = [
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.mypy_cache",
+    "**/.ruff_cache",
+    "**/node_modules",
+    "**/.venv",
+    "**/venv",
+    "**/tests",
+    "**/migrations"
+]
+venvPath = "../.."
+venv = ".venv"
+pythonVersion = "3.14"
+pythonPlatform = "Linux"
+typeCheckingMode = "basic"
+# Отключаем reportMissingImports - это ложные срабатывания из-за конфигурации Python path
+# Модули существуют и работают, но pyright их не видит из-за структуры проекта
+reportMissingImports = "none"
+reportMissingTypeStubs = "none"
+reportUnusedImport = "warning"
+reportUnusedClass = "warning"
+reportUnusedFunction = "warning"
+reportUnusedVariable = "warning"
+reportGeneralTypeIssues = "none"
+reportArgumentType = "none"
+
+# NOTE: executionEnvironments moved to pyrightconfig.json
+# This avoids TOML parsing issues with mypy
+# executionEnvironments configuration is in pyrightconfig.json

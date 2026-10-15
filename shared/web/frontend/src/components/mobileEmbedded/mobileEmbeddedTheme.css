@@ -1,0 +1,419 @@
+/*
+ * ---
+ * EliteEW · Empery World · https://empery.world
+ * Author: po&T && TZBrand
+ * ---
+ *
+ * Purpose: Native MobileAndroid embedded SPA palette (MobileEmbeddedSpaChrome.kt parity).
+ * Invariants: Scoped to [data-mobile-embedded-shell="1"]; bridges --me-* → desktop CSS vars.
+ * Related: mobileEmbeddedLayoutTokens.ts, MobileEmbeddedShell.tsx
+ */
+
+html:has([data-mobile-embedded-shell='1']),
+html:has([data-mobile-embedded-shell='1']) body {
+	height: 100%;
+	min-height: 100%;
+	max-height: 100dvh;
+	overflow: hidden;
+	overscroll-behavior: none;
+}
+
+html:has([data-mobile-embedded-shell='1']) body {
+	background: #0b0f17;
+}
+
+html:has([data-mobile-embedded-shell='1']) #root,
+html:has([data-mobile-embedded-shell='1']) #app-main,
+html:has([data-mobile-embedded-shell='1']) [data-app-router-outlet] {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-height: 0;
+	height: 100%;
+	max-height: 100dvh;
+	overflow: hidden;
+}
+
+[data-mobile-embedded-shell='1'] {
+	--me-bg: #0b0f17;
+	--me-surface: #121820;
+	--me-surface-soft: #16202c;
+	--me-surface-panel: #1e2a38;
+	--me-surface-panel-strong: #273545;
+	--me-accent: #c4e830;
+	--me-accent-rgb: 196 232 48;
+	--me-text-primary: #e8ecf2;
+	--me-text-secondary: #c8d9e8;
+	--me-text-muted: #96a0b4;
+	--me-border: rgba(255, 255, 255, 0.2);
+	--me-border-subtle: rgba(255, 255, 255, 0.12);
+	--me-border-faint: rgba(255, 255, 255, 0.08);
+	--me-glass-border: rgba(255, 255, 255, 0.52);
+	--me-radius-sm: 12px;
+	--me-radius-md: 18px;
+	--me-radius-lg: 22px;
+	--me-radius-pill: 999px;
+	--me-shadow-panel: 0 18px 44px rgba(2, 6, 23, 0.16);
+
+	--theme-background: var(--me-bg);
+	--desktop-accent: var(--me-accent);
+	--desktop-accent-rgb: var(--me-accent-rgb);
+	--desktop-text-primary: var(--me-text-primary);
+	--desktop-text-secondary: var(--me-text-secondary);
+	--desktop-text-muted: var(--me-text-muted);
+	--desktop-text-dim: var(--me-text-muted);
+	--desktop-surface-app: var(--me-bg);
+	--desktop-surface-soft: var(--me-surface-soft);
+	--desktop-surface-panel: var(--me-surface-panel);
+	--desktop-surface-panel-strong: var(--me-surface-panel-strong);
+	--desktop-border-subtle: var(--me-border-subtle);
+	--desktop-shadow-panel: var(--me-shadow-panel);
+
+	color: var(--me-text-primary);
+	background: var(--me-bg);
+}
+
+[data-mobile-embedded-shell='1'] .companion-presence-root {
+	--companion-aura: var(--me-accent);
+	--companion-glow: rgba(196, 232, 48, 0.14);
+	--companion-divider: var(--me-border-subtle);
+	--companion-bg: rgba(18, 24, 32, 0.72);
+	--companion-text-soft: var(--me-text-muted);
+}
+
+[data-mobile-embedded-shell='1'] > div {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-mobile-embedded-shell='1'] .relative.flex.h-full {
+	min-height: 0;
+}
+
+[data-mobile-embedded-shell='1'] [data-sh-guide='header'] {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='chat-messages'] {
+	position: relative;
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='chat-scroll-wrap'] {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='chat-subheader'] {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='shortcuts'] {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='composer']
+	[data-assistant-composer-kbd-hints] {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='header'] p {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='header'] {
+	flex-shrink: 0;
+	padding-top: 0.375rem;
+	padding-bottom: 0.375rem;
+	border-color: var(--me-border-faint);
+	background: color-mix(in srgb, var(--me-surface) 92%, transparent);
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='faq-panel'].mobile-handbook-faq-collapsed {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='faq-panel'].mobile-handbook-faq-open {
+	flex-shrink: 0;
+	max-height: min(42dvh, 20rem);
+	overflow-y: auto;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='faq-collapsed-chip'] {
+	display: block;
+	flex-shrink: 0;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='faq-panel-toggle'] {
+	display: inline-flex;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	.flex-1.min-h-0.flex.flex-col.md\:flex-row {
+	flex: 1 1 auto;
+	min-height: 0;
+	flex-direction: column;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='chat-panel'] {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1'] [data-assistant-guide='composer'] {
+	flex-shrink: 0;
+	flex-direction: row;
+	align-items: flex-end;
+	gap: 0.375rem;
+	padding: 0.75rem;
+	padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+	border-color: var(--me-border-faint);
+	background: color-mix(in srgb, var(--me-surface) 88%, transparent);
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='composer']
+	> div:first-child {
+	flex: 1 1 auto;
+	min-width: 0;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='composer']
+	> button {
+	width: 2.75rem;
+	height: 2.75rem;
+	min-width: 2.75rem;
+	min-height: 2.75rem;
+	padding: 0;
+	border-radius: var(--me-radius-md);
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='composer']
+	> button
+	span:not(.sr-only) {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-assistant-guide-root='1']
+	[data-assistant-guide='composer']
+	> button
+	svg {
+	width: 1rem;
+	height: 1rem;
+}
+
+@media (min-height: 0) {
+	[data-embedded-mobile='1'][data-assistant-guide-root='1']
+		[data-assistant-guide='faq-panel'].mobile-handbook-faq-open {
+		max-height: min(46dvh, clamp(14rem, 38dvh, 22rem));
+	}
+
+	[data-embedded-mobile='1'][data-assistant-guide-root='1']
+		[data-assistant-guide='composer'] {
+		padding: clamp(0.5rem, 1.2vw, 0.75rem);
+		padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+	}
+}
+
+[data-embedded-mobile='1'][data-feedback-hub-root='1']
+	[data-feedback-hub-guide='header'] {
+	display: none;
+}
+
+[data-embedded-mobile='1'][data-feedback-hub-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-feedback-hub-root='1'] > .min-h-0.flex-1.overflow-y-auto {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-notifications-hub-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-notifications-hub-root='1']
+	> .flex.min-h-0.flex-1.flex-col {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-content-manager-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-content-manager-root='1'] #content-manager-pro-main {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-height: 0;
+	overflow: hidden;
+}
+
+[data-embedded-mobile='1'][data-content-manager-root='1'] [data-cm-files-split='1'] {
+	flex: 1 1 auto;
+	min-height: 0;
+	flex-direction: column;
+}
+
+[data-embedded-mobile='1'][data-content-manager-root='1'] #content-manager-files-panel {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-content-manager-root='1']
+	#content-manager-files-panel
+	> .flex.min-h-0.flex-1.flex-col.overflow-y-auto {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-ewdesk-root='1'] {
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-professional-worlds-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-professional-worlds-root='1']
+	> .relative.flex.min-h-0.flex-1.flex-col {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-professional-worlds-root='1'] main[data-pw-guide='workspace'] {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-app-store-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-app-store-root='1'] [data-as-guide='catalog'] {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-app-store-root='1'] [data-as-guide='catalog'] > .relative.flex.min-h-0 {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-desktop-settings-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-social-hub-root='1'] {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	flex: 1 1 auto;
+	height: 100%;
+}
+
+[data-embedded-mobile='1'][data-social-hub-root='1'] > main {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+[data-embedded-mobile='1'][data-desktop-settings-root='1']
+	[data-desktop-settings-guide='header']
+	> .flex.items-start {
+	display: none;
+}
+
+/* EWA companion (`#/mobile-ewa-companion`) — layout polish for wide WebView + narrow physical width */
+[data-embedded-mobile='1'] [data-testid='ewa-companion-transcript'] li.mr-auto {
+	width: 100%;
+	max-width: 100%;
+}
+
+[data-embedded-mobile='1'] [data-companion-mobile-toolbar='1'] {
+	flex-wrap: wrap;
+}
+
+[data-embedded-mobile='1'][data-me-width-tier='narrow']
+	[data-companion-mobile-toolbar='1']
+	label[title]
+	> span:last-child {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+[data-embedded-mobile='1'] [data-ewa-first-meet='1'] {
+	max-width: 100%;
+	padding-inline: 0.25rem;
+}
+
+[data-embedded-mobile='1'][data-me-width-tier='narrow'] [data-ewa-first-meet='1'] h2 {
+	font-size: 1.25rem;
+	line-height: 1.35;
+}
+
+[data-embedded-mobile='1'][data-me-width-tier='narrow'] [data-ewa-first-meet='1'] .rounded-2xl.border {
+	padding: 0.75rem;
+}
+
+/* Wave 4: full Desktop shell chrome must not appear on mobile embedded hosts
+ * (any marked control on the page, not only descendants of the shell root). */
+html:has([data-mobile-embedded-shell='1']) [data-desktop-chrome='full-shell-only'],
+html:has([data-embedded-mobile='1']) [data-desktop-chrome='full-shell-only'],
+[data-mobile-embedded-shell='1'] [data-desktop-chrome='full-shell-only'],
+[data-embedded-mobile='1'] [data-desktop-chrome='full-shell-only'] {
+	display: none !important;
+}

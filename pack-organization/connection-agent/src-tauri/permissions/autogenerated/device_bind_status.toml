@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-device-bind-status"
+description = "Enables the device_bind_status command without any pre-configured scope."
+commands.allow = ["device_bind_status"]
+
+[[permission]]
+identifier = "deny-device-bind-status"
+description = "Denies the device_bind_status command without any pre-configured scope."
+commands.deny = ["device_bind_status"]

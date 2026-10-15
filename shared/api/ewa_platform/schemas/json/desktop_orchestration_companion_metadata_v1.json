@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://eliteew.ru/schemas/ewa/desktop_orchestration_companion_metadata_v1.json",
+  "title": "EWA desktop orchestration turn — optional metadata.companion (v1)",
+  "description": "Wire shape for client hints under ewa_desktop_orchestration_v1 payload.metadata. Malformed values are dropped server-side; unknown top-level metadata keys and unknown companion keys are tolerated (companion extras ignored with debug logging). Canonical seed ids match api/schemas/ewa_companion.validate_seed.",
+  "$defs": {
+    "AmbientAdjustCompanionHintV1": {
+      "type": "object",
+      "description": "Optional telegraph aligning with companion action kind ambient_adjust normalization (services/ewa_companion/actions.py). Does not execute by itself — expansion stays in companion chat / ambient_actions pipeline.",
+      "properties": {
+        "mood": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Mood preset key routed through mood_palette (e.g. warm, focus, dusk)."
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Optional saturation scalar — clamp server-side."
+        },
+        "theme_ref": {
+          "type": "string",
+          "maxLength": 80,
+          "description": "Optional catalog theme discriminator when operator enables strict wiring."
+        },
+        "rationale": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Short audit string for journaling / Companion UI — never authoritative policy."
+        }
+      },
+      "additionalProperties": false
+    },
+    "CatalogSeedPersonaId": {
+      "type": "string",
+      "enum": ["parent", "mela", "zera", "kora", "tala", "feni"],
+      "description": "Catalog seed persona id (case-insensitive on the server after strip)."
+    },
+    "DesktopOrchestrationCompanionHintsV1": {
+      "type": "object",
+      "description": "Optional companion hints mirrored in turn persistence.client and SSE companion_context (normalized). At most one seed field is emitted: seed_persona_id is read first; client_seed_persona_id is used when seed_persona_id is absent.",
+      "properties": {
+        "ambient_adjust": {
+          "$ref": "#/$defs/AmbientAdjustCompanionHintV1",
+          "description": "Optional SPA hint that companion mood/ambient tooling may reinterpret when EWA_COMPANION_AMBIENT_ACTIONS_ENABLED and chat affordances permit."
+        },
+        "seed_persona_id": {
+          "$ref": "#/$defs/CatalogSeedPersonaId",
+          "description": "Preferred key for catalog seed hint."
+        },
+        "client_seed_persona_id": {
+          "$ref": "#/$defs/CatalogSeedPersonaId",
+          "description": "Alias for seed_persona_id when the preferred key is omitted."
+        },
+        "expect_companion_revision": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Optimistic concurrency: compare to loaded companion_revision when profile is loaded. Non-integer wire values may be coerced from decimal integer strings via server normalization; booleans and non-positive values are skipped with diagnostics (hints_warnings / server warnings)."
+        }
+      },
+      "additionalProperties": true
+    },
+    "DesktopOrchestrationTurnMetadataExtensionsV1": {
+      "type": "object",
+      "description": "Optional metadata bag on POST /api/v1/ewa/desktop-orchestration/turn payloads (ewa_desktop_orchestration_v1). Beyond companion, additional keys are accepted and ignored by companion normalization.",
+      "properties": {
+        "companion": {
+          "$ref": "#/$defs/DesktopOrchestrationCompanionHintsV1"
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

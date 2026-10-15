@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ai-local-status"
+description = "Enables the ai_local_status command without any pre-configured scope."
+commands.allow = ["ai_local_status"]
+
+[[permission]]
+identifier = "deny-ai-local-status"
+description = "Denies the ai_local_status command without any pre-configured scope."
+commands.deny = ["ai_local_status"]

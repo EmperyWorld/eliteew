@@ -1,0 +1,45 @@
+# Build from repo root of template: site-templates/olenti
+# docker build -f docker/Dockerfile.api -t site-studio-olenti-api:local .
+FROM node:20-bookworm-slim AS builder
+WORKDIR /app
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssl ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+COPY docker/build-uploads-bootstrap.sh /tmp/build-uploads-bootstrap.sh
+COPY src/image ./src/image
+COPY src/assets/olga.webp ./src/assets/olga.webp
+COPY src/assets/products ./src/assets/products
+RUN mkdir -p /bootstrap-uploads && sh /tmp/build-uploads-bootstrap.sh /app /bootstrap-uploads
+
+COPY server/package.json server/package-lock.json ./
+COPY server/prisma ./prisma
+COPY server/prisma.config.ts ./prisma.config.ts
+RUN npm ci
+
+COPY server/tsconfig.json ./
+COPY server/src ./src
+COPY docker/entrypoint-api.mjs ./docker/entrypoint-api.mjs
+RUN npm run tsc:build:api \
+  && npm prune --omit=dev
+
+FROM node:20-bookworm-slim AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends openssl ca-certificates \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /usr/local/lib/node_modules/npm \
+  && rm -f /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack || true
+
+COPY --from=builder /bootstrap-uploads ./bootstrap-uploads
+COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+COPY --from=builder /app/docker/entrypoint-api.mjs ./docker/entrypoint-api.mjs
+
+EXPOSE 3000
+ENTRYPOINT ["node", "/app/docker/entrypoint-api.mjs"]

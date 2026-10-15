@@ -1,0 +1,13 @@
+node_modules
+.next
+data
+.git
+.gitignore
+*.log
+coverage
+.vercel
+README.md
+vitest.config.ts
+**/__tests__
+**/*.test.ts
+.env*

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-fofline-spa-pack-sync"
+description = "Enables the fofline_spa_pack_sync command without any pre-configured scope."
+commands.allow = ["fofline_spa_pack_sync"]
+
+[[permission]]
+identifier = "deny-fofline-spa-pack-sync"
+description = "Denies the fofline_spa_pack_sync command without any pre-configured scope."
+commands.deny = ["fofline_spa_pack_sync"]

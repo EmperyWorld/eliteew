@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  AppAuth merges RedirectUriReceiverActivity; app MainActivity handles oauth2redirect with path.
+  Remove library receiver here (appauth is a direct dependency of :core:auth) so app lint does not MissingClass.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Package visibility for SSO browser catalog (DEBT-X-03). Merges into :app. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="http" />
+        </intent>
+    </queries>
+
+    <application>
+        <!--
+          Must stay default/standard launchMode. singleTask/singleInstance break
+          Activity Result contracts (StartActivityForResult): parent often gets
+          RESULT_CANCELED within ~1s and login never completes the code exchange.
+        -->
+        <activity
+            android:name="world.empery.mobile.core.auth.EmperySsoWebViewActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            tools:node="remove" />
+    </application>
+</manifest>

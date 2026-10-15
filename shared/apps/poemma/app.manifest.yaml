@@ -1,0 +1,24 @@
+# EliteEW product app manifest
+id: poemma
+title: Poemma
+edition_default:
+  cloud: true
+  onprem: true
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: PoemmaApp
+    icon: app-poemma
+  api:
+    prefixes:
+      - /api/v1/desktop/poemma
+  jobs:
+    queues: []
+client:
+  offline_capable: partial
+  remote_tools_allowlist: []

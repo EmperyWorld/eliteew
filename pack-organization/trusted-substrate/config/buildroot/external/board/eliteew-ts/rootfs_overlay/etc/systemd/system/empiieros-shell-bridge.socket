@@ -1,0 +1,21 @@
+[Unit]
+Description=EmpiierOS Shell authenticated bridge ingress
+Documentation=file:///opt/empiieros/docs/RUNTIME.md
+Wants=empiieros-runtime.service
+# Do not After=empiieros-runtime.service: the Runtime has DefaultDependencies
+# (After=basic.target), and basic.target After=sockets.target. Ordering this
+# sockets.target unit after Runtime creates a cycle and systemd skips the
+# frontend socket.
+
+[Socket]
+ListenStream=/run/empiieros-shell/runtime.sock
+SocketUser=eliteew-ts
+SocketGroup=eliteew-ts
+SocketMode=0600
+DirectoryMode=0755
+Service=empiieros-shell-bridge.service
+RemoveOnStop=true
+FlushPending=true
+
+[Install]
+WantedBy=sockets.target

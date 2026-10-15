@@ -1,0 +1,1169 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EWA companion chat operations (frontend pilot, wave 9)",
+    "version": "1.0.0",
+    "description": "Hand-maintained slice for companion chat SSE stream (`POST /api/v1/ewa/companion-chat/stream`), task-run operations (`/api/v1/ewa/companion-chat/task-runs*`), and structured action notices. Mirrors `companion_chat.py` + `gateways/routers/companion_chat.py` + `companion/turn/chat_turn.py` (`iter_companion_chat_stream`). Regenerate TS: `pnpm run openapi:pilot:ewa-companion-chat`."
+  },
+  "paths": {
+    "/api/v1/ewa/companion-chat/stream": {
+      "post": {
+        "tags": [
+          "EWA - Companion chat"
+        ],
+        "operationId": "ewa_companion_chat_stream",
+        "summary": "Companion chat (streaming): one user message → SSE delta + final reply",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanionChatMessageIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "`text/event-stream` — SSE blocks `event: <name>\\ndata: <json>\\n\\n` plus `: keep-alive` (~2 s). Primary chat events: **delta** → CompanionChatStreamDelta; **final** → CompanionChatStreamFinal (includes surface_blocks / CompanionSurfaceBlockOut); **actions** → CompanionChatStreamActions; **error** → CompanionChatStreamError; **done** → CompanionChatStreamDone.",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CompanionChatStreamDelta"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CompanionChatStreamFinal"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CompanionChatStreamActions"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CompanionChatStreamError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CompanionChatStreamDone"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error (e.g. empty message without image)"
+          },
+          "503": {
+            "description": "EWA Postgres pool unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/ewa/companion-chat/task-runs": {
+      "get": {
+        "tags": [
+          "EWA - Companion chat"
+        ],
+        "operationId": "ewa_companion_chat_task_runs_list",
+        "summary": "Companion chat operations: list recent task runs",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10
+            }
+          },
+          {
+            "name": "include_steps",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Latest durable companion task runs for the current principal (active first)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanionTaskRunsOut"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "EWA Postgres pool unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/ewa/companion-chat/task-runs/{run_id}/confirm": {
+      "post": {
+        "tags": [
+          "EWA - Companion chat"
+        ],
+        "operationId": "ewa_companion_chat_task_run_confirm",
+        "summary": "Companion chat operations: confirm or cancel awaiting task run",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompanionTaskRunConfirmIn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Confirm/cancel applied; reply/actions for SPA dispatch plus updated run row",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanionTaskRunConfirmOut"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Task run not found for principal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpErrorDetail"
+                },
+                "examples": {
+                  "not_found": {
+                    "value": {
+                      "detail": "companion_task_run_not_found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Stale revision or run not awaiting confirmation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpErrorDetail"
+                },
+                "examples": {
+                  "revision_conflict": {
+                    "value": {
+                      "detail": "companion_task_run_revision_conflict"
+                    }
+                  },
+                  "not_awaiting": {
+                    "value": {
+                      "detail": "companion_task_run_not_awaiting_confirmation"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error (e.g. decision not confirm|cancel)"
+          },
+          "502": {
+            "description": "Confirm handler failed to return a task run row"
+          },
+          "503": {
+            "description": "EWA Postgres pool unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CompanionShellWindowIn": {
+        "type": "object",
+        "properties": {
+          "window_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "app_component": {
+            "type": "string",
+            "maxLength": 96,
+            "default": ""
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 256,
+            "default": ""
+          },
+          "z_index": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2000000,
+            "default": 0
+          },
+          "minimized": {
+            "type": "boolean",
+            "default": false
+          },
+          "desktop_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 128
+          },
+          "surface_excerpt": {
+            "type": "string",
+            "maxLength": 4000,
+            "default": ""
+          },
+          "surface_selection": {
+            "type": "string",
+            "maxLength": 4000,
+            "default": ""
+          },
+          "surface_listing": {
+            "type": "string",
+            "maxLength": 4000,
+            "default": ""
+          }
+        },
+        "required": [
+          "window_id"
+        ],
+        "additionalProperties": false
+      },
+      "CompanionShellContextIn": {
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "type": "integer",
+            "default": 1
+          },
+          "active_desktop_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 128
+          },
+          "active_window_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 128
+          },
+          "windows": {
+            "type": "array",
+            "maxItems": 40,
+            "items": {
+              "$ref": "#/components/schemas/CompanionShellWindowIn"
+            },
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "CompanionChatImageAttachmentIn": {
+        "type": "object",
+        "properties": {
+          "mime_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "data_base64": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 6000000
+          }
+        },
+        "required": [
+          "mime_type",
+          "data_base64"
+        ],
+        "additionalProperties": false
+      },
+      "CompanionChatMessageIn": {
+        "type": "object",
+        "description": "Inbound user line for one companion chat turn (sync message or SSE stream).",
+        "properties": {
+          "message": {
+            "type": "string",
+            "maxLength": 12000,
+            "default": ""
+          },
+          "image_attachment": {
+            "$ref": "#/components/schemas/CompanionChatImageAttachmentIn"
+          },
+          "shell_context": {
+            "$ref": "#/components/schemas/CompanionShellContextIn"
+          },
+          "client_turn_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 128
+          }
+        },
+        "additionalProperties": false
+      },
+      "CompanionChatStreamDelta": {
+        "properties": {
+          "chunk": {
+            "type": "string",
+            "title": "Chunk"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chunk"
+        ],
+        "title": "CompanionChatStreamDelta",
+        "description": "SSE event ``delta``: incremental visible reply text."
+      },
+      "CompanionChatStreamFinal": {
+        "properties": {
+          "reply": {
+            "type": "string",
+            "title": "Reply"
+          },
+          "companion_revision": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Companion Revision"
+          },
+          "actions": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "task_run": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Task Run"
+          },
+          "transformed_this_turn": {
+            "type": "boolean",
+            "title": "Transformed This Turn",
+            "description": "True when this turn triggered a persona **transform** event (forward Arlika or restore EWA); SSE may emit ``transform``.",
+            "default": false
+          },
+          "transform_event_kind": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transform Event Kind",
+            "description": "When set with ``transformed_this_turn``: ``\"arlika\"`` (v1 forward), ``\"ewa_restore\"`` (v1 revert), ``\"ewa_to_arly\"`` (enter / switch to ``arlika_v2``), ``\"arly_to_ewa\"`` (v2 → soft EWA) — clip selection for SSE."
+          },
+          "desktop_config_patch_applied": {
+            "type": "boolean",
+            "title": "Desktop Config Patch Applied",
+            "description": "True when companion ``patch_desktop_config`` was executed server-side (PATCH user's desktop/config).",
+            "default": false
+          },
+          "turn_plan_hint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Turn Plan Hint",
+            "description": "Optional UI hint when the orchestrator queued the next step in ``companion_turn_plan_v1``."
+          },
+          "turn_plan_next_tool": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Turn Plan Next Tool",
+            "description": "Optional next queued tool id (e.g. ``music_generation`` / ``file_open``)."
+          },
+          "turn_plan_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Turn Plan Source",
+            "description": "Optional queue source tag (e.g. compound or file_study enqueue path)."
+          },
+          "output_surface": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Output Surface",
+            "description": "Optional companion output surface mode (chat, workflow_dag_builder, workflow_edit, file_list, document_editor, roadmap, script)."
+          },
+          "surface_blocks": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionSurfaceBlockOut"
+            },
+            "type": "array",
+            "title": "Surface Blocks",
+            "description": "Universal interactive/result blocks for Output Surface V2."
+          },
+          "execution_reports": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionExecutionReportV1"
+            },
+            "type": "array",
+            "title": "Execution Reports",
+            "description": "Structured per-turn execution reports (tool/step/branch outcomes)."
+          },
+          "orchestration_outcome": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "handled",
+                  "deferred_llm",
+                  "fell_through",
+                  "partial"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Orchestration Outcome",
+            "description": "Turn-level orchestrator disposition: handled, deferred_llm, fell_through, partial."
+          },
+          "proactive_suggestion": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProactiveSuggestionV1"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Optional deterministic proactive question (no LLM sidecar)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "reply",
+          "companion_revision"
+        ],
+        "title": "CompanionChatStreamFinal",
+        "description": "SSE event ``final``: same wire fields as sync ``CompanionChatMessageOut``."
+      },
+      "CompanionChatStreamActions": {
+        "properties": {
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionChatAction"
+            },
+            "type": "array",
+            "title": "Actions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "actions"
+        ],
+        "title": "CompanionChatStreamActions",
+        "description": "SSE event ``actions``: allowlisted desktop actions before ``final``."
+      },
+      "CompanionChatStreamError": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "CompanionChatStreamError",
+        "description": "SSE event ``error``: terminal failure (stream ends)."
+      },
+      "HttpErrorDetail": {
+        "type": "object",
+        "properties": {
+          "detail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "detail"
+        ],
+        "additionalProperties": true
+      },
+      "CompanionActionOutcome": {
+        "type": "string",
+        "enum": [
+          "ok",
+          "blocked",
+          "failed"
+        ],
+        "description": "Tray/dispatch outcome for SPA companion actions (`CompanionActionOutcome` / `CompanionChatActionOutcome` in TS)."
+      },
+      "CompanionActionNotice": {
+        "type": "object",
+        "description": "Tray-only notice when a server tool errors with no desktop actions (`augment_tool_result_actions_for_tray`). Dispatch is skipped.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "companion_action_notice"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/CompanionActionOutcome",
+            "description": "Server injection uses `failed`; tools may set `blocked` on other action types."
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "additionalProperties": false
+      },
+      "CompanionChatAction": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "CompanionChatAction",
+        "description": "Allowlisted desktop action from companion orchestration (open_app, notice, …)."
+      },
+      "CompanionTaskStepOut": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "run_id": {
+            "type": "string"
+          },
+          "step_index": {
+            "type": "integer"
+          },
+          "step_kind": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "input_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "output_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "error_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "run_id",
+          "step_index",
+          "step_kind",
+          "status",
+          "title",
+          "input_payload",
+          "output_payload",
+          "error_payload"
+        ],
+        "additionalProperties": true
+      },
+      "CompanionTaskRunOut": {
+        "type": "object",
+        "description": "Durable companion task-run row for the desktop operations panel.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "principal_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "intent_kind": {
+            "type": "string"
+          },
+          "user_message": {
+            "type": "string"
+          },
+          "plan_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "confirmation_state": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "result_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "error_payload": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "execution_mode": {
+            "type": "string",
+            "default": "sync"
+          },
+          "run_revision": {
+            "type": "integer",
+            "minimum": 1,
+            "default": 1,
+            "description": "Optimistic concurrency revision; incremented on successful `companion_task_run_update`."
+          },
+          "created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanionTaskStepOut"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "principal_id",
+          "status",
+          "intent_kind",
+          "user_message",
+          "plan_payload",
+          "confirmation_state",
+          "result_payload",
+          "error_payload",
+          "execution_mode",
+          "run_revision"
+        ],
+        "additionalProperties": true
+      },
+      "CompanionTaskRunsOut": {
+        "type": "object",
+        "properties": {
+          "runs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanionTaskRunOut"
+            }
+          }
+        },
+        "required": [
+          "runs"
+        ],
+        "additionalProperties": true
+      },
+      "CompanionTaskRunConfirmDecision": {
+        "type": "string",
+        "enum": [
+          "confirm",
+          "cancel"
+        ]
+      },
+      "CompanionTaskRunConfirmIn": {
+        "type": "object",
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/CompanionTaskRunConfirmDecision"
+          },
+          "expect_run_revision": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "When set and stored revision differs → 409 `companion_task_run_revision_conflict`."
+          }
+        },
+        "required": [
+          "decision"
+        ],
+        "additionalProperties": false
+      },
+      "CompanionTaskRunConfirmOut": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "default": true
+          },
+          "reply": {
+            "type": "string",
+            "default": ""
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanionChatAction"
+            }
+          },
+          "task_run": {
+            "$ref": "#/components/schemas/CompanionTaskRunOut"
+          }
+        },
+        "required": [
+          "ok",
+          "reply",
+          "actions",
+          "task_run"
+        ],
+        "additionalProperties": true
+      },
+      "CompanionSurfaceBlockOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "text",
+              "result",
+              "workflow_timeline",
+              "confirm",
+              "choice",
+              "builder",
+              "history_ref"
+            ],
+            "title": "Kind"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": ""
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "Subtitle",
+            "default": ""
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": ""
+          },
+          "run_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Run Id"
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          },
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionSurfaceBlockActionOut"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "kind"
+        ],
+        "title": "CompanionSurfaceBlockOut",
+        "description": "Universal Output Surface V2 block: result, workflow timeline, confirm, choice or builder card."
+      },
+      "CompanionSurfaceBlockActionOut": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "label_ru": {
+            "type": "string",
+            "title": "Label Ru",
+            "default": ""
+          },
+          "label_en": {
+            "type": "string",
+            "title": "Label En",
+            "default": ""
+          },
+          "payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Payload"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "CompanionSurfaceBlockActionOut",
+        "description": "One declarative UI action on a universal surface block."
+      },
+      "CompanionChatStreamDone": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "CompanionChatStreamDone",
+        "description": "SSE event ``done``: successful terminal marker."
+      },
+      "CompanionChatStreamPayloadDoc": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CompanionChatStreamDelta"
+          },
+          {
+            "$ref": "#/components/schemas/CompanionChatStreamFinal"
+          },
+          {
+            "$ref": "#/components/schemas/CompanionChatStreamActions"
+          },
+          {
+            "$ref": "#/components/schemas/CompanionChatStreamError"
+          },
+          {
+            "$ref": "#/components/schemas/CompanionChatStreamDone"
+          }
+        ],
+        "title": "CompanionChatStreamPayloadDoc",
+        "description": "Documented union of companion-chat SSE ``data:`` JSON payloads (not SSE framing)."
+      },
+      "CompanionTaskRunSnapshotSseOut": {
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/CompanionTaskRunOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "run"
+        ],
+        "title": "CompanionTaskRunSnapshotSseOut",
+        "description": "SSE ``run_snapshot`` data payload on task-events streams."
+      },
+      "CompanionTaskLifecycleSsePayloadDoc": {
+        "anyOf": [
+          {
+            "$ref": "#/components/schemas/CompanionTaskRunSnapshotSseOut"
+          },
+          {
+            "additionalProperties": true,
+            "type": "object"
+          }
+        ],
+        "title": "CompanionTaskLifecycleSsePayloadDoc",
+        "description": "Task lifecycle SSE JSON (``run_snapshot`` typed; other events honest bags)."
+      },
+      "CompanionExecutionReportV1": {
+        "properties": {
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version",
+            "default": 1
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "tool",
+              "step",
+              "branch",
+              "turn",
+              "run",
+              "persist",
+              "sse"
+            ],
+            "title": "Scope"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "succeeded",
+              "failed",
+              "partial",
+              "not_started",
+              "skipped",
+              "unavailable"
+            ],
+            "title": "Outcome"
+          },
+          "reason_code": {
+            "type": "string",
+            "title": "Reason Code",
+            "default": ""
+          },
+          "reason_message_ru": {
+            "type": "string",
+            "title": "Reason Message Ru",
+            "default": ""
+          },
+          "reason_message_en": {
+            "type": "string",
+            "title": "Reason Message En",
+            "default": ""
+          },
+          "resume_conditions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Resume Conditions"
+          },
+          "refs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Refs"
+          },
+          "attempted": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Attempted"
+          },
+          "ground_truth": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Ground Truth"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scope",
+          "outcome"
+        ],
+        "title": "CompanionExecutionReportV1",
+        "description": "One structured report for a command, subtask, or orchestration boundary."
+      },
+      "ProactiveSuggestionV1": {
+        "properties": {
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version",
+            "default": 1
+          },
+          "suggestion_id": {
+            "type": "string",
+            "title": "Suggestion Id",
+            "default": ""
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "gap",
+              "risk",
+              "next_step",
+              "run_complete_followup"
+            ],
+            "title": "Kind"
+          },
+          "question_ru": {
+            "type": "string",
+            "title": "Question Ru",
+            "default": ""
+          },
+          "question_en": {
+            "type": "string",
+            "title": "Question En",
+            "default": ""
+          },
+          "quick_replies": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Quick Replies"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "turn_counter",
+              "subtask_complete",
+              "subtask_failed",
+              "observation",
+              "turn_plan",
+              "active_run",
+              "context_gap"
+            ],
+            "title": "Source"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1,
+            "minimum": 0,
+            "title": "Confidence",
+            "default": 0.5
+          },
+          "refs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Refs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "source"
+        ],
+        "title": "ProactiveSuggestionV1",
+        "description": "Deterministic structured question — not an imperative completion claim."
+      }
+    }
+  }
+}

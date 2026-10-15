@@ -1,0 +1,105 @@
+{
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "**/.pytest_cache",
+    "**/.mypy_cache",
+    "**/.ruff_cache",
+    "**/node_modules",
+    "**/.venv",
+    "**/venv",
+    "**/tests",
+    "**/migrations"
+  ],
+  "venvPath": "../..",
+  "venv": ".venv",
+  "pythonVersion": "3.14",
+  "pythonPlatform": "Linux",
+  "executionEnvironments": [
+    {
+      "root": "routers",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        ".",
+        "../",
+        "../../shared/tools",
+        "core",
+        "services",
+        "routers",
+        "repositories",
+        "models",
+        "schemas",
+        "elite_chat",
+        "middleware",
+        "monitoring",
+        "utils",
+        "tasks",
+        "scrapers",
+        "../../.venv/lib/python3.14/site-packages",
+        "../../.venv/lib64/python3.14/site-packages"
+      ],
+      "reportUnusedFunction": "none"
+    },
+    {
+      "root": "ewa_platform/companion/orchestration/tools",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        ".",
+        "../",
+        "../../shared/tools",
+        "core",
+        "services",
+        "routers",
+        "repositories",
+        "models",
+        "schemas",
+        "elite_chat",
+        "middleware",
+        "monitoring",
+        "utils",
+        "tasks",
+        "scrapers",
+        "../../.venv/lib/python3.14/site-packages",
+        "../../.venv/lib64/python3.14/site-packages"
+      ],
+      "reportUnusedFunction": "none"
+    },
+    {
+      "root": ".",
+      "pythonVersion": "3.14",
+      "pythonPlatform": "Linux",
+      "extraPaths": [
+        ".",
+        "../",
+        "../../shared/tools",
+        "core",
+        "services",
+        "routers",
+        "repositories",
+        "models",
+        "schemas",
+        "elite_chat",
+        "middleware",
+        "monitoring",
+        "utils",
+        "tasks",
+        "scrapers",
+        "../../.venv/lib/python3.14/site-packages",
+        "../../.venv/lib64/python3.14/site-packages"
+      ]
+    }
+  ],
+  "typeCheckingMode": "basic",
+  "reportMissingImports": "none",
+  "reportMissingTypeStubs": "none",
+  "reportUnusedImport": "warning",
+  "reportUnusedClass": "warning",
+  "reportUnusedFunction": "warning",
+  "reportUnusedVariable": "warning",
+  "reportGeneralTypeIssues": "none",
+  "reportArgumentType": "none"
+}

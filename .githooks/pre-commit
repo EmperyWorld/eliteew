@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Zero-Trust Git pre-commit — see documentation/platform/ZERO-TRUST-GIT-HOOKS.md
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+exec bash "${ROOT}/scripts/eliteew/zero-trust-pre-commit.sh" all

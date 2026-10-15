@@ -1,0 +1,45 @@
+# =============================================================================
+# EliteEW · stack-mobile-release — отдельный сервер OTA (manifest + APK)
+# =============================================================================
+# Канон APK: local/binaries/empery-mobile.apk (+ .meta.json, empery-mobile.manifest.json)
+#
+# Запуск из корня репо:
+#   bash docker/scripts/mobile-release-stack.sh up
+#   bash docker/scripts/serve-mobile-apk-tunnel.sh publish
+#   bash docker/scripts/mobile-release-stack.sh smoke
+#
+# Внутри сети stack0 API: http://stack-mobile-release/v1/manifest.json
+# Локальный smoke: http://127.0.0.1:29180/v1/manifest.json
+# =============================================================================
+name: stack-mobile-release
+
+networks:
+  ew_net_6211:
+    external: true
+
+services:
+  mobile-release:
+    image: nginx:1.27-alpine
+    container_name: stack-mobile-release
+    networks:
+      - ew_net_6211
+    ports:
+      - "${MOBILE_RELEASE_BIND:-127.0.0.1:29180}:80"
+    volumes:
+      - ../../local/binaries:/srv/mobile-release:ro,z
+      - ./mobile-release/nginx.conf:/etc/nginx/nginx.conf:ro,z
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    labels:
+      - stack=mobile-release
+      - service=mobile-apk-ota
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/health | grep -q ok"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

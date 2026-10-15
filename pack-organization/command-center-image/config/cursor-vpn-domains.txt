@@ -1,0 +1,11 @@
+# Domains routed via Amnezia (mode 4). One host per line; # comments OK.
+# Wildcards (*.api5…) are not DNS-resolvable — add concrete names to cursor-vpn-domains.extra
+api2.cursor.sh
+api3.cursor.sh
+api4.cursor.sh
+repo42.cursor.sh
+authenticator.cursor.sh
+marketplace.cursorapi.com
+cursor-cdn.com
+downloads.cursor.com
+authentication.cursor.sh

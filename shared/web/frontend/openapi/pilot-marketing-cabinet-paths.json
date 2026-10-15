@@ -1,0 +1,24 @@
+{
+	"$schema_comment": "Single source for marketing-cabinet pilot pathExact; used by openapi-extract-pilots.mjs and Vitest.",
+	"paths": [
+		"/api/v1/marketing-cabinet/ai/assist/stream",
+		"/api/v1/marketing-cabinet/ai/runs",
+		"/api/v1/marketing-cabinet/ai/runs/{run_id}",
+		"/api/v1/marketing-cabinet/amka/project/{project_id}/runs",
+		"/api/v1/marketing-cabinet/amka/runs",
+		"/api/v1/marketing-cabinet/amka/runs/{run_id}",
+		"/api/v1/marketing-cabinet/amka/runs/{run_id}/core-alignment",
+		"/api/v1/marketing-cabinet/autofill/async",
+		"/api/v1/marketing-cabinet/chat/history",
+		"/api/v1/marketing-cabinet/chat/message",
+		"/api/v1/marketing-cabinet/chat/message/stream",
+		"/api/v1/marketing-cabinet/imc/types",
+		"/api/v1/marketing-cabinet/projects/{project_id}/live-jobs-summary",
+		"/api/v1/marketing-cabinet/companies/{company_id}/live-jobs-summary",
+		"/api/v1/marketing-cabinet/projects/{project_id}/dashboard",
+		"/api/v1/marketing-cabinet/projects/{project_id}/graph",
+		"/api/v1/marketing-cabinet/projects/{project_id}/overview",
+		"/api/v1/marketing-cabinet/researches",
+		"/api/v1/marketing-cabinet/researches/types"
+	]
+}

@@ -1,0 +1,2 @@
+# TLD zones blocked for egress (dnf mirrors, curl). One label per line: ua, not .ua
+ua

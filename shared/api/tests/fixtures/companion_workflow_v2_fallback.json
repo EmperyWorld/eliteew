@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "workflow_id": "user_dag_fallback_demo",
+  "version": 1,
+  "title_ru": "Fallback demo",
+  "title_en": "Fallback demo",
+  "enabled": false,
+  "triggers": [
+    {
+      "type": "regex",
+      "pattern": "^dag fallback demo$"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1",
+      "type": "prompt_gen",
+      "inputs": { "prompt": "{{turn.user_line}}" },
+      "outputs": { "reply": { "type": "text" } }
+    },
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2",
+      "type": "prompt_gen",
+      "inputs": { "prompt": "{{eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1.reply}}" },
+      "outputs": { "reply": { "type": "text" } },
+      "on_error": {
+        "strategy": "fallback_value",
+        "fallback_outputs": { "reply": "fallback-ok" }
+      }
+    },
+    {
+      "id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3",
+      "type": "logic_filter",
+      "inputs": {
+        "text": "{{eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2.reply}}",
+        "contains": "fallback"
+      },
+      "outputs": { "matched": { "type": "boolean" } }
+    }
+  ],
+  "edges": [
+    {
+      "source_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee1",
+      "target_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2"
+    },
+    {
+      "source_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee2",
+      "target_node_id": "eeeeeeee-eeee-4eee-8eee-eeeeeeeeeee3"
+    }
+  ],
+  "execution_mode": "sync"
+}

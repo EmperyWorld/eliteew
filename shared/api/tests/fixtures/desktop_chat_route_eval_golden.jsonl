@@ -1,0 +1,16 @@
+{"id": "legacy-smalltalk-001", "user_text": "Привет, как дела?", "expect_phase": "legacy", "tags": ["smalltalk"]}
+{"id": "legacy-smalltalk-002", "user_text": "Ок, понял", "expect_phase": "legacy", "tags": ["ack"]}
+{"id": "legacy-short-001", "user_text": "Что думаете?", "expect_phase": "legacy", "tags": ["short"]}
+{"id": "blueprint-doc-001", "user_text": "Сделай единый техплан по проекту", "expect_phase": "blueprint", "tags": ["document"]}
+{"id": "blueprint-doc-002", "user_text": "Нужен roadmap на 6 месяцев", "expect_phase": "blueprint", "tags": ["document"]}
+{"id": "blueprint-doc-003", "user_text": "Подготовьте бизнес-план с монетизацией", "expect_phase": "blueprint", "tags": ["document"]}
+{"id": "blueprint-doc-004", "user_text": "Соберите общий ответ от команды одним документом", "expect_phase": "blueprint", "tags": ["document"]}
+{"id": "blueprint-doc-005", "user_text": "Сделайте go-to-market plan", "expect_phase": "blueprint", "tags": ["document"]}
+{"id": "uncertain-medium-001", "user_text": "Мне интересно услышать ваши мнения о том, как команда видит ближайшие шаги, какие есть сильные стороны и слабые места в текущем подходе, и что стоит обсудить на следующей встрече без подготовки финального материала заранее.", "expect_phase": "uncertain", "tags": ["gray"]}
+{"id": "legacy-joint-followup-001", "user_text": "добавь раздел про риски", "expect_phase": "blueprint", "tags": ["followup"], "history": [{"role": "assistant", "content": "Совместный план", "metadata": {"desktop_ensemble_joint": true, "desktop_ensemble_blueprint": true}}]}
+{"id": "legacy-joint-ack-001", "user_text": "ясно...", "expect_phase": "legacy", "tags": ["ack", "followup"], "history": [{"role": "assistant", "content": "Совместный план", "metadata": {"desktop_ensemble_joint": true}}]}
+{"id": "blueprint-306090-001", "user_text": "Сделайте 30 60 90", "expect_phase": "blueprint", "tags": ["followup"], "history": [{"role": "assistant", "content": "Совместный план", "metadata": {"desktop_ensemble_joint": true}}]}
+{"id": "blueprint-registry-001", "user_text": "Сделайте реестр из 60 уникальных приложений", "expect_phase": "blueprint", "tags": ["document", "wave-c"]}
+{"id": "legacy-per-member-registry-001", "user_text": "Каждый участник предлагает ровно 3 разных приложения; не дублируйте коллег", "expect_phase": "legacy", "tags": ["document", "council", "registry"]}
+{"id": "blueprint-list-001", "user_text": "Нужен список из 40 модулей по пунктам", "expect_phase": "blueprint", "tags": ["document", "wave-c"]}
+{"id": "blueprint-backlog-001", "user_text": "Соберите backlog MVP по фичам", "expect_phase": "blueprint", "tags": ["document", "wave-c"]}

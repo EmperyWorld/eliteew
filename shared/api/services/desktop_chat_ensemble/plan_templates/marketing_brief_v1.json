@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "id": "marketing_brief_v1",
+  "version": 4,
+  "title": "Маркетинговый бриф",
+  "description": "CMO-уровень: цель, аудитория, JTBD, ценностное предложение, messaging и проверка гипотез. При ростере 4–6 — креатив, sales enablement и ROI-рамка.",
+  "artifact_type": "marketing_brief",
+  "required_context": [
+    "business_goal",
+    "product_or_offer",
+    "target_audience",
+    "evidence_or_assumptions"
+  ],
+  "quality_rubric": [
+    "Отдели известные факты от гипотез и явно назови пробелы данных.",
+    "Не придумывай рынок, каналы, бюджеты, CAC/LTV, MQL и метрики без входных данных.",
+    "Дай профессиональный marketing artifact: цель, аудитория, JTBD, positioning, proof points, risks, validation.",
+    "Если контекста мало, делай preliminary brief, а не финальный маркетинговый план."
+  ],
+  "output_sections": [
+    "Цель и основание",
+    "Аудитория и JTBD",
+    "Ценность, риски и проверка",
+    "Креатив и big idea",
+    "Sales enablement",
+    "ROI и cash discipline"
+  ],
+  "slots": {},
+  "max_steps_per_hero": 2,
+  "allow_mermaid": true,
+  "steps": [
+    {
+      "step_id": "m1",
+      "title": "Цель и основание",
+      "instruction_for_model": "Зафиксируй бизнес-цель, продукт/оффер, ситуацию использования, что подтверждено входными материалами и чего не хватает. Ссылки — только `【P1】`, `【C1】`, `【D1】`, `【W1】`; ранее созданный AI-материал не выдавай за независимое подтверждение. Если данных мало, оформи preliminary brief: `Факты`, `Гипотезы`, `Нужно добрать`. Не раскрывай сегментацию/JTBD и позиционирование из следующих блоков, не перечисляй каналы, бюджеты, MQL и метрики. Без `##`, без mermaid.",
+      "required_slots": {
+        "brand_voice": 3,
+        "rigor": 2,
+        "growth": 2
+      },
+      "scope_fence": "Только цель, исходные материалы, факты, гипотезы и пробелы. Без аудитории/JTBD, positioning, messaging, каналов и плана запуска.",
+      "output_format": [
+        "Цель решения",
+        "Факты и основания",
+        "Гипотезы",
+        "Нужно добрать"
+      ]
+    },
+    {
+      "step_id": "m2",
+      "title": "Аудитория и JTBD",
+      "instruction_for_model": "Опиши 1–3 приоритетных сегмента или buyer persona только в пределах входных данных. Для каждого: job-to-be-done, trigger, pain/barrier, текущая альтернатива, критерий доверия. Если сегмент не задан, предложи осмысленные гипотезы и явно пометь их. В конце дай один mermaid flowchart LR/TB: ситуация клиента → job → барьер → инсайт → оффер → ожидаемый результат. Не повторяй intake из m1, не придумывай каналы, регионы, MQL, budgets или performance metrics. Без `##` вне code fence.",
+      "required_slots": {
+        "brand_voice": 3,
+        "research": 2,
+        "behavioral": 2
+      },
+      "scope_fence": "Только аудитория/JTBD/барьеры и логика ценности. Не писать позиционирование, channel plan, бюджет и roadmap.",
+      "output_format": [
+        "Сегмент",
+        "JTBD",
+        "Барьеры и альтернативы",
+        "Что проверить"
+      ]
+    },
+    {
+      "step_id": "m3",
+      "title": "Ценность, риски и проверка",
+      "instruction_for_model": "Сформулируй positioning statement в формате: `Для [сегмент], которому нужно [job], [продукт] — это [категория], который [ключевая ценность], в отличие от [альтернатива], потому что [proof/reason to believe]`. Затем дай messaging hierarchy: главное обещание, 3 proof points, 3 риска формулировок/overclaim и проверку гипотезы на практике. Не повторяй цель, перечень фактов, сегменты и JTBD из предыдущих блоков; используй их как вход. Если доказательств нет, так и напиши. Не добавляй новый mermaid, roadmap, product tasks, длинный GTM и юридические гарантии. Без `##`.",
+      "required_slots": {
+        "brand_voice": 3,
+        "legal_edge": 2,
+        "growth": 2
+      },
+      "scope_fence": "Только positioning, messaging, proof points, риски обещаний и validation. Без channel plan и без бюджета.",
+      "output_format": [
+        "Positioning statement",
+        "Messaging hierarchy",
+        "Risks of wording",
+        "Validation plan"
+      ]
+    },
+    {
+      "step_id": "m4",
+      "title": "Креатив, big idea и proof через продукт",
+      "min_roster": 4,
+      "instruction_for_model": "Дай одну big idea и 2–3 креативных направления, которые опираются на уже зафиксированное positioning. Каждое направление: insight, идея, proof через продукт (не через самолюбование бренда), риск. Не выдумывай исследования и рейтинги. Не повторяй m1–m3. Без имён героев, без `##`, без нового mermaid.",
+      "required_slots": {
+        "creative": 3,
+        "brand_voice": 3,
+        "behavioral": 3
+      },
+      "scope_fence": "Только креативные направления и product proof. Без channel media-plan и бюджета.",
+      "output_format": [
+        "Big idea",
+        "Creative route",
+        "Product proof",
+        "Risk"
+      ]
+    },
+    {
+      "step_id": "m5",
+      "title": "Sales enablement и рост воронки",
+      "min_roster": 5,
+      "instruction_for_model": "Переведи бриф в язык продаж: какие материалы нужны SDR/AE, какие возражения закрывает messaging, какой следующий коммерческий шаг. Не придумывай MQL, CAC и pipeline $. Не дублируй positioning. Без имён героев, без `##`, без mermaid.",
+      "required_slots": {
+        "growth": 3,
+        "operations": 3
+      },
+      "scope_fence": "Только sales enablement и funnel handoff. Без креативных маршрутов и ROI-таблицы.",
+      "output_format": [
+        "Enablement assets",
+        "Objection bridge",
+        "Next commercial step",
+        "Missing inputs"
+      ]
+    },
+    {
+      "step_id": "m6",
+      "title": "ROI-рамка и cash discipline",
+      "min_roster": 6,
+      "instruction_for_model": "Задай финансовую рамку проверки маркетинга: какие типы затрат и сигналов ROI смотреть, какие эксперименты убивать рано, какие данные добрать. Не выдумывай числа. Не повторяй креатив и sales enablement. Без имён героев, без `##`, без mermaid.",
+      "required_slots": {
+        "finance": 3,
+        "rigor": 3,
+        "growth": 1
+      },
+      "scope_fence": "Только ROI/cash discipline рамка. Без нового messaging.",
+      "output_format": [
+        "Cost categories",
+        "ROI signals",
+        "Kill criteria",
+        "Data to collect"
+      ]
+    }
+  ],
+  "document_outline": [
+    {
+      "heading": "Цель и основание",
+      "step_ids": [
+        "m1"
+      ]
+    },
+    {
+      "heading": "Аудитория и JTBD",
+      "step_ids": [
+        "m2"
+      ]
+    },
+    {
+      "heading": "Ценность, риски и проверка",
+      "step_ids": [
+        "m3"
+      ]
+    },
+    {
+      "heading": "Креатив и big idea",
+      "step_ids": [
+        "m4"
+      ]
+    },
+    {
+      "heading": "Sales enablement",
+      "step_ids": [
+        "m5"
+      ]
+    },
+    {
+      "heading": "ROI и cash discipline",
+      "step_ids": [
+        "m6"
+      ]
+    }
+  ]
+}

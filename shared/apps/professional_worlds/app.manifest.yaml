@@ -1,0 +1,25 @@
+# EliteEW product app manifest
+# edition_default stays false: cloud-full must not grow. FoFline opts in via extra_app_components.
+id: professional_worlds
+title: Professional Worlds
+edition_default:
+  cloud: false
+  onprem: false
+  client: false
+requires:
+  - auth
+  - postgres
+optional_runtime:
+  kind: in_process
+surfaces:
+  desktop:
+    app_component: ProfessionalWorlds
+    icon: app-professional-worlds
+  api:
+    prefixes:
+      - /api/v1/professional-worlds
+  jobs:
+    queues: []
+client:
+  offline_capable: none
+  remote_tools_allowlist: []

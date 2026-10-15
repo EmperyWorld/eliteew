@@ -1,0 +1,15 @@
+[Unit]
+Description=EliteEW Trusted Substrate pre-license nftables
+DefaultDependencies=no
+After=systemd-modules-load.service network-pre.target
+Before=network.target network-online.target multi-user.target
+Wants=network-pre.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/eliteew-ts-prelicense-nft-apply
+ExecReload=/usr/local/sbin/eliteew-ts-prelicense-nft-apply
+
+[Install]
+WantedBy=multi-user.target

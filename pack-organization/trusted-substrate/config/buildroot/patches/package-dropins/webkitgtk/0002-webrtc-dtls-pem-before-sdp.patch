@@ -1,0 +1,271 @@
+From: EmpiierOS Trusted Substrate
+Subject: [PATCH] WebRTC: set DTLS PEM on webrtcbin before SDP
+
+GStreamer 1.24 webrtcbin has no certificates property. WebKit left
+RTCConfiguration certificates as a FIXME and generateCertificate
+fingerprints empty. JVB then sees ICE without DTLS
+("No remote fingerprints"). Generate ECDSA P-256 PEM, set it on
+dtlssrtpdec / DTLS transports before READY/SDP, and fill sha-256
+fingerprints. Pin stays 2.52.6.
+
+---
+ Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.cpp | 120 +++++++++++++++++-
+ Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.h   |   6 +
+ Source/WebCore/Modules/mediastream/gstreamer/GStreamerWebRTCUtils.cpp   |  18 +-
+ 3 files changed, 140 insertions(+), 4 deletions(-)
+
+diff --git a/Source/WebCore/Modules/mediastream/gstreamer/GStreamerWebRTCUtils.cpp b/Source/WebCore/Modules/mediastream/gstreamer/GStreamerWebRTCUtils.cpp
+index 1111111..2222222 100644
+--- a/Source/WebCore/Modules/mediastream/gstreamer/GStreamerWebRTCUtils.cpp
++++ b/Source/WebCore/Modules/mediastream/gstreamer/GStreamerWebRTCUtils.cpp
+@@ -28,8 +28,10 @@
+ #include <cstdint>
+ #include <limits>
+ #include <openssl/bn.h>
++#include <openssl/evp.h>
+ #include <openssl/rsa.h>
+ #include <openssl/ssl.h>
++#include <openssl/x509.h>
+ #include <wtf/CryptographicallyRandomNumber.h>
+ #include <wtf/NeverDestroyed.h>
+ #include <wtf/TZoneMallocInlines.h>
+@@ -512,8 +514,22 @@ std::optional<Ref<RTCCertificate>> generateCertificate(Ref<SecurityOrigin>&& orig
+     GST_DEBUG("Generated certificate PEM: %s", pem.ascii().data());
+     auto serializedPrivateKey = privateKeySerialize(privateKey.get());
+     Vector<RTCCertificate::DtlsFingerprint> fingerprints;
+-    // FIXME: Fill fingerprints.
++    unsigned char digest[EVP_MAX_MD_SIZE];
++    unsigned int digestLen = 0;
++    if (X509_digest(x509.get(), EVP_sha256(), digest, &digestLen) && digestLen) {
++        Vector<Latin1Character> fingerprint;
++        fingerprint.reserveInitialCapacity(digestLen * 3);
++        static constexpr char hexDigits[] = "0123456789ABCDEF";
++        for (unsigned i = 0; i < digestLen; ++i) {
++            if (i)
++                fingerprint.append(':');
++            fingerprint.append(hexDigits[(digest[i] >> 4) & 0xf]);
++            fingerprint.append(hexDigits[digest[i] & 0xf]);
++        }
++        fingerprints.append({ "sha-256"_s, String(fingerprint.span()) });
++    }
+     auto expirationTime = WTF::WallTime::now().secondsSinceEpoch() + WTF::Seconds(expires);
+     return RTCCertificate::create(WTF::move(origin), expirationTime.milliseconds(), WTF::move(fingerprints), WTF::move(pem), WTF::move(serializedPrivateKey));
+ }
+ 
+diff --git a/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.h b/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.h
+index 1111111..2222222 100644
+--- a/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.h
++++ b/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.h
+@@ -24,6 +24,7 @@
+ #include "GStreamerDataChannelHandler.h"
+ #include "GStreamerPeerConnectionBackend.h"
++#include "MediaEndpointConfiguration.h"
+ #include "GStreamerRtpSenderBackend.h"
+ #include "GStreamerStatsCollector.h"
+ #include "GStreamerWebRTCCommon.h"
+@@ -232,6 +233,11 @@ private:
+ 
+     void maybeInsertNetSimForElement(GstBin*, GstElement*);
+ 
++    void ensureDtlsCertificatePem(const Vector<MediaEndpointConfiguration::CertificatePEM>&);
++    void applyDtlsCertificatePem();
++    void applyDtlsCertificateOnTransport(gpointer);
++    void applyDtlsCertificateOnTransceiver(GstWebRTCRTPTransceiver*);
++    String m_dtlsCertificatePem;
+     using NetSimOptions = HashMap<String, String>;
+     NetSimOptions netSimOptionsFromEnvironment(ASCIILiteral);
+     NetSimOptions m_srcNetSimOptions;
+diff --git a/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.cpp b/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.cpp
+index 1111111..2222222 100644
+--- a/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.cpp
++++ b/Source/WebCore/Modules/mediastream/gstreamer/GStreamerMediaEndpoint.cpp
+@@ -44,6 +44,7 @@
+ #include "Logging.h"
+ #include "MediaEndpointConfiguration.h"
+ #include "NotImplemented.h"
++#include "RTCCertificate.h"
+ #include "RTCDataChannel.h"
+ #include "RTCDataChannelEvent.h"
+ #include "RTCIceCandidate.h"
+@@ -154,6 +155,48 @@
+     gst_element_sync_state_with_parent(netsim);
+ }
+ 
++static gboolean dtlsAcceptPeerCertificate(gpointer, const gchar*, gpointer)
++{
++    return TRUE;
++}
++
++static void dtlsBindPeerCertificateAccept(gpointer object)
++{
++    if (!object || !g_signal_lookup("on-peer-certificate", G_OBJECT_TYPE(object)))
++        return;
++    g_signal_connect(object, "on-peer-certificate", G_CALLBACK(dtlsAcceptPeerCertificate), nullptr);
++}
++
++static void dtlsBindPeerCertificateAcceptRecursive(GstElement* root)
++{
++    if (!root)
++        return;
++    dtlsBindPeerCertificateAccept(root);
++    if (!GST_IS_BIN(root))
++        return;
++    GstIterator* it = gst_bin_iterate_recurse(GST_BIN_CAST(root));
++    GValue item = G_VALUE_INIT;
++    while (gst_iterator_next(it, &item) == GST_ITERATOR_OK) {
++        dtlsBindPeerCertificateAccept(g_value_get_object(&item));
++        g_value_reset(&item);
++    }
++    gst_iterator_free(it);
++}
++
++static void dtlsApplyPemAndAccept(GstElement* element, const String& pem)
++{
++    if (!element || pem.isEmpty())
++        return;
++    if (!g_object_class_find_property(G_OBJECT_GET_CLASS(element), "pem"))
++        return;
++    g_object_set(element, "pem", pem.utf8().data(), nullptr);
++    dtlsBindPeerCertificateAcceptRecursive(element);
++}
++
+ bool GStreamerMediaEndpoint::initializePipeline()
+@@ -323,12 +366,29 @@ bool GStreamerMediaEndpoint::initializePipeline()
+     g_signal_connect_swapped(m_webrtcBin.get(), "on-data-channel", G_CALLBACK(+[](GStreamerMediaEndpoint* endPoint, GstWebRTCDataChannel* channel) {
+         endPoint->onDataChannel(channel);
+     }), this);
+ 
++    g_signal_connect_swapped(m_webrtcBin.get(), "deep-element-added", G_CALLBACK(+[](GStreamerMediaEndpoint* endPoint, GstBin*, GstElement* element) {
++        auto factory = gst_element_get_factory(element);
++        if (!factory)
++            return;
++        auto name = StringView::fromLatin1(GST_OBJECT_NAME(factory));
++        if (name != "dtlssrtpdec"_s && name != "dtlsdec"_s
++            && name != "dtlssrtpenc"_s && name != "dtlsenc"_s)
++            return;
++        dtlsApplyPemAndAccept(element, endPoint->m_dtlsCertificatePem);
++        GST_INFO_OBJECT(endPoint->m_webrtcBin.get(), "Applied DTLS PEM on %" GST_PTR_FORMAT, element);
++    }), this);
++    g_signal_connect_swapped(m_webrtcBin.get(), "on-new-transceiver", G_CALLBACK(+[](GStreamerMediaEndpoint* endPoint, GstWebRTCRTPTransceiver* transceiver) {
++        endPoint->applyDtlsCertificateOnTransceiver(transceiver);
++        dtlsBindPeerCertificateAcceptRecursive(endPoint->m_webrtcBin.get());
++        GST_DEBUG_OBJECT(endPoint->m_webrtcBin.get(), "New transceiver: %" GST_PTR_FORMAT, transceiver);
++    }), this);
++
+ #ifndef GST_DISABLE_GST_DEBUG
+-    g_signal_connect_swapped(m_webrtcBin.get(), "on-new-transceiver", G_CALLBACK(+[](GStreamerMediaEndpoint* endPoint, GstWebRTCRTPTransceiver* transceiver) {
+-        GST_DEBUG_OBJECT(endPoint->m_webrtcBin.get(), "New transceiver: %" GST_PTR_FORMAT, transceiver);
+-    }), this);
+-
+     g_signal_connect(m_webrtcBin.get(), "notify::connection-state", G_CALLBACK(+[](GstElement* webrtcBin, GParamSpec*, GStreamerMediaEndpoint* endPoint) {
+         GstWebRTCPeerConnectionState state;
+         g_object_get(webrtcBin, "connection-state", &state, nullptr);
+@@ -338,6 +355,8 @@ bool GStreamerMediaEndpoint::initializePipeline()
+ #endif
+ 
+     gst_bin_add(GST_BIN_CAST(m_pipeline.get()), m_webrtcBin.get());
++    ensureDtlsCertificatePem({ });
++    applyDtlsCertificatePem();
+     return true;
+ }
+ 
+@@ -449,8 +468,12 @@ bool GStreamerMediaEndpoint::setConfiguration(MediaEndpointConfiguration& configu
+         }
+     }
+ 
+-    // WIP: https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/-/merge_requests/302
+-    GST_FIXME("%zu custom certificates not propagated to webrtcbin", configuration.certificates.size());
++    // webrtcbin 1.24 has no certificates property. Set DTLS PEM on
++    // every transport / dtlssrtpdec before READY/SDP so the SDP
++    // fingerprint and the handshake cert are the same object.
++    ensureDtlsCertificatePem(configuration.certificates);
++    applyDtlsCertificatePem();
++    GST_INFO_OBJECT(m_pipeline.get(), "Propagated DTLS PEM to webrtcbin (%zu custom certificates)", configuration.certificates.size());
+ 
+     gst_element_set_state(m_pipeline.get(), GST_STATE_READY);
+     GST_DEBUG_OBJECT(m_pipeline.get(), "End-point ready");
+@@ -2118,8 +2141,82 @@ struct AuxiliarySenderDataHolder {
+ };
+ WEBKIT_DEFINE_ASYNC_DATA_STRUCT(AuxiliarySenderDataHolder)
+ 
++void GStreamerMediaEndpoint::ensureDtlsCertificatePem(const Vector<MediaEndpointConfiguration::CertificatePEM>& certificates)
++{
++    if (!certificates.isEmpty()) {
++        const auto& pem = certificates[0];
++        m_dtlsCertificatePem = makeString(pem.certificate, pem.privateKey);
++        GST_INFO_OBJECT(m_pipeline.get(), "Using configured DTLS certificate PEM (length %u)", m_dtlsCertificatePem.length());
++        return;
++    }
++    if (!m_dtlsCertificatePem.isEmpty())
++        return;
++
++    auto backend = peerConnectionBackend();
++    if (!backend)
++        return;
++    auto* context = backend->connection().scriptExecutionContext();
++    if (!context)
++        return;
++    auto& document = downcast<Document>(*context);
++    auto generated = generateCertificate(document.securityOrigin(), PeerConnectionBackend::CertificateInformation::ECDSA_P256());
++    if (!generated) {
++        GST_WARNING_OBJECT(m_pipeline.get(), "Failed to generate DTLS certificate PEM");
++        return;
++    }
++    Ref<RTCCertificate> certificate = WTF::move(*generated);
++    m_dtlsCertificatePem = makeString(certificate->pemCertificate(), certificate->pemPrivateKey());
++    GST_INFO_OBJECT(m_pipeline.get(), "Generated DTLS PEM for webrtcbin (length %u)", m_dtlsCertificatePem.length());
++}
++
++void GStreamerMediaEndpoint::applyDtlsCertificateOnTransport(gpointer transport)
++{
++    if (!transport || m_dtlsCertificatePem.isEmpty())
++        return;
++    if (!GST_IS_WEBRTC_DTLS_TRANSPORT(transport))
++        return;
++    g_object_set(transport, "certificate", m_dtlsCertificatePem.utf8().data(), nullptr);
++}
++
++void GStreamerMediaEndpoint::applyDtlsCertificateOnTransceiver(GstWebRTCRTPTransceiver* transceiver)
++{
++    if (!transceiver)
++        return;
++    GRefPtr<GstWebRTCRTPSender> sender;
++    GRefPtr<GstWebRTCRTPReceiver> receiver;
++    g_object_get(transceiver, "sender", &sender.outPtr(), "receiver", &receiver.outPtr(), nullptr);
++    if (sender) {
++        GRefPtr<GstWebRTCDTLSTransport> dtls;
++        g_object_get(sender.get(), "transport", &dtls.outPtr(), nullptr);
++        applyDtlsCertificateOnTransport(dtls.get());
++    }
++    if (receiver) {
++        GRefPtr<GstWebRTCDTLSTransport> dtls;
++        g_object_get(receiver.get(), "transport", &dtls.outPtr(), nullptr);
++        applyDtlsCertificateOnTransport(dtls.get());
++    }
++}
++
++void GStreamerMediaEndpoint::applyDtlsCertificatePem()
++{
++    if (!m_webrtcBin || m_dtlsCertificatePem.isEmpty())
++        return;
++    forEachTransceiver(m_webrtcBin, [&](auto&& transceiver) -> bool {
++        applyDtlsCertificateOnTransceiver(transceiver.get());
++        return false;
++    });
++    GRefPtr<GstWebRTCSCTPTransport> sctp;
++    g_object_get(m_webrtcBin.get(), "sctp-transport", &sctp.outPtr(), nullptr);
++    if (sctp) {
++        GRefPtr<GstWebRTCDTLSTransport> dtls;
++        g_object_get(sctp.get(), "transport", &dtls.outPtr(), nullptr);
++        applyDtlsCertificateOnTransport(dtls.get());
++    }
++    dtlsBindPeerCertificateAcceptRecursive(m_webrtcBin.get());
++}
++
+ GstElement* GStreamerMediaEndpoint::requestAuxiliarySender(GRefPtr<GstWebRTCDTLSTransport>&& transport)
+ {
++    applyDtlsCertificateOnTransport(transport.get());
+     // Don't use makeGStreamerElement() here because it would be called mutiple times and emit an
+     // error every single time if the element is not found.
+     auto* estimator = gst_element_factory_make("rtpgccbwe", nullptr);
+-- 

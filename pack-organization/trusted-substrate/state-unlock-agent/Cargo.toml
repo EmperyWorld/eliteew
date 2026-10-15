@@ -1,0 +1,22 @@
+# EmpiierOS / EliteEW Trusted Substrate — state LUKS console unlock agent (MIT).
+[package]
+name = "empiieros-state-unlock-agent"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Branded console agent for empiieros-state LUKS ask-password requests"
+publish = false
+authors = ["Empery World / EliteEW"]
+
+[dependencies]
+crossterm = "0.28"
+inotify = "0.11"
+libc = "0.2"
+zeroize = { version = "=1.8.1", features = ["zeroize_derive"] }
+# Factory rustc 1.82 cannot parse edition2024 in zeroize_derive 1.5.
+zeroize_derive = "=1.4.2"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
